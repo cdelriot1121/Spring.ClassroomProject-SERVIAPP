@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/estilos/style_consejos.css">
+    <link rel="stylesheet" href="/estilos/style_perfil.css">
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
     <link rel="stylesheet" href="/main.css">
 
@@ -21,61 +21,34 @@
 
 <body>
     <header>
-        <div class="contenedor-principal">
-            <h1>ServiApp</h1>
+        <div class="contenedor-principal" id="header1">
+            <h1 id="h1001">ServiApp</h1>
             <div class="botones-datos">
-                <a href="/paginas html/iniciosesion.html" class="login">Inicia Sesion</a>
-                <a href="/paginas html/registro_usuario.html" class="register">Registrate</a>
+                <a href="login" class="login">Inicia Sesion</a>
+                <a href="registro" class="register">Registrate</a>
             </div>
         </div>
     </header>
-    
-    
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="p-2 g-col-6"><a href="/index.html">Inicio</a></li>
-                <li class="p-2 g-col-6"><a href="/paginas html/gestionar_serv.html">Gestiona tus servicios</a></li>
-                <li class="p-2 g-col-6"><a href="/paginas html/Lineas_atencion.html">Lineas de Atencion</a></li>
-                <li class="p-2 g-col-6"><a href="/paginas html/consejos_ahorro.html">Consejos de Ahorro</a></li>
-                <li class="p-2 g-col-6"><a href="/paginas html/reg_servicio.html">Registrar Servicios</a></li>
-                <li class="p-2 g-col-6"><a href="/paginas html/perfil_datos.html">Perfil</a></li>
+                <li class="p-2 g-col-6"><a href="/">Inicio</a></li>
+                <li class="p-2 g-col-6"><a href="gestionar-servicio">Gestiona tus servicios</a></li>
+                <li class="p-2 g-col-6"><a href="lineas-atencion">Lineas de Atencion</a></li>
+                <li class="p-2 g-col-6"><a href="consejos-ahorro">Consejos de Ahorro</a></li>
+                <li class="p-2 g-col-6"><a href="registrar-servicio">Registrar Servicios</a></li>
+                <li class="p-2 g-col-6"><a href="perfil">Perfil</a></li>
             </ul>
           </div>
         </div>
       </nav>
+
    
-    <!-- Section de consejos de ahorro -->
-<section class="section-consejosAhorros">
-    <div class="contenedor-consejos">
-        <div class="titulos">
-            <h3>Consejos sobre servicios públicos</h3>
-            <div>
-                <h4>Agua</h4>
-            </div>
-            <div>
-                <h4>Electricidad</h4>
-            </div>
-            <div>
-                <h4>Gas</h4>
-            </div>
-        </div>
-        <div class="parraf-prueba">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eligendi impedit quam est labore tenetur voluptates veniam vitae obcaecati non iusto illo minima magni omnis, aspernatur quisquam praesentium esse molestiae!</p>
-        </div>
-    </div>
-    <div class="imagen-consejos">
-        <img src="/img_local/Consejos de ahorro.png" alt="Imagen consejos" />
-    </div>
-</section>
-
-
-
-
     <!-- pie de pagina -->
     <footer>
         <div class="contenido-pie-pagina">
@@ -96,7 +69,6 @@
         </div>
 
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
