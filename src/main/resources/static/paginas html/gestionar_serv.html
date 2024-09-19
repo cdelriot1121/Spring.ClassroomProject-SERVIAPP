@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiApp</title>
+    <!-- Links para importar las fuentes para la página -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/estilos/style_gest_ser.css">
+    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
+    <link rel="stylesheet" href="/main.css">
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+       
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor-principal">
+            <h1>ServiApp</h1>
+            <div class="botones-datos">
+                <a href="/paginas html/iniciosesion.html" class="login">Inicia Sesion</a>
+                <a href="/paginas html/registro_usuario.html" class="register">Registrate</a>
+            </div>
+        </div>
+    </header>
+
+   
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <button class="navbar-toggler m-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="p-2 g-col-6"><a href="/index.html">Inicio</a></li>
+                <li class="p-2 g-col-6"><a href="/paginas html/gestionar_serv.html">Gestiona tus servicios</a></li>
+                <li class="p-2 g-col-6"><a href="/paginas html/Lineas_atencion.html">Lineas de Atencion</a></li>
+                <li class="p-2 g-col-6"><a href="/paginas html/consejos_ahorro.html">Consejos de Ahorro</a></li>
+                <li class="p-2 g-col-6"><a href="/paginas html/reg_servicio.html">Registrar Servicios</a></li>
+                <li class="p-2 g-col-6"><a href="/paginas html/perfil_datos.html">Perfil</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <main>
+        <section class="formulario">
+            <form>
+                <label for="servicio">Selecciona el Servicio:</label>
+                <input class="casilla_rs" list="opciones" id="servicio" name="servicio" placeholder="Selecciona el Servicio" required>
+                <datalist id="opciones">                    
+                    <option value="Agua">
+                    <option value="Energia">
+                    <option value="Gas">
+                </datalist>
+
+                <label for="mes">Selecciona un mes:</label>
+                <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
+                <datalist id="opciones_mes">                    
+                    <option value="Enero">
+                    <option value="Febrero">
+                    <option value="Marzo">
+                    <option value="Abril">
+                    <option value="Mayo">
+                    <option value="Junio">
+                    <option value="Julio">
+                    <option value="Agosto">
+                    <option value="Septiembre">
+                    <option value="Octubre">
+                    <option value="Noviembre">
+                    <option value="Diciembre">
+                </datalist>
+
+                <label for="consumo">Consumo (kWh o m³):</label>
+                <input class="casilla_rs" type="number" id="consumo" name="consumo" min="0" step="any" placeholder="Ingresa el consumo" required>
+
+                <p>
+                    <input type="checkbox" id="pagado" name="pagado" required>
+                    <label for="pagado">¿Ya pagaste tu recibo?</label>
+                </p>
+
+                <button type="submit" class="btn-enviar-servi">Enviar</button>
+            </form>
+        </section>
+
+        <section class="consumo">
+            <div class="consumo-promedio">
+                <h3>Consumo Promedio en Cartagena</h3>
+                <p><strong>22.36 m³</strong></p>
+
+                <p><a href="/paginas html/consejos_ahorro.html">Conoce nuestros consejos de ahorro</a></p>
+            </div>
+           
+            <div class="consumo-habitante-mes">
+                <h3>Consumo mensual por habitante</h3>
+                <p><strong>15.36 m³</strong></p>
+            </div>
+
+            <div class="consumo-diario-hogar">
+                <h3>Consumo diario por hogar</h3>
+                <p><strong>46.36 m³</strong></p>
+            </div>
+
+            <div class="consumo-semanal">
+                <h3>Consumo semanal</h3>
+                <p><strong>156.36 m³</strong></p>
+            </div>
+
+            <div class="consumo-promedio-usuario">
+                <h3>Tu consumo Promedio</h3>
+                <p><strong>20.4 m³</strong></p>
+            </div>
+        
+
+        </section>
+
+        <!-- Tabla de Servicios -->
+        <section class="tabla-servicios">
+            <h2>Estado de los Servicios</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>SERVICIO</th>
+                        <th>PAGÓ EL RECIBO?</th>
+                        <th>FECHA DE PAGO</th>
+                        <th>CONSUMO</th>
+                        <th>VALOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Energía</td>
+                        <td><input type="checkbox" checked disabled></td>
+                        <td>Agosto 14, 2024</td>
+                        <td>55</td>
+                        <td>$20,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Agua</td>
+                        <td><input type="checkbox" disabled></td>
+                        <td>Agosto 15, 2024</td>
+                        <td>24</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="checkbox" disabled></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contenido-pie-pagina">
+            <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
+            <span>© 2024 ServiApp / todos los derechos reservados</span>
+            <ul class="enlaces-pie-pagina">
+                <li><a href="">Terms</a></li>
+                <li><a href="">Privacidad</a></li>
+                <li><a href="">Securidad</a></li>
+                <li><a href="">Estatus</a></li>
+                <li><a href="">Contacto</a></li>
+                <li><a href="">Manejo de cookes</a></li>
+                <li><a href="reg_servicio.html"> oculto</a></li>
+            </ul>
+        </div>
+        <div class="nota-pie-pagina">
+            <a href="">No compartir informacion</a>
+        </div>
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
+

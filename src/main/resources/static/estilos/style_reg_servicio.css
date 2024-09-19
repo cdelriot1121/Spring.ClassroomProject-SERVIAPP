@@ -1,0 +1,72 @@
+
+/* Estilo del formulario de registro de servicio */
+.contenedor {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.322);
+    padding: 2rem;
+}
+
+.caja-registro-serv {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #9efcff, #36b2fa);
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+.formulario-registro-serv {
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff, #c3eeff);
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.801);
+}
+
+.formulario-registro-serv h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.formulario-registro-serv input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.formulario-registro-serv button {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(45deg, #cffff9, #6bcdfd);
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: black;
+    cursor: pointer;
+    transition: background 0.4s ease;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.342);
+    margin: 0 auto;
+    display: block;
+}
+
+.formulario-registro-serv button:hover {
+    background: linear-gradient(45deg, #A0E3FF, #FFD1FF);
+}
+
+.formulario-registro-serv p {
+    text-align: center;
+    margin-top: 1rem;
+}

@@ -1,0 +1,155 @@
+
+
+/* Estilo de la tabla */
+table {
+    width: 80%; /* Reduce el tamaño de la tabla */
+    border-collapse: collapse;
+    margin: 20px auto; /* Centra la tabla */
+    font-size: 16px;
+    text-align: left;
+    font-family: 'Kanit', sans-serif;
+}
+
+.tabla-servicios h2{
+    margin-left: 20px;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4bc0f2;
+    color: white;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+table tbody tr td {
+    color: #333;
+}
+
+table tbody tr td:first-child {
+    font-weight: bold;
+}
+
+
+/* Formulario de selección de servicio */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+}
+
+/* Campos del formulario */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[list],
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+.btn-enviar-servi{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+}
+
+button {
+    background-color: #4bc0f2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4bc0f2;
+}
+
+/* Secciones de consumo */
+
+
+.consumo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    justify-content: center;
+    padding: 20px;
+}
+
+.consumo-habitante-mes h3{
+    margin-top: 40px;
+    
+}
+
+.consumo-diario-hogar h3{
+    margin-top: 40px;
+}
+
+
+.consumo div {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    width: calc(33% - 20px);
+    min-width: 280px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+}
+
+.consumo h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.consumo p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Enlaces y textos destacados */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .consumo div {
+        width: 100%;
+        margin: 10px 0;
+    }
+}

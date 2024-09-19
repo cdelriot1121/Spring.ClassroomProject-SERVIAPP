@@ -1,0 +1,55 @@
+/* estilos lineas de atencion en el section*/
+.lineas-atencion-contenedor {
+    background-color: #dbdada;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+
+}
+
+.lineas-atencion-contenedor h3 {
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.lineas-atencion-contenedor p {
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.lineas-atencion-contenedor table {
+    width: 50%;
+    border-collapse: collapse;
+}
+
+.lineas-atencion-contenedor th,
+.lineas-atencion-contenedor td {
+    text-align: left;
+    padding: 8px;
+}
+
+.lineas-atencion-contenedor th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.lineas-atencion-contenedor tr:nth-child(even) {
+    background-color: #b6b6b6;
+}
+
+.lineas-atencion-contenedor div img{
+    margin-left: 400px;
+    margin-top: 20px;
+    padding: 0px;
+    border: solid 1px black;
+    width: 33%;
+    border-radius: 10px;
+}
+.lineas-atencion-contenedor img{
+    margin-left: 400px;
+    margin-top: 20px;
+    padding: 0px;
+    
+    width: 50%;
+    border-radius: 10px;
+}
