@@ -8,9 +8,6 @@ public class ServicioModel {
     private String linea_atencion;
     private int id_usuario;
 
-
-    
-
     //Constructores ServicioModel
     public ServicioModel() {
     }

@@ -17,7 +17,6 @@ public class ConsumoModel {
         this.cant_consumo = cant_consumo;
     }
 
-
     //Getters y Setters
     
     public int getId_servicio() {
@@ -51,13 +50,6 @@ public class ConsumoModel {
     public void setCant_consumo(float cant_consumo) {
         this.cant_consumo = cant_consumo;
     }
-
-    
-
-    
-
-
-    
 
 
 }

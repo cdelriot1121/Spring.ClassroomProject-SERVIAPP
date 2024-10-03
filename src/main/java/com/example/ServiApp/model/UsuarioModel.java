@@ -72,7 +72,4 @@ public class UsuarioModel {
     public void setNo_serv_reg(int no_serv_reg) {
         this.no_serv_reg = no_serv_reg;
     }
-    
-
-
 }
