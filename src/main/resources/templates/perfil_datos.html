@@ -5,77 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiApp</title>
-    <!-- links para importar las fuentes para la pagina -->
+    
+    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
+    
+    <!--links CSS-->
+    <link rel="stylesheet" href="/estilos/interfaz_barralat.css"> <!-- Barra lateral reutilizable -->
+    <link rel="stylesheet" href="/estilos/style_perfil.css"> <!-- CSS de la página Inicio -->
+
+    <!--BOXICOINS-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--Fuente Kanit-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/estilos/style_perfil.css">
-    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-    <link rel="stylesheet" href="/main.css">
-
-
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 </head>
 
 <body>
-    <header>
-        <div class="contenedor-principal" id="header1">
-            <h1 id="h1001">ServiApp</h1>
-            <div class="botones-datos">
-                <a href="login" class="login">Inicia Sesion</a>
-                <a href="registro" class="register">Registrate</a>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class='bx bx-layout'></i>
+                <h1>Barra lateral</h1>
             </div>
-        </div>
-    </header>
+            <nav>
+                <a href="inicio" class="btn btn-ghost" ><i class='bx bx-home'></i> Inicio</a>
+                <a href="registrar-servicio" class="btn btn-ghost" ><i class='bx bx-edit'></i> Registrar Servicio</a>
+                <a href="gestionar-servicio" class="btn btn-ghost"><i class='bx bx-task'></i> Gestionar Servicio</a>
+                <a href="consejos-ahorro" class="btn btn-ghost"><i class='bx bx-bulb'></i> Consejos de Ahorro</a>
+                <a href="lineas-atencion" class="btn btn-ghost"><i class='bx bx-phone'></i> Lineas de Atencion</a>
+                <a href="perfil" class="btn btn-ghost" id="active"><i class='bx bx-cog'></i> Preferencias</a>
+            </nav>
+        </aside>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="p-2 g-col-6"><a href="/">Inicio</a></li>
-                <li class="p-2 g-col-6"><a href="gestionar-servicio">Gestiona tus servicios</a></li>
-                <li class="p-2 g-col-6"><a href="lineas-atencion">Lineas de Atencion</a></li>
-                <li class="p-2 g-col-6"><a href="consejos-ahorro">Consejos de Ahorro</a></li>
-                <li class="p-2 g-col-6"><a href="registrar-servicio">Registrar Servicios</a></li>
-                <li class="p-2 g-col-6"><a href="perfil">Perfil</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+        <header class="profile-bar">
+            <div class="search-container">
+                <i class='bx bx-search'></i>
+                <input type="search" placeholder="Buscar">
+            </div>
+            <div class="profile-menu">
+                <button class="profile-button" id="profileButton">
+                    <img src="/img_local/placeholder-avatar.jpg" alt="Avatar" class="profile-avatar">
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="/paginas html/mis-servicios.html">Mis Servicios</a>
+                    <a href="/paginas html/configuracion.html">Configuración</a>
+                </div>
+            </div>
+        </header>
+        <!--Contenido del code preferencias o configuracion-->
+
+
+
+
+     </div>   
 
    
-    <!-- pie de pagina -->
-    <footer>
-        <div class="contenido-pie-pagina">
-            <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
-            <span>© 2024 ServiApp / todos los derechos reservados</span>
-            <ul class="enlaces-pie-pagina">
-                <li><a href="">Terms</a></li>
-                <li><a href="">Privacidad</a></li>
-                <li><a href="">Securidad</a></li>
-                <li><a href="">Estatus</a></li>
-                <li><a href="">Contacto</a></li>
-                <li><a href="">Manejo de cookes</a></li>
-                <li><a href="reg_servicio.html"> oculto</a></li>
-            </ul>
-        </div>
-        <div class="nota-pie-pagina">
-            <a href="">No compartir informacion</a>
-        </div>
-
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
-
-
 </body>
 
 </html>

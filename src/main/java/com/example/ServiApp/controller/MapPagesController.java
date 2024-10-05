@@ -23,14 +23,19 @@ public class MapPagesController {
 
     //Paginas funciones
 
-    @GetMapping("/gestionar-servicio")
-    public String gestionarServicio(){
-        return "gestionar_serv";
+    @GetMapping("/inicio")
+    public String inicio(){
+        return "interfaz_inicio";
     }
 
     @GetMapping("/registrar-servicio")
     public String registrarServicio(){
         return "reg_servicio";
+    }
+
+    @GetMapping("/gestionar-servicio")
+    public String gestionarServicio(){
+        return "gestionar_serv";
     }
 
     @GetMapping("/consejos-ahorro")

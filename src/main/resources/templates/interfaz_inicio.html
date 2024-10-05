@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiApp</title>
+    <title>Bienvenido</title>
+
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-    
 
     <!--links CSS-->
     <link rel="stylesheet" href="/estilos/interfaz_barralat.css"> <!-- Barra lateral reutilizable -->
-    <link rel="stylesheet" href="/estilos/style_consejos.css"> <!-- CSS de la página Inicio -->
+    <link rel="stylesheet" href="/estilos/interfaz_inicio.css"> <!-- CSS de la página Inicio -->
 
     <!--BOXICOINS-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -20,12 +20,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
-
-
 </head>
-
 <body>
     <div class="container">
+
         <header class="profile-bar">
             <div class="search-container">
                 <i class='bx bx-search'></i>
@@ -36,8 +34,8 @@
                     <img src="/img_local/placeholder-avatar.jpg" alt="Avatar" class="profile-avatar">
                 </button>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <a href="/paginas html/mis-servicios.html">Mis Servicios</a>
-                    <a href="/paginas html/configuracion.html">Configuración</a>
+                    <a href="gestionarServicio">Mis Servicios</a>
+                    <a href="perfil">Configuración</a>
                 </div>
             </div>
         </header>
@@ -49,43 +47,43 @@
                 <h1>Barra lateral</h1>
             </div>
             <nav>
-                <a href="inicio" class="btn btn-ghost" ><i class='bx bx-home'></i> Inicio</a>
-                <a href="registrar-servicio" class="btn btn-ghost" ><i class='bx bx-edit'></i> Registrar Servicio</a>
+                <a href="inicio" class="btn btn-ghost" id="active"><i class='bx bx-home'></i> Inicio</a>
+                <a href="registrar-servicio" class="btn btn-ghost"><i class='bx bx-edit'></i> Registrar Servicio</a>
                 <a href="gestionar-servicio" class="btn btn-ghost"><i class='bx bx-task'></i> Gestionar Servicio</a>
-                <a href="consejos-ahorro" class="btn btn-ghost" id="active"><i class='bx bx-bulb'></i> Consejos de Ahorro</a>
+                <a href="consejos-ahorro" class="btn btn-ghost"><i class='bx bx-bulb'></i> Consejos de Ahorro</a>
                 <a href="lineas-atencion" class="btn btn-ghost"><i class='bx bx-phone'></i> Lineas de Atencion</a>
                 <a href="perfil" class="btn btn-ghost"><i class='bx bx-cog'></i> Preferencias</a>
             </nav>
         </aside>
-             <!-- Section de consejos de ahorro -->
-            <section class="section-consejosAhorros">
-                <div class="contenedor-consejos">
-                    <div class="titulos">
-                        <h3>Consejos sobre servicios públicos</h3>
-                        <div>
-                            <h4>Agua</h4>
-                        </div>
-                        <div>
-                            <h4>Electricidad</h4>
-                        </div>
-                        <div>
-                            <h4>Gas</h4>
-                        </div>
-                    </div>
-                    <div class="parraf-prueba">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eligendi impedit quam est labore tenetur voluptates veniam vitae obcaecati non iusto illo minima magni omnis, aspernatur quisquam praesentium esse molestiae!</p>
-                    </div>
-                </div>
-                <div class="imagen-consejos">
-                    <img src="/img_local/Consejos de ahorro.png" alt="Imagen consejos" />
-                </div>
-            </section>
 
+        <!-- Sección de Cartas en la página de Inicio -->
+        <main class="main-content">
+            <div class="card-container">
+                <a href="registrar-servicio" class="card">
+                    <i class='bx bx-edit'></i>
+                    <h2>Registrar Servicio</h2>
+                    <p>Comienza a registrar nuevos servicios fácilmente.</p>
+                </a>
+                <a href="gestionar-servicio" class="card">
+                    <i class='bx bx-task'></i>
+                    <h2>Gestionar Servicio</h2>
+                    <p>Administra los servicios registrados desde aquí.</p>
+                </a>
+                <a href="consejos-ahorro" class="card">
+                    <i class='bx bx-bulb'></i>
+                    <h2>Consejos de Ahorro</h2>
+                    <p>Descubre nuevas maneras de disminuir tus consumos.</p>
+                </a>
+                <a href="lineas-atencion" class="card">
+                    <i class='bx bx-phone'></i>
+                    <h2>Lineas de Atencion</h2>
+                    <p>Contacta a nuestras líneas de atención de aquellas empresas de Servicios.</p>
+                </a>
+            </div>
+        </main>
     </div>
 
-   <script src="/barra_perfil.js"></script>
-
+    <script src="/barra_perfil.js"></script>
 
 </body>
-
 </html>

@@ -10,6 +10,11 @@ table {
     font-family: 'Kanit', sans-serif;
 }
 
+main{
+    margin-left: 300px;
+    margin-top: 60px;
+}
+
 .tabla-servicios h2{
     margin-left: 20px;
 }
@@ -41,6 +46,9 @@ table tbody tr td:first-child {
     font-weight: bold;
 }
 
+a{
+    text-decoration: none;
+}
 
 /* Formulario de selección de servicio */
 form {
@@ -136,20 +144,11 @@ button:hover {
     color: #007bff;
 }
 
-/* Enlaces y textos destacados */
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
 
 /* Responsivo */
 @media (max-width: 768px) {
     .consumo div {
         width: 100%;
-        margin: 10px 0;
+        margin: 0;
     }
 }
