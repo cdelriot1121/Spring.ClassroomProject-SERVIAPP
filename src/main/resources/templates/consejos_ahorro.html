@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiApp</title>
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-    
 
     <!--links CSS-->
-    <link rel="stylesheet" href="/estilos/interfaz_barralat.css"> <!-- Barra lateral reutilizable -->
-    <link rel="stylesheet" href="/estilos/style_consejos.css"> <!-- CSS de la página Inicio -->
+    <link rel="stylesheet" href="/estilos/interfaz_barralat.css">
+    <link rel="stylesheet" href="/estilos/style_consejos.css">
 
-    <!--BOXICOINS-->
+    <!--BOXICONS-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!--Fuente Kanit-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-
-
-
 </head>
 
 <body>
@@ -42,50 +38,53 @@
             </div>
         </header>
 
-
         <aside class="sidebar">
             <div class="logo">
                 <i class='bx bx-layout'></i>
                 <h1>Barra lateral</h1>
             </div>
             <nav>
-                <a href="inicio" class="btn btn-ghost" ><i class='bx bx-home'></i> Inicio</a>
-                <a href="registrar-servicio" class="btn btn-ghost" ><i class='bx bx-edit'></i> Registrar Servicio</a>
+                <a href="inicio" class="btn btn-ghost"><i class='bx bx-home'></i> Inicio</a>
+                <a href="registrar-servicio" class="btn btn-ghost"><i class='bx bx-edit'></i> Registrar Servicio</a>
                 <a href="gestionar-servicio" class="btn btn-ghost"><i class='bx bx-task'></i> Gestionar Servicio</a>
                 <a href="consejos-ahorro" class="btn btn-ghost" id="active"><i class='bx bx-bulb'></i> Consejos de Ahorro</a>
                 <a href="lineas-atencion" class="btn btn-ghost"><i class='bx bx-phone'></i> Lineas de Atencion</a>
                 <a href="perfil" class="btn btn-ghost"><i class='bx bx-cog'></i> Preferencias</a>
             </nav>
         </aside>
-             <!-- Section de consejos de ahorro -->
-            <section class="section-consejosAhorros">
-                <div class="contenedor-consejos">
-                    <div class="titulos">
-                        <h3>Consejos sobre servicios públicos</h3>
-                        <div>
-                            <h4>Agua</h4>
-                        </div>
-                        <div>
-                            <h4>Electricidad</h4>
-                        </div>
-                        <div>
-                            <h4>Gas</h4>
-                        </div>
-                    </div>
-                    <div class="parraf-prueba">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eligendi impedit quam est labore tenetur voluptates veniam vitae obcaecati non iusto illo minima magni omnis, aspernatur quisquam praesentium esse molestiae!</p>
-                    </div>
-                </div>
-                <div class="imagen-consejos">
-                    <img src="/img_local/Consejos de ahorro.png" alt="Imagen consejos" />
-                </div>
-            </section>
 
+        <!-- Section de consejos de ahorro -->
+        <section class="section-consejosAhorros">
+            <div class="imagen-consejos">
+                <img src="/img_local/Consejos de ahorro.png" alt="Imagen consejos" />
+            </div>
+            <div class="contenedor-consejos">
+                <div class="titulos">
+                    <h3>Consejos sobre servicios públicos</h3>
+                    <div class="botones-consejos">
+                        <button id="agua" class="boton-consejo">Agua</button>
+                        <button id="energia" class="boton-consejo">Energía</button>
+                        <button id="gas" class="boton-consejo">Gas</button>
+                    </div>
+                </div>
+                <div class="parraf-prueba">
+                    <p>Los consejos aqui presentados son un ejemplo de como se puede reducir el consumo de cada servicio publico en el hogar, si estos se aplican de la forma correcta funcionaran. </p>
+                </div>
+            </div>
+        </section>
     </div>
 
-   <script src="/barra_perfil.js"></script>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body" id="modalText">
+         
+            </div>
+        </div>
+    </div>
 
-
+    <script src="/barra_perfil.js"></script>
+    <script src="/consejos.js"></script>
 </body>
-
 </html>

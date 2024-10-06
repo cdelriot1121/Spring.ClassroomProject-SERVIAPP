@@ -1,16 +1,18 @@
-/* estilos lineas de atencion en el section*/
+/* Estilos del contenedor de atención */
 .lineas-atencion-contenedor {
     background-color: #dbdada;
-    padding: 20px;
-    margin: 20px;
+    padding: 5px;
+    margin: 70px auto; 
     border-radius: 20px;
-    margin-left: 310px;
-    margin-top: 75px;
+    width: 50%; 
+    text-align: center; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-.lineas-atencion-contenedor h3 {
+.lineas-atencion-contenedor h3, h2 {
     color: #333333;
     margin-bottom: 10px;
+    margin-top: 40px; 
 }
 
 .lineas-atencion-contenedor p {
@@ -18,13 +20,14 @@
     margin-bottom: 20px;
 }
 
+/* Tabla */
 .lineas-atencion-contenedor table {
-    width: 50%;
+    width: 100%; 
+    margin: 100 auto; 
     border-collapse: collapse;
 }
 
-.lineas-atencion-contenedor th,
-.lineas-atencion-contenedor td {
+.lineas-atencion-contenedor th, .lineas-atencion-contenedor td {
     text-align: left;
     padding: 8px;
 }
@@ -38,7 +41,8 @@
     background-color: #b6b6b6;
 }
 
-.lineas-atencion-contenedor div img{
+/* Imagenes dentro del contenedor */
+.lineas-atencion-contenedor div img {
     margin-left: 400px;
     margin-top: 20px;
     padding: 0px;
@@ -46,11 +50,93 @@
     width: 33%;
     border-radius: 10px;
 }
-.lineas-atencion-contenedor img{
+
+.lineas-atencion-contenedor img {
     margin-left: 400px;
     margin-top: 20px;
     padding: 0px;
-    
     width: 50%;
     border-radius: 10px;
 }
+
+/* Botones de mapas */
+.map-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.map-buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.map-buttons button:hover {
+    background-color: #45a049;
+}
+
+/* Estilo para el iframe del mapa */
+.map-container {
+    display: none; 
+    margin-top: 20px;
+    text-align: center;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    border-radius: 10px;
+    max-width: 600px; 
+    margin: 0 auto; 
+}
+
+/* Estilos del modal */
+.modal {
+    display: none; 
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    overflow-y: auto; 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* Botón de cierre del modal */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+}
+
+/* Separar la tabla del buscador */
+.buscador {
+    margin-bottom: 100px; 
+}
+

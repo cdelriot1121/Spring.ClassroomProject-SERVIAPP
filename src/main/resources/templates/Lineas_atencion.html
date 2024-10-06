@@ -84,14 +84,31 @@
 
             </table>
 
-            <div>
-                <img src="/img_local/ima_map_para_estilos.png" alt="mapa">
-            </div>
-
+             <!-- Section de los mapas con los botones -->
+             <section>
+                <div>
+                    <h2>Ubicacion oficinas principales de atencion al cliente en Cartagena</h2>
+                </div>
+                <!-- Botones que abrirán los mapas -->
+                <div class="map-buttons">
+                    <button id="btnAfinia">Afinia</button>
+                    <button id="btnAguas">Aguas de Cartagena</button>
+                    <button id="btnSurtigas">Surtigas</button>
+                </div>
+            </section>
         </section>
+
+        <!-- Modal para mostrar los mapas -->
+        <div id="mapModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe id="mapFrame" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
     </div>
 
     <script src="/barra_perfil.js"></script>
+    <script src="/maps.js"></script>
    
 
 </body>
