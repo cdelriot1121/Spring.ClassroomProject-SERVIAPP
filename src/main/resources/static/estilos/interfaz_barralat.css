@@ -86,9 +86,8 @@ a#active {
     top: 0;
     right: 0;
     left: 263px;
-    height: 62px;
+    height: 61px;
     background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -148,7 +147,6 @@ a#active {
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: none;
-    z-index: 1001;
 }
 
 .profile-dropdown.active {
