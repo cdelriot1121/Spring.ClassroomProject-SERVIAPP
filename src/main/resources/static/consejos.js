@@ -1,8 +1,9 @@
+//Consejos.js
 document.addEventListener('DOMContentLoaded', function () {
     var modal = document.getElementById("modal");
     var modalText = document.getElementById("modalText");
     var buttons = document.querySelectorAll(".boton-consejo");
-    var span = document.getElementsByClassName("close")[0];
+    var closeModalButton = document.getElementById("closeConsejos");
 
     // Textos modales usando template literals para soportar múltiples líneas y etiquetas HTML
     var textosModal = {
@@ -50,24 +51,22 @@ document.addEventListener('DOMContentLoaded', function () {
             </p>`
     };
 
-    // Mostrar modal con el texto correspondiente
     buttons.forEach(function(button) {
-        button.onclick = function() {
-            var id = button.id;  // Obtener el id del botón presionado
-            modalText.innerHTML = textosModal[id];  // Actualizar el texto del modal
-            modal.style.display = "block";  // Mostrar el modal
-        };
+        button.addEventListener('click', function() {
+            var id = this.id;
+            modalText.innerHTML = textosModal[id];
+            modal.style.display = "block";
+        });
     });
 
-    // Cerrar modal al presionar la equis
-    span.onclick = function() {
+    closeModalButton.onclick = function() {
         modal.style.display = "none";
-    };
+    }
 
-    // Cerrar modal si se hace clic fuera de la ventana modal
+    // Cerrar la ventana emergente al hacer clic fuera de ella
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    };
+    }
 });

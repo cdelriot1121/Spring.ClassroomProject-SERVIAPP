@@ -246,7 +246,7 @@ footer {
 
 
 /* Estilo del modal */
-.modal {
+.modal-privacidad {
     display: none; 
     position: fixed; 
     z-index: 1; 
@@ -258,25 +258,25 @@ footer {
     background-color: rgba(0, 0, 0, 0.4); 
 }
 
-.modal-content {
+.modal-content-privacidad {
     background-color: #fefefe;
     margin: 15% auto; 
     padding: 20px;
     border: 1px solid #888;
-   
     width: 60%; 
-    max-width: 600px; /* Ancho máximo */
+    max-width: 600px; 
+    border-radius: 15px;
 }
 
-.close {
+.cerrar-privacidad {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.cerrar-privacidad:hover,
+.cerrar-privacidad:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;

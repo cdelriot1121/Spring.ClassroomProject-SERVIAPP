@@ -4,15 +4,16 @@
 table {
     width: 80%; /* Reduce el tamaño de la tabla */
     border-collapse: collapse;
-    margin: 20px auto; /* Centra la tabla */
+    margin: auto; /* Centra la tabla */
     font-size: 16px;
     text-align: left;
     font-family: 'Kanit', sans-serif;
 }
 
 main{
-    margin-left: 300px;
-    margin-top: 60px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .tabla-servicios h2{

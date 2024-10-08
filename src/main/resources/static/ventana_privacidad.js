@@ -1,15 +1,13 @@
-// script.js
+// ventaja_privacidad.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener el modal
-    var modal = document.getElementById("termsModal");
+    
+    var modal = document.getElementById("termsModal-privacidad");
 
-    // Obtener el enlace que abre el modal
-    var openModalButton = document.getElementById("openModal");
+    
+    var openModalButton = document.getElementById("openModal-privacidad");
 
-    // Obtener el elemento <span> que cierra el modal
-    var closeModalButton = document.getElementsByClassName("close")[0];
+    var closeModalButton = document.getElementsByClassName("cerrar-privacidad")[0];
 
-    // Cuando el usuario hace clic en el enlace, abrir el modal
     openModalButton.onclick = function() {
         modal.style.display = "block";
     }
