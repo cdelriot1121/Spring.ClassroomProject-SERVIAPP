@@ -153,3 +153,13 @@ button:hover {
         margin: 0;
     }
 }
+
+
+.boton{
+    
+margin-top: auto;
+width: 10%;
+border-radius: 80%;
+
+
+}
