@@ -48,6 +48,7 @@ body {
 
 .profile-menu {
     position: relative;
+    z-index: 200;
 }
 
 .profile-button {
@@ -75,6 +76,7 @@ body {
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: none;
+    z-index: 2000;
 }
 
 .profile-dropdown.active {

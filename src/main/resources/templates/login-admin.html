@@ -1,34 +1,36 @@
 <!--  PANEL DE INICIAR SESION USUARIO -->
 <!DOCTYPE html>
 <html lang="en">
+    <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INICIO DE SESION</title>
+    <title>INICIO DE SESION - ADMINISTRADOR</title>
     <!--ESTOS SON LOS LINKS PARA IMPORTAR LAS FUENTES-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/estilos_inicio/iniciosesion.css">
+    <link rel="stylesheet" href="/estilos_interfaz-admin/loginadmin_style.css">
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 </head>
 <body>
 
 
     <div class="contenedor">
+        
         <div class="caja-inicioSesion" >
             <div class="formulario-login">
-                <h2>Iniciar Sesión</h2>
+                <h2>Iniciar Sesión - Admin</h2>
                 <form>
-                    <input type="text" placeholder="Email" required>
+                    <input type="text" placeholder="Usuario" required>
                     <input type="password" placeholder="Contraseña" required>
-                    <button type="submit" onclick="location.href='inicio';">Entrar</button> <!--Momentaneo-->
-                    <p><a href="#">Olvidó su contraseña</a></p>
+                    <input type="number" placeholder="PIN Admin" required>
+                    <button type="submit" onclick="location.href='interfaz-admin';">Entrar</button> 
                 </form>
-                <p>¿Aún no tienes cuenta? <a href="registro">Registrate</a></p>
+              
             </div>
             <!--lo deje reservado para colocar una imagen o algo-->
-            <div class="imagen">
+           
             </div>
         </div>
     </div>

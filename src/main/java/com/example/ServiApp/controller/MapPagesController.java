@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MapPagesController {
+
+    //Paginas principales abiertas a todos
     @GetMapping("/")
     public String index(){
         return "index";
@@ -21,7 +23,7 @@ public class MapPagesController {
         return "registro_usuario";
     }
 
-    //Paginas funciones
+    //Paginas funciones usuarios
 
     @GetMapping("/inicio")
     public String inicio(){
@@ -52,5 +54,27 @@ public class MapPagesController {
     public String perfil(){
         return "perfil_datos";
     }
+
+    //Paginas admins
+
+    @GetMapping("/interfaz-admin")
+    public String interfazAdmin(){
+        return "interfaz-admin";
+    }
+
+    @GetMapping("/gestionar-servicios-admin")
+    public String gesServiciosAdmin(){
+        return "ges-servicios-admin";
+    }
+
+    @GetMapping("/login-admin")
+    public String loginAdmin(){
+        return "login-admin";
+    }
+
+
+
+
+
 
 }

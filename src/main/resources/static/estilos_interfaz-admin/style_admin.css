@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo del encabezado */
+header {
+    background: linear-gradient(135deg, #36b2fa, #86e1e4);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#header001{
+    font-family: 'Kanit', sans-serif;
+}
+
+.contenedor-principal {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 3rem;
+    font-family: 'Kanit';
+}
+
+#h1001{
+    font-family: 'Kanit';
+}
+
+.contenedor-principal .botones-datos{
+    width: 255px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.botones-datos a {
+    position: relative;
+    display: inline-flex;
+    width: 120px;
+    height: 100%;
+    background: white;
+    border: 2px solid white;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.botones-datos a:hover{
+    color: #ffffff;
+}
+
+
+.botones-datos a:nth-child(2){
+    background: #70d9dd;
+    color: #ffffff;
+
+}
+
+.botones-datos a:nth-child(2):hover{
+    color: rgb(0, 0, 0);
+}
+
+.botones-datos a:nth-child(2)::before{
+    background:  white;
+}
+
+
+.botones-datos a::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background:  linear-gradient(135deg, #36b2fa, #9efcff);
+    z-index: -1;
+    transition: .6s;
+}
+
+.botones-datos a:hover::before{
+    width: 100%;
+}
+
+/* Estilo de la barra de navegación */
+nav {
+    background: linear-gradient(135deg, #004b77, #007ccf);
+    padding: 0.5rem 0;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+   
+    margin-bottom: 45px;
+}
+.navbar-toggler-icon{
+    margin: 2px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 2.75rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+}
+
+body {
+    background-color: #f4f7fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard .info-box {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.dashboard .info-box h4 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #005b96;
+}
+
+.info-number {
+    font-size: 2.5rem;
+    color: #007ccf;
+}
+
+.card {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f4f7fa;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+}
+
+.search-bar {
+    max-width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.table {
+    margin-top: 1rem;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.btn-outline-primary {
+    border-color: #007ccf;
+    color: #007ccf;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007ccf;
+    color: #fff;
+}
+
+.btn-outline-danger {
+    border-color: #d9534f;
+    color: #d9534f;
+}
+
+.btn-outline-danger:hover {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .contenedor-principal h1 {
+        font-size: 1.8rem;
+    }
+
+    .dashboard .info-box {
+        padding: 1rem;
+    }
+
+    .card-header {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+    }
+}
