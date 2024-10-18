@@ -1,4 +1,3 @@
-<!-- PANEL DE REGISTRO PARA LOS USUARIOS  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +18,35 @@
             <div class="formulario-registro">
                 <h2>Regístrate</h2>
                 <form>
-                    <input class="casilla_r" type="text" placeholder="Nombre completo" required>
-                    <input class="casilla_r" type="email" placeholder="E-mail" required>
-                    <input class="casilla_r" type="text" placeholder="Nombre de usuario" required>
-                    <input class="casilla_r" type="password" placeholder="Contraseña" required>
-                    <input class="casilla_r" type="number" placeholder="Estrato" min="1" max="6" required>
+                    
+                    <input class="casilla_r" type="text" placeholder="Nombre completo" 
+                           pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+" 
+                           title="Solo letras y espacios" 
+                           required 
+                           oninvalid="this.setCustomValidity('Por favor ingresa tu nombre completo usando solo letras y espacios')"
+                           oninput="this.setCustomValidity('')">
+
+                    <input class="casilla_r" type="email" placeholder="E-mail" 
+                           required 
+                           title="Ingresa un correo válido"
+                           oninvalid="this.setCustomValidity('Por favor ingresa un correo electrónico válido')"
+                           oninput="this.setCustomValidity('')">
+
+                    <input class="casilla_r" type="password" placeholder="Contraseña" 
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" 
+                           title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial" 
+                           required 
+                           oninvalid="this.setCustomValidity('La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial')"
+                           oninput="this.setCustomValidity('')">
+
+                
+                    <input class="casilla_r" type="number" placeholder="Estrato" 
+                           min="1" max="6" step="1" 
+                           required 
+                           oninvalid="this.setCustomValidity('Por favor selecciona un estrato entre 1 y 6')"
+                           oninput="this.setCustomValidity('')">
+
+          
                     <button class="btn_registro" type="submit">Registrar</button>
                 </form>
                 <p>¿Ya tienes cuenta? <a href="login">Iniciar sesión</a></p>

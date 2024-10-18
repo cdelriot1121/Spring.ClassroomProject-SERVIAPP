@@ -1,0 +1,46 @@
+/* Perfil */
+.container {
+    font-family: 'Kanit', sans-serif;
+}
+
+h4 {
+    color: #007bff;
+}
+
+.list-group-item-action {
+    background-color: #f8f9fa;
+    border: 1px solid #007bff;
+    color: #007bff;
+    text-align: left;
+}
+
+.list-group-item-action:hover, .list-group-item-action:focus {
+    background-color: #007bff;
+    color: white;
+}
+
+.list-group-item.active {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+hr {
+    margin: 30px 0;
+}
+
+#deleteAccountButton {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .list-group {
+        margin-bottom: 20px;
+    }
+}
