@@ -45,8 +45,8 @@ Este es un panel diseñado para los administradores, utilizando temporalmente pa
 
 
 ## Tener en Cuenta
-Por favor, tener en cuenta que el trabajo hasta la fecha 18-oct-2024 no esta terminado solo tenemos el maquetado de los wireframes que diseñamos con anterioridad, ya que falta desarrollar aun las funcionalidades con los recursos que nos ofrece springboot, todo esto teniendo en cuenta los conocimientos adquiridos a lo largo del semestre
+Por favor, tener en cuenta que el trabajo hasta la fecha 18-oct-2024 no esta terminado solo tenemos el maquetado de los wireframes que diseñamos con anterioridad, ya que falta desarrollar aun las funcionalidades con los recursos que nos ofrece springboot, todo esto teniendo en cuenta los conocimientos adquiridos a lo largo del semestre.
 
 ## Conclusión
 
-ServiApp se destaca por su enfoque integral, no solo facilitando la gestión de los servicios públicos, sino también educando a los usuarios sobre un consumo más responsable. Así, ofrecemos una solución completa y adaptada a las necesidades de la comunidad cartagenera.
+ServiApp tiene un enfoque integral para los habitantes de la ciudad de cartagena, no solo facilitando la gestion de los servicios publicos, sino que también trata de educar y concientizar a los usuarios sobre un consumo más responsable. Así, ofrecemos una solución completa y adaptada a las necesidades de la comunidad Cartagenera.
