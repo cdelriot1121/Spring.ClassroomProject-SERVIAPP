@@ -1,12 +1,14 @@
 /* Estilos del contenedor de atención */
 .lineas-atencion-contenedor {
     background-color: #dbdada;
-    padding: 5px;
-    margin: 70px auto; 
+    padding: 10px;
+    margin: auto; 
     border-radius: 20px;
-    width: 50%; 
+    width: 60%; 
     text-align: center; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
 .lineas-atencion-contenedor h3, h2 {

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiApp</title>
-    
+    <title>Bienvenido</title>
+
     <!--Parte Header compartida desde aqui....-->
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 
     <!--links CSS-->
     <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css"> <!-- Barra lateral reutilizable -->
-    <link rel="stylesheet" href="/estilos_interfaz-usuario/style_gest_ser.css"> <!-- CSS de la página Inicio -->
+    <link rel="stylesheet" href="/estilos_interfaz-usuario/interfaz_inicio.css"> <!-- CSS de la página Inicio -->
     <link rel="stylesheet" href="/main.css">
 
     <!--BOXICOINS Y BOOTSTRAP-->
@@ -24,126 +24,76 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
-
-
 </head>
-
 <body>
-    <header>
-        <div class="contenedor-principal" id="header1">
-            <h1 id="h1001">ServiApp</h1>
-        </div>
-        <div class="search-container">
-            <i class='bx bx-search'></i>
-            <input type="search" placeholder="Buscar">
-        </div>
-        <div class="profile-menu">
-            <button class="profile-button" id="profileButton">
-                <img src="/img_local/placeholder-avatar.jpg" alt="Avatar" class="profile-avatar">
-            </button>
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="/">Cerrar Sesion</a>
-                <a href="perfil">Configuración</a>
+        <header>
+            <div class="contenedor-principal" id="header1">
+                <h1 id="h1001">ServiApp</h1>
             </div>
-        </div>
-    </header>
+            <div class="search-container">
+                <i class='bx bx-search'></i>
+                <input type="search" placeholder="Buscar">
+            </div>
+            <div class="profile-menu">
+                <button class="profile-button" id="profileButton">
+                    <img src="/img_local/placeholder-avatar.jpg" alt="Avatar" class="profile-avatar">
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="/">Cerrar Sesion</a>
+                    <a href="perfil">Configuración</a>
+                </div>
+            </div>
+        </header>
+    
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="p-2 g-col-6"><a href="inicio"><i class='bx bx-home'></i> Inicio</a></li>
+                    <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
+                    <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
+                    <li class="p-2 g-col-6"><a href="consejos-ahorro"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
+                    <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
+                    <li class="p-2 g-col-6"><a href="perfil"><i class='bx bxs-cog'></i> Perfil</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+            
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="p-2 g-col-6"><a href="inicio"><i class='bx bx-home'></i> Inicio</a></li>
-                <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
-                <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
-                <li class="p-2 g-col-6"><a href="consejos-ahorro"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
-                <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-bulb'></i> Lineas de Atencion</a></li>
-                <li class="p-2 g-col-6"><a href="perfil"><i class='bx bxs-cog'></i> Perfil</a></li>
-            </ul>
+    <!-- Carrusel -->
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/img_local/Gestiona Servicios .png" class="d-block w-100" alt="">
+          </div>
+          <div class="carousel-item">
+            <img src="/img_local/Consejos de ahorro.png" class="d-block w-100" alt="">
+          </div>
+          <div class="carousel-item">
+            <img src="/img_local/LINEAS DE ATENCION.png" class="d-block w-100" alt="">
           </div>
         </div>
-      </nav>
-  
-
-      <main>
-
-        <div class=boton> 
-            
-        </div>
-
-        <!-- Formulario -->
-        <section class="formulario">
-            <form id="servicio-form">
-                <label for="servicio">Selecciona el Servicio:</label>
-                <input class="casilla_rs" list="opciones" id="servicio" name="servicio" placeholder="Selecciona el Servicio" required>
-                <datalist id="opciones">                    
-                    <option value="Agua">
-                    <option value="Energia">
-                    <option value="Gas">
-                </datalist>
-
-                <div id="form-content" style="display: none;">
-                    <label for="mes">Selecciona un mes:</label>
-                    <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
-                    <datalist id="opciones_mes">                    
-                        <option value="Enero">
-                        <option value="Febrero">
-                        <option value="Marzo">
-                        <option value="Abril">
-                        <option value="Mayo">
-                        <option value="Junio">
-                        <option value="Julio">
-                        <option value="Agosto">
-                        <option value="Septiembre">
-                        <option value="Octubre">
-                        <option value="Noviembre">
-                        <option value="Diciembre">
-                    </datalist>
-
-                    <label id="consumo-label" for="consumo">Consumo:</label>
-                    <input class="casilla_rs" type="number" id="consumo" name="consumo" min="0" step="any" placeholder="Ingresa el consumo" required>
-
-                    <p>
-                        <input type="checkbox" id="pagado" name="pagado">
-                        <label for="pagado">¿Ya pagaste tu recibo?</label>
-                    </p>
-
-                    <button type="submit" class="btn-enviar-servi">Enviar</button>
-                    <button type="button" id="cambiar-servicio" class="btn-cambiar-servicio" style="display: none;">Cambiar Servicio</button>
-                </div>
-            </form>
-        </section>
-
-        <!-- Sección de Consumo -->
-        <section class="consumo" id="consumo-section" style="display: none;">
-            <div class="consumo-promedio" id="consumo-promedio">
-                <h3>Consumo Promedio</h3>
-                <p id="promedio-val"><strong></strong></p>
-            </div>
-
-            <div class="consumo-habitante-mes">
-                <h3>Consumo mensual por habitante</h3>
-                <p id="habitante-mes"><strong></strong></p>
-            </div>
-
-            <div class="consumo-diario-hogar">
-                <h3>Consumo diario por hogar</h3>
-                <p id="diario-hogar"><strong></strong></p>
-            </div>
-
-            <div class="consumo-semanal">
-                <h3>Consumo semanal</h3>
-                <p id="semanal-hogar"><strong></strong></p>
-            </div>
-        </section>
-
-    </main>
-    </div>
-
-     <!-- Pie de página -->
-     <footer>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    
+    <!-- Pie de página -->
+    <footer>
         <div class="contenido-pie-pagina">
             <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
             <span>© 2024 ServiApp / todos los derechos reservados</span>
@@ -183,15 +133,14 @@
                 
                 Finalmente, aplicamos lo que establecen las resoluciones y circulares emitidas por organismos de control. La Resolución 002 de 2021 de la Superintendencia de Industria y Comercio (SIC) nos ofrece guías claras sobre cómo gestionar los datos personales en nuestro contexto tecnológico, mientras que la Circular Externa 005 de 2017 nos orienta sobre cómo manejar la información en sistemas digitales, garantizando que estemos al día con las mejores prácticas.
                     </p>
-            </div>
-        </div> 
+            </div>      
+            
+        </div>  
 
+    
 
     <script src="/javascripts/barra_perfil.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
-    <script src="/javascripts/formulario-servicio.js"></script>
-    
 </body>
-
 </html>
-

@@ -5,30 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiApp</title>
-  <!--Parte Header compartida desde aqui....-->
-  <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
+    <!--Parte Header compartida desde aqui....-->
+    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 
-  <!--links CSS-->
-  <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css"> <!-- Barra lateral reutilizable -->
-  <link rel="stylesheet" href="/estilos_interfaz-usuario/style_reg_servicio.css"> <!-- CSS de la página Inicio -->
-  <link rel="stylesheet" href="/main.css">
+    <!--links CSS-->
+    <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css"> <!-- Barra lateral reutilizable -->
+    <link rel="stylesheet" href="/estilos_interfaz-usuario/style_lineas_aten.css"> <!-- CSS de la página Inicio -->
+    <link rel="stylesheet" href="/main.css">
 
-  <!--BOXICOINS Y BOOTSTRAP-->
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!--BOXICOINS Y BOOTSTRAP-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 
-  <!--Fuente Kanit-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <!--Fuente Kanit-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
-   
+
+
 </head>
 
 <body>
-
-
     <header>
         <div class="contenedor-principal" id="header1">
             <h1 id="h1001">ServiApp</h1>
@@ -56,77 +55,90 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="p-2 g-col-6"><a href="inicio"><i class='bx bx-home'></i> Inicio</a></li>
-                <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
-                <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
-                <li class="p-2 g-col-6"><a href="consejos-ahorro"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
-                <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-bulb'></i> Lineas de Atencion</a></li>
-                <li class="p-2 g-col-6"><a href="perfil"><i class='bx bxs-cog'></i> Perfil</a></li>
+                    <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
+                    <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
+                    <li class="p-2 g-col-6"><a href="consejos-ahorro"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
+                    <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
+                    <li class="p-2 g-col-6"><a href="perfil"><i class='bx bxs-cog'></i> Perfil</a></li>
             </ul>
           </div>
         </div>
       </nav>
-   
 
-            <div class="contenedor">
-                <div class="caja-registro-serv">
+        
+            <!-- Lineas de atencion (ESTA PARTE DE AQUI) -->
+        <section class="lineas-atencion-contenedor">
+            <h3>Lineas de Atencion</h3>
+            <p>Aqui encontraras los numeros de telefono de atencion de nuestros servicio publicos</p>
+            <table>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Numero de emergencia</th>
+                    <th>Linea Comercial</th>
+                </tr>
+                <tr>
+                    <td>Agua</td>
+                    <td>116</td>
+                    <td>+1(555) 456-7890</td>
+                </tr>
 
-                    <div class="formulario-registro-serv">
-                        <h2>Registra tus servicios</h2>
-                        
-                        <form >
-                                <input class="casilla_rs" list="opciones" id="opcion" name="opcion" placeholder="Tipo de Serivicio" required>
-                                <datalist id="opciones">                    
-                                <option value="Agua">
-                                <option value="Energia">
-                                <option value="Gas">
-                                </datalist>
+                <tr>
+                    <td>Energia</td>
+                    <td>115</td>
+                    <td>+1(555) 456-7890</td>
+                </tr>
+                <tr>
+                    <td>Gas</td>
+                    <td>164</td>
+                    <td>+1(555) 456-7890</td>
+                </tr>
 
-                                
-                                <input class="casilla_rs" list="opciones" id="opcion" name="opcion" placeholder="Empresa" required>
-                                <datalist id="opciones">                    
-                                <option value="Aguas de Cartagena">
-                                <option value="Afinia">
-                                <option value="Surtigas">
-                                </datalist>
+            </table>
 
-                                <input class="casilla_rs" type="number" placeholder="Poliza" min="1" required >
-                                <input class="casilla_rs" type="number" placeholder="Habitantes del Hogar" min="1" required >
-
-                                <button class="btn_registro_servicio" type="submit">Registrar servicio</button>
-
-
-                        </form>
-
-                    </div>
-
-
+             <!-- Section de los mapas con los botones -->
+             <section>
+                <div>
+                    <h2>Ubicacion oficinas principales de atencion al cliente en Cartagena</h2>
                 </div>
+                <!-- Botones que abrirán los mapas -->
+                <div class="map-buttons">
+                    <button id="btnAfinia">Afinia</button>
+                    <button id="btnAguas">Aguas de Cartagena</button>
+                    <button id="btnSurtigas">Surtigas</button>
+                </div>
+            </section>
+        </section>
+
+        <!-- Modal para mostrar los mapas -->
+        <div id="mapModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe id="mapFrame" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
+        </div>
 
 
+ <!-- Pie de página -->
+ <footer>
+    <div class="contenido-pie-pagina">
+        <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
+        <span>© 2024 ServiApp / todos los derechos reservados</span>
+        <ul class="enlaces-pie-pagina">
+            <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
+            <li><a href="">Terminos</a></li>
+            <li><a href="">Securidad</a></li>
+            <li><a href="">Estatus</a></li>
+            <li><a href="">Contacto</a></li>
+            <li><a href="">Manejo de cookies</a></li>
+        </ul>
     </div>
+    <div class="nota-pie-pagina">
+        <a href="">No compartir información</a>
+    </div>
+</footer>
 
-     <!-- Pie de página -->
-     <footer>
-        <div class="contenido-pie-pagina">
-            <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
-            <span>© 2024 ServiApp / todos los derechos reservados</span>
-            <ul class="enlaces-pie-pagina">
-                <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
-                <li><a href="">Terminos</a></li>
-                <li><a href="">Securidad</a></li>
-                <li><a href="">Estatus</a></li>
-                <li><a href="">Contacto</a></li>
-                <li><a href="">Manejo de cookies</a></li>
-            </ul>
-        </div>
-        <div class="nota-pie-pagina">
-            <a href="">No compartir información</a>
-        </div>
-    </footer>
-
-       <!-- ventana privacidasd -->
-       <div id="termsModal-privacidad" class="modal-privacidad">
+    <!-- ventana privacidasd -->
+    <div id="termsModal-privacidad" class="modal-privacidad">
         <div class="modal-content-privacidad">
             <span class="cerrar-privacidad">&times;</span>
             <h2>PRIVACIDAD</h2>
@@ -148,11 +160,12 @@
             Finalmente, aplicamos lo que establecen las resoluciones y circulares emitidas por organismos de control. La Resolución 002 de 2021 de la Superintendencia de Industria y Comercio (SIC) nos ofrece guías claras sobre cómo gestionar los datos personales en nuestro contexto tecnológico, mientras que la Circular Externa 005 de 2017 nos orienta sobre cómo manejar la información en sistemas digitales, garantizando que estemos al día con las mejores prácticas.
                 </p>
         </div>
-       </div> 
+        </div>
 
     <script src="/javascripts/barra_perfil.js"></script>
+    <script src="/javascripts/maps.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
-
+   
 
 </body>
 
