@@ -107,9 +107,11 @@
                             <div class="mb-3">
                                 <label for="new-password" class="form-label">Nueva Contraseña</label>
                                 <input type="password" class="form-control" id="new-password" required>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="togglePasswordVisibility('new-password')">Ver</button>
-                                <small id="new-password-help" class="form-text text-muted">La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.</small>
-                            </div>
+                                <div>
+                                    <button type="button" class="btn btn-secondary btn-sm " onclick="togglePasswordVisibility('new-password')">Ver</button>
+                                    <small id="new-password-help" class="form-text text-muted">La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.</small>
+                                </div>
+                                </div>
                             <div class="mb-3">
                                 <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
                                 <input type="password" class="form-control" id="confirm-password" required>
