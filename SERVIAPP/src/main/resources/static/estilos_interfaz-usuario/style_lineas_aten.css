@@ -35,7 +35,7 @@
 }
 
 .lineas-atencion-contenedor th {
-    background-color: #4CAF50;
+    background-color: #3737dc ;
     color: white;
 }
 
@@ -43,7 +43,7 @@
     background-color: #b6b6b6;
 }
 
-/* Imagenes dentro del contenedor */
+/* Imágenes dentro del contenedor */
 .lineas-atencion-contenedor div img {
     margin-left: 400px;
     margin-top: 20px;
@@ -69,7 +69,7 @@
 }
 
 .map-buttons button {
-    background-color: #4CAF50;
+    background-color: #3737dc;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -82,7 +82,7 @@
 }
 
 .map-buttons button:hover {
-    background-color: #45a049;
+    background-color: #3737dc;
 }
 
 /* Estilo para el iframe del mapa */
@@ -97,7 +97,7 @@
     height: 450px;
     border: none;
     border-radius: 10px;
-    max-width: 400px; 
+    max-width: 500px; 
     margin: 0 auto; 
 }
 
@@ -111,23 +111,29 @@
     height: 100%; 
     background-color: rgba(0, 0, 0, 0.4); 
     overflow-y: auto; 
+    justify-content: center;
 }
 
+/* Contenido del modal */
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; 
+    margin: auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 50%; 
+    width: 65%; 
+    max-width: 680px; 
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    position: relative;
 }
 
 /* Botón de cierre del modal */
 .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
     color: #aaa;
-    float: right;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -141,4 +147,3 @@
 .buscador {
     margin-bottom: 100px; 
 }
-

@@ -72,6 +72,18 @@ public class MapPagesController {
         return "login-admin";
     }
 
+    
+    @GetMapping("/reportes-admin")
+    public String reportesAdmin(){
+        return "reportes_admin";
+    }
+
+     
+    @GetMapping("/consejos-admin")
+    public String consejosAdmin(){
+        return "add_consejos_admin";
+    }
+
 
 
 

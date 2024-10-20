@@ -282,4 +282,52 @@ footer {
     cursor: pointer;
 }
 
+/* Contenedor de la campanita */
+.notification-container {
+    position: absolute;
+    top: 800px; 
+    right: 20px; 
+    z-index: 1000; 
+    
+}
+/* Estilos de la campanita */
+.notification-bell {
+    font-size: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    color: #f8e825;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
 
+
+.notification-bell:active {
+    transform: rotate(20deg); 
+}
+
+/* Estilos de la ventana de notificaciones */
+.notifications {
+    display: none; 
+    position: absolute;
+    bottom: 60px; 
+    left: -250px; 
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 1000;
+    opacity: 0; 
+    transform: translateY(20px) scale(0.95); 
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
+    max-width: 300px; /
+}
+
+
+.notifications.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
