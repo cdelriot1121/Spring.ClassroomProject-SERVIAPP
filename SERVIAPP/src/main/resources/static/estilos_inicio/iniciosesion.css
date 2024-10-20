@@ -72,7 +72,7 @@ body {
 }
 
 .formulario-login button:hover {
-    background: linear-gradient(45deg, #A0E3FF, #FFD1FF);
+    background: linear-gradient(45deg, #A0E3FF, #7f3a7f);
 }
 
 .formulario-login p {
@@ -88,7 +88,9 @@ body {
 
 .imagen {
     width: 50%;
-    background: linear-gradient(135deg, #C4E1FF, #ead5f7);
+    background: linear-gradient(45deg, #A0E3FF);
+    font-size: xx-large;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
