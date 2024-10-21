@@ -1,0 +1,109 @@
+h2, h3 {
+    text-align: center;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 16px; 
+    margin: 20px auto;
+    width: 90%; 
+    max-width: 600px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+}
+
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: 'Kanit', sans-serif;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px; 
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: 'Kanit', sans-serif;
+    box-sizing: border-box;
+}
+
+
+button {
+    width: 100%; 
+    padding: 12px; 
+    background-color: #4bc0f2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px; 
+}
+
+button:hover {
+    background-color: #008ecc;
+}
+
+
+table {
+    width: 90%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-size: 16px;
+    text-align: left;
+    font-family: 'Kanit', sans-serif;
+    border-radius: 12px; 
+    overflow: hidden; 
+}
+
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4bc0f2;
+    color: white;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+
+table tbody tr td {
+    color: #333;
+}
+
+table tbody tr:first-child td {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+table tbody tr:last-child td {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+

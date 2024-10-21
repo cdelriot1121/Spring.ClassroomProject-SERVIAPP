@@ -1,0 +1,39 @@
+body {
+    background-color: #f8f9fa;
+    padding: 40px;
+    font-family: 'Arial', sans-serif;
+}
+
+h2{
+    text-align: center;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 16px; 
+    margin: 20px auto;
+    width: 90%; 
+    max-width: 600px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+
+
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: 'Kanit', sans-serif;
+
+
+
+    
+    margin-bottom: 20px;
+    border-radius: 8px; 
+    border: 1px solid #ccc;
+    font-size: 16px;
+    
+    box-sizing: border-box;
+
+}
+.dynamic-field {
+    display: none;
+}
