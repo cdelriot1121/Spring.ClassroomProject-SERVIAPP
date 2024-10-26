@@ -52,67 +52,79 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="p-2 g-col-6"><a href="inicio"><i class='bx bx-home'></i> Inicio</a></li>
-                    <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="consejos-ahorro"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
-                    <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
-                    <li class="p-2 g-col-6"><a href="perfil"><i class='bx bxs-cog'></i> Perfil</a></li>
+                <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
+                <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
+                <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
+                <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
+           
+                <li class="p-2 g-col-6"><a href="perfil"><i class='bx bxs-cog'></i> Perfil</a></li>
             </ul>
           </div>
         </div>
       </nav>
-
         
-            <!-- Lineas de atencion (ESTA PARTE DE AQUI) -->
-        <section class="lineas-atencion-contenedor">
-            <h3>Lineas de Atención</h3>
-            <p>Aquí encontraras los números de teléfono de atención de nuestros servicio públicos</p>
-            <table>
-                <tr>
-                    <th>Servicio</th>
-                    <th>Numero de emergencia</th>
-                    <th>Linea Comercial</th>
-                </tr>
-                <tr>
-                    <td>Agua</td>
-                    <td>116</td>
-                    <td>+1(555) 456-7890</td>
-                </tr>
+         <!-- Sección de Líneas de Atención -->
+    <section class="lineas-atencion-contenedor">
+        <h3>Líneas de Atención</h3>
+        <p>Aquí encontrarás los números de teléfono de atención de nuestros servicios públicos</p>
 
-                <tr>
-                    <td>Energia</td>
-                    <td>115</td>
-                    <td>+1(555) 456-7890</td>
-                </tr>
-                <tr>
-                    <td>Gas</td>
-                    <td>164</td>
-                    <td>+1(555) 456-7890</td>
-                </tr>
+        <table>
+            <tr>
+                <th>Servicio</th>
+                <th>Número de Emergencia</th>
+                <th>Línea Comercial</th>
+            </tr>
+            <tr>
+                <td>Agua</td>
+                <td>116</td>
+                <td>(605) 694 33 37</td>
+            </tr>
+            <tr>
+                <td>Energía</td>
+                <td>115</td>
+                <td>(035) 3500444</td>
+            </tr>
+            <tr>
+                <td>Gas</td>
+                <td>164</td>
+                <td>01 8000 910 164</td>
+            </tr>
+        </table>
 
-            </table>
+        <!-- Sección de Instrucciones y Recomendaciones -->
+        <section class="instrucciones">
+            <h3>Instrucciones y Recomendaciones</h3>
+            <p>Para una atención más rápida, te recomendamos tener a mano la siguiente información antes de llamar:</p>
+            <ul>
+                <li><strong>Agua:</strong> Número de la poliza de tu factura y la dirección exacta del servicio.</li>
+                <li><strong>Energía:</strong> Número de NIC, dirección de servicio y, si es posible, el último recibo de pago.</li>
+                <li><strong>Gas:</strong> Número de NIC y la dirección donde está instalado el servicio.</li>
+                <li><strong>Adicional:</strong> Documentos personales del titular del servicio, (CC, número telefónico, correo electrónico, etc)</li>
 
-             <!-- Section de los mapas con los botones -->
-             <section>
-                <div>
-                    <h2>Ubicación de las oficinas principales de atención al cliente en Cartagena</h2>
-                </div>
-                <!-- Botones que abrirán los mapas -->
-                <div class="map-buttons">
-                    <button id="btnAfinia">Afinia</button>
-                    <button id="btnAguas">Aguas de Cartagena</button>
-                    <button id="btnSurtigas">Surtigas</button>
-                </div>
-            </section>
+            </ul>
         </section>
 
-        <!-- Modal para mostrar los mapas -->
-        <div id="mapModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <iframe id="mapFrame" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <!-- Sección de los mapas con los botones -->
+        <section>
+            <div>
+                <h2>Ubicación de las oficinas principales de atención al cliente en Cartagena</h2>
             </div>
+            <!-- Botones que abrirán los mapas -->
+            <div class="map-buttons">
+                <button id="btnAfinia">Afinia</button>
+                <button id="btnAguas">Aguas de Cartagena</button>
+                <button id="btnSurtigas">Surtigas</button>
+            </div>
+        </section>
+    </section>
+
+    <!-- Modal para mostrar los mapas -->
+    <div id="mapModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe id="mapFrame" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
+    </div>
 
 
  <!-- Pie de página -->

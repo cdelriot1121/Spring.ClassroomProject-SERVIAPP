@@ -28,39 +28,32 @@
 
 <body>
     
-        <header>
-            <div class="contenedor-principal" id="header1">
-                <h1 id="h1001">ServiApp</h1>
+    <header>
+        <div class="contenedor-principal" id="header1">
+            <h1 id="h1001">ServiApp</h1>
+            <div class="botones-datos">
+                <a href="login" class="login">Inicia Sesión</a>
+                <a href="registro" class="register">Regístrate</a>
             </div>
-            
-            <div class="profile-menu">
-                <button class="profile-button" id="profileButton">
-                    <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
-                </button>
-                <div class="profile-dropdown" id="profileDropdown">
-                    <a href="/">Cerrar Sesion</a>
-                    <a href="perfil">Configuración</a>
-                </div>
-            </div>
-        </header>
+        </div>
+    </header>
 
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="p-2 g-col-6"><a href="inicio"><i class='bx bx-home'></i> Inicio</a></li>
-                    <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="consejos-ahorro"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
-                    <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
-                    <li class="p-2 g-col-6"><a href="perfil"><i class='bx bxs-cog'></i> Perfil</a></li>
-                </ul>
-            </div>
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="p-2"><a href="/">Principal</a></li>
+                <li class="p-2"><a href="#">Acerca del Proyecto</a></li>
+                <li class="p-2"><a href="#">Sobre Nosotros</a></li>
+                <li class="p-2"><a href="consejos-ahorro">Consejos de Ahorro</a></li>
+                
+            </ul>
+          </div>
+        </div>
+    </nav>
             <!-- Section de consejos de ahorro -->
             <section class="section-consejosAhorros">
                 <div class="imagen-consejos">
@@ -76,8 +69,10 @@
                         </div>
                     </div>
                     <div class="parraf-prueba">
-                        <p>Los consejos aqui presentados son un ejemplo de como se puede reducir el consumo de cada servicio publico en el hogar, si estos se aplican de la forma correcta funcionaran. </p>
+                        <p>Los consejos aqui presentados son un ejemplo de como se puede reducir el consumo de cada servicio publico en el hogar, si necesitas consejos más personalizados debes <a href="registro">Registrarte</a>.</p> 
                     </div>
+                    
+
                 </div>
             </section>
 

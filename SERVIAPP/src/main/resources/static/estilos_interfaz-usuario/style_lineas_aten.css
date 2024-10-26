@@ -147,3 +147,26 @@
 .buscador {
     margin-bottom: 100px; 
 }
+
+/* Estilos para la sección de instrucciones */
+.instrucciones-recomendaciones {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.instrucciones-recomendaciones h4 {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.instrucciones-recomendaciones p, 
+.instrucciones-recomendaciones ul li {
+    color: #666666;
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-family: 'Kanit', sans-serif;
+}

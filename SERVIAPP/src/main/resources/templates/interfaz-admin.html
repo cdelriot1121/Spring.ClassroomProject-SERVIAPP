@@ -43,20 +43,12 @@
 
       <section class="dashboard">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <!-- Cuadro: Cantidad de Usuarios -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="info-box">
                         <h4>Cantidad de Usuarios</h4>
-                        <p class="info-number">0</p>
-                    </div>
-                </div>
-
-                <!-- Cuadro: Servicios Registrados -->
-                <div class="col-md-6">
-                    <div class="info-box">
-                        <h4>Servicios Registrados</h4>
-                        <p class="info-number">0</p>
+                        <p class="info-number" id="user-count">0</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +68,6 @@
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Email</th>
-
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -86,11 +77,10 @@
                                         <td>Willys Hurtado</td>
                                         <td>whurtado180@gmail.com</td>
                                         <td>
-                                            <button class="btn btn-outline-primary">Actualizar</button>
                                             <button class="btn btn-outline-danger">Eliminar</button>
                                         </td>
                                     </tr>
-                                    <!-- Más usuarios aquí -->
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -99,8 +89,9 @@
             </div>
         </div>
     </section>
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+     
+    <script src="/javascripts/contador_usuarios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 </html>

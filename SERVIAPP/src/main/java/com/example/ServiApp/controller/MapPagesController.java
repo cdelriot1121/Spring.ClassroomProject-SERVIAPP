@@ -84,6 +84,13 @@ public class MapPagesController {
         return "add_consejos_admin";
     }
 
+    @GetMapping("/consejos-personzalidos")
+    public String consejospersonalizdos(){
+        return "consejos_personalizados";
+    }
+
+
+
 
 
 
