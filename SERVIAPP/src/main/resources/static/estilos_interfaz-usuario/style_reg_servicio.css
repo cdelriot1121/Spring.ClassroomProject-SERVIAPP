@@ -72,3 +72,36 @@
     text-align: center;
     margin-top: 1rem;
 }
+
+abbr[title] {
+    position: relative;
+    cursor: pointer;
+    }
+
+    
+    abbr[title]::after {
+    content: "";
+    position: relative;
+    top: 1.5em; 
+    left: 0; 
+    width: 450px; 
+    height: 128px; 
+    background-image: url('/img_local/poliza2.gif'); 
+    background-size: cover;
+    display: none; 
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10; 
+    }
+
+    
+    abbr[title]:hover::after {
+    display: block;
+    }
+
+    .info{
+
+        text-align: left;
+        margin-top: 20px;
+        font-size: x-large;
+    }
