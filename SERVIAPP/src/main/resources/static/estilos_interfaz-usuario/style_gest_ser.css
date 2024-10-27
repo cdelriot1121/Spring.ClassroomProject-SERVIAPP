@@ -19,7 +19,7 @@ main {
 .titulo h1{
     color: #333333;
     margin-bottom: 10px;
-    margin-top: 40px;
+    margin-top: 0px;
     font-size: 24px; 
     text-align: center;
 }
