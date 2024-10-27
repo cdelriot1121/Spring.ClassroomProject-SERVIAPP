@@ -10,10 +10,25 @@ table {
     font-family: 'Kanit', sans-serif;
 }
 
-main{
+main {
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 10px;
+}
+
+.titulo h1{
+    color: #333333;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    font-size: 24px; 
+    text-align: center;
+}
+
+.titulo h2{
+    color: #666666;
+    margin-bottom: 20px;
+    font-size: 18px; 
+    text-align: center; 
 }
 
 .tabla-servicios h2{
@@ -154,6 +169,18 @@ button:hover {
     }
 }
 
+
+.Analiza h1{
+    color: #333333;
+    margin-bottom: 10px;
+    margin-top: 40px; 
+}
+
+
+.funcion h2{
+    color: #666666;
+    margin-bottom: 20px;
+}
 
 .boton{
     
