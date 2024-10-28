@@ -1,8 +1,8 @@
 /* Estilo de la tabla */
 table {
-    width: 80%; /* Reduce el tamaño de la tabla */
+    width: 80%;
     border-collapse: collapse;
-    margin: auto; /* Centra la tabla */
+    margin: auto;
     font-size: 16px;
     text-align: left;
     font-family: 'Kanit', sans-serif;
@@ -14,25 +14,28 @@ main {
     margin-bottom: 10px;
 }
 
+/* Título principal */
 .titulo h1 {
-    color: #333333;
+    color: #004a99; 
     margin-bottom: 10px;
     margin-top: 0px;
-    font-size: 30px; 
+    font-size: 30px;
     text-align: center;
 }
 
+/* Subtítulo */
 .titulo h2 {
     color: #666666;
     margin-bottom: 20px;
-    font-size: 24px; 
-    text-align: center; 
+    font-size: 24px;
+    text-align: center;
 }
 
 .tabla-servicios h2 {
     margin-left: 20px;
 }
 
+/* Estilo del formulario */
 form {
     background-color: #fff;
     padding: 20px;
@@ -40,7 +43,7 @@ form {
     margin: 20px auto;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 label {
@@ -63,7 +66,7 @@ button {
 
 .btn-enviar-servi {
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 button {
@@ -77,54 +80,67 @@ button:hover {
     background-color: #4bc0f2;
 }
 
-
-.consumo {
+/* Cuadros de Información de Consumo */
+#cuadros-consumo {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    padding: 20px;
+    margin-top: 20px;
 }
 
-.consumo h2 {
+.cuadro {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
     width: 100%;
+    max-width: 250px;
     text-align: center;
+    font-family: 'Kanit', sans-serif;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.consumo div {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px;
-    width: calc(33% - 20px);
-    min-width: 280px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
-    opacity: 0; /* Para la animación */
-    transform: translateY(20px); /* Para la animación */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Animación */
+/* Animación de aparición */
+.cuadro.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.consumo.visible {
-    opacity: 1; 
-    transform: translateY(0); 
-}
-
-.consumo h3 {
+/* Estilo de título del cuadro */
+.cuadro h3 {
+    color: #004a99; 
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Estilo de texto del cuadro */
+.cuadro p {
+    color: #333333;
+    font-size: 16px;
     font-weight: 600;
 }
 
-.consumo p {
-    font-size: 24px;
-    font-weight: bold;
-    color: #007bff;
+/* Estilo del cuadro de resultados */
+.result-box {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    color: #004a99;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Kanit', sans-serif;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-
-@media (max-width: 768px) {
-    .consumo div {
-        width: 100%;
-        margin: 0;
-    }
+.result-box.show {
+    opacity: 1;
+    transform: translateY(0);
 }

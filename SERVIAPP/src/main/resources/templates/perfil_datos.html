@@ -63,88 +63,79 @@
           </nav>
    
       
-        <!--Contenido del code preferencias o configuracion-->
-        <div class="container mt-5">
-            <div class="row">
-                <!-- Menú lateral -->
-                <div class="col-md-3">
-                    <div class="list-group">
-                        <a href="#" id="link-datos-personales" class="list-group-item list-group-item-action active">Datos Personales</a>
-                        <a href="#" id="link-cambiar-contrasena" class="list-group-item list-group-item-action">Cambiar Contraseña</a>
-                        <a href="#" id="link-actualizar-foto" class="list-group-item list-group-item-action">Actualizar Foto de Perfil</a>
-                        <a href="#" id="link-eliminar-cuenta" class="list-group-item list-group-item-action">Eliminar Cuenta</a>
-                    </div>
-                </div>
-    
-                <div class="col-md-9">
-                    <!-- Datos Personales -->
-                    <section id="section-datos-personales">
-                        <h4>Datos Personales</h4>
-                        <form id="updateProfileForm">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="name" placeholder="Tu nombre" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" placeholder="Tu correo" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Actualizar Datos</button>
-                        </form>
-                    </section>
-    
-                   <!-- Cambiar Contraseña -->
-                    <section id="section-cambiar-contrasena" style="display: none;">
-                        <h4>Cambiar Contraseña</h4>
-                        <form id="changePasswordForm" onsubmit="return validateForm(event)">
-                            <div class="mb-3">
-                                <label for="current-password" class="form-label">Contraseña Actual</label>
-                                <input type="password" class="form-control" id="current-password" required>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="togglePasswordVisibility('current-password')">👁️‍🗨️</button>
-                            </div>
-                            <div class="mb-3">
-                                <label for="new-password" class="form-label">Nueva Contraseña</label>
-                                <input type="password" class="form-control" id="new-password" required>
-                                <div>
-                                    <button type="button" class="btn btn-secondary btn-sm " onclick="togglePasswordVisibility('new-password')">👁️‍🗨️</button>
-                                    <small id="new-password-help" class="form-text text-muted">La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.</small>
-                                </div>
-                                </div>
-                            <div class="mb-3">
-                                <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" id="confirm-password" required>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="togglePasswordVisibility('confirm-password')">👁️‍🗨️</button>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
-                            <div id="error-message" class="text-danger mt-3" style="display: none;"></div>
-                            <div id="success-message" class="text-success mt-3" style="display: none;">Contraseña actualizada con éxito.</div>
-                        </form>
-                    </section>
-
-    
-                    <!-- Actualizar Foto de Perfil -->
-                    <section id="section-actualizar-foto" style="display: none;">
-                        <h4>Actualizar Foto de Perfil</h4>
-                        <form id="updatePhotoForm" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="profile-photo" class="form-label">Subir Nueva Foto</label>
-                                <input type="file" class="form-control" id="profile-photo" accept="image/*" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Actualizar Foto</button>
-                        </form>
-                    </section>
-    
-                    <!-- Eliminar Cuenta -->
-                    <section id="section-eliminar-cuenta" style="display: none;">
-                        <h4>Eliminar Cuenta</h4>
-                        <p>Si eliminas tu cuenta, toda tu información se perderá. Esta acción no se puede deshacer.</p>
-                        <button class="btn btn-danger" id="deleteAccountButton">Eliminar Cuenta</button>
-                    </section>
+        <!-- Contenido de configuración -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Menú lateral -->
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="#" id="link-datos-personales" class="list-group-item list-group-item-action active">Datos Personales</a>
+                    <a href="#" id="link-cambiar-contrasena" class="list-group-item list-group-item-action">Cambiar Contraseña</a>
+                    <a href="#" id="link-mis-servicios" class="list-group-item list-group-item-action">Mis Servicios</a>
                 </div>
             </div>
+
+            <div class="col-md-9">
+                <!-- Datos Personales -->
+                <section id="section-datos-personales">
+                    <h4>Datos Personales</h4>
+                    <form id="updateProfileForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" placeholder="Tu correo" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar Datos</button>
+                    </form>
+                </section>
+
+                <!-- Cambiar Contraseña -->
+                <section id="section-cambiar-contrasena" style="display: none;">
+                    <h4>Cambiar Contraseña</h4>
+                    <form id="changePasswordForm">
+                        <div class="mb-3">
+                            <label for="current-password" class="form-label">Contraseña Actual</label>
+                            <input type="password" class="form-control" id="current-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password" class="form-label">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="new-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
+                            <input type="password" class="form-control" id="confirm-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                    </form>
+                </section>
+
+                <!-- Mis Servicios -->
+                <section id="section-mis-servicios" style="display: none;">
+                    <h4>Mis Servicios</h4>
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Servicio</th>
+                                <th>ID del Servicio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Servicio 1</td>
+                                <td>ID12345</td>
+                                <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
+                            </tr>
+                            <!-- Más filas pueden ser agregadas aquí dinámicamente -->
+                        </tbody>
+                    </table>
+                </section>
+            </div>
         </div>
-        
-        
+    </div>
 
 
 
