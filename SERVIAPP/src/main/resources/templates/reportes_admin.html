@@ -43,25 +43,33 @@
       </nav>
 
       <div class="container">
-        <h2>Registrar Corte de Servicio</h2>
+        <h2>Registrar Reportes Corte de Servicio</h2>
     
         <form action="/guardar-corte" method="POST">
             <div class="form-section">
-                <label for="servicio">Servicio afectado:</label>
+                <label for="servicio">Servicio(s) afectado(s):</label>
                 <select id="servicio" name="servicio" required>
                     <option value="agua">Agua</option>
                     <option value="energia">Energia</option>
                     <option value="gas">Gas</option>
                 </select>
     
-                <label for="barrios">Barrio afectados:</label>
-                <select id="barrios" name="barrios" required>
-                    <option value="la victoria">La Victoria</option>
-                    <option value="Plan 400">Plan 400</option>
-                    <option value="La esperanza">La Esperanza</option>
-                    <option value="Olaya ">Olaya</option>
-                    <option value="Centro">Centro</option>
+                <label for="barrios">Barrios afectados:</label>
+                <div id="barrios" class="barrios-container">
+                    <label><input type="checkbox" name="barrios" value="La Victoria"> La Victoria</label>
+                    <label><input type="checkbox" name="barrios" value="Plan 400"> Plan 400</label>
+                    <label><input type="checkbox" name="barrios" value="La Esperanza"> La Esperanza</label>
+                    <label><input type="checkbox" name="barrios" value="Olaya"> Olaya</label>
+                    <label><input type="checkbox" name="barrios" value="Centro"> Centro</label>
+                </div>
+
+                <label for="motivo">Motivo: </label>
+                <select id="motivo" name="motivo" required>
+                    <option value="mantenimiento">Mantenimiento Programado</option>
+                    <option value="reparacion">Reparacion de emergencia</option>
+                    <option value="condiciones">Condiciones climaticas</option>
                 </select>
+    
     
                 <label for="fecha_corte">Fecha de corte:</label>
                 <input type="date" id="fecha_corte" name="fecha_corte" required>

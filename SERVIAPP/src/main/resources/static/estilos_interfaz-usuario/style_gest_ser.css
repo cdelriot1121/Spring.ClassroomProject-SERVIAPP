@@ -18,14 +18,14 @@ main {
     color: #333333;
     margin-bottom: 10px;
     margin-top: 0px;
-    font-size: 24px; 
+    font-size: 30px; 
     text-align: center;
 }
 
 .titulo h2 {
     color: #666666;
     margin-bottom: 20px;
-    font-size: 18px; 
+    font-size: 24px; 
     text-align: center; 
 }
 
@@ -77,7 +77,7 @@ button:hover {
     background-color: #4bc0f2;
 }
 
-/* Secciones de consumo */
+
 .consumo {
     display: flex;
     flex-wrap: wrap;
@@ -121,7 +121,7 @@ button:hover {
     color: #007bff;
 }
 
-/* Responsivo */
+
 @media (max-width: 768px) {
     .consumo div {
         width: 100%;

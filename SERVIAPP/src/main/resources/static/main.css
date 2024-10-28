@@ -160,6 +160,13 @@ nav ul li a {
     padding-bottom: 4px;
 }
 
+h1{
+    text-align: center;
+    align-items: center;
+    font-size: x-large;
+    margin-top: 1;
+}
+
 
 /* footer */
 
