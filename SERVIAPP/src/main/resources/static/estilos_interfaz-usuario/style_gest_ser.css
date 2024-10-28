@@ -105,8 +105,8 @@ button:hover {
 }
 
 .consumo.visible {
-    opacity: 1; /* Para la animación */
-    transform: translateY(0); /* Para la animación */
+    opacity: 1; 
+    transform: translateY(0); 
 }
 
 .consumo h3 {

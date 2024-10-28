@@ -1,13 +1,16 @@
 
 table {
     width: 80%; 
+   
     margin: auto; 
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     font-size: 0.9em;
 }
 
-
+.tabla-consejos-personalizados{
+    margin-bottom: 20px;
+}
 thead th {
     
     background-color: #36b2fa;
@@ -29,7 +32,7 @@ tbody tr:nth-child(even) {
 
 td {
     padding: 8px; 
-    border: 1px solid #ddd;
+    border: 1px solid #a7a7a7;
 }
 
 
