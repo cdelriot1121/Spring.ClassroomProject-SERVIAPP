@@ -55,6 +55,11 @@ public class MapPagesController {
         return "perfil_datos";
     }
 
+    @GetMapping("/consejos-personzalidos")
+    public String consejospersonalizdos(){
+        return "consejos_personalizados";
+    }
+
     //Paginas admins
 
     @GetMapping("/interfaz-admin")
@@ -84,10 +89,7 @@ public class MapPagesController {
         return "add_consejos_admin";
     }
 
-    @GetMapping("/consejos-personzalidos")
-    public String consejospersonalizdos(){
-        return "consejos_personalizados";
-    }
+    
 
 
 
