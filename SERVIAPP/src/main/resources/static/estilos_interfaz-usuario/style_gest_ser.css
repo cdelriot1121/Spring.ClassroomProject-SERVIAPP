@@ -1,5 +1,3 @@
-
-
 /* Estilo de la tabla */
 table {
     width: 80%; /* Reduce el tamaño de la tabla */
@@ -16,7 +14,7 @@ main {
     margin-bottom: 10px;
 }
 
-.titulo h1{
+.titulo h1 {
     color: #333333;
     margin-bottom: 10px;
     margin-top: 0px;
@@ -24,49 +22,17 @@ main {
     text-align: center;
 }
 
-.titulo h2{
+.titulo h2 {
     color: #666666;
     margin-bottom: 20px;
     font-size: 18px; 
     text-align: center; 
 }
 
-.tabla-servicios h2{
+.tabla-servicios h2 {
     margin-left: 20px;
 }
 
-table th, table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-}
-
-table th {
-    background-color: #4bc0f2;
-    color: white;
-    font-weight: bold;
-}
-
-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-table tbody tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-table tbody tr td {
-    color: #333;
-}
-
-table tbody tr td:first-child {
-    font-weight: bold;
-}
-
-a{
-    text-decoration: none;
-}
-
-/* Formulario de selección de servicio */
 form {
     background-color: #fff;
     padding: 20px;
@@ -77,7 +43,6 @@ form {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
 }
 
-/* Campos del formulario */
 label {
     display: block;
     font-weight: 600;
@@ -94,13 +59,9 @@ button {
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 16px;
-
 }
 
-input[type="checkbox"] {
-    margin-right: 10px;
-}
-.btn-enviar-servi{
+.btn-enviar-servi {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
 }
@@ -117,25 +78,17 @@ button:hover {
 }
 
 /* Secciones de consumo */
-
-
 .consumo {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
     justify-content: center;
     padding: 20px;
 }
 
-.consumo-habitante-mes h3{
-    margin-top: 40px;
-    
+.consumo h2 {
+    width: 100%;
+    text-align: center;
 }
-
-.consumo-diario-hogar h3{
-    margin-top: 40px;
-}
-
 
 .consumo div {
     background-color: #fff;
@@ -146,6 +99,14 @@ button:hover {
     min-width: 280px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+    opacity: 0; /* Para la animación */
+    transform: translateY(20px); /* Para la animación */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Animación */
+}
+
+.consumo.visible {
+    opacity: 1; /* Para la animación */
+    transform: translateY(0); /* Para la animación */
 }
 
 .consumo h3 {
@@ -160,33 +121,10 @@ button:hover {
     color: #007bff;
 }
 
-
 /* Responsivo */
 @media (max-width: 768px) {
     .consumo div {
         width: 100%;
         margin: 0;
     }
-}
-
-
-.Analiza h1{
-    color: #333333;
-    margin-bottom: 10px;
-    margin-top: 40px; 
-}
-
-
-.funcion h2{
-    color: #666666;
-    margin-bottom: 20px;
-}
-
-.boton{
-    
-margin-top: auto;
-width: 10%;
-border-radius: 80%;
-
-
 }

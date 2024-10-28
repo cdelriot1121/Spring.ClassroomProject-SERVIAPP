@@ -65,17 +65,14 @@
   
 
       <main>
-
         <div class="titulo"> 
             <h1> Analiza Tus Consumos </h1>
-
-            <h2>Con esta funcion podras comparar tus consumos con tu promedio, 
-                <br>el cosumo de cada habitante de tu hogar y como se comportan 
-                <br>estas cifras con respecto a tu ciudad asi como recibir tus 
-                <br>consejos personalizados. </h2>
-            
+            <h2>Con esta función podrás comparar tus consumos con tu promedio, 
+                <br>el consumo de cada habitante de tu hogar y cómo se comportan 
+                <br>estas cifras con respecto a tu ciudad, así como recibir tus 
+                <br>consejos personalizados.</h2>
         </div>
-
+    
         <!-- Formulario -->
         <section class="formulario">
             <form id="servicio-form">
@@ -86,7 +83,7 @@
                     <option value="Energia">
                     <option value="Gas">
                 </datalist>
-
+    
                 <div id="form-content" style="display: none;">
                     <label for="mes">Selecciona un mes:</label>
                     <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
@@ -104,42 +101,41 @@
                         <option value="Noviembre">
                         <option value="Diciembre">
                     </datalist>
-
+    
                     <label id="consumo-label" for="consumo">Consumo:</label>
                     <input class="casilla_rs" type="number" id="consumo" name="consumo" min="0" step="any" placeholder="Ingresa el consumo" required>
-
-                   
-
+    
                     <button type="submit" class="btn-enviar-servi">Enviar</button>
                     <button type="button" id="cambiar-servicio" class="btn-cambiar-servicio" style="display: none;">Cambiar Servicio</button>
                 </div>
             </form>
         </section>
-
+    
         <!-- Sección de Consumo -->
         <section class="consumo" id="consumo-section" style="display: none;">
+            <h2>Estos son tus resultados</h2>
             <div class="consumo-promedio" id="consumo-promedio">
                 <h3>Consumo Promedio</h3>
                 <p id="promedio-val"><strong></strong></p>
             </div>
-
+    
             <div class="consumo-habitante-mes">
                 <h3>Consumo mensual por habitante</h3>
                 <p id="habitante-mes"><strong></strong></p>
             </div>
-
+    
             <div class="consumo-diario-hogar">
                 <h3>Consumo diario por hogar</h3>
                 <p id="diario-hogar"><strong></strong></p>
             </div>
-
+    
             <div class="consumo-semanal">
                 <h3>Consumo semanal</h3>
                 <p id="semanal-hogar"><strong></strong></p>
             </div>
         </section>
-
     </main>
+s    
     </div>
 
      <!-- Pie de página -->
