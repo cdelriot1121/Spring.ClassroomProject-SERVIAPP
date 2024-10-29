@@ -1,76 +1,131 @@
 package com.example.ServiApp.model;
 
-public class ServicioModel {
-    private int id_servicio;
-    private String tipo_serv;
-    private int poliza;
-    private int no_hab_hogar;
-    private String linea_atencion;
-    private int id_usuario;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-    //Constructores ServicioModel
+@Entity
+@Table(name="servicios")
+public class ServicioModel {
+   
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+
+    //relacion muchos a uno, un servicio puede pertener a muchos usuarios
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsuarioModel usuario;
+
+    @Column(name = "tipo_servicio", nullable = false, length = 50)
+    private String tipo_servicio;
+
+    @Column(name = "empresa", nullable = false, length = 50)
+    private String empresa;
+
+    @Column(name = "poliza", nullable = false)
+    private long poliza;
+
+    @Column(name = "habitantes_hogar", nullable = false)
+    private long habitantes;
+    
+
     public ServicioModel() {
     }
 
-    public ServicioModel(int id_servicio, String tipo_serv, int poliza, int no_hab_hogar, String linea_atencion,
-            int id_usuario) {
-        this.id_servicio = id_servicio;
-        this.tipo_serv = tipo_serv;
+    public ServicioModel(long id, UsuarioModel usuario, String tipo_servicio, String empresa, long poliza,
+            long habitantes) {
+        this.id = id;
+        this.usuario = usuario;
+        this.tipo_servicio = tipo_servicio;
+        this.empresa = empresa;
         this.poliza = poliza;
-        this.no_hab_hogar = no_hab_hogar;
-        this.linea_atencion = linea_atencion;
-        this.id_usuario = id_usuario;
+        this.habitantes = habitantes;
     }
 
-    //Getters and Setters
+  
 
-    public int getId_servicio() {
-        return id_servicio;
+    public long getId() {
+        return id;
     }
 
-    public void setId_servicio(int id_servicio) {
-        this.id_servicio = id_servicio;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getTipo_serv() {
-        return tipo_serv;
+    public UsuarioModel getUsuario() {
+        return usuario;
     }
 
-    public void setTipo_serv(String tipo_serv) {
-        this.tipo_serv = tipo_serv;
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
     }
 
-    public int getPoliza() {
+    public String getTipo_servicio() {
+        return tipo_servicio;
+    }
+
+    public void setTipo_servicio(String tipo_servicio) {
+        this.tipo_servicio = tipo_servicio;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
+    public long getPoliza() {
         return poliza;
     }
 
-    public void setPoliza(int poliza) {
+    public void setPoliza(long poliza) {
         this.poliza = poliza;
     }
 
-    public int getNo_hab_hogar() {
-        return no_hab_hogar;
+    public long getHabitantes() {
+        return habitantes;
     }
 
-    public void setNo_hab_hogar(int no_hab_hogar) {
-        this.no_hab_hogar = no_hab_hogar;
+    public void setHabitantes(long habitantes) {
+        this.habitantes = habitantes;
     }
 
-    public String getLinea_atencion() {
-        return linea_atencion;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ServicioModel{");
+        sb.append("id=").append(id);
+        sb.append(", usuario=").append(usuario);
+        sb.append(", tipo_servicio=").append(tipo_servicio);
+        sb.append(", empresa=").append(empresa);
+        sb.append(", poliza=").append(poliza);
+        sb.append(", habitantes=").append(habitantes);
+        sb.append('}');
+        return sb.toString();
     }
 
-    public void setLinea_atencion(String linea_atencion) {
-        this.linea_atencion = linea_atencion;
-    }
+    
 
-    public int getId_usuario() {
-        return id_usuario;
-    }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
+
+
+    
+
+
+
+
+
+
+
 
 
 }

@@ -1,36 +1,60 @@
 package com.example.ServiApp.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name= "usuarios")
 public class UsuarioModel {
 
-    private int id_usuario;
-    private String nombre;
-    private String email;
-    private String contrasenia;
-    private int estrato;
-    private int no_serv_reg;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    
-    //Constructures Usuario
+    @Column(name = "nombre_completo", nullable = false, length = 50)
+    private String nombre;
+
+    @Column(name = "email", nullable = false, length = 50, unique = true)
+    private String email;
+
+    @Column(name = "password", nullable = false, length = 50)
+    private String password;
+
+    @Column(name = "estrato", nullable = false, length = 50)
+    private String estrato;
+
+    // relacion uno a muchos con servicios, el usuario puede tener de uno a muchos servicios
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ServicioModel> servicios;
+
     public UsuarioModel() {
     }
 
-    public UsuarioModel(int id_usuario, String nombre, String email, String contrasenia, int estrato, int no_serv_reg) {
-        this.id_usuario = id_usuario;
+    public UsuarioModel(long id, String nombre, String email, String password, String estrato) {
+        this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.contrasenia = contrasenia;
+        this.password = password;
         this.estrato = estrato;
-        this.no_serv_reg = no_serv_reg;
     }
 
-
-    //Getter and Setters
-    public int getId_usuario() {
-        return id_usuario;
+    public long getId() {
+        return id;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -49,27 +73,32 @@ public class UsuarioModel {
         this.email = email;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getEstrato() {
+    public String getEstrato() {
         return estrato;
     }
 
-    public void setEstrato(int estrato) {
+    public void setEstrato(String estrato) {
         this.estrato = estrato;
     }
 
-    public int getNo_serv_reg() {
-        return no_serv_reg;
-    }
-
-    public void setNo_serv_reg(int no_serv_reg) {
-        this.no_serv_reg = no_serv_reg;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("UsuarioModel{");
+        sb.append("id=").append(id);
+        sb.append(", nombre=").append(nombre);
+        sb.append(", email=").append(email);
+        sb.append(", password=").append(password);
+        sb.append(", estrato=").append(estrato);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -82,11 +82,9 @@
     z-index: 1;
     left: 0;
     top: 0;
-    width: 50%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    overflow: auto;
-    
 }
 
 .modal-content {
@@ -94,9 +92,11 @@
     margin: 10% auto;
     padding: 20px;
     border-radius: 10px;
-    width: 150px;
+    width: 50%;
+    max-width: 600px; /* Ajuste opcional para pantallas grandes */
     max-height: 80%;
     overflow-y: auto;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3); /* Agrega sombra para darle un efecto flotante */
 }
 
 .close {
