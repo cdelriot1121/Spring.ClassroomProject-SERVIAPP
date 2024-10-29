@@ -10,9 +10,9 @@
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 
     <!--links CSS-->
-    <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css"> <!-- Barra lateral reutilizable -->
-    <link rel="stylesheet" href="/estilos_interfaz-usuario/style_gest_ser.css"> <!-- CSS de la página Inicio -->
+    <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css"> 
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/estilos_interfaz-usuario/style_cortes_fallas.css">
 
     <!--BOXICOINS Y BOOTSTRAP-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -24,6 +24,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
+    
 
 
 </head>
@@ -59,85 +60,118 @@
                     <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro Personalizados </a></li>
                     <li class="p-2 g-col-6"><a href="cortes_fallas"><i class='bx bxs-alarm'></i> Cortes</a></li>
                     <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
-                  
+                   
+                    
             </ul>
           </div>
         </div>
       </nav>
-  
 
-      <main>
-        <div class="titulo"> 
-            <h1> Analiza Tus Consumos </h1>
-            <h2>Con esta función podrás comparar tus consumos con tu promedio, 
-                <br>el consumo de cada habitante de tu hogar y cómo se comportan 
-                <br>estas cifras con respecto a tu ciudad, así como recibir tus 
-                <br>consejos personalizados.</h2>
-        </div>
-    
-        <!-- Formulario -->
-        <section class="formulario">
-            <form id="servicio-form">
-                <label for="servicio">Selecciona el Servicio:</label>
-                <input class="casilla_rs" list="opciones" id="servicio" name="servicio" placeholder="Selecciona el Servicio" required>
-                <datalist id="opciones">                    
-                    <option value="Agua">
-                    <option value="Energia">
-                    <option value="Gas">
-                </datalist>
-    
-                <div id="form-content" style="display: none;">
-                    <label for="mes">Selecciona un mes:</label>
-                    <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
-                    <datalist id="opciones_mes">                    
-                        <option value="Enero">
-                        <option value="Febrero">
-                        <option value="Marzo">
-                        <option value="Abril">
-                        <option value="Mayo">
-                        <option value="Junio">
-                        <option value="Julio">
-                        <option value="Agosto">
-                        <option value="Septiembre">
-                        <option value="Octubre">
-                        <option value="Noviembre">
-                        <option value="Diciembre">
-                    </datalist>
-    
-                    <label id="consumo-label" for="consumo">Consumo:</label>
-                    <input class="casilla_rs" type="number" id="consumo" name="consumo" min="0" step="any" placeholder="Ingresa el consumo" required>
-    
-                    <button type="submit" class="btn-enviar-servi">Enviar</button>
-                    <button type="button" id="cambiar-servicio" class="btn-cambiar-servicio" style="display: none;">Cambiar Servicio</button>
-                </div>
-            </form>
-        </section>
+      <div class="Cortes">
+        <h1>Cortes Programados</h1>
+        <h2>Mantente informado aqui los cortes programados que hay en la ciudad en cartagena en las proximas fechas</h2>
+      </div>
 
-        <!-- Cuadros de Información de Consumo -->
-<section id="cuadros-consumo" style="display: none;">
-    <div class="cuadro">
-        <h3>Promedio en Cartagena</h3>
-        <p id="promedio-cartagena">--</p>
+      <div class="table-container">
+       
+        <table>
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Barrios</th>
+                    <th>Fecha de corte</th>
+                    <th>Hora de inicio</th>
+                    <th>Hora de finalización</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Agua</td>
+                    <td>Plan 400</td>
+                    <td>2024-11-01</td>
+                    <td>08:00</td>
+                    <td>12:00</td>
+                </tr>
+                <tr>
+                    <td>Energia</td>
+                    <td>Olaya</td>
+                    <td>2024-11-02</td>
+                    <td>09:00</td>
+                    <td>14:00</td>
+                </tr>
+
+                <tr>
+                    <td>Energia</td>
+                    <td>centro</td>
+                    <td>2024-11-02</td>
+                    <td>09:00</td>
+                    <td>14:00</td>
+                </tr>
+
+                <tr>
+                    <td>Agua</td>
+                    <td>jardines</td>
+                    <td>2024-11-02</td>
+                    <td>09:00</td>
+                    <td>14:00</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="cuadro">
-        <h3>Promedio del Hogar</h3>
-        <p id="promedio-hogar">--</p>
+</div>
+
+<div class="reportes">
+<h1> Reportar fallos</h1>
+<h2>aqui podras reportar fallos si estos no estan en la tabla de cortes programados</h2>
+
+<form method="POST">
+    <div class="form-section">
+        <label for="servicio">Servicio afectado: </label>
+        <select id="servicio" name="servicio" required>
+            <option value="agua">Agua</option>
+            <option value="energia">Energia</option>
+            <option value="gas">Gas</option>
+        </select>
+
+        <label for="servicio">Barrio afectado: </label>
+        <select id="servicio" name="servicio" required>
+            <option value="la victoria">La Victoria</option>
+            <option value="la esperanza">La Esperanza</option>
+            <option value="plan 400">Plan 400</option>
+        </select>
+
+        <label for="hora_inicio">Hora de inicio del corte:</label>
+        <input type="time" step="1800" id="hora_inicio" name="hora_inicio" required>
+
+        <label for="comentario">Comentario:</label>
+        <textarea id="comentario" name="comentario" rows="4" cols="50" placeholder="Escribe tu comentario aquí"></textarea>
     </div>
-    <div class="cuadro">
-        <h3>Promedio Mensual por Habitante</h3>
-        <p id="promedio-habitante">--</p>
-    </div>
-    <div class="cuadro">
-        <h3>Promedio Semanal</h3>
-        <p id="promedio-semanal">--</p>
-    </div>
-</section>
+</form>
+
+
+
+        
+
 
     
-      
-    </main>
-s    
-    </div>
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
      <!-- Pie de página -->
      <footer>
@@ -147,7 +181,7 @@ s
             <ul class="enlaces-pie-pagina">
                 <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
                 <li><a href="">Terminos</a></li>
-                <li><a href="">Securidad</a></li>
+                <li><a href="">Seguridad</a></li>
                 <li><a href="">Estatus</a></li>
                 <li><a href="">Contacto</a></li>
                 <li><a href="">Manejo de cookies</a></li>
@@ -191,4 +225,3 @@ s
 </body>
 
 </html>
-

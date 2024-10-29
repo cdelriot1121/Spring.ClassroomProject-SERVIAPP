@@ -87,17 +87,12 @@ body {
 }
 .imagen {
     width: 50%;
-    background: linear-gradient(135deg, #C4E1FF, #ead5f7);
+    background: linear-gradient(45deg, #A0E3FF);
+    font-size: xx-large;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 2rem;
 }
 
-.imagen img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-}
