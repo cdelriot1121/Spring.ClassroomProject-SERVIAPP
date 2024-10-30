@@ -38,15 +38,27 @@ public class UsuarioModel {
     @JsonIgnore
     private List<ServicioModel> servicios;
 
+
+     // relacion uno a muchos con fallas de servicios, el usuario puede tener de uno a muchas fallas de servicio
+
+    @OneToMany(mappedBy="usuario", cascade= CascadeType.ALL)
+    @JsonIgnore
+    private List<Falla_Ser_Model> Fallas_Servicio;
+
+
     public UsuarioModel() {
     }
 
-    public UsuarioModel(long id, String nombre, String email, String password, String estrato) {
+
+    public UsuarioModel(long id, String nombre, String email, String password, String estrato,
+            List<ServicioModel> servicios, List<Falla_Ser_Model> fallas_Servicio) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
         this.estrato = estrato;
+        this.servicios = servicios;
+        Fallas_Servicio = fallas_Servicio;
     }
 
     public long getId() {
@@ -89,6 +101,22 @@ public class UsuarioModel {
         this.estrato = estrato;
     }
 
+    public List<ServicioModel> getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(List<ServicioModel> servicios) {
+        this.servicios = servicios;
+    }
+
+    public List<Falla_Ser_Model> getFallas_Servicio() {
+        return Fallas_Servicio;
+    }
+
+    public void setFallas_Servicio(List<Falla_Ser_Model> Fallas_Servicio) {
+        this.Fallas_Servicio = Fallas_Servicio;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -98,7 +126,16 @@ public class UsuarioModel {
         sb.append(", email=").append(email);
         sb.append(", password=").append(password);
         sb.append(", estrato=").append(estrato);
+        sb.append(", servicios=").append(servicios);
+        sb.append(", Fallas_Servicio=").append(Fallas_Servicio);
         sb.append('}');
         return sb.toString();
     }
+
+
+
+
+
+
+    
 }

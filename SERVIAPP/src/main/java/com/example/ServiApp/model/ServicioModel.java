@@ -1,5 +1,10 @@
 package com.example.ServiApp.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,7 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+
 
 @Entity
 @Table(name="servicios")
@@ -23,6 +31,24 @@ public class ServicioModel {
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario;
 
+    //relacion uno a muchos, un servicio puede tener de uno a muchos periodos
+  @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private java.util.List<PeriodoModel> periodos;
+
+    //relacion uno a muchos, un servicio puede tener de uno a muchos cortes
+    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<CortesModel> cortes;
+
+
+
+
+    
+
+
+
+
     @Column(name = "tipo_servicio", nullable = false, length = 50)
     private String tipo_servicio;
 
@@ -34,22 +60,21 @@ public class ServicioModel {
 
     @Column(name = "habitantes_hogar", nullable = false)
     private long habitantes;
-    
 
     public ServicioModel() {
     }
 
-    public ServicioModel(long id, UsuarioModel usuario, String tipo_servicio, String empresa, long poliza,
-            long habitantes) {
+    public ServicioModel(long id, UsuarioModel usuario, List<PeriodoModel> periodos, List<CortesModel> cortes,
+            String tipo_servicio, String empresa, long poliza, long habitantes) {
         this.id = id;
         this.usuario = usuario;
+        this.periodos = periodos;
+        this.cortes = cortes;
         this.tipo_servicio = tipo_servicio;
         this.empresa = empresa;
         this.poliza = poliza;
         this.habitantes = habitantes;
     }
-
-  
 
     public long getId() {
         return id;
@@ -65,6 +90,22 @@ public class ServicioModel {
 
     public void setUsuario(UsuarioModel usuario) {
         this.usuario = usuario;
+    }
+
+    public java.util.List<PeriodoModel> getPeriodos() {
+        return periodos;
+    }
+
+    public void setPeriodos(java.util.List<PeriodoModel> periodos) {
+        this.periodos = periodos;
+    }
+
+    public List<CortesModel> getCortes() {
+        return cortes;
+    }
+
+    public void setCortes(List<CortesModel> cortes) {
+        this.cortes = cortes;
     }
 
     public String getTipo_servicio() {
@@ -105,6 +146,8 @@ public class ServicioModel {
         sb.append("ServicioModel{");
         sb.append("id=").append(id);
         sb.append(", usuario=").append(usuario);
+        sb.append(", periodos=").append(periodos);
+        sb.append(", cortes=").append(cortes);
         sb.append(", tipo_servicio=").append(tipo_servicio);
         sb.append(", empresa=").append(empresa);
         sb.append(", poliza=").append(poliza);
@@ -113,8 +156,9 @@ public class ServicioModel {
         return sb.toString();
     }
 
-    
 
+    
+   
 
 
 

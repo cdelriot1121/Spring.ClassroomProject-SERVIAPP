@@ -2,21 +2,21 @@ package com.example.ServiApp.controller;
 
 import java.util.ArrayList;
 
-import com.example.ServiApp.model.ConsumoModel;
+import com.example.ServiApp.model.CortesModel;
 
 public class ListaConsumos {
-    private ArrayList<ConsumoModel> listaConsumos;
+    private ArrayList<CortesModel> listaConsumos;
 
     public ListaConsumos() {
         listaConsumos = new ArrayList<>();
     }
 
-    public void agregarConsumo(ConsumoModel consumo) {
+    public void agregarConsumo(CortesModel consumo) {
         listaConsumos.add(consumo);
     }
 
   
-    public ConsumoModel obtenerConsumo(int indice) {
+    public CortesModel obtenerConsumo(int indice) {
         return listaConsumos.get(indice);
     }
 
@@ -24,7 +24,7 @@ public class ListaConsumos {
         listaConsumos.remove(indice);
     }
 
-    public ArrayList<ConsumoModel> obtenerTodosLosConsumos() {
+    public ArrayList<CortesModel> obtenerTodosLosConsumos() {
         return listaConsumos;
     }
 }
