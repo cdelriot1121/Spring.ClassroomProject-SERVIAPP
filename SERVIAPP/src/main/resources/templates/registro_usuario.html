@@ -17,36 +17,29 @@
         <div class="caja-registro">
             <div class="formulario-registro">
                 <h2>Regístrate</h2>
-                <form>
-                    
-                    <input class="casilla_r" type="text" placeholder="Nombre completo" 
-                           pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+" 
-                           title="Solo letras y espacios" 
-                           required 
-                           oninvalid="this.setCustomValidity('Por favor ingresa tu nombre completo usando solo letras y espacios')"
-                           oninput="this.setCustomValidity('')">
 
-                    <input class="casilla_r" type="email" placeholder="E-mail" 
-                           required 
-                           title="Ingresa un correo válido"
-                           oninvalid="this.setCustomValidity('Por favor ingresa un correo electrónico válido')"
-                           oninput="this.setCustomValidity('')">
-
-                    <input class="casilla_r" type="password" placeholder="Contraseña" 
-                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" 
-                           title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial" 
-                           required 
-                           oninvalid="this.setCustomValidity('La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial')"
-                           oninput="this.setCustomValidity('')">
-
+                 <!-- mensaje registro exitosos -->
+                 <div id="mensaje-exito" style="display: none; color: green; font-weight: bold; margin-bottom: 15px;">
+                    ¡Te has registrado exitosamente!
+                </div>
                 
-                    <input class="casilla_r" type="number" placeholder="Estrato" 
-                           min="1" max="6" step="1" 
-                           required 
-                           oninvalid="this.setCustomValidity('Por favor selecciona un estrato entre 1 y 6')"
-                           oninput="this.setCustomValidity('')">
+                <form action="/usuarios/registrar" method="post">
+                    <input class="casilla_r" type="text" name="nombre" placeholder="Nombre completo" 
+                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+" title="Solo letras y espacios" 
+                    required oninvalid="this.setCustomValidity('Por favor ingresa tu nombre completo usando solo letras y espacios')" 
+                    oninput="this.setCustomValidity('')">
+                    
+                    <input class="casilla_r" type="email" name="email" placeholder="E-mail" required title="Ingresa un correo válido" oninvalid="this.setCustomValidity('Por favor ingresa un correo electrónico válido')" oninput="this.setCustomValidity('')">
 
-          
+                    <input class="casilla_r" type="password" name="password" placeholder="Contraseña"
+                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" 
+                     title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial"
+                      required oninvalid="this.setCustomValidity('La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial')" 
+                      oninput="this.setCustomValidity('')">
+
+                    <input class="casilla_r" type="number" name="estrato" placeholder="Estrato" min="1" max="6" step="1" 
+                    required oninvalid="this.setCustomValidity('Por favor selecciona un estrato entre 1 y 6')" oninput="this.setCustomValidity('')">
+
                     <button class="btn_registro" type="submit">Registrar</button>
                 </form>
                 <p>¿Ya tienes cuenta? <a href="login">Iniciar sesión</a></p>
@@ -56,5 +49,8 @@
             </div>
         </div>
     </div>
+
+
+    <script src="/javascripts/mensaje_registro_exitoso.js"></script> 
 </body>
 </html>

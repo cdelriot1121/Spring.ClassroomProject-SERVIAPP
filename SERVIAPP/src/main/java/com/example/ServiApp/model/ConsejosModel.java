@@ -29,7 +29,7 @@ public class ConsejosModel {
     @Column(name = "consumos_moderados", nullable = false, length = 1000)
         private String consumo_regular_a;
 
-    @Column(name="columna_bajo", nullable = false, length = 1000 )
+    @Column(name="consumos_bajos", nullable = false, length = 1000 )
     private String consumo_bueno_a;
 
  // rwlacion muchos a uno, un consejo pertenece a un administrador
