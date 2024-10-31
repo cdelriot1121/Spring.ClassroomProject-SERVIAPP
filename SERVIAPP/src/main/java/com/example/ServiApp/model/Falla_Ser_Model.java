@@ -15,15 +15,9 @@ import jakarta.persistence.Table;
 @Table(name = "Fallas_Servicio")
 public class Falla_Ser_Model {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-
-
-
-
 
     @Column (name = "barrio", nullable = false, length=60)
     private String barrio;
@@ -38,7 +32,6 @@ public class Falla_Ser_Model {
     private String comentarios;
 
 
- //relacion muchos a uno, una falla puede pertener a muchos usuarios
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario;
@@ -103,19 +96,6 @@ public class Falla_Ser_Model {
     public void setUsuario(UsuarioModel usuario) {
         this.usuario = usuario;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -1,4 +1,4 @@
-<!--  PANEL DE INICIAR SESION USUARIO -->
+<!--  PANEL DE INICIAR SESION Admin -->
 <!DOCTYPE html>
 <html lang="en">
     <html xmlns:th="http://www.thymeleaf.org">
@@ -21,11 +21,12 @@
         <div class="caja-inicioSesion" >
             <div class="formulario-login">
                 <h2>Iniciar Sesión - Admin</h2>
-                <form>
-                    <input type="text" placeholder="Usuario" required>
-                    <input type="password" placeholder="Contraseña" required>
-                    <input type="number" placeholder="PIN Admin" required>
-                    <button type="submit" onclick="location.href='interfaz-admin';">Entrar</button> 
+                <form action="/login-admin" method="post">
+                    <input type="text" name="usuario-admin" placeholder="Usuario" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <input type="number" name="pin" placeholder="PIN Admin" required>
+                    <div th:if="${error}" style="color: red;">[[${error}]]</div>
+                    <button type="submit">Entrar</button> 
                 </form>
               
             
