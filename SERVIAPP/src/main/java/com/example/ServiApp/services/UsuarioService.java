@@ -7,9 +7,7 @@ import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
 
 @Service
-
 public class UsuarioService {
-
 
 
     @Autowired
@@ -18,4 +16,14 @@ public class UsuarioService {
     public UsuarioModel registrarUsuario(UsuarioModel usuario) {
         return usuarioRepository.save(usuario);
     }
+
+
+    public UsuarioModel autenticar(String email, String contraseña){
+        return usuarioRepository.findAll().stream()
+        .filter(usuario -> usuario.getEmail().equals(email) &&
+                           usuario.getPassword().equals(contraseña))
+                           .findFirst()
+                           .orElse(null);
+    }
+
 }
