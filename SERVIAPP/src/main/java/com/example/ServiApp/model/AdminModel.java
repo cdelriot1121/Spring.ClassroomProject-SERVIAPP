@@ -32,7 +32,6 @@ public class AdminModel {
     @Column(name = "PIN", nullable = false, length = 50)
     private String pin;
 
- // relacion uno a muchos, un administrador puede reportar de uno mucho cortes
     @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
      @JsonIgnore
     private java.util.List<CortesModel> cortes;
@@ -41,17 +40,9 @@ public class AdminModel {
      @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
      @JsonIgnore
      private List<ConsejosModel> consejos;
- 
-
-
-
 
     public AdminModel() {
     }
-
-
-
-
 
     public AdminModel(long id, String usuario, String password, String pin, List<CortesModel> cortes,
             List<ConsejosModel> consejos) {
@@ -62,7 +53,6 @@ public class AdminModel {
         this.cortes = cortes;
         this.consejos = consejos;
     }
-
 
     public long getId() {
         return id;
