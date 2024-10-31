@@ -12,9 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name= "usuarios")
+@Table(name= "usuarios", uniqueConstraints= @UniqueConstraint(columnNames = "email"))
 public class UsuarioModel {
 
     @Id
@@ -31,7 +32,7 @@ public class UsuarioModel {
     private String password;
 
     @Column(name = "estrato", nullable = false, length = 50)
-    private String estrato;
+    private int estrato;
 
     // relacion uno a muchos con servicios, el usuario puede tener de uno a muchos servicios
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -50,7 +51,7 @@ public class UsuarioModel {
     }
 
 
-    public UsuarioModel(long id, String nombre, String email, String password, String estrato,
+    public UsuarioModel(long id, String nombre, String email, String password, int estrato,
             List<ServicioModel> servicios, List<Falla_Ser_Model> fallas_Servicio) {
         this.id = id;
         this.nombre = nombre;
@@ -93,11 +94,11 @@ public class UsuarioModel {
         this.password = password;
     }
 
-    public String getEstrato() {
+    public int getEstrato() {
         return estrato;
     }
 
-    public void setEstrato(String estrato) {
+    public void setEstrato(int estrato) {
         this.estrato = estrato;
     }
 
@@ -131,6 +132,8 @@ public class UsuarioModel {
         sb.append('}');
         return sb.toString();
     }
+
+
 
 
 
