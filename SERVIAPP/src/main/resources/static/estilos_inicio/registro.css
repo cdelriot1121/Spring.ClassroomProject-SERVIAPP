@@ -96,3 +96,20 @@ body {
     position: relative;
     
 }
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.icon-eye {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.icon-eye:hover {
+    color: #333;
+}
