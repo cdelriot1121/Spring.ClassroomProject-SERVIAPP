@@ -71,8 +71,9 @@
 
                     <div class="formulario-registro-serv">
                         <b><h2>Registra tus servicios</h2></b>
-                        <div class="info"><abbr title="información">?</abbr></div>
-                        
+                        <div class="info">
+                            <abbr class="help-icon" title="Información sobre el campo">?</abbr>
+                        </div>
                         <form >
                                 <input class="casilla_rs" list="opciones" id="opcion" name="opcion" placeholder="Tipo de Serivicio" required>
                                 <datalist id="opciones">                    
@@ -90,6 +91,7 @@
                                 </datalist>
 
                                 <input class="casilla_rs" type="number" placeholder="Poliza" min="1" required >
+                            
                                 <input class="casilla_rs" type="number" placeholder="Habitantes del Hogar" min="1" required >
 
                                 <button class="btn_registro_servicio" type="submit">Registrar servicio</button>
