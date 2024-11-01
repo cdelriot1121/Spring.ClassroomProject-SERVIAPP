@@ -19,9 +19,10 @@
         <div class="caja-inicioSesion" >
             <div class="formulario-login">
                 <h2>Iniciar Sesión</h2>
-                <form>
-                    <input type="text" placeholder="Email" required>
-                    <input type="password" placeholder="Contraseña" required>
+                <form action="/login-usuario" method="post"> 
+                    <input type="text" name="correo" placeholder="Email" required>
+                    <input type="password" name="contraseña" placeholder="Contraseña" required>
+                    <div th:if="${error}" style="color: red;">[[${error}]]</div>
                     <button type="submit" onclick="location.href='inicio';">Entrar</button> <!--Momentaneo-->
                     <p><a href="#">Olvidó su contraseña</a></p>
                 </form>
