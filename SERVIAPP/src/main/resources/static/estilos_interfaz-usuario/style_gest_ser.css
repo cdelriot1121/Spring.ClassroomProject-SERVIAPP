@@ -144,3 +144,21 @@ button:hover {
     opacity: 1;
     transform: translateY(0);
 }
+
+.tips-box {
+    background-color: #d0ebf7;
+    padding: 15px;
+    border-left: 5px solid #4bc0f2;
+    border-radius: 8px;
+}
+
+.tips-box h3 {
+    color: #4bc0f2;
+    margin-bottom: 10px;
+}
+
+.tips-box p {
+    color: #333;
+    font-size: 14px;
+}
+

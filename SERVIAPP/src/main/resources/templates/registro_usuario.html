@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/estilos_inicio/registro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+
+
+
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 
 </head>
@@ -31,11 +35,15 @@
                     
                     <input class="casilla_r" type="email" name="email" placeholder="E-mail" required title="Ingresa un correo válido" oninvalid="this.setCustomValidity('Por favor ingresa un correo electrónico válido')" oninput="this.setCustomValidity('')">
 
-                    <input class="casilla_r" type="password" name="password" placeholder="Contraseña"
-                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}" 
-                     title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial"
-                      required oninvalid="this.setCustomValidity('La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial')" 
-                      oninput="this.setCustomValidity('')">
+                    <div class="password-container">
+                        <input class="casilla_r" type="password" id="password" name="password" placeholder="Contraseña"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}"
+                            title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial"
+                            required oninvalid="this.setCustomValidity('La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial')" 
+                            oninput="this.setCustomValidity('')">
+                        <span class="icon-eye" id="togglePassword"><i class="fas fa-eye"></i></span>
+                    </div>
+
 
                     <input class="casilla_r" type="number" name="estrato" placeholder="Estrato" min="1" max="6" step="1" 
                     required oninvalid="this.setCustomValidity('Por favor selecciona un estrato entre 1 y 6')" oninput="this.setCustomValidity('')">
@@ -52,5 +60,6 @@
 
 
     <script src="/javascripts/mensaje_registro_exitoso.js"></script> 
+    <script src="/javascripts/ojito_password.js"></script> 
 </body>
 </html>
