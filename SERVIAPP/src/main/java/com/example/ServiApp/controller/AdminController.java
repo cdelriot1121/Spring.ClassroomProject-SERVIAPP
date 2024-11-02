@@ -24,7 +24,7 @@ public class AdminController {
                         Model model) {
         AdminModel admin = adminService.authenticate(usuario, password, pin);
         if (admin != null) {
-            return "interfaz-admin"; 
+            return "redirect:/interfaz-admin"; 
         } else {
             model.addAttribute("error", "Los datos son incorrectos");
             return "login-admin";

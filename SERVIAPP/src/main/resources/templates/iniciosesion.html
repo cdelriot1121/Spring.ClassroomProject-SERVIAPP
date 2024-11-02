@@ -22,8 +22,8 @@
                 <form action="/login-usuario" method="post"> 
                     <input type="text" name="correo" placeholder="Email" required>
                     <input type="password" name="contraseña" placeholder="Contraseña" required>
-                    <div th:if="${error}" style="color: red;">[[${error}]]</div>
-                    <button type="submit" onclick="location.href='inicio';">Entrar</button> <!--Momentaneo-->
+                    <div th:if="${error}" style="color: red;" class="mensaje-error">[[${error}]]</div>
+                    <button type="submit">Entrar</button> 
                     <p><a href="#">Olvidó su contraseña</a></p>
                 </form>
                 <p>¿Aún no tienes cuenta? <a href="registro">Registrate</a></p>
