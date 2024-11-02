@@ -1,8 +1,10 @@
 package com.example.ServiApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,13 @@ public class UsuarioController {
         model.addAttribute("mensaje", "Te has registrado exitosamente");
         return "redirect:/login";
     }
+
+   @GetMapping("/usuarios/contador")
+public ResponseEntity<Long> obtenerContadorUsuarios() {
+    return ResponseEntity.ok(usuarioService.contarUsuarios());
+}
+
+
 
     @PostMapping("/login-usuario")
     public String login_usuario(@RequestParam("correo") String email,
