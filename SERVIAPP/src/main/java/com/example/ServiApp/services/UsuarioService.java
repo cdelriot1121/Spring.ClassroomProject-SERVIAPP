@@ -17,6 +17,11 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public long contarUsuarios() {
+        return usuarioRepository.count();
+    }
+
+
 
     public UsuarioModel autenticar(String email, String contraseña){
         return usuarioRepository.findAll().stream()
