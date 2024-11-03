@@ -18,99 +18,80 @@ public class ConsejosModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column (name="tipo_servicio", nullable=false,length = 50)
+    private String tipo_servicio;
 
-    @Column(name="consumos_elevados", nullable = false, length = 1000)
-    private String consumo_alto_a;
+    @Column (name="categoria_consumo", nullable=false,length = 50)
+    private String categoria_consumo;
 
-    @Column (name="tipo_consumo", nullable=false,length = 50)
-    private String tipo_de_consumo;
-
-
-    @Column(name = "consumos_moderados", nullable = false, length = 1000)
-        private String consumo_regular_a;
-
-    @Column(name="consumos_bajos", nullable = false, length = 1000 )
-    private String consumo_bueno_a;
-
+     @Column (name="contenido", nullable=false,length = 50)
+    private String contenido;
+  
  // rwlacion muchos a uno, un consejo pertenece a un administrador
     @ManyToOne
     @JoinColumn(name = "administrador_id", nullable = false)
     private AdminModel administrador;
 
-// relacion muchos a uno con periodos
-    @ManyToOne
-    @JoinColumn(name = "periodos_id", nullable = false)
-    private PeriodoModel periodo;
 
 
     public ConsejosModel() {
     }
 
-    public ConsejosModel(long id, String consumo_alto_a, String tipo_de_consumo, String consumo_regular_a,
-            String consumo_bueno_a, AdminModel administrador, PeriodoModel periodo) {
-        this.id = id;
-        this.consumo_alto_a = consumo_alto_a;
-        this.tipo_de_consumo = tipo_de_consumo;
-        this.consumo_regular_a = consumo_regular_a;
-        this.consumo_bueno_a = consumo_bueno_a;
+    public ConsejosModel(AdminModel administrador, String categoria_consumo, String contenido, long id, String tipo_servicio) {
         this.administrador = administrador;
-        this.periodo = periodo;
+        this.categoria_consumo = categoria_consumo;
+        this.contenido = contenido;
+        this.id = id;
+        this.tipo_servicio = tipo_servicio;
     }
+
+
 
     public long getId() {
         return id;
     }
 
 
-  public void setId(long id) {
+
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getConsumo_alto_a() {
-        return consumo_alto_a;
-    }
 
 
-    public void setConsumo_alto_a(String consumo_alto_a) {
-        this.consumo_alto_a = consumo_alto_a;
-    }
-
-
-
-    public String getTipo_de_consumo() {
-        return tipo_de_consumo;
-    }
-
-
-    public void setTipo_de_consumo(String tipo_de_consumo) {
-        this.tipo_de_consumo = tipo_de_consumo;
-    }
-
-
-    public String getConsumo_regular_a() {
-        return consumo_regular_a;
+    public String getTipo_servicio() {
+        return tipo_servicio;
     }
 
 
 
-    public void setConsumo_regular_a(String consumo_regular_a) {
-        this.consumo_regular_a = consumo_regular_a;
+    public void setTipo_servicio(String tipo_servicio) {
+        this.tipo_servicio = tipo_servicio;
     }
 
 
 
-
-    public String getConsumo_bueno_a() {
-        return consumo_bueno_a;
+    public String getCategoria_consumo() {
+        return categoria_consumo;
     }
 
 
 
-
-    public void setConsumo_bueno_a(String consumo_bueno_a) {
-        this.consumo_bueno_a = consumo_bueno_a;
+    public void setCategoria_consumo(String categoria_consumo) {
+        this.categoria_consumo = categoria_consumo;
     }
 
+
+
+    public String getContenido() {
+        return contenido;
+    }
+
+
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
 
 
 
@@ -124,38 +105,21 @@ public class ConsejosModel {
         this.administrador = administrador;
     }
 
-
-
-    public PeriodoModel getPeriodo() {
-        return periodo;
-    }
-
-
-    public void setPeriodo(PeriodoModel periodo) {
-        this.periodo = periodo;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ConsejosModel{");
         sb.append("id=").append(id);
-        sb.append(", consumo_alto_a=").append(consumo_alto_a);
-        sb.append(", tipo_de_consumo=").append(tipo_de_consumo);
-        sb.append(", consumo_regular_a=").append(consumo_regular_a);
-        sb.append(", consumo_bueno_a=").append(consumo_bueno_a);
+        sb.append(", tipo_servicio=").append(tipo_servicio);
+        sb.append(", categoria_consumo=").append(categoria_consumo);
+        sb.append(", contenido=").append(contenido);
         sb.append(", administrador=").append(administrador);
-        sb.append(", periodo=").append(periodo);
         sb.append('}');
         return sb.toString();
     }
 
 
-
-
-
-
-
+    
 
    
    

@@ -15,8 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
-
 @Entity
 @Table(name="servicios")
 public class ServicioModel {
@@ -40,13 +38,6 @@ public class ServicioModel {
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CortesModel> cortes;
-
-
-
-
-    
-
-
 
 
     @Column(name = "tipo_servicio", nullable = false, length = 50)
@@ -155,21 +146,5 @@ public class ServicioModel {
         sb.append('}');
         return sb.toString();
     }
-
-
-    
-   
-
-
-
-    
-
-
-
-
-
-
-
-
 
 }
