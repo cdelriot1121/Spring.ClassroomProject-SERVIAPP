@@ -25,7 +25,7 @@
                     <input type="text" name="usuario-admin" placeholder="Usuario" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
                     <input type="number" name="pin" placeholder="PIN Admin" required>
-                    <div th:if="${error}" style="color: red;">[[${error}]]</div>
+                    <div th:if="${error}" style="color: red;" class="mensaje-error">[[${error}]]</div>
                     <button type="submit">Entrar</button> 
                 </form>
               

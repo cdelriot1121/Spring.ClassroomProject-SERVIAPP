@@ -13,6 +13,12 @@ body {
     background-color: #E5F0FF;
 }
 
+.mensaje-error{
+    margin: auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
 .contenedor {
     width: 80%;
     max-width: 1000px;
