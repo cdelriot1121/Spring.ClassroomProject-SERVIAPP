@@ -1,8 +1,5 @@
 package com.example.ServiApp.model;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,9 +31,6 @@ public class PeriodoModel {
     @JoinColumn(name = "servicio_id", nullable = false)
     private ServicioModel servicio;
 
-    // relacion uno a muchos, un periodo puede tener de uno a mcuhos consejos
-    @OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private  java.util.List<ConsejosModel> consejos;
 
 
 
@@ -46,12 +39,11 @@ public class PeriodoModel {
 
 
 
-    public PeriodoModel(long id, String mes, float consumo, ServicioModel servicio, List<ConsejosModel> consejos) {
+    public PeriodoModel(long id, String mes, float consumo, ServicioModel servicio) {
         this.id = id;
         this.mes = mes;
         this.consumo = consumo;
         this.servicio = servicio;
-        this.consejos = consejos;
     }
 
 
@@ -102,16 +94,6 @@ public class PeriodoModel {
 
 
 
-    public java.util.List<ConsejosModel> getConsejos() {
-        return consejos;
-    }
-
-
-
-    public void setConsejos(java.util.List<ConsejosModel> consejos) {
-        this.consejos = consejos;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -120,7 +102,6 @@ public class PeriodoModel {
         sb.append(", mes=").append(mes);
         sb.append(", consumo=").append(consumo);
         sb.append(", servicio=").append(servicio);
-        sb.append(", consejos=").append(consejos);
         sb.append('}');
         return sb.toString();
     }
