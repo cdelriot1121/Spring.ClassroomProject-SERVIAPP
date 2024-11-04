@@ -133,21 +133,22 @@
             <option value="gas">Gas</option>
         </select>
 
-        <label for="servicio">Barrio afectado: </label>
-        <select id="servicio" name="servicio" required>
+        <label for="barrio">Barrio afectado: </label>
+        <select id="barrio" name="barrio" required>
             <option value="la victoria">La Victoria</option>
             <option value="la esperanza">La Esperanza</option>
             <option value="plan 400">Plan 400</option>
         </select>
 
-        <label for="hora_inicio">Hora de inicio del corte:</label>
-        <input type="time" step="1800" id="hora_inicio" name="hora_inicio" required>
+        <label for="hora_inicio">Hora aproximada de inicio de la falla:</label>
+        <input type="time" step="300" id="hora_inicio" name="hora_inicio" required>
 
-        <label for="comentario">Comentario:</label>
+        <label for="comentario">Comentario o motivo:</label>
         <textarea id="comentario" name="comentario" rows="4" cols="50" placeholder="Escribe tu comentario aquí"></textarea>
+
+        <button type="submit">Reportar</button>
     </div>
 </form>
-
 
 
         

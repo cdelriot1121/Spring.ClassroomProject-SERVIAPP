@@ -85,6 +85,7 @@ td:nth-child(4) {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
+    margin-bottom: 100px;
 }
 
 /* Estilo de los títulos de cada sección */
@@ -113,7 +114,7 @@ td:nth-child(4) {
 .form-section button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #36b2fa;
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
