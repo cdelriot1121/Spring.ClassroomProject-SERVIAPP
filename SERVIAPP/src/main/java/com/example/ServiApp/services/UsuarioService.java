@@ -21,8 +21,6 @@ public class UsuarioService {
         return usuarioRepository.count();
     }
 
-
-
     public UsuarioModel autenticar(String email, String contraseña){
         return usuarioRepository.findAll().stream()
         .filter(usuario -> usuario.getEmail().equals(email) &&

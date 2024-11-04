@@ -24,7 +24,7 @@ public class ConsejosModel {
     @Column (name="categoria_consumo", nullable=false,length = 50)
     private String categoria_consumo;
 
-     @Column (name="contenido", nullable=false,length = 50)
+    @Column (name="contenido", nullable=false ,length = 1500)
     private String contenido;
   
  // rwlacion muchos a uno, un consejo pertenece a un administrador
