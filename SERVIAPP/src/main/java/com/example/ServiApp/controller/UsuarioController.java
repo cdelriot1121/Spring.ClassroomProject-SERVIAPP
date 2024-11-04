@@ -29,9 +29,6 @@ public class UsuarioController {
     }
 
 
-
-
-
    @GetMapping("/usuarios/contador")
 public ResponseEntity<Long> obtenerContadorUsuarios() {
     return ResponseEntity.ok(usuarioService.contarUsuarios());
