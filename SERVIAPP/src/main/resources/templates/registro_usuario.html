@@ -61,13 +61,11 @@
         </div>
     </div>
 
-
     <script>
-        
         if (window.location.search.includes('exito=true')) {
             const params = new URLSearchParams(window.location.search);
             const nombreDelUsuario = params.get('nombre') || 'Usuario';
-        
+    
             Swal.fire({
                 icon: 'success',
                 title: `¡Registro exitoso, ${nombreDelUsuario}!`,
@@ -80,17 +78,17 @@
                 },
                 didRender: () => {
                     const logo = document.createElement('img');
-                    logo.src = '/img_local/logo-pagina-serviapp.png'; 
+                    logo.src = '/img_local/logo-pagina-serviapp.png';
                     logo.alt = 'Logo de ServiApp';
                     logo.style.width = '155px';
                     logo.style.display = 'block';
-                    logo.style.margin = '0 auto 1px';
-                    Swal.getIcon().before(logo); 
+                    logo.style.margin = '0 auto 5px'; // Reducido para menor espacio
+                    Swal.getIcon().before(logo);
                 }
             });
         }
-        
     </script>
+    
 
 
     <script src="/javascripts/mensaje_registro_exitoso.js"></script> 

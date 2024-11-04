@@ -24,7 +24,6 @@ public class UsuarioController {
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
         UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
         if (usuarioRegistrado != null) {
-            // enviar el nombre dle usuario para que aparezca en el mensaje de registro exitoso
             return "redirect:/registro?exito=true&nombre=" + usuario.getNombre();
         } else {
             model.addAttribute("error", "No se pudo registrar el usuario");
@@ -32,7 +31,6 @@ public class UsuarioController {
         }
     }
     
-
     @GetMapping("/usuarios/contador")
     public ResponseEntity<Long> obtenerContadorUsuarios() {
         return ResponseEntity.ok(usuarioService.contarUsuarios());
@@ -45,12 +43,21 @@ public class UsuarioController {
                                 HttpSession session) {
         UsuarioModel usuario = usuarioService.autenticar(email, contraseña);
         if (usuario != null) {
-            // Guardar usuario en la sesión
             session.setAttribute("usuarioLogueado", usuario);
-            return "interfaz_inicio";
+            return "redirect:/interfaz_inicio";
         } else {
             model.addAttribute("error", "Los datos ingresados son incorrectos");
             return "iniciosesion";
         }
+    }
+
+    @GetMapping("/interfaz_inicio")
+    public String mostrarInterfazInicio(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado != null) {
+            model.addAttribute("nombreUsuario", usuarioLogueado.getNombre());
+            System.out.println("Nombre del usuario logueado: " + usuarioLogueado.getNombre());
+        }
+        return "interfaz_inicio"; 
     }
 }

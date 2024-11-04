@@ -75,21 +75,32 @@
             </div>
 
             <div class="col-md-9">
-                <!-- Datos Personales -->
-                <section id="section-datos-personales">
-                    <h4>Datos Personales</h4>
-                    <form id="updateProfileForm">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="name" placeholder="Tu nombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="Tu correo" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Actualizar Datos</button>
-                    </form>
-                </section>
+           <!-- Datos Personales -->
+                    <section id="section-datos-personales">
+                        <h4>Datos Personales</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Completo</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Estrato</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="nombre" contenteditable="false">Nombre Completo del Usuario</td>
+                                    <td id="email" contenteditable="false">correo@ejemplo.com</td>
+                                    <td id="estrato" contenteditable="false">Estrato</td>
+                                    <td>
+                                        <button id="btn-editar" class="btn btn-warning btn-sm">Actualizar</button>
+                                        <button id="btn-guardar" class="btn btn-success btn-sm" style="display:none;">Guardar Cambios</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
 
                 <!-- Cambiar Contraseña -->
                 <section id="section-cambiar-contrasena" style="display: none;">
