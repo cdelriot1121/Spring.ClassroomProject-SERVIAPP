@@ -14,7 +14,6 @@ import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
-
 @Controller
 public class UsuarioController {
 
@@ -23,40 +22,35 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
-        usuarioService.registrarUsuario(usuario);
-        model.addAttribute("mensaje", "Te has registrado exitosamente");
-        return "redirect:/login";
+        UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
+        if (usuarioRegistrado != null) {
+            // enviar el nombre dle usuario para que aparezca en el mensaje de registro exitoso
+            return "redirect:/registro?exito=true&nombre=" + usuario.getNombre();
+        } else {
+            model.addAttribute("error", "No se pudo registrar el usuario");
+            return "registro";
+        }
     }
-
-
-
-
-
-   @GetMapping("/usuarios/contador")
-public ResponseEntity<Long> obtenerContadorUsuarios() {
-    return ResponseEntity.ok(usuarioService.contarUsuarios());
-}
-
-
-
- @PostMapping("/login-usuario")
-public String login_usuario(@RequestParam("correo") String email,
-                            @RequestParam("contraseña") String contraseña,
-                            Model model,
-                            HttpSession session) {  // parametro HttpSession 
-    UsuarioModel usuario = usuarioService.autenticar(email, contraseña);
-    if (usuario != null) {
-        // guardar usuario en la sesion
-        session.setAttribute("usuarioLogueado", usuario);
-        return "interfaz_inicio";
-    } else {
-        model.addAttribute("error", "Los datos ingresados son incorrectos");
-        return "iniciosesion";
-    }
-}
-
-
-
-
     
+
+    @GetMapping("/usuarios/contador")
+    public ResponseEntity<Long> obtenerContadorUsuarios() {
+        return ResponseEntity.ok(usuarioService.contarUsuarios());
+    }
+
+    @PostMapping("/login-usuario")
+    public String login_usuario(@RequestParam("correo") String email,
+                                @RequestParam("contraseña") String contraseña,
+                                Model model,
+                                HttpSession session) {
+        UsuarioModel usuario = usuarioService.autenticar(email, contraseña);
+        if (usuario != null) {
+            // Guardar usuario en la sesión
+            session.setAttribute("usuarioLogueado", usuario);
+            return "interfaz_inicio";
+        } else {
+            model.addAttribute("error", "Los datos ingresados son incorrectos");
+            return "iniciosesion";
+        }
+    }
 }
