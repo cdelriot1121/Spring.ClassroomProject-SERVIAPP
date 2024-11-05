@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.ServiApp.model.AdminModel;
 import com.example.ServiApp.services.AdminService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -21,10 +23,11 @@ public class AdminController {
     public String login(@RequestParam("usuario-admin") String usuario,
                         @RequestParam("password") String password,
                         @RequestParam("pin") String pin,
-                        Model model) {
+                        Model model, HttpSession sessionadmin) {
         AdminModel admin = adminService.authenticate(usuario, password, pin);
         if (admin != null) {
             return "redirect:/interfaz-admin"; 
+
         } else {
             model.addAttribute("error", "Los datos son incorrectos");
             return "login-admin";

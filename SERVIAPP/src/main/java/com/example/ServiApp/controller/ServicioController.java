@@ -33,7 +33,7 @@ public class ServicioController {
 
             // mesnajse de exito cuando se registra el servicio
             model.addAttribute("mensaje", "Servicio registrado exitosamente");
-            return "reg_servicio";  
+            return "redirect:/registrar-servicio";
         } else {
             // comprobar si hay  usuarios en sesion, y si no redirigir a la pagina de inicio de sesion, o tambien si no encutra algun usuario u ocurre algun error redirige a la pogina inicio de seion 
             model.addAttribute("error", "No hay usuario autenticado");

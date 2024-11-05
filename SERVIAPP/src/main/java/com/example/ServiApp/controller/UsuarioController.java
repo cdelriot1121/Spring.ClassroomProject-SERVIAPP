@@ -30,11 +30,14 @@ public class UsuarioController {
             return "registro";
         }
     }
-    
-    @GetMapping("/usuarios/contador")
-    public ResponseEntity<Long> obtenerContadorUsuarios() {
-        return ResponseEntity.ok(usuarioService.contarUsuarios());
-    }
+
+
+
+   @GetMapping("/usuarios/contador")
+public ResponseEntity<Long> obtenerContadorUsuarios() {
+    return ResponseEntity.ok(usuarioService.contarUsuarios());
+}
+
 
     @PostMapping("/login-usuario")
     public String login_usuario(@RequestParam("correo") String email,

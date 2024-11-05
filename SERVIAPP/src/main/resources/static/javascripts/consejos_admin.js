@@ -1,4 +1,4 @@
-
+//Consejos_admin.js
 const servicioSelect = document.getElementById('servicio');
 const caracteristicaSelect = document.getElementById('caracteristica');
 const consejoField = document.getElementById('consejo-field');
