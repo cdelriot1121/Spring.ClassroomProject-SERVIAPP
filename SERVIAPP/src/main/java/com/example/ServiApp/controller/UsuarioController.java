@@ -14,7 +14,6 @@ import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
-
 @Controller
 public class UsuarioController {
 
@@ -23,10 +22,15 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
-        usuarioService.registrarUsuario(usuario);
-        model.addAttribute("mensaje", "Te has registrado exitosamente");
-        return "redirect:/login";
+        UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
+        if (usuarioRegistrado != null) {
+            return "redirect:/registro?exito=true&nombre=" + usuario.getNombre();
+        } else {
+            model.addAttribute("error", "No se pudo registrar el usuario");
+            return "registro";
+        }
     }
+
 
 
    @GetMapping("/usuarios/contador")
@@ -35,25 +39,28 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
 }
 
 
-
- @PostMapping("/login-usuario")
-public String login_usuario(@RequestParam("correo") String email,
-                            @RequestParam("contraseña") String contraseña,
-                            Model model,
-                            HttpSession session) {  // parametro HttpSession 
-    UsuarioModel usuario = usuarioService.autenticar(email, contraseña);
-    if (usuario != null) {
-        // guardar usuario en la sesion
-        session.setAttribute("usuarioLogueado", usuario);
-        return "interfaz_inicio";
-    } else {
-        model.addAttribute("error", "Los datos ingresados son incorrectos");
-        return "iniciosesion";
+    @PostMapping("/login-usuario")
+    public String login_usuario(@RequestParam("correo") String email,
+                                @RequestParam("contraseña") String contraseña,
+                                Model model,
+                                HttpSession session) {
+        UsuarioModel usuario = usuarioService.autenticar(email, contraseña);
+        if (usuario != null) {
+            session.setAttribute("usuarioLogueado", usuario);
+            return "redirect:/interfaz_inicio";
+        } else {
+            model.addAttribute("error", "Los datos ingresados son incorrectos");
+            return "iniciosesion";
+        }
     }
-}
 
-
-
-
-    
+    @GetMapping("/interfaz_inicio")
+    public String mostrarInterfazInicio(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado != null) {
+            model.addAttribute("nombreUsuario", usuarioLogueado.getNombre());
+            System.out.println("Nombre del usuario logueado: " + usuarioLogueado.getNombre());
+        }
+        return "interfaz_inicio"; 
+    }
 }

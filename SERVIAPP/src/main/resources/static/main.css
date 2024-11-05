@@ -340,3 +340,28 @@ footer {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
+
+.mensaje_bienvenida {
+    color: white;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0;
+    animation: aparecer 2s ease-out forwards; 
+}
+
+.mensaje_bienvenida p {
+    font-size: inherit;
+    margin: 0;
+    padding-right: 555px;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px); 
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}

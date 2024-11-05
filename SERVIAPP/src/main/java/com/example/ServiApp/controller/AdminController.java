@@ -26,8 +26,8 @@ public class AdminController {
                         Model model, HttpSession sessionadmin) {
         AdminModel admin = adminService.authenticate(usuario, password, pin);
         if (admin != null) {
-            sessionadmin.setAttribute("adminLogueado", admin);
-            return "interfaz-admin"; 
+            return "redirect:/interfaz-admin"; 
+
         } else {
             model.addAttribute("error", "Los datos son incorrectos");
             return "login-admin";
