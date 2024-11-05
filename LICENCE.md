@@ -1,21 +1,19 @@
-# MIT License
+# Creative Commons Attribution-NonCommercial 4.0 International License
 
-### Copyright (c) [2024] [Giovanny Orozco Segovia, Carlos Andres Del rio Trocha, Willys Hurtado Berdugo, Valeria Hernández Herrera]
+Copyright (c) [2024] [Giovanny Orozco Segovia, Carlos Andres Del rio Trocha, Willys Hurtado Berdugo, Valeria Hernández Herrera]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+You are free to:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+- Share: Copy and redistribute the material in any medium or format.
+- Adapt: Remix, transform, and build upon the material for any non-commercial purpose.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Under the following terms:
+
+- Attribution: You must give appropriate credit to the authors, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+- NonCommercial: You may not use the material for commercial purposes.
+
+No additional restrictions: You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+
+You can view the full license here: https://creativecommons.org/licenses/by-nc/4.0/
+
+This license allows others to freely share and adapt your work, as long as it is for non-commercial purposes and they give you credit for the original creation. It does not allow for commercial exploitation of your work without permission.
