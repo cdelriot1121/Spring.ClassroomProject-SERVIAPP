@@ -63,4 +63,18 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
         }
         return "interfaz_inicio"; 
     }
+
+    @GetMapping("/datos-personales")
+    public String mostrarDatosPersonales(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+
+        if (usuarioLogueado != null) {
+          
+            model.addAttribute("usuario", usuarioLogueado);
+        } else {
+            return "redirect:/login";
+        }
+        return "perfil_datos";
+    }
+
 }
