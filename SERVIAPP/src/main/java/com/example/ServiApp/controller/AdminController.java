@@ -18,7 +18,6 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-
     @PostMapping("/login-admin")
     public String login(@RequestParam("usuario-admin") String usuario,
                         @RequestParam("password") String password,
@@ -26,8 +25,8 @@ public class AdminController {
                         Model model, HttpSession sessionadmin) {
         AdminModel admin = adminService.authenticate(usuario, password, pin);
         if (admin != null) {
+            sessionadmin.setAttribute("adminLogueado", admin);
             return "redirect:/interfaz-admin"; 
-
         } else {
             model.addAttribute("error", "Los datos son incorrectos");
             return "login-admin";
