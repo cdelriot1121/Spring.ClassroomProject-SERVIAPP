@@ -1,5 +1,7 @@
 package com.example.ServiApp.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class CortesService {
 
     public CortesModel registrarCorte(CortesModel corte){
         return cortesRepository.save(corte);
+    }
+
+    public List<CortesModel> obtenerTodosLosCortes() {
+        return cortesRepository.findAll();
     }
 
 }
