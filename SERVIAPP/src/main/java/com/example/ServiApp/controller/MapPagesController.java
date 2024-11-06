@@ -50,10 +50,6 @@ public class MapPagesController {
        return "Lineas_atencion";
    }
 
-   @GetMapping("/perfil")
-   public String perfil(){
-       return "perfil_datos";
-   }
 
    @GetMapping("/consejos-personzalidos")
    public String consejospersonalizdos(){

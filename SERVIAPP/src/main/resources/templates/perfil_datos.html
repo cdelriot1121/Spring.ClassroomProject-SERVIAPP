@@ -36,9 +36,8 @@
                 <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
             </button>
             <div class="profile-dropdown" id="profileDropdown">
-                <a href="perfil">Configuración</a>
+                <a href="datos-personales">Configuración</a>
                 <a href="/">Cerrar Sesion</a>
-                
             </div>
         </div>
     </header>
@@ -89,10 +88,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td id="nombre" contenteditable="false">Nombre Completo del Usuario</td>
-                                    <td id="email" contenteditable="false">correo@ejemplo.com</td>
-                                    <td id="estrato" contenteditable="false">Estrato</td>
-                                    <td>
+                                    <td th:text="${usuario.nombre}">Nombre Completo</td>
+                                    <td th:text="${usuario.email}">Correo Electrónico</td>
+                                    <td th:text="${usuario.estrato}">Estrato</td>
                                         <button id="btn-editar" class="btn btn-warning btn-sm">Actualizar</button>
                                         <button id="btn-guardar" class="btn btn-success btn-sm" style="display:none;">Guardar Cambios</button>
                                     </td>
