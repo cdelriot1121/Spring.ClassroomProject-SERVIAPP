@@ -16,15 +16,15 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-
 public class ConsejosController {
 
     @Autowired
     private ConsejosService consejosService;
 
-
     @PostMapping("/registrar-consejo")
-    public String registrarConsejo(@ModelAttribute ConsejosModel consejo, Model model, HttpSession sessionadmin) {
+    public String registrarConsejo(@ModelAttribute ConsejosModel consejo, 
+    Model model, 
+    HttpSession sessionadmin) {
         AdminModel adminLogueado = (AdminModel) sessionadmin.getAttribute("adminLogueado");
 
         if (adminLogueado != null) {

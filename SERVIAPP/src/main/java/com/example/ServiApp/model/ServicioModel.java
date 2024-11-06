@@ -30,15 +30,9 @@ public class ServicioModel {
     private UsuarioModel usuario;
 
     //relacion uno a muchos, un servicio puede tener de uno a muchos periodos
-  @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private java.util.List<PeriodoModel> periodos;
-
-    //relacion uno a muchos, un servicio puede tener de uno a muchos cortes
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<CortesModel> cortes;
-
+    private java.util.List<PeriodoModel> periodos;
 
     @Column(name = "tipo_servicio", nullable = false, length = 50)
     private String tipo_servicio;
@@ -55,12 +49,11 @@ public class ServicioModel {
     public ServicioModel() {
     }
 
-    public ServicioModel(long id, UsuarioModel usuario, List<PeriodoModel> periodos, List<CortesModel> cortes,
+    public ServicioModel(long id, UsuarioModel usuario, List<PeriodoModel> periodos,
             String tipo_servicio, String empresa, long poliza, long habitantes) {
         this.id = id;
         this.usuario = usuario;
         this.periodos = periodos;
-        this.cortes = cortes;
         this.tipo_servicio = tipo_servicio;
         this.empresa = empresa;
         this.poliza = poliza;
@@ -91,13 +84,6 @@ public class ServicioModel {
         this.periodos = periodos;
     }
 
-    public List<CortesModel> getCortes() {
-        return cortes;
-    }
-
-    public void setCortes(List<CortesModel> cortes) {
-        this.cortes = cortes;
-    }
 
     public String getTipo_servicio() {
         return tipo_servicio;
@@ -138,7 +124,6 @@ public class ServicioModel {
         sb.append("id=").append(id);
         sb.append(", usuario=").append(usuario);
         sb.append(", periodos=").append(periodos);
-        sb.append(", cortes=").append(cortes);
         sb.append(", tipo_servicio=").append(tipo_servicio);
         sb.append(", empresa=").append(empresa);
         sb.append(", poliza=").append(poliza);

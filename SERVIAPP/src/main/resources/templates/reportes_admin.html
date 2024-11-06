@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin Panel - Programar Cortes</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,12 +37,6 @@
                 <li class="p-2 g-col-6"><a href="reportes-admin">Reportes</a></li>
                 <li class="p-2 g-col-6"><a href="/reportes_usuarios">Reportes usuarios</a></li>
                 <li class="p-2 g-col-6"><a href="consejos-admin">Consejos</a></li>
-
-                
-
-
-            
-
             </ul>
           </div>
         </div>
@@ -50,45 +44,63 @@
 
       <div class="container">
         <h2>Registrar Reportes Corte de Servicio</h2>
-    
-        <form  method="POST">
-            <div class="form-section">
-                <label for="servicio">Servicio(s) afectado(s):</label>
-                <select id="servicio" name="servicio" required>
-                    <option value="agua">Agua</option>
-                    <option value="energia">Energia</option>
-                    <option value="gas">Gas</option>
+
+        <form th:action="@{/registrar-corte}" th:object="${cortesModel}" method="post">
+            <!-- Tipo de Servicio -->
+            <div class="mb-3">
+                <label for="tipo_servicio" class="form-label">Tipo de Servicio</label>
+                <select id="tipo_servicio" name="tipo_servicio" class="form-select" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Agua">Agua</option>
+                    <option value="Energia">Energía</option>
+                    <option value="Gas">Gas</option>
                 </select>
-    
-                <label for="barrios">Barrios afectados:</label>
-                <div id="barrios" class="barrios-container">
+            </div>
+        
+            <!-- Barrios Afectados -->
+            <div class="mb-3">
+                <label for="barrio" class="form-label">Barrios Afectados</label>
+                <div>
                     <label><input type="checkbox" name="barrios" value="La Victoria"> La Victoria</label>
                     <label><input type="checkbox" name="barrios" value="Plan 400"> Plan 400</label>
                     <label><input type="checkbox" name="barrios" value="La Esperanza"> La Esperanza</label>
                     <label><input type="checkbox" name="barrios" value="Olaya"> Olaya</label>
                     <label><input type="checkbox" name="barrios" value="Centro"> Centro</label>
                 </div>
-
-                <label for="motivo">Motivo: </label>
-                <select id="motivo" name="motivo" required>
-                    <option value="mantenimiento">Mantenimiento Programado</option>
-                    <option value="reparacion">Reparacion de emergencia</option>
-                    <option value="condiciones">Condiciones climaticas</option>
-                </select>
-    
-    
-                <label for="fecha_corte">Fecha de corte:</label>
-                <input type="date" id="fecha_corte" name="fecha_corte" required>
-    
-                <label for="hora_inicio">Hora de inicio del corte:</label>
-                <input type="time" step="300" id="hora_inicio" name="hora_inicio" required>
-    
-                <label for="hora_fin">Hora de finalización del corte:</label>
-                <input type="time" step="900" id="hora_fin" name="hora_fin" required>
             </div>
-    
-            <button type="submit">Guardar</button>
+        
+            <!-- Motivo -->
+            <div class="mb-3">
+                <label for="motivo" class="form-label">Motivo</label>
+                <select id="motivo" name="motivo" class="form-select" required>
+                    <option value="mantenimiento">Mantenimiento Programado</option>
+                    <option value="reparacion">Reparación de emergencia</option>
+                    <option value="condiciones">Condiciones climáticas</option>
+                </select>
+            </div>
+        
+            <!-- Fecha de Corte -->
+            <div class="mb-3">
+                <label for="fecha_corte" class="form-label">Fecha de Corte</label>
+                <input type="date" id="fecha_corte" name="fecha" class="form-control" required>
+            </div>
+        
+            <!-- Hora de Inicio -->
+            <div class="mb-3">
+                <label for="hora_inicio" class="form-label">Hora de Inicio</label>
+                <input type="time" id="hora_inicio" name="hora_inicio" class="form-control" required>
+            </div>
+        
+            <!-- Hora de Finalización -->
+            <div class="mb-3">
+                <label for="hora_final" class="form-label">Hora de Finalización</label>
+                <input type="time" id="hora_final" name="hora_final" class="form-control" required>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Registrar Corte</button>
         </form>
+        
+
     
         <div class="table-container">
             <h3>Cortes Programados</h3>
