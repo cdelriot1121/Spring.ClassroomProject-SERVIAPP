@@ -28,9 +28,9 @@ public class Falla_Ser_Model {
     @Column (name="hora", nullable=false, length=50)
     private Time hora;
 
-    @Column (name= "comentarios", nullable = false,length = 50)
+    @Column(name = "comentarios", nullable = false, length = 2000)
     private String comentarios;
-
+    
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)

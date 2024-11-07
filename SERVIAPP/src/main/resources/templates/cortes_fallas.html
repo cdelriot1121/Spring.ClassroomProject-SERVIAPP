@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
-    <html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +57,7 @@
                     <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
                     <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
                     <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro Personalizados </a></li>
-                    <li class="p-2 g-col-6"><a href="cortes_fallas"><i class='bx bxs-alarm'></i> Cortes</a></li>
+                    <li class="p-2 g-col-6"><a href="cortes"><i class='bx bxs-alarm'></i> Cortes</a></li>
                     <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
                    
                     
@@ -85,35 +84,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Agua</td>
-                    <td>Plan 400</td>
-                    <td>2024-11-01</td>
-                    <td>08:00</td>
-                    <td>12:00</td>
-                </tr>
-                <tr>
-                    <td>Energia</td>
-                    <td>Olaya</td>
-                    <td>2024-11-02</td>
-                    <td>09:00</td>
-                    <td>14:00</td>
-                </tr>
-
-                <tr>
-                    <td>Energia</td>
-                    <td>centro</td>
-                    <td>2024-11-02</td>
-                    <td>09:00</td>
-                    <td>14:00</td>
-                </tr>
-
-                <tr>
-                    <td>Agua</td>
-                    <td>jardines</td>
-                    <td>2024-11-02</td>
-                    <td>09:00</td>
-                    <td>14:00</td>
+                <tr th:each="corte : ${cortes}">
+                    <td th:text="${corte.tipo_servicio}"></td> 
+                    <td th:text="${#strings.arrayJoin(corte.barrios.split(','), ', ')}"></td>
+                    <td th:text="${corte.fecha}"></td>
+                    <td th:text="${corte.hora_inicio}"></td>
+                    <td th:text="${corte.hora_final}"></td>
                 </tr>
             </tbody>
         </table>
@@ -124,53 +100,42 @@
 <h1> Reportar fallos</h1>
 <h2>aqui podras reportar fallos si estos no estan en la tabla de cortes programados</h2>
 
-<form method="POST">
+
+<form action="/reportar-falla" method="POST">
     <div class="form-section">
-        <label for="servicio">Servicio afectado: </label>
+        <label for="servicio">Servicio afectado:</label>
         <select id="servicio" name="servicio" required>
             <option value="agua">Agua</option>
-            <option value="energia">Energia</option>
+            <option value="energia">Energía</option>
             <option value="gas">Gas</option>
         </select>
 
-        <label for="barrio">Barrio afectado: </label>
+        <label for="barrio">Barrio afectado:</label>
         <select id="barrio" name="barrio" required>
             <option value="la victoria">La Victoria</option>
             <option value="la esperanza">La Esperanza</option>
             <option value="plan 400">Plan 400</option>
         </select>
 
-        <label for="hora_inicio">Hora aproximada de inicio de la falla:</label>
-        <input type="time" step="300" id="hora_inicio" name="hora_inicio" required>
+        <label for="horaInicio">Hora aproximada de inicio de la falla:</label>
+        <input type="time" id="horaInicio" name="horaInicio" required>
 
         <label for="comentario">Comentario o motivo:</label>
-        <textarea id="comentario" name="comentario" rows="4" cols="50" placeholder="Escribe tu comentario aquí"></textarea>
+        <textarea id="comentarios" name="comentarios" rows="4" cols="50" placeholder="Escribe tu comentario aquí"></textarea>
+
 
         <button type="submit">Reportar</button>
     </div>
 </form>
 
 
+
+
+
         
 
 
     
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
 
 
 

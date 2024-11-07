@@ -1,6 +1,8 @@
 package com.example.ServiApp.services;
 
 import java.util.List;
+import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +34,28 @@ public class UsuarioService {
     }
 
 
+  
+    public Optional<UsuarioModel> obtenerUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
+    public UsuarioModel guardarUsuario(UsuarioModel usuario){
+        return usuarioRepository.save(usuario);
+    }
+
+  
+  //Mismos metodos pero instaciados de manera dirente
+    public List<UsuarioModel> obtenerTodosLosUsuarios() {
+        return usuarioRepository.findAll();
+    }
+
     public List<UsuarioModel> obtenerUsuarios(){
     List<UsuarioModel> usuarios = usuarioRepository.findAll();
     System.out.println("Usuarios encontrados: " + usuarios.size()); // Log para ver si se encuentran usuarios
     return usuarios;
     }
+  
+  
 
     // Método para eliminar un usuario
     public void eliminarUsuario(Long id) {

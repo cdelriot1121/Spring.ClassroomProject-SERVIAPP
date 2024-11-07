@@ -34,7 +34,7 @@
             <ul class="navbar-nav">
                 <li class="p-2 g-col-6"><a href="interfaz-admin">Usuarios</a></li>
                 <li class="p-2 g-col-6"><a href="gestionar-servicios-admin">Servicios públicos</a></li>
-                <li class="p-2 g-col-6"><a href="reportes-admin">Reportes</a></li>
+                <li class="p-2 g-col-6"><a href="cortes-admin">Reportes</a></li>
                 <li class="p-2 g-col-6"><a href="/reportes_usuarios">Reportes usuarios</a></li>
                 <li class="p-2 g-col-6"><a href="consejos-admin">Consejos</a></li>
             </ul>
@@ -88,13 +88,13 @@
             <!-- Hora de Inicio -->
             <div class="mb-3">
                 <label for="hora_inicio" class="form-label">Hora de Inicio</label>
-                <input type="time" id="hora_inicio" name="hora_inicio" class="form-control" required>
+                <input type="time" step="900" id="hora_inicio" name="hora_inicio" class="form-control" required>
             </div>
         
             <!-- Hora de Finalización -->
             <div class="mb-3">
                 <label for="hora_final" class="form-label">Hora de Finalización</label>
-                <input type="time" id="hora_final" name="hora_final" class="form-control" required>
+                <input type="time" step="900" id="hora_final" name="hora_final" class="form-control" required>
             </div>
         
             <button type="submit" class="btn btn-primary">Registrar Corte</button>
@@ -115,19 +115,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Agua</td>
-                        <td>Plan 400</td>
-                        <td>2024-11-01</td>
-                        <td>08:00</td>
-                        <td>12:00</td>
-                    </tr>
-                    <tr>
-                        <td>Energia</td>
-                        <td>Olaya</td>
-                        <td>2024-11-02</td>
-                        <td>09:00</td>
-                        <td>14:00</td>
+                    <tr th:each="corte : ${cortes}">
+                        <td th:text="${corte.tipo_servicio}"></td> 
+                        <td th:text="${#strings.arrayJoin(corte.barrios.split(','), ', ')}"></td>
+                        <td th:text="${corte.fecha}"></td>
+                        <td th:text="${corte.hora_inicio}"></td>
+                        <td th:text="${corte.hora_final}"></td>
                     </tr>
                 </tbody>
             </table>
