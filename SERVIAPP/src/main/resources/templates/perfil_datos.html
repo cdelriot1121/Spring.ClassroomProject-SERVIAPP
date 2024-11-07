@@ -73,6 +73,7 @@
                 </div>
             </div>
 
+
             <div class="col-md-9">
            <!-- Datos Personales -->
                     <section id="section-datos-personales">
@@ -89,16 +90,35 @@
                             <tbody>
                                 <tr>
                                     <td th:text="${usuario.nombre}">Nombre Completo</td>
-                                    <td th:text="${usuario.email}">Correo Electrónico</td>
-                                    <td th:text="${usuario.estrato}">Estrato</td>
-                                        <button id="btn-editar" class="btn btn-warning btn-sm">Actualizar</button>
-                                        <button id="btn-guardar" class="btn btn-success btn-sm" style="display:none;">Guardar Cambios</button>
+                    
+                                    <td colspan="3" th:if="${editarUsuarioId == usuario.id}">
+                                      
+                                        <form  th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post">
+                                            <div style="display: flex; gap: 10px;">
+                                             
+                                                <input type="text" name="email" th:value="${usuario.email}" required style="flex: 1;">
+                    
+                                                
+                                                <input type="number" name="estrato" max="6" min="1"  th:value="${usuario.estrato}" maxlength="3" required style="flex: 1;">
+                    
+                                                
+                                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                                <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
+                                            </div>
+                                        </form>
+                                    </td>
+                    
+                                   
+                                    <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.email}">Correo Electrónico</td>
+                                    <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.estrato}">Estrato</td>
+                                    <td th:if="${editarUsuarioId != usuario.id}">
+                                        <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-success">Actualizar</a>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </section>
-
+                                
+            </tbody>
+        </table>
+    </section>
 
                 <!-- Cambiar Contraseña -->
                 <section id="section-cambiar-contrasena" style="display: none;">
@@ -194,7 +214,7 @@
         </div>
  
         <script src="/javascripts/barra_perfil.js"></script>
-        
+        <script src="/javascripts/form_actualizar.js"></script>
         <script src="/javascripts/ventana_privacidad.js"></script> 
         <script src="/javascripts/ventanas_perfil.js"></script> 
 

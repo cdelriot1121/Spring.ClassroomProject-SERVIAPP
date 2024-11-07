@@ -1,5 +1,8 @@
 package com.example.ServiApp.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,18 @@ public class UsuarioService {
                            usuario.getPassword().equals(contraseña))
                            .findFirst()
                            .orElse(null);
+    }
+
+    public Optional<UsuarioModel> obtenerUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
+    public UsuarioModel guardarUsuario(UsuarioModel usuario){
+        return usuarioRepository.save(usuario);
+    }
+
+    public List<UsuarioModel> obtenerTodosLosUsuarios() {
+        return usuarioRepository.findAll();
     }
 
 }
