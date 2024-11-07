@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -75,6 +76,29 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
             return "redirect:/login";
         }
         return "perfil_datos";
+    }
+
+    @GetMapping("/usuarios/editar/{id}")
+    public String mostrarFormularioEdicion (@PathVariable Long id, Model model){
+        UsuarioModel usuario = usuarioService.obtenerUsuarioPorId(id).orElseThrow();
+
+        model.addAttribute("usuario",usuario);
+        model.addAttribute("editarUsuarioId",id);
+        return "perfil_datos";
+    }
+    
+    @PostMapping("/usuarios/actualizar/{id}")
+    public String actualizarUsuario (@PathVariable Long id, @ModelAttribute UsuarioModel usuario, Model model){
+
+        UsuarioModel usuarioExistente = usuarioService.obtenerUsuarioPorId(id) 
+        .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
+
+        usuarioExistente.setEmail(usuario.getEmail());
+        usuarioExistente.setEstrato(usuario.getEstrato());
+
+        usuarioService.guardarUsuario(usuarioExistente);
+
+         return "redirect:/datos-personales";
     }
 
 }
