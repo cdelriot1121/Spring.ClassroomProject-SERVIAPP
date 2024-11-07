@@ -1,5 +1,7 @@
 package com.example.ServiApp.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,19 @@ public class UsuarioService {
                            .findFirst()
                            .orElse(null);
     }
+
+
+    public List<UsuarioModel> obtenerUsuarios(){
+    List<UsuarioModel> usuarios = usuarioRepository.findAll();
+    System.out.println("Usuarios encontrados: " + usuarios.size()); // Log para ver si se encuentran usuarios
+    return usuarios;
+    }
+
+    // Método para eliminar un usuario
+    public void eliminarUsuario(Long id) {
+        usuarioRepository.deleteById(id); // Usamos el método deleteById del repositorio
+    }
+
+
 
 }
