@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ServiApp.model.ServicioModel;
+import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.ServicioRepository;
 
 @Service
@@ -20,10 +21,14 @@ public ServicioModel registrarservicio(ServicioModel servicio){
 }
 
 
-   public List<ServicioModel> ObtenerServicios(){
-    List<ServicioModel> servicios = servicioRepository.findAll();
-    return servicios;
+     public List<ServicioModel> obtenerServiciosPorUsuario(UsuarioModel usuario) {
+        return servicioRepository.findByUsuario(usuario);
     }
+   
+    public List<ServicioModel> ObtenerServicios(){
+        List<ServicioModel> servicios = servicioRepository.findAll();
+        return servicios;
+        }
 
 
 }

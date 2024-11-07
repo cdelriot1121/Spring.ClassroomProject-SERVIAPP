@@ -163,14 +163,16 @@
                         <thead>
                             <tr>
                                 <th>Tipo de Servicio</th>
-                                <th>ID del Servicio</th>
+                                <th>Poliza</th>
+                                <th>Numero de habitantes</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Servicio 1</td>
-                                <td>ID12345</td>
+                                <tr th:each="servicio : ${servicios}">
+                                    <td th:text="${servicio.tipo_servicio}"></td>
+                                    <td th:text="${servicio.poliza}"></td>
+                                    <td th:text="${servicio.habitantes}"></td>
                                 <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
                                 <td><button class="btn btn-primary btn-sm">Actualizar</button></td>
                             </tr>

@@ -1,5 +1,7 @@
 package com.example.ServiApp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
+import com.example.ServiApp.services.ServiciosService;
 import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +24,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private ServiciosService servicioService;
 
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
@@ -117,18 +124,20 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
         return "perfil_datos";
     }
 
-    @GetMapping("/mis-servicios")
-    public String mostrarMisServicios(Model model) {
-        model.addAttribute("section", "mis-servicios");
-        return "perfil_datos";
+     @GetMapping("/mis-servicios")
+    public String listarServicios(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+    
+        if (usuarioLogueado != null) {
+            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+            model.addAttribute("servicios", servicios);
+            model.addAttribute("section", "mis-servicios");
+    
+            return "perfil_datos";
+        } else {
+            model.addAttribute("error", "No hay usuario autenticado");
+            return "iniciosesion";  
+        }
     }
-
-
-
-
-
-
-
-
 
 }
