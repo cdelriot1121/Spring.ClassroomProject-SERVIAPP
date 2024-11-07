@@ -45,7 +45,7 @@ public String reportarFalla(@ModelAttribute Falla_Ser_Model falla,
 
         fallasUserService.reportarFalla(falla, usuarioLogueado);
         redirectAttributes.addFlashAttribute("mensaje", "Falla reportada exitosamente.");
-        return "redirect:/cortes_fallas";
+        return "redirect:/cortes";
     } catch (Exception e) {
         redirectAttributes.addFlashAttribute("error", "Error al procesar la hora.");
         return "redirect:/reportar-falla";
