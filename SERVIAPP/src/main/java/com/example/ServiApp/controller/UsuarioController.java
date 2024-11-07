@@ -68,7 +68,7 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
     @GetMapping("/datos-personales")
     public String mostrarDatosPersonales(Model model, HttpSession session) {
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-
+        model.addAttribute("section", "datos-personales");
         if (usuarioLogueado != null) {
           
             model.addAttribute("usuario", usuarioLogueado);
@@ -78,27 +78,57 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
         return "perfil_datos";
     }
 
+
+
+    
+
     @GetMapping("/usuarios/editar/{id}")
     public String mostrarFormularioEdicion (@PathVariable Long id, Model model){
         UsuarioModel usuario = usuarioService.obtenerUsuarioPorId(id).orElseThrow();
 
         model.addAttribute("usuario",usuario);
         model.addAttribute("editarUsuarioId",id);
+        model.addAttribute("section", "datos-personales");
         return "perfil_datos";
     }
     
-    @PostMapping("/usuarios/actualizar/{id}")
+    @PostMapping("/usuarios/actualizar/{id}") 
     public String actualizarUsuario (@PathVariable Long id, @ModelAttribute UsuarioModel usuario, Model model){
 
+        model.addAttribute("section", "datos-personales");
         UsuarioModel usuarioExistente = usuarioService.obtenerUsuarioPorId(id) 
         .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
 
         usuarioExistente.setEmail(usuario.getEmail());
         usuarioExistente.setEstrato(usuario.getEstrato());
-
         usuarioService.guardarUsuario(usuarioExistente);
 
-         return "redirect:/datos-personales";
+        model.addAttribute("usuario", usuarioExistente);
+        model.addAttribute("section", "datos-personales");
+
+
+
+        return "perfil_datos";
     }
+
+    @GetMapping("/cambiar-contrasena")
+    public String mostrarCambiarContrasena(Model model) {
+        model.addAttribute("section", "cambiar-contrasena");
+        return "perfil_datos";
+    }
+
+    @GetMapping("/mis-servicios")
+    public String mostrarMisServicios(Model model) {
+        model.addAttribute("section", "mis-servicios");
+        return "perfil_datos";
+    }
+
+
+
+
+
+
+
+
 
 }
