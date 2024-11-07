@@ -94,8 +94,16 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    text-decoration: none;
     
 }
+
+
+.imagen a{  
+    text-decoration: none;
+    color: white;
+}
+
 .password-container {
     position: relative;
     display: flex;

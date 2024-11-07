@@ -76,4 +76,13 @@ public class AdminController {
         return "ges-servicios-admin";
     }
 
+    //METODO PARA ELIMINAR SERVICIO
+
+    @PostMapping("/eliminar-servicio/{id}")
+    public String eliminarServicio (@PathVariable("id") Long id){
+        serviciosService.eliminarServicio(id);
+        return "redirect:/gestionar-servicios-admin";
+
+    }
+
 }

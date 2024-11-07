@@ -33,6 +33,7 @@ public class CortesController {
             corte.setAdministrador(adminLogueado); 
 
             // Obtener los barrios seleccionados como una lista de cadenas
+            @SuppressWarnings("unchecked")
             List<String> barriosSeleccionados = (List<String>) sessionadmin.getAttribute("barriosSeleccionados");
             if (barriosSeleccionados != null) {
                 corte.setBarrios(barriosSeleccionados);
