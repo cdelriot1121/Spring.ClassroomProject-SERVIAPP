@@ -3,7 +3,7 @@ package com.example.ServiApp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
+//Controller para mapear las paginas que tenemos del proyecto
 @Controller
 public class MapPagesController {
 
@@ -68,15 +68,6 @@ public class MapPagesController {
 
    //Paginas admins
 
-   @GetMapping("/interfaz-admin")
-   public String interfazAdmin(){
-       return "interfaz-admin";
-   }
-
-   @GetMapping("/gestionar-servicios-admin")
-   public String gesServiciosAdmin(){
-       return "ges-servicios-admin";
-   }
 
    @GetMapping("/login-admin")
    public String loginAdmin(){
