@@ -146,6 +146,7 @@ nav ul li a {
     float: right;
     line-height: 20px;
 }
+
 .container-fluid a{
     display: inline-block;
     padding: 5px;
@@ -344,15 +345,17 @@ footer {
 .mensaje_bienvenida {
     color: white;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 2em;
     margin: 0;
     animation: aparecer 2s ease-out forwards; 
+    font-family: 'Kanit', sans-serif;
 }
 
 .mensaje_bienvenida p {
     font-size: inherit;
     margin: 0;
-    padding-right: 555px;
+    margin-left: 500px;
+    padding-right: 20px;
 }
 
 @keyframes aparecer {
