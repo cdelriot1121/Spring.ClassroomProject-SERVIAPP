@@ -25,5 +25,10 @@ public ServicioModel registrarservicio(ServicioModel servicio){
     return servicios;
     }
 
+    //metodo para eliminar servicio
+    public void eliminarServicio(Long id){
+        servicioRepository.deleteById(id);
+    }
+
 
 }

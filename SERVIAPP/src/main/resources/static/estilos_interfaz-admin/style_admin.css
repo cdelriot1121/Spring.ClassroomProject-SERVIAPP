@@ -1,3 +1,4 @@
+/* Estilos generales */
 * {
     margin: 0;
     padding: 0;
@@ -6,14 +7,14 @@
 }
 
 body {
-    background-color: #fff;
+    background-color: #f4f7fa;
     color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Estilo del encabezado */
+/* Encabezado */
 header {
     background: linear-gradient(135deg, #36b2fa, #86e1e4);
     padding: 1rem 2rem;
@@ -23,7 +24,7 @@ header {
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-#header001{
+#header001 {
     font-family: 'Kanit', sans-serif;
 }
 
@@ -40,15 +41,8 @@ header h1 {
     font-family: 'Kanit';
 }
 
-#h1001{
+#h1001 {
     font-family: 'Kanit';
-}
-
-.contenedor-principal .botones-datos{
-    width: 255px;
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
 }
 
 .botones-datos a {
@@ -71,52 +65,45 @@ header h1 {
     transition: .5s;
 }
 
-.botones-datos a:hover{
+.botones-datos a:hover {
     color: #ffffff;
 }
 
-
-.botones-datos a:nth-child(2){
+.botones-datos a:nth-child(2) {
     background: #70d9dd;
     color: #ffffff;
-
 }
 
-.botones-datos a:nth-child(2):hover{
+.botones-datos a:nth-child(2):hover {
     color: rgb(0, 0, 0);
 }
 
-.botones-datos a:nth-child(2)::before{
-    background:  white;
+.botones-datos a:nth-child(2)::before {
+    background: white;
 }
 
-
-.botones-datos a::before{
+.botones-datos a::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 100%;
-    background:  linear-gradient(135deg, #36b2fa, #9efcff);
+    background: linear-gradient(135deg, #36b2fa, #9efcff);
     z-index: -1;
     transition: .6s;
 }
 
-.botones-datos a:hover::before{
+.botones-datos a:hover::before {
     width: 100%;
 }
 
-/* Estilo de la barra de navegación */
+/* Barra de navegación */
 nav {
     background: linear-gradient(135deg, #004b77, #007ccf);
     padding: 0.5rem 0;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-   
     margin-bottom: 45px;
-}
-.navbar-toggler-icon{
-    margin: 2px;
 }
 
 nav ul {
@@ -136,21 +123,7 @@ nav ul li a {
     padding: 0.5rem 1rem;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Kanit', sans-serif;
-}
-
-body {
-    background-color: #f4f7fa;
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
+/* Estilos de la dashboard */
 .dashboard .info-box {
     background: #fff;
     padding: 2rem;
@@ -194,55 +167,110 @@ body {
     margin-top: 1rem;
 }
 
-.table th, .table td {
-    vertical-align: middle;
+
+table.dataTable {
+    width: 100% !important;
+    border-collapse: separate;
+    border-spacing: 0 10px; }
+
+/* Cabecera de la tabla */
+table.dataTable thead th {
+    background-color: #007ccf; 
+    color: white;
+    font-weight: bold;
     text-align: center;
+    padding: 12px 15px;
+    font-size: 14px;
+    border-radius: 8px 8px 0 0; 
 }
 
-.table-responsive {
-    overflow-x: auto;
+/* Celdas de la tabla */
+table.dataTable tbody td {
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 14px;
+    vertical-align: middle;
+    border-radius: 8px; 
 }
 
-.btn-outline-primary {
-    border-color: #007ccf;
-    color: #007ccf;
+/* Efecto hover sobre las filas */
+table.dataTable tbody tr:hover {
+    background-color: #f7f7f7;
+    transform: translateY(-2px); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
-.btn-outline-primary:hover {
-    background-color: #007ccf;
-    color: #fff;
+/* Bordes de las celdas */
+table.dataTable td, table.dataTable th {
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
+/* Filtro de búsqueda */
+.dataTables_filter input {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-left: 10px;
+    font-size: 14px;
+    width: 250px;
+}
+
+/* Estilo del botón de eliminación */
 .btn-outline-danger {
     border-color: #d9534f;
     color: #d9534f;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .btn-outline-danger:hover {
     background-color: #d9534f;
     color: #fff;
+    transform: scale(1.05); 
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .contenedor-principal h1 {
-        font-size: 1.8rem;
-    }
+/* Paginación */
+.dataTables_paginate .paginate_button {
+    background-color: #007ccf;
+    color: white;
+    border-radius: 50%;
+    padding: 8px 12px;
+    margin: 0 2px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
 
-    .dashboard .info-box {
-        padding: 1rem;
-    }
+.dataTables_paginate .paginate_button:hover {
+    background-color: #005a8a; }
 
-    .card-header {
-        flex-direction: column;
-    }
+.dataTables_paginate .paginate_button:active {
+    background-color: #004b77;
+}
 
-    .search-bar {
-        width: 100%;
-        margin-top: 10px;
-    }
+/* Resaltado de la fila activa */
+.dataTable tbody tr.selected {
+    background-color: #f4f7fa;
+    border-left: 5px solid #007ccf; 
+}
 
-    .btn {
-        font-size: 0.8rem;
-    }
+
+.dataTables_filter input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.dashboard {
+    margin-bottom: 50px; 
+}
+
+.card {
+    margin-bottom: 20px; 
 }

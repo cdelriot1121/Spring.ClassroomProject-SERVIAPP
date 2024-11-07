@@ -82,10 +82,7 @@ public class MapPagesController {
    }
 
 
-   @GetMapping("/reportes_usuarios")
-   public String reportesDeusuario(){
-    return "vista_reportes_admin";
-   }
+   
 
 
 }

@@ -1,5 +1,7 @@
 package com.example.ServiApp.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,12 @@ public class FallasUserService {
         falla.setUsuario(usuario);
         return fallasRepository.save(falla);
     }
-    
+
+    //Metodo para obtener fallas
+    public List<Falla_Ser_Model> obtenerFallas(){
+        List<Falla_Ser_Model> fallas = fallasRepository.findAll();
+        return fallas;
+    }
+
+
 }

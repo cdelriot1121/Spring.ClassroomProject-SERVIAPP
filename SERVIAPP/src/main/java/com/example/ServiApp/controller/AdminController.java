@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ServiApp.model.AdminModel;
+import com.example.ServiApp.model.Falla_Ser_Model;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.services.AdminService;
+import com.example.ServiApp.services.FallasUserService;
 import com.example.ServiApp.services.ServiciosService;
 import com.example.ServiApp.services.UsuarioService;
 
@@ -75,5 +77,31 @@ public class AdminController {
         model.addAttribute("servicios", servicios);
         return "ges-servicios-admin";
     }
+
+    //METODO PARA ELIMINAR SERVICIO
+
+    @PostMapping("/eliminar-servicio/{id}")
+    public String eliminarServicio (@PathVariable("id") Long id){
+        serviciosService.eliminarServicio(id);
+        return "redirect:/gestionar-servicios-admin";
+
+    }
+
+
+
+    //METODOS PARA VER LOS REPORTES DE USUARIOS en ResportesUserAdmin
+
+    @Autowired
+    private FallasUserService fallasUserService;
+
+    @GetMapping("/reportes_usuarios")
+    public String listarFallasUser(Model model){
+        List<Falla_Ser_Model> fallas = fallasUserService.obtenerFallas();
+        model.addAttribute("fallas", fallas);
+        return "ReportesUserAdmin";
+
+    }
+    
+
 
 }

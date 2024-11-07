@@ -102,5 +102,10 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    
 }
 
+.imagen a{  
+    text-decoration: none;
+    color: white;
+}
