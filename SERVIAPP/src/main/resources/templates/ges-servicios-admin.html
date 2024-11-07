@@ -52,33 +52,36 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5>Servicios Registrados</h5>
-                            <input type="text" id="search-bar" class="form-control search-bar" placeholder="Buscar ID usuario...">
+                            <input type="text" id="search-bar" class="form-control search-bar" placeholder="Buscar ID servicio...">
                         </div>
                         <div class="card-body">
                             <table class="table table-hover table-responsive">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>ID usuario</th>
                                         <th>Servicio</th>
-                                    
-
+                                        <th>Empresa</th>
+                                        <th>Poliza</th>
+                                        <th>Numero de habitantes</th>
+                                        <th>ID usuario</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>Agua</td>
-                                        
+                                    <tr th:each="servicio : ${servicios}">
+                                        <td th:text="${servicio.id}"></td>
+                                        <td th:text="${servicio.tipo_servicio}"></td>
+                                        <td th:text="${servicio.empresa}"></td>
+                                        <td th:text="${servicio.poliza}"></td>
+                                        <td th:text="${servicio.habitantes}"></td>
+                                        <td th:text="${servicio.usuario.id}"></td>
+
                                         <td>
-                                            
                                             <button class="btn btn-outline-danger">Eliminar</button>
                                         </td>
                                     </tr>
-                           
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>

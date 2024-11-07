@@ -23,16 +23,14 @@ public class ServicioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
-    //relacion muchos a uno, un servicio puede pertener a muchos usuarios
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario;
 
-    //relacion uno a muchos, un servicio puede tener de uno a muchos periodos
+    // Relación uno a muchos con periodos
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
     @JsonIgnore
-    private java.util.List<PeriodoModel> periodos;
+    private List<PeriodoModel> periodos;
 
     @Column(name = "tipo_servicio", nullable = false, length = 50)
     private String tipo_servicio;
@@ -50,7 +48,7 @@ public class ServicioModel {
     }
 
     public ServicioModel(long id, UsuarioModel usuario, List<PeriodoModel> periodos,
-            String tipo_servicio, String empresa, long poliza, long habitantes) {
+                         String tipo_servicio, String empresa, long poliza, long habitantes) {
         this.id = id;
         this.usuario = usuario;
         this.periodos = periodos;
@@ -76,14 +74,13 @@ public class ServicioModel {
         this.usuario = usuario;
     }
 
-    public java.util.List<PeriodoModel> getPeriodos() {
+    public List<PeriodoModel> getPeriodos() {
         return periodos;
     }
 
-    public void setPeriodos(java.util.List<PeriodoModel> periodos) {
+    public void setPeriodos(List<PeriodoModel> periodos) {
         this.periodos = periodos;
     }
-
 
     public String getTipo_servicio() {
         return tipo_servicio;
@@ -122,8 +119,8 @@ public class ServicioModel {
         StringBuilder sb = new StringBuilder();
         sb.append("ServicioModel{");
         sb.append("id=").append(id);
-        sb.append(", usuario=").append(usuario);
-        sb.append(", periodos=").append(periodos);
+        sb.append(", usuarioId=").append(usuario != null ? usuario.getId() : null); // Evitar referencia recursiva
+        sb.append(", periodos=").append(periodos != null ? periodos.size() : 0); // Mostrar cantidad de periodos
         sb.append(", tipo_servicio=").append(tipo_servicio);
         sb.append(", empresa=").append(empresa);
         sb.append(", poliza=").append(poliza);
@@ -131,5 +128,4 @@ public class ServicioModel {
         sb.append('}');
         return sb.toString();
     }
-
 }

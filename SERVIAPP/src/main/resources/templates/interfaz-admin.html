@@ -69,19 +69,23 @@
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Email</th>
+                                        <th>Estrato</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Willys Hurtado</td>
-                                        <td>whurtado180@gmail.com</td>
+                                    <tr th:each="usuario : ${usuarios}">
+                                        <td th:text="${usuario.id}"></td>
+                                        <td th:text="${usuario.nombre}"></td>
+                                        <td th:text="${usuario.email}"></td>
+                                        <td th:text="${usuario.estrato}"></td>
                                         <td>
-                                            <button class="btn btn-outline-danger">Eliminar</button>
+                                            <!-- Formulario para eliminar usuario -->
+                                            <form th:action="@{/eliminar-usuario/{id}(id=${usuario.id})}" method="post">
+                                                <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                            </form>
                                         </td>
                                     </tr>
-                                    
                                 </tbody>
                             </table>
                         </div>
