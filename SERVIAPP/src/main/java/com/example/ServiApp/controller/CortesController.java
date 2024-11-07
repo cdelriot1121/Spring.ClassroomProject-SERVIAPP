@@ -42,7 +42,7 @@ public class CortesController {
             cortesService.registrarCorte(corte);
 
             model.addAttribute("mensaje-cortereg", "Corte programado registrado correctamente");
-            return "redirect:/reportes-admin";  
+            return "redirect:/cortes-admin";  
         } else {
             model.addAttribute("error-regisCorte", "No hay administrador autenticado");
             return "redirect:/login-admin";  
@@ -55,6 +55,13 @@ public class CortesController {
         model.addAttribute("cortes", cortes);
         return "cortes_fallas";
     }
+
+    @GetMapping("/cortes-admin")
+    public String mostrarCortesAlternativa(Model model) {
+    List<CortesModel> cortes = cortesService.obtenerTodosLosCortes();
+    model.addAttribute("cortes", cortes);
+    return "reportes_admin"; 
+}
 
 
 }
