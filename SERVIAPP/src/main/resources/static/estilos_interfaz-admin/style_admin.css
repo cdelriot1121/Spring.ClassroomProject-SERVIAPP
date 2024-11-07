@@ -267,11 +267,10 @@ table.dataTable td, table.dataTable th {
     font-size: 14px;
 }
 
-/* Añadir espacio adicional debajo de la tabla */
 .dashboard {
-    margin-bottom: 50px; /* Ajusta este valor según lo que necesites */
+    margin-bottom: 50px; 
 }
 
 .card {
-    margin-bottom: 20px; /* Ajusta este valor si deseas más o menos espacio */
+    margin-bottom: 20px; 
 }
