@@ -8,3 +8,5 @@ import com.example.ServiApp.model.CortesModel;
 public interface CortesRepository extends JpaRepository<CortesModel, Long> {
 
 }
+
+

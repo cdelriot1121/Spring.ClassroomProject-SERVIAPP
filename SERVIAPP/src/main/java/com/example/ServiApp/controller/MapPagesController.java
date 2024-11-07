@@ -55,11 +55,6 @@ public class MapPagesController {
    public String consejospersonalizdos(){
        return "consejos_personalizados";
    }
-
-   @GetMapping("/cortes_fallas")
-   public String cortesfallas() {
-       return "/cortes_fallas";
-   }
    
    @GetMapping ("/acercade")
    public String acercade(){

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
-    <html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +57,7 @@
                     <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
                     <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
                     <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro Personalizados </a></li>
-                    <li class="p-2 g-col-6"><a href="cortes_fallas"><i class='bx bxs-alarm'></i> Cortes</a></li>
+                    <li class="p-2 g-col-6"><a href="cortes"><i class='bx bxs-alarm'></i> Cortes</a></li>
                     <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
                    
                     
@@ -85,35 +84,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Agua</td>
-                    <td>Plan 400</td>
-                    <td>2024-11-01</td>
-                    <td>08:00</td>
-                    <td>12:00</td>
-                </tr>
-                <tr>
-                    <td>Energia</td>
-                    <td>Olaya</td>
-                    <td>2024-11-02</td>
-                    <td>09:00</td>
-                    <td>14:00</td>
-                </tr>
-
-                <tr>
-                    <td>Energia</td>
-                    <td>centro</td>
-                    <td>2024-11-02</td>
-                    <td>09:00</td>
-                    <td>14:00</td>
-                </tr>
-
-                <tr>
-                    <td>Agua</td>
-                    <td>jardines</td>
-                    <td>2024-11-02</td>
-                    <td>09:00</td>
-                    <td>14:00</td>
+                <tr th:each="corte : ${cortes}">
+                    <td th:text="${corte.tipo_servicio}"></td> 
+                    <td th:text="${#strings.arrayJoin(corte.barrios.split(','), ', ')}"></td>
+                    <td th:text="${corte.fecha}"></td>
+                    <td th:text="${corte.hora_inicio}"></td>
+                    <td th:text="${corte.hora_final}"></td>
                 </tr>
             </tbody>
         </table>
