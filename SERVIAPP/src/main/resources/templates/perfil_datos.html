@@ -174,27 +174,48 @@
 
                 <!-- Mis Servicios -->
                 <section th:if="${section == 'mis-servicios'}">
-                    <h4>Mis Servicios</h4>
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Tipo de Servicio</th>
-                                <th>Poliza</th>
-                                <th>Numero de habitantes</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                <tr th:each="servicio : ${servicios}">
-                                    <td th:text="${servicio.tipo_servicio}"></td>
-                                    <td th:text="${servicio.poliza}"></td>
-                                    <td th:text="${servicio.habitantes}"></td>
-                                <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
-                                <td><button class="btn btn-primary btn-sm">Actualizar</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
+    <h4>Mis Servicios</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tipo de Servicio</th>
+                <th>Póliza</th>
+                <th>Número de Habitantes</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="servicio : ${servicios}">
+                <td th:text="${servicio.tipo_servicio}">Tipo de Servicio</td>
+
+                <!-- Mostrar formulario solo si el servicio está en modo edición -->
+                <td colspan="3" th:if="${editarServicioId == servicio.id}">
+                    <form th:action="@{/servicios/actualizar/{id}(id=${servicio.id})}" th:object="${servicio}" method="post">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" name="poliza" th:value="${servicio.poliza}" required style="flex: 1;">
+                            <input type="number" name="habitantes" th:value="${servicio.habitantes}" required style="flex: 1;">
+                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                            <a th:href="@{/mis-servicios}" class="btn btn-danger">Cancelar</a>
+                        </div>
+                    </form>
+                </td>
+
+                <!-- Mostrar campos normales cuando el servicio no está en modo edición -->
+                <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.poliza}">Póliza</td>
+                <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.habitantes}">Número de Habitantes</td>
+
+                <td th:if="${editarServicioId != servicio.id}">
+                    <a th:href="@{/servicios/editar/{id}(id=${servicio.id})}" class="btn btn-primary">Actualizar</a>
+                    <form th:action="@{/servicios/eliminar/{id}(id=${servicio.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
             </div>
         </div>
     </div>
