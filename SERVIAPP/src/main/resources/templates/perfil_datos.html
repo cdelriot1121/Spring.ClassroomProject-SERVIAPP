@@ -67,98 +67,131 @@
             <!-- Menú lateral -->
             <div class="col-md-3">
                 <div class="list-group">
-                    <a href="#" id="link-datos-personales" class="list-group-item list-group-item-action active">Datos Personales</a>
-                    <a href="#" id="link-cambiar-contrasena" class="list-group-item list-group-item-action">Cambiar Contraseña</a>
-                    <a href="#" id="link-mis-servicios" class="list-group-item list-group-item-action">Mis Servicios</a>
+                <a th:href="@{/datos-personales}" class="list-group-item list-group-item-action" th:classappend="${section == 'datos-personales'} ? 'active'">Datos Personales</a>
+                <a th:href="@{/cambiar-contrasena}" class="list-group-item list-group-item-action" th:classappend="${section == 'cambiar-contrasena'} ? 'active'">Cambiar Contraseña</a>
+                <a th:href="@{/mis-servicios}" class="list-group-item list-group-item-action" th:classappend="${section == 'mis-servicios'} ? 'active'">Mis Servicios</a>
                 </div>
             </div>
 
 
             <div class="col-md-9">
            <!-- Datos Personales -->
-                    <section id="section-datos-personales">
-                        <h4>Datos Personales</h4>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Nombre Completo</th>
-                                    <th>Correo Electrónico</th>
-                                    <th>Estrato</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td th:text="${usuario.nombre}">Nombre Completo</td>
-                    
-                                    <td colspan="3" th:if="${editarUsuarioId == usuario.id}">
-                                      
-                                        <form  th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post">
-                                            <div style="display: flex; gap: 10px;">
-                                             
-                                                <input type="text" name="email" th:value="${usuario.email}" required style="flex: 1;">
-                    
-                                                
-                                                <input type="number" name="estrato" max="6" min="1"  th:value="${usuario.estrato}" maxlength="3" required style="flex: 1;">
-                    
-                                                
-                                                <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                                <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
-                                            </div>
-                                        </form>
-                                    </td>
-                    
-                                   
-                                    <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.email}">Correo Electrónico</td>
-                                    <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.estrato}">Estrato</td>
-                                    <td th:if="${editarUsuarioId != usuario.id}">
-                                        <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-success">Actualizar</a>
-                                    </td>
-                                </tr>
-                                
-            </tbody>
-        </table>
-    </section>
+           <section th:if="${section == 'datos-personales'}">
+            <h4>Datos Personales</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <th>Correo Electrónico</th>
+                        <th>Estrato</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${usuario.nombre}">Nombre Completo</td>
+                        <td colspan="3" th:if="${editarUsuarioId == usuario.id}">
+                            <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post">
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="text" name="email" th:value="${usuario.email}" required style="flex: 1;">
+                                    <input type="number" name="estrato" max="6" min="1" th:value="${usuario.estrato}" maxlength="3" required style="flex: 1;">
+                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                    <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
+                                </div>
+                            </form>
+                        </td>
+                        <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.email}">Correo Electrónico</td>
+                        <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.estrato}">Estrato</td>
+                        <td th:if="${editarUsuarioId != usuario.id}">
+                            <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-success">Actualizar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
                 <!-- Cambiar Contraseña -->
-                <section id="section-cambiar-contrasena" style="display: none;">
-                    <h4>Cambiar Contraseña</h4>
-                    <form id="changePasswordForm">
-                        <div class="mb-3">
-                            <label for="current-password" class="form-label">Contraseña Actual</label>
-                            <input type="password" class="form-control" id="current-password" required>
+            <section th:if="${section == 'cambiar-contrasena'}">
+                <h4>Cambiar Contraseña</h4>
+            
+                <!-- Mensajes de error o éxito -->
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            
+                <form th:action="@{/usuarios/cambiar-contrasena}" method="post" id="changePasswordForm">
+                    <div class="mb-3">
+                        <label for="current-password" class="form-label">Contraseña Actual</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="currentPassword" id="current-password" required>
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('current-password')">👁️</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="new-password" class="form-label">Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="new-password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-password" class="form-label">Nueva Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="newPassword" id="new-password" required 
+                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                            title="La contraseña debe tener al menos 8 caracteres, incluir al menos un número y un carácter especial." >
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('new-password')">👁️</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
-                            <input type="password" class="form-control" id="confirm-password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="confirmPassword" id="confirm-password" required>
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('confirm-password')">👁️</button>
                         </div>
-                        <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
-                    </form>
-                </section>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                </form>
+            </section>
+                
+                <script>
+                    function togglePasswordVisibility(inputId) {
+                        const input = document.getElementById(inputId);
+                        if (input.type === "password") {
+                            input.type = "text";
+                        } else {
+                            input.type = "password";
+                        }
+                    }
+                </script>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
 
                 <!-- Mis Servicios -->
-                <section id="section-mis-servicios" style="display: none;">
+                <section th:if="${section == 'mis-servicios'}">
                     <h4>Mis Servicios</h4>
                     <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th>Tipo de Servicio</th>
-                                <th>ID del Servicio</th>
+                                <th>Poliza</th>
+                                <th>Numero de habitantes</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Servicio 1</td>
-                                <td>ID12345</td>
+                                <tr th:each="servicio : ${servicios}">
+                                    <td th:text="${servicio.tipo_servicio}"></td>
+                                    <td th:text="${servicio.poliza}"></td>
+                                    <td th:text="${servicio.habitantes}"></td>
                                 <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
                                 <td><button class="btn btn-primary btn-sm">Actualizar</button></td>
                             </tr>
-                            <!-- Más filas pueden ser agregadas aquí dinámicamente -->
                         </tbody>
                     </table>
                 </section>
