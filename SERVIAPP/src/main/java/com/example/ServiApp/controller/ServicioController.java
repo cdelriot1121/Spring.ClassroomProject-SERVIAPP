@@ -3,6 +3,7 @@ package com.example.ServiApp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,11 +43,32 @@ public class ServicioController {
         }
     }
 
+     @GetMapping("/editar/{id}")
+    public String editarServicio(@PathVariable Long id, Model model) {
+        ServicioModel servicio = servicioService.obtenerServicioPorId(id).orElseThrow(() ->
+        new IllegalArgumentException("Servicio no encontrado con id: " + id));
 
-    
+        model.addAttribute("editarServicioId", id);
+        model.addAttribute("servicios", servicioService.ObtenerServicios());
+        model.addAttribute("section", "mis-servicios");
+
+        return "perfil_datos";
+        }
 
 
-    
+    @PostMapping("/actualizar/{id}")
+    public String actualizarServicio(@PathVariable Long id, @ModelAttribute ServicioModel servicio) {
+        ServicioModel servicioExistente = servicioService.obtenerServicioPorId(id)
+        .orElseThrow(() -> new IllegalArgumentException("Servicio no encontrado con id: " + id));
+
+        servicioExistente.setPoliza(servicio.getPoliza());
+        servicioExistente.setHabitantes(servicio.getHabitantes());
+        servicioService.actualizarServicio(id, servicioExistente);
+
+        return "redirect:/mis-servicios"; 
+    }
+
+
 
     @PostMapping("/eliminar/{id}")
     public String eliminarServicio(@PathVariable Long id){
