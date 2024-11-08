@@ -110,37 +110,53 @@
             </table>
         </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
                 <!-- Cambiar Contraseña -->
-                <section th:if="${section == 'cambiar-contrasena'}">
-                    <h4>Cambiar Contraseña</h4>
-                    <form id="changePasswordForm">
-                        <div class="mb-3">
-                            <label for="current-password" class="form-label">Contraseña Actual</label>
-                            <input type="password" class="form-control" id="current-password" required>
+            <section th:if="${section == 'cambiar-contrasena'}">
+                <h4>Cambiar Contraseña</h4>
+            
+                <!-- Mensajes de error o éxito -->
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+            
+                <form th:action="@{/usuarios/cambiar-contrasena}" method="post" id="changePasswordForm">
+                    <div class="mb-3">
+                        <label for="current-password" class="form-label">Contraseña Actual</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="currentPassword" id="current-password" required>
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('current-password')">👁️</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="new-password" class="form-label">Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="new-password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new-password" class="form-label">Nueva Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="newPassword" id="new-password" required 
+                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                            title="La contraseña debe tener al menos 8 caracteres, incluir al menos un número y un carácter especial." >
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('new-password')">👁️</button>
                         </div>
-                        <div class="mb-3">
-                            <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
-                            <input type="password" class="form-control" id="confirm-password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="confirmPassword" id="confirm-password" required>
+                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('confirm-password')">👁️</button>
                         </div>
-                        <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
-                    </form>
-                </section>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                </form>
+            </section>
+                
+                <script>
+                    function togglePasswordVisibility(inputId) {
+                        const input = document.getElementById(inputId);
+                        if (input.type === "password") {
+                            input.type = "text";
+                        } else {
+                            input.type = "password";
+                        }
+                    }
+                </script>
+                
 
 
 
@@ -176,7 +192,6 @@
                                 <td><button class="btn btn-danger btn-sm">Eliminar</button></td>
                                 <td><button class="btn btn-primary btn-sm">Actualizar</button></td>
                             </tr>
-                            <!-- Más filas pueden ser agregadas aquí dinámicamente -->
                         </tbody>
                     </table>
                 </section>

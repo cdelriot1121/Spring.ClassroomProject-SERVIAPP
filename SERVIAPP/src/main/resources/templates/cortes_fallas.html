@@ -98,13 +98,14 @@
 
 <div class="reportes">
 <h1> Reportar fallos</h1>
-<h2>aqui podras reportar fallos si estos no estan en la tabla de cortes programados</h2>
+<h2>Aqui podras reportar fallos si estos no estan en la tabla de cortes programados</h2>
 
 
 <form action="/reportar-falla" method="POST">
     <div class="form-section">
-        <label for="servicio">Servicio afectado:</label>
+        <label   for="servicio">Servicio afectado:</label>
         <select id="servicio" name="servicio" required>
+            <option value="" disabled selected>Servicio afectado</option>
             <option value="agua">Agua</option>
             <option value="energia">Energía</option>
             <option value="gas">Gas</option>
@@ -112,13 +113,14 @@
 
         <label for="barrio">Barrio afectado:</label>
         <select id="barrio" name="barrio" required>
+            <option value="" disabled selected>Barrio afectado</option>
             <option value="la victoria">La Victoria</option>
             <option value="la esperanza">La Esperanza</option>
             <option value="plan 400">Plan 400</option>
         </select>
 
         <label for="horaInicio">Hora aproximada de inicio de la falla:</label>
-        <input type="time" id="horaInicio" name="horaInicio" required>
+        <input type="time" step="300" id="horaInicio" name="horaInicio" required>
 
         <label for="comentario">Comentario o motivo:</label>
         <textarea id="comentarios" name="comentarios" rows="4" cols="50" placeholder="Escribe tu comentario aquí"></textarea>

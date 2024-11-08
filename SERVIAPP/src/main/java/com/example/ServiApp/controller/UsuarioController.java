@@ -112,17 +112,81 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
 
         model.addAttribute("usuario", usuarioExistente);
         model.addAttribute("section", "datos-personales");
-
-
-
         return "perfil_datos";
     }
+
+
+
+
+
+
+
+
+
 
     @GetMapping("/cambiar-contrasena")
     public String mostrarCambiarContrasena(Model model) {
         model.addAttribute("section", "cambiar-contrasena");
         return "perfil_datos";
     }
+
+
+
+
+
+
+    @PostMapping("/usuarios/cambiar-contrasena")
+    public String cambiarContraseña(@RequestParam String currentPassword, @RequestParam String newPassword,
+                                    @RequestParam String confirmPassword,HttpSession session,
+                                    Model model) {
+
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+
+        if (usuarioLogueado == null){
+            return "redirect:/login";
+        }
+
+        if(!currentPassword.equals(usuarioLogueado.getPassword())){
+            model.addAttribute("error", "La contraseña ingrsada no coincide con tu contraseña");
+            model.addAttribute("section", "cambiar-contrasena");
+            return "perfil_datos";
+        }
+
+
+
+        if(!newPassword.equals(confirmPassword)){
+            model.addAttribute("error", "Las contraseñas no coinciden");
+            model.addAttribute("section", "cambiar-contrasena");
+            return "perfil_datos";
+        }
+
+        usuarioLogueado.setPassword(newPassword);
+        usuarioService.guardarUsuario(usuarioLogueado);
+
+        
+        model.addAttribute("Felicitaciones", "Contraseña cambiada con exito");
+        model.addAttribute("section", "cambiar-contrasena");
+        return "perfil_datos";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
      @GetMapping("/mis-servicios")
     public String listarServicios(Model model, HttpSession session) {
