@@ -10,15 +10,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="/estilos_interfaz-admin/style_admin.css">
-   <!-- DataTables CSS y JS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables CSS y JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
-   
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -32,23 +33,22 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="p-2 g-col-6"><a href="/interfaz-admin">Usuarios</a></li>
-                <li class="p-2 g-col-6"><a href="/gestionar-servicios-admin">Servicios públicos</a></li>
-                <li class="p-2 g-col-6"><a href="cortes-admin">Reportes</a></li>
-                <li class="p-2 g-col-6"><a href="/reportes_usuarios">Reportes usuarios</a></li>
-                <li class="p-2 g-col-6"><a href="/consejos-admin">Consejos</a></li>
-
-            </ul>
-          </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="p-2 g-col-6"><a href="/interfaz-admin">Usuarios</a></li>
+                    <li class="p-2 g-col-6"><a href="/gestionar-servicios-admin">Servicios públicos</a></li>
+                    <li class="p-2 g-col-6"><a href="cortes-admin">Reportes</a></li>
+                    <li class="p-2 g-col-6"><a href="/reportes_usuarios">Reportes usuarios</a></li>
+                    <li class="p-2 g-col-6"><a href="/consejos-admin">Consejos</a></li>
+                </ul>
+            </div>
         </div>
-      </nav>
+    </nav>
 
-      <section class="dashboard">
+    <section class="dashboard">
         <div class="container">
             <div class="row justify-content-center">
                 <!-- Cuadro: Cantidad de Usuarios -->
@@ -66,7 +66,6 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5>Usuarios Registrados</h5>
-                           
                         </div>
                         <div class="card-body">
                             <table id="usuarios-table" class="table table-hover table-responsive">
@@ -86,24 +85,77 @@
                                         <td th:text="${usuario.email}"></td>
                                         <td th:text="${usuario.estrato}"></td>
                                         <td>
-                                            <form th:action="@{/eliminar-usuario/{id}(id=${usuario.id})}" method="post">
+                                            <form th:action="@{/eliminar-usuario/{id}(id=${usuario.id})}" method="post" onsubmit="return confirmarEliminacion(this)">
                                                 <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                             </form>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-     
+    
     <script src="/javascripts/TablaUsuariosAdmin.js"></script>
     <script src="/javascripts/contador_usuarios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+    <script>
+        function confirmarEliminacion(form) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+    
+            swalWithBootstrapButtons.fire({
+                title: "¿Estás seguro?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "No, cancelar",
+                reverseButtons: true,
+                background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+                customClass: {
+                    popup: 'swal-custom-popup'
+                },
+                didRender: () => {
+                    const logo = document.createElement('img');
+                    logo.src = '/img_local/logo-pagina-serviapp.png';
+                    logo.alt = 'Logo de ServiApp';
+                    logo.style.width = '155px';
+                    logo.style.display = 'block';
+                    logo.style.margin = '0 auto 2px';  
+                    Swal.getIcon().before(logo);
+                    
+                    // Subir el ícono de advertencia
+                    const warningIcon = Swal.getIcon();
+                    warningIcon.style.position = 'relative';
+                    warningIcon.style.top = '-5px';  
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); 
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelado",
+                        text: "El usuario está a salvo :)",
+                        icon: "error",
+                        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)'
+                    });
+                }
+            });
+    
+            return false;
+        }
+    </script>
+    
+    
 </body>
 </html>
