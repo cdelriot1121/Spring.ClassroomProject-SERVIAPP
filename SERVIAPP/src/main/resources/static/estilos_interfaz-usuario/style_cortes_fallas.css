@@ -1,131 +1,173 @@
 
-table {
-    width: 80%; 
-   
-    margin: auto; 
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    font-size: 0.9em;
+body {
+    background-color: #f0f4f8;
+    font-family: 'Arial', sans-serif;
+    color: #333333;
+    line-height: 1.6;
 }
 
-.tabla-consejos-personalizados{
-    margin-bottom: 20px;
+
+.Cortes h1, .reportes h1 {
+    color: #2c3e50;
+    margin-top: 40px;
+    font-size: 28px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
+
+.Cortes h2, .reportes h2 {
+    color: #34495e;
+    margin-bottom: 20px;
+    font-size: 22px;
+    text-align: center;
+    font-weight: 400;
+}
+
+
+table {
+    width: 90%;
+    margin: 30px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.95em;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 thead th {
-    
-    background-color: #36b2fa;
+    background-color: #3498db;
     color: white;
     font-weight: bold;
-    padding: 8px; 
+    padding: 12px;
     text-align: left;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
 }
 
+tbody tr {
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
 
 tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
+    background-color: #ecf0f1;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #ffffff;
+tbody tr:hover {
+    background-color: #d5e8f7;
 }
-
 
 td {
-    padding: 8px; 
-    border: 1px solid #a7a7a7;
+    padding: 10px;
+    border-bottom: 1px solid #bdc3c7;
 }
 
 
-td:nth-child(3) {
+.form-section {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 35px 25px;
+    background: linear-gradient(135deg, #f8fbff, #c8e6fc);
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+    color: #2c3e50;
+    font-size: 26px;
     font-weight: bold;
-}
-
-
-td:nth-child(4) {
-    font-size: 1.2em; 
+    margin-bottom: 25px;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.Cortes h1{
-    color: #333333;
-    margin-bottom: 10px;
-    margin-top: 0px;
-    font-size: 24px; 
-    text-align: center;
-}
-
-.Cortes h2{
-    color: #666666;
-    margin-bottom: 20px;
-    font-size: 18px; 
-    text-align: center; 
-}
-
-.reportes h1{
-    color: #333333;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    font-size: 24px; 
-    text-align: center;
-}
-
-.reportes h2{
-    color: #666666;
-    margin-bottom: 20px;
-    font-size: 18px; 
-    text-align: center; 
-}
-
- /* Estilo del contenedor del formulario */
- .form-section {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    margin-bottom: 100px;
-}
-
-/* Estilo de los títulos de cada sección */
-.form-section label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333333;
-}
-
-/* Estilo de los elementos select y textarea */
 .form-section select,
 .form-section input[type="time"],
 .form-section textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 8px;
     font-size: 16px;
-    color: #333333;
-    appearance: none; /* Eliminar estilo nativo del select */
+    color: #2c3e50;
+    background-color: #ffffff;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-/* Estilo del botón de envío */
+.form-section select:focus,
+.form-section input[type="time"]:focus,
+.form-section textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #3498db;
+}
+
+.form-section label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.form-section select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.form-section textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
 .form-section button {
     width: 100%;
-    padding: 10px;
-    background-color: #36b2fa;
+    padding: 14px;
+    background-color: #3498db;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .form-section button:hover {
-    background-color: #0056b3;
+    background-color: #2980b9;
+    box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
 
 
-
+@media (max-width: 768px) {
+    .form-section {
+        width: 95%;
+        padding: 25px 15px;
+    }
+    
+    table {
+        width: 95%;
+        font-size: 0.85em;
+    }
+    
+    .Cortes h1, .reportes h1 {
+        font-size: 24px;
+    }
+    
+    .Cortes h2, .reportes h2 {
+        font-size: 20px;
+    }
+}
