@@ -35,7 +35,7 @@
 }
 
 .lineas-atencion-contenedor th {
-    background-color: #3737dc ;
+    background-color: #3498db ;
     color: white;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .map-buttons button {
-    background-color: #3737dc;
+    background-color: #3498db;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -82,7 +82,7 @@
 }
 
 .map-buttons button:hover {
-    background-color: #3737dc;
+    background-color: #3498db;
 }
 
 /* Estilo para el iframe del mapa */
