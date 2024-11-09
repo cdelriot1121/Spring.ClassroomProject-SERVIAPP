@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/estilos_interfaz-admin/style_admin.css">
     <link rel="stylesheet" href="/estilos_interfaz-admin/add_consejos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -46,7 +46,6 @@
 
       <h2>Ingresa Tus Consejos Que Ayuden A Mejorar El Consumo De Los Usuarios</h2>
       <form th:action="@{/registrar-consejo}" th:object="${consejoModel}" method="post" class="mt-3">
-            
         <div class="mb-3">
             <label for="servicio" class="form-label">Tipo de Servicio</label>
             <select id="tipo_servicio" name="tipo_servicio" class="form-select" required>
@@ -56,7 +55,7 @@
                 <option value="Gas">Gas</option>
             </select>
         </div>
-
+    
         <div class="mb-3">
             <label for="caracteristica" class="form-label">Categoria Consumo</label>
             <select id="categoria_consumo" name="categoria_consumo" class="form-select" required>
@@ -66,19 +65,74 @@
                 <option value="Bajo">Bajo</option>
             </select>
         </div>
-
+    
         <div class="mb-3">
             <label for="consejo" class="form-label">Consejo</label>
             <textarea id="contenido" name="contenido" class="form-control" rows="3" placeholder="Escribe tu consejo..." required></textarea>
         </div>
-
+    
         <button type="submit" class="btn btn-primary w-100">Enviar</button>
     </form>
 </div>
 
 
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    function confirmarConsejo(event, form) {
+        event.preventDefault();
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: "Consejo registrado con éxito",
+            text: "¡El consejo se ha guardado correctamente!",
+            icon: "success",  
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+            background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+            customClass: {
+                popup: 'swal-custom-popup'
+            },
+            didRender: () => {
+                const logo = document.createElement('img');
+                logo.src = '/img_local/logo-pagina-serviapp.png'; 
+                logo.style.width = '155px';
+                logo.style.display = 'block';
+                logo.style.margin = '0 auto 10px';  
+
+              
+                Swal.getIcon().before(logo);
+
+        
+                const infoIcon = Swal.getIcon();
+                infoIcon.style.position = 'relative';
+                infoIcon.style.top = '-10px';  
+                infoIcon.style.marginBottom = '10px'; 
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();  
+            }
+        });
+
+        return false; 
+    }
+
+    
+    document.querySelector('form').addEventListener('submit', function(event) {
+        confirmarConsejo(event, this); 
+    });
+</script>
+
+
 
 </body>
 </html>
