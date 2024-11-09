@@ -19,7 +19,6 @@ form {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
 }
 
-
 label {
     display: block;
     font-weight: 600;
@@ -42,7 +41,6 @@ select {
     box-sizing: border-box;
 }
 
-
 button {
     width: 100%; 
     padding: 12px; 
@@ -59,19 +57,16 @@ button:hover {
     background-color: #008ecc;
 }
 
-
 table {
-    width: 90%;
-    max-width: 600px;
+    width: 100%; /* Ajusta la tabla al 100% del contenedor */
     border-collapse: collapse;
-    margin: 20px auto;
+    margin: 20px 0; /* Añadido margen superior e inferior */
     font-size: 16px;
     text-align: left;
     font-family: 'Kanit', sans-serif;
     border-radius: 12px; 
-    overflow: hidden; 
+    overflow: hidden;
 }
-
 
 table th, table td {
     padding: 12px 15px;
@@ -92,7 +87,6 @@ table tbody tr:nth-child(odd) {
     background-color: #fff;
 }
 
-
 table tbody tr td {
     color: #333;
 }
@@ -110,19 +104,19 @@ table tbody tr:last-child td {
 /* Contenedor de checkboxes para organizar la disposición */
 .barrios-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se dispongan en varias líneas si es necesario */
+    flex-wrap: wrap;
     padding: 16px;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     background-color: #fefefe;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 500px; /* Ancho mayor para acomodar filas horizontales */
+    max-width: 500px; 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .barrios-container label {
     font-size: 16px;
-    margin: 8px 10px; /* Espacio entre cada checkbox */
+    margin: 8px 10px; 
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -131,7 +125,7 @@ table tbody tr:last-child td {
     border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    flex-basis: calc(50% - 20px); /* Ajusta para que quepan dos por fila */
+    flex-basis: calc(50% - 20px); 
 }
 
 .barrios-container label:hover {
@@ -139,7 +133,6 @@ table tbody tr:last-child td {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Checkbox visible con personalización */
 .barrios-container input[type="checkbox"] {
     margin-right: 10px;
     width: 18px;
@@ -147,4 +140,50 @@ table tbody tr:last-child td {
     cursor: pointer;
 }
 
+/* Estilos para DataTable */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+}
 
+#cortesTable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#cortesTable_wrapper {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#cortesTable_filter {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-start; 
+}
+
+#cortesTable_paginate {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end; 
+}
+
+
+#cortesTable_length, 
+#cortesTable_info {
+    margin-bottom: 10px;
+}
+
+
+    .table-container {
+        max-width: 90%; 
+        margin: 0 auto; 
+    }
+
+ 
+    table {
+        width: 100%; 
+        max-width: 1200px; 
+        margin: 0 auto;
+    }
