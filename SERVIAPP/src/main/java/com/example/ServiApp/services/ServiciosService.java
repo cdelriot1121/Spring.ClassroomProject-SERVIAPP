@@ -25,6 +25,7 @@ public ServicioModel registrarservicio(ServicioModel servicio){
     public List<ServicioModel> obtenerServiciosPorUsuario(UsuarioModel usuario) {
         return servicioRepository.findByUsuario(usuario);
     }
+    
    
     public List<ServicioModel> ObtenerServicios(){
         List<ServicioModel> servicios = servicioRepository.findAll();
@@ -54,6 +55,7 @@ public ServicioModel registrarservicio(ServicioModel servicio){
     public void eliminarServicio(Long id){
         servicioRepository.deleteById(id);
     }
+
 
 
 }
