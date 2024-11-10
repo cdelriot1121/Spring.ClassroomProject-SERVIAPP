@@ -171,3 +171,118 @@ td {
         font-size: 20px;
     }
 }
+
+
+
+/* Contenedor de tabla */
+.table-container {
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 90%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+
+
+/* Estilo de la tabla */
+#tablaCortes {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+#tablaCortes thead {
+    background-color: #0044cc;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#tablaCortes th, #tablaCortes td {
+    padding: 12px;
+    text-align: center;
+}
+
+#tablaCortes tbody tr:nth-child(even) {
+    background-color: #f0f6ff;
+}
+
+#tablaCortes tbody tr:hover {
+    background-color: #e1efff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Estilo de botones */
+button[type="submit"] {
+    background-color: #0044cc;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0033a0;
+}
+
+button[type="submit"]:active {
+    background-color: #002080;
+    transform: scale(0.98);
+}
+
+/* Animación para los elementos de la tabla */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#tablaCortes tbody tr {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Estilo de dropdown perfil */
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    display: none;
+}
+
+.profile-button:hover + .profile-dropdown {
+    display: block;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.profile-dropdown a:hover {
+    background-color: #f0f6ff;
+}
+
+
+.btn-confirmar {
+    background-color: #28a745; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-confirmar:hover {
+    background-color: #218838; }

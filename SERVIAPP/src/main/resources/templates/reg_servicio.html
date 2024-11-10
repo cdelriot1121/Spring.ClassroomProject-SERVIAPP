@@ -23,6 +23,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
+  <!--Sweet alert-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
    
 </head>
 
@@ -71,15 +74,15 @@
                 <b><h2>Registra tus servicios</h2></b>
                
                 <!-- Formulario para registrar el servicio -->
-                <form action="/servicios/registrar-servicio" method="POST">
-                    <input class="casilla_rs" list="opcionesTipo" name="tipo_servicio" placeholder="Tipo de Servicio" required   id="tipo_servicio">
+                <form id="formRegistroServicio" action="/servicios/registrar-servicio" method="POST">
+                    <input class="casilla_rs" list="opcionesTipo" name="tipo_servicio" placeholder="Tipo de Servicio" required id="tipo_servicio">
                     <datalist id="opcionesTipo">                    
                         <option value="Agua">
                         <option value="Energía">
                         <option value="Gas">
                     </datalist>
     
-                    <input class="casilla_rs" list="opcionesEmpresa" name="empresa" placeholder="Empresa" required readonly  id="empresa">
+                    <input class="casilla_rs" list="opcionesEmpresa" name="empresa" placeholder="Empresa" required readonly id="empresa">
                     <datalist id="opcionesEmpresa">                    
                         <option value="Aguas de Cartagena">
                         <option value="Afinia">
@@ -91,18 +94,9 @@
     
                     <button class="btn_registro_servicio" type="submit">Registrar servicio</button>
                 </form>
-    
-                <!-- Mensaje de registro exitoso o error -->
-                <div th:if="${mensaje}" class="mensaje">
-                    <p th:text="${mensaje}"></p>
-                </div>
-                <div th:if="${error}" class="error">
-                    <p th:text="${error}"></p>
-                </div>
             </div>
         </div>
     </div>
-
      <!-- Pie de página -->
      <footer>
         <div class="contenido-pie-pagina">
@@ -152,6 +146,49 @@
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
     <script src="/javascripts/registrar-servicio.js"></script>
+
+    <script>
+        function confirmarRegistroServicio(event, form) {
+            event.preventDefault();
+            
+            Swal.fire({
+                title: "Servicio registrado con éxito",
+                text: "¡El servicio se ha guardado correctamente!",
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonText: "Aceptar",
+                background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+                customClass: {
+                    popup: 'swal-custom-popup',
+                    confirmButton: 'btn-confirmar'
+                },
+                didRender: () => {
+                    const logo = document.createElement('img');
+                    logo.src = '/img_local/logo-pagina-serviapp.png'; 
+                    logo.style.width = '155px';
+                    logo.style.display = 'block';
+                    logo.style.margin = '0 auto 10px';
+    
+                    Swal.getIcon().before(logo);
+    
+                    const successIcon = Swal.getIcon();
+                    successIcon.style.position = 'relative';
+                    successIcon.style.top = '-10px';
+                    successIcon.style.marginBottom = '10px';
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();  
+                }
+            });
+    
+            return false;
+        }
+    
+        document.querySelector('form').addEventListener('submit', function(event) {
+            confirmarRegistroServicio(event, this);
+        });
+    </script>
 
 </body>
 
