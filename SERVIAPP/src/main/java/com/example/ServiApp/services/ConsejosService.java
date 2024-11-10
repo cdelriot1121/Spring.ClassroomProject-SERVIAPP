@@ -1,5 +1,7 @@
 package com.example.ServiApp.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,13 @@ public class ConsejosService {
 
     public ConsejosModel registrarConsejo(ConsejosModel consejo) {
         return consejoRepository.save(consejo);
+    }
+
+
+    //metodo para obtener consejos que se utilizara a futuro
+    public List<ConsejosModel> obtenerConsejos(){
+        List<ConsejosModel> consejos = consejoRepository.findAll();
+        return consejos;
     }
 
 
