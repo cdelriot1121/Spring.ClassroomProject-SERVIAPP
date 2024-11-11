@@ -20,3 +20,46 @@ document.addEventListener('DOMContentLoaded', function() {
         empresaInput.readOnly = empresa !== '';
     });
 });
+
+function confirmarRegistroServicio(event, form) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: "Servicio registrado con éxito",
+        text: "¡El servicio se ha guardado correctamente!",
+        icon: "success",
+        showCancelButton: false,
+        confirmButtonText: "Aceptar",
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png'; 
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+
+            Swal.getIcon().before(logo);
+
+            const successIcon = Swal.getIcon();
+            successIcon.style.position = 'relative';
+            successIcon.style.top = '-10px';
+            successIcon.style.marginBottom = '10px';
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();  
+        }
+    });
+
+    return false;
+}
+
+document.querySelector('form').addEventListener('submit', function(event) {
+    confirmarRegistroServicio(event, this);
+});
+
+

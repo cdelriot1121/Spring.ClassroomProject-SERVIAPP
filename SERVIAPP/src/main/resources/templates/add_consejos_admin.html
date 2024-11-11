@@ -79,59 +79,7 @@
 
       
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-<script>
-    function confirmarConsejo(event, form) {
-        event.preventDefault();
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-
-        swalWithBootstrapButtons.fire({
-            title: "Consejo registrado con éxito",
-            text: "¡El consejo se ha guardado correctamente!",
-            icon: "success",  
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-            background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
-            customClass: {
-                popup: 'swal-custom-popup'
-            },
-            didRender: () => {
-                const logo = document.createElement('img');
-                logo.src = '/img_local/logo-pagina-serviapp.png'; 
-                logo.style.width = '155px';
-                logo.style.display = 'block';
-                logo.style.margin = '0 auto 10px';  
-
-              
-                Swal.getIcon().before(logo);
-
-        
-                const infoIcon = Swal.getIcon();
-                infoIcon.style.position = 'relative';
-                infoIcon.style.top = '-10px';  
-                infoIcon.style.marginBottom = '10px'; 
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();  
-            }
-        });
-
-        return false; 
-    }
-
-    
-    document.querySelector('form').addEventListener('submit', function(event) {
-        confirmarConsejo(event, this); 
-    });
-</script>
-
+<script src="/javascripts/JS_consejosAdmin.js"></script>
 
 
 </body>
