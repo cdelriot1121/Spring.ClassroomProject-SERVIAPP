@@ -22,6 +22,12 @@ public class PeriodoService {
         return periodoRepository.findByServicio(servicio);
     }
 
+    public List<PeriodoModel> obtenerPeriodos(){
+        List<PeriodoModel> periodos = periodoRepository.findAll();
+        return periodos;
+    }
+
+    
     
 
 

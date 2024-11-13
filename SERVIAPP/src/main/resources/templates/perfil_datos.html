@@ -24,7 +24,10 @@
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
      <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-   
+     <!-- SweetAlert2 CDN -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
 
 <body>
     <header>
@@ -91,14 +94,15 @@
                     <tr>
                         <td th:text="${usuario.nombre}">Nombre Completo</td>
                         <td colspan="3" th:if="${editarUsuarioId == usuario.id}">
-                            <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post">
+                            <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post" id="form-datos-personales">
                                 <div style="display: flex; gap: 10px;">
                                     <input type="text" name="email" th:value="${usuario.email}" required style="flex: 1;">
                                     <input type="number" name="estrato" max="6" min="1" th:value="${usuario.estrato}" maxlength="3" required style="flex: 1;">
-                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                    <button type="button" class="btn btn-success" onclick="confirmarCambioDatos(event)">Guardar Cambios</button>
                                     <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
                                 </div>
                             </form>
+                            
                         </td>
                         <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.email}">Correo Electrónico</td>
                         <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.estrato}">Estrato</td>
@@ -111,7 +115,7 @@
         </section>
 
                 <!-- Cambiar Contraseña -->
-            <section th:if="${section == 'cambiar-contrasena'}">
+            <section th:if="${section == 'cambiar-contrasena'}" class="seccion_cambiar_password">
                 <h4>Cambiar Contraseña</h4>
             
                 <!-- Mensajes de error o éxito -->
@@ -142,36 +146,11 @@
                             <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('confirm-password')">👁️</button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                    <button type="submit" class="btn btn-primary" id="boton-cambiar-password">Cambiar Contraseña</button>
                 </form>
             </section>
                 
-                <script>
-                    function togglePasswordVisibility(inputId) {
-                        const input = document.getElementById(inputId);
-                        if (input.type === "password") {
-                            input.type = "text";
-                        } else {
-                            input.type = "password";
-                        }
-                    }
-                </script>
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
-
+          
                 <!-- Mis Servicios -->
                 <section th:if="${section == 'mis-servicios'}">
     <h4>Mis Servicios</h4>
@@ -189,14 +168,15 @@
                 <td th:text="${servicio.tipo_servicio}">Tipo de Servicio</td>
                 
                 <td colspan="3" th:if="${editarServicioId == servicio.id}">
-                    <form th:action="@{/servicios/actualizar/{id}(id=${servicio.id})}" th:object="${servicio}" method="post">
+                    <form th:action="@{/servicios/actualizar/{id}(id=${servicio.id})}" th:object="${servicio}" method="post" id="form-servicios">
                         <div style="display: flex; gap: 10px;">
                             <input type="text" name="poliza" th:value="${servicio.poliza}" required style="flex: 1;">
                             <input type="number" name="habitantes" th:value="${servicio.habitantes}" required style="flex: 1;">
-                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                            <button type="button" class="btn btn-success" onclick="confirmarCambioServicio(event)">Guardar Cambios</button>
                             <a th:href="@{/mis-servicios}" class="btn btn-danger">Cancelar</a>
                         </div>
                     </form>
+                    
                 </td>
                 
                 <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.poliza}">Póliza</td>

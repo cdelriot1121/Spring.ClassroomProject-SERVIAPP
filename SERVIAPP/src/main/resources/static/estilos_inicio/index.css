@@ -1,11 +1,62 @@
-
+/* index.css*/
 
 #carouselExampleIndicators {
-    width: 75%; 
+    width: 80%; 
     height: auto;
     margin: auto; 
     border: 0px solid #000000;
     border-radius: 6px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.377);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la sección "Sobre Nosotros" */
+#sobre-nosotros {
+    background-color: #e2e2e2; 
+    padding: 50px 20px; 
+    margin-top: 40px; 
+    margin-bottom: 40px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    border-radius: 10px;
+}
+
+.titulo-sobre-nosotros{
+    font-size: 3rem;
+}
+
+.container {
+    max-width: 900px; 
+    text-align: center;
+}
+
+
+
+/* Estilo para el texto de administradores */
+.administradores-texto .descripcion-sobre-nosotros {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 20px 0;
+    font-weight: 600;
+}
+
+/* Botón de login para administradores */
+.btn-login-admin {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #007ccf;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login-admin:hover {
+    background-color: #005fa3; 
 }

@@ -11,22 +11,21 @@ document.getElementById("link-mis-servicios").addEventListener("click", function
 });
 
 function showSection(section) {
-    // Ocultar todas las secciones
+
     document.getElementById("section-datos-personales").style.display = "none";
     document.getElementById("section-cambiar-contrasena").style.display = "none";
     document.getElementById("section-mis-servicios").style.display = "none";
 
-    // Quitar la clase 'active' de todos los enlaces
+
     document.querySelectorAll('.list-group-item').forEach(function(link) {
         link.classList.remove('active');
     });
 
-    // Mostrar la sección seleccionada y marcar el enlace como activo
+  
     document.getElementById("section-" + section).style.display = "block";
     document.getElementById("link-" + section).classList.add('active');
 }
 
-// Validación de la contraseña en la sección de cambio de contraseña
 function validateForm(event) {
     event.preventDefault(); 
 
@@ -70,3 +69,197 @@ function togglePasswordVisibility(inputId) {
 
 // Mostrar por defecto la sección "Datos Personales"
 showSection("datos-personales");
+
+
+
+function togglePasswordVisibility(inputId) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+    } else {
+        input.type = "password";
+    }
+}
+
+
+// codigo js para todas las alertas de sweet alert contenidas en la pagina de profile users
+
+//alertas en la seccion de datos de perfil
+function confirmarCambioDatos(event) {
+    event.preventDefault();  
+
+    Swal.fire({
+        title: '¿Estás seguro de guardar los cambios?',
+        text: 'Los cambios no podrán deshacerse.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, guardar cambios',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png'; 
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-datos-personales').submit();  
+        } else {
+            Swal.fire('No se han realizado cambios', 'Tu información no ha sido modificada', 'info');
+        }
+    });
+}
+
+
+
+// alertas para la seccion de mis servicios
+function confirmarCambioServicio(event) {
+    event.preventDefault();  
+
+    Swal.fire({
+        title: '¿Estás seguro de guardar los cambios?',
+        text: 'Los cambios no podrán deshacerse.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, guardar cambios',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png'; 
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-servicios').submit(); 
+        } else {
+            Swal.fire('No se han realizado cambios', 'Tu servicio no ha sido modificado', 'info');
+        }
+    });
+}
+
+
+
+
+function confirmarEliminarServicio(event, servicioId) {
+    event.preventDefault();  // Evitar que el formulario se envíe inmediatamente
+
+    Swal.fire({
+        title: '¿Estás seguro de eliminar este servicio?',
+        text: '¡Esta acción no se puede deshacer!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png'; 
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Enviar el formulario para eliminar el servicio
+            document.getElementById(`form-eliminar-servicio-${servicioId}`).submit(); 
+        } else {
+            Swal.fire('Eliminación cancelada', 'Tu servicio no ha sido eliminado', 'info');
+        }
+    });
+}
+
+
+
+
+//alerta para la pagina de cambiar contraseña
+
+function confirmarCambioContraseña(event) {
+    event.preventDefault(); 
+
+    Swal.fire({
+        title: '¿Estás seguro de cambiar tu contraseña?',
+        text: 'Una vez cambiada, no podrás revertirla.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, cambiar contraseña',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png'; 
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+          
+            document.getElementById('changePasswordForm').submit(); 
+        } else {
+            Swal.fire('No se ha realizado ningún cambio', 'Tu contraseña no ha sido modificada', 'info');
+        }
+    });
+}
+
+
+
+
+
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+//miau
+

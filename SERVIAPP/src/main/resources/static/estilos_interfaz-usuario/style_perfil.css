@@ -55,3 +55,35 @@ hr {
         margin-bottom: 20px;
     }
 }
+
+/* Personalización de las alertas */
+.swal-custom-popup {
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.btn-confirmar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-cancelar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.swal2-popup {
+    font-family: 'Kanit', sans-serif;
+}
+
+.seccion_cambiar_password{
+     margin-bottom: 50px;
+}
