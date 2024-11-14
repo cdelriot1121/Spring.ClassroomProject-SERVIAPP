@@ -1,5 +1,8 @@
 package com.example.ServiApp.model;
 
+import java.sql.Date;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,8 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "cortes")
@@ -29,13 +30,13 @@ public class CortesModel {
     private String motivo;
 
     @Column(name = "barrios", nullable = false)
-    private String barrios;  // Guardamos los barrios como una cadena separada por comas
+    private String barrios;  
 
     @Column(name = "hora_inicio", nullable = false)
-    private String hora_inicio;  // Cambiar de Time a String
+    private String hora_inicio;  
 
     @Column(name = "hora_final", nullable = false)
-    private String hora_final;   // Cambiar de Time a String
+    private String hora_final;   
 
     @ManyToOne
     @JoinColumn(name = "administrador_id", nullable = false)
@@ -78,9 +79,9 @@ public class CortesModel {
         return barrios;
     }
 
-    // Método para manejar la conversión de la lista de barrios a una cadena separada por comas
+    // el metodo set para manejar la conversión de la lista de barrios a una cadena separada por comas
     public void setBarrios(List<String> barrios) {
-        this.barrios = String.join(",", barrios);  // Convertimos la lista en un string separado por comas
+        this.barrios = String.join(",", barrios);
     }
 
     public String getHora_inicio() {
