@@ -86,10 +86,10 @@
                     <option value="Gas">
                 </datalist>
     
-                <div id="form-content" style="display: none;">
+                <div id="form-content" >
                     <label for="mes">Selecciona un mes:</label>
                     <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
-                    <datalist id="opciones_mes">                    
+                    <datalist id="opciones_mes">
                         <option value="Enero">
                         <option value="Febrero">
                         <option value="Marzo">
@@ -108,39 +108,35 @@
                     <input class="casilla_rs" type="number" id="consumo" name="consumo" min="0" step="any" placeholder="Ingresa el consumo" required>
     
                     <button type="submit" class="btn-enviar-servi">Enviar</button>
-                    <button type="button" id="cambiar-servicio" class="btn-cambiar-servicio" style="display: none;">Cambiar Servicio</button>
                 </div>
             </form>
         </section>
 
         <!-- Cuadros de Información de Consumo -->
-<section id="cuadros-consumo" style="display: none;">
-    <div class="cuadro">
-        <h3>Promedio en Cartagena</h3>
-        <p id="promedio-cartagena">--</p>
-    </div>
-    <div class="cuadro">
-        <h3>Promedio del Hogar</h3>
-        <p id="promedio-hogar">--</p>
-    </div>
-    <div class="cuadro">
-        <h3>Promedio Mensual por Habitante</h3>
-        <p id="promedio-habitante">--</p>
-    </div>
-    <div class="cuadro">
-        <h3>Promedio Semanal</h3>
-        <p id="promedio-semanal">--</p>
-    </div>
-</section>
+            <section id="cuadros-consumo">
+                <div class="cuadro">
+                    <h3>Promedio en Cartagena</h3>
+                    <p id="promedio-cartagena">--</p>
+                </div>
+                <div class="cuadro">
+                    <h3>Promedio del Hogar</h3>
+                    <p id="promedio-hogar">--</p>
+                </div>
+                <div class="cuadro">
+                    <h3>Promedio Mensual por Habitante</h3>
+                    <p id="promedio-habitante">--</p>
+                </div>
+                <div class="cuadro">
+                    <h3>Promedio Semanal</h3>
+                    <p id="promedio-semanal">--</p>
+                </div>
+            </section>
 
 <div class="tips-box">
     <h3>Consejos Personalizados</h3>
     <p>Aquí aparecerán consejos personalizados según tu consumo.</p>
 </div>
 </div>
-
-    
-      
     </main>
    
     </div>
@@ -192,7 +188,7 @@
 
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
-    <script src="/javascripts/formulario-servicio.js"></script>
+    
     
 </body>
 
