@@ -115,25 +115,11 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
         return "perfil_datos";
     }
 
-
-
-
-
-
-
-
-
-
     @GetMapping("/cambiar-contrasena")
     public String mostrarCambiarContrasena(Model model) {
         model.addAttribute("section", "cambiar-contrasena");
         return "perfil_datos";
     }
-
-
-
-
-
 
     @PostMapping("/usuarios/cambiar-contrasena")
     public String cambiarContraseña(@RequestParam String currentPassword, @RequestParam String newPassword,
@@ -170,25 +156,7 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     @GetMapping("/mis-servicios")
+    @GetMapping("/mis-servicios")
     public String listarServicios(Model model, HttpSession session) {
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
     
@@ -203,5 +171,4 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
             return "iniciosesion";  
         }
     }
-
 }

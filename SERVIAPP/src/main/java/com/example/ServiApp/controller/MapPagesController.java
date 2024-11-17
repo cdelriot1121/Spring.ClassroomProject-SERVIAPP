@@ -35,10 +35,13 @@ public class MapPagesController {
        return "reg_servicio";
    }
 
+   /* 
+
    @GetMapping("/gestionar-servicio")
    public String gestionarServicio(){
        return "gestionar_serv";
    }
+   */
 
    @GetMapping("/consejos-ahorro")
    public String consejosAhorro(){

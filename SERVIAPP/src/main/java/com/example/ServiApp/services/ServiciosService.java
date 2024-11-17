@@ -36,9 +36,6 @@ public ServicioModel registrarservicio(ServicioModel servicio){
         return servicioRepository.findById(id);
         }
 
-    
-
-
     public void actualizarServicio(Long id, ServicioModel servicioActualizado){
         ServicioModel servicioExistente = servicioRepository.findById(id).orElseThrow(()->
         new IllegalArgumentException("Servicio no encontrado con ID: " + id)
@@ -56,6 +53,7 @@ public ServicioModel registrarservicio(ServicioModel servicio){
         servicioRepository.deleteById(id);
     }
 
+   
 
 
 }
