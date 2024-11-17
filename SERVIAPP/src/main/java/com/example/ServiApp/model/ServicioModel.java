@@ -33,7 +33,7 @@ public class ServicioModel {
     private List<PeriodoModel> periodos;
 
     @Column(name = "tipo_servicio", nullable = false, length = 50)
-    private String tipo_servicio;
+    private String tipoServicio;
 
     @Column(name = "empresa", nullable = false, length = 50)
     private String empresa;
@@ -52,7 +52,7 @@ public class ServicioModel {
         this.id = id;
         this.usuario = usuario;
         this.periodos = periodos;
-        this.tipo_servicio = tipo_servicio;
+        this.tipoServicio = tipo_servicio;
         this.empresa = empresa;
         this.poliza = poliza;
         this.habitantes = habitantes;
@@ -83,11 +83,11 @@ public class ServicioModel {
     }
 
     public String getTipo_servicio() {
-        return tipo_servicio;
+        return tipoServicio;
     }
 
     public void setTipo_servicio(String tipo_servicio) {
-        this.tipo_servicio = tipo_servicio;
+        this.tipoServicio = tipo_servicio;
     }
 
     public String getEmpresa() {
@@ -121,7 +121,7 @@ public class ServicioModel {
         sb.append("id=").append(id);
         sb.append(", usuarioId=").append(usuario != null ? usuario.getId() : null); // Evitar referencia recursiva
         sb.append(", periodos=").append(periodos != null ? periodos.size() : 0); // Mostrar cantidad de periodos
-        sb.append(", tipo_servicio=").append(tipo_servicio);
+        sb.append(", tipo_servicio=").append(tipoServicio);
         sb.append(", empresa=").append(empresa);
         sb.append(", poliza=").append(poliza);
         sb.append(", habitantes=").append(habitantes);

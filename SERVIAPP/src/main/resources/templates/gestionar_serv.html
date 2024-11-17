@@ -77,10 +77,12 @@
     
         <!-- Formulario -->
         <section class="formulario">
-            <form id="servicio-form" action="/calcular-consumo" method="post">
-                <label for="servicio">Selecciona el Servicio:</label>
-                <select name="servicio.id" id="servicio" required>
-                    <option th:each="servicio : ${servicios}" 
+            <form id="servicio-form" action="/calcular-consumo" method="post" placeholder="Selecciona un servicio">
+            <label for="servicio">Selecciona el Servicio:</label>
+            <select name="servicio.id" id="servicio" required>
+                <option value="" disabled selected>Selecciona un servicio</option>
+                    <option 
+                            th:each="servicio : ${servicios}" 
                             th:value="${servicio.id}" 
                             th:text="${servicio.tipo_servicio}">Servicio</option>
                 </select>

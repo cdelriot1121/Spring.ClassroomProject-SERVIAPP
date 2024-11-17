@@ -12,5 +12,8 @@ import com.example.ServiApp.model.UsuarioModel;
 public interface ServicioRepository extends JpaRepository<ServicioModel, Long> {
 
     List<ServicioModel> findByUsuario(UsuarioModel usuario);
-
+    boolean existsByTipoServicioAndUsuario(String tipoServicio, UsuarioModel usuario);
 }
+
+
+
