@@ -18,26 +18,28 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/servicios")
 public class ServicioController {
+    
 
     @Autowired
     private ServiciosService servicioService;
 
     @PostMapping("/registrar-servicio")
     public String registrarServicio(@ModelAttribute ServicioModel servicio, Model model, HttpSession session) {
-        // recuperar al usuario logueado
+
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
 
-        // verificar si hay algun usuario en sesion
         if (usuarioLogueado != null) {
-            // asigna el id del usuario logeado en el momento
-            servicio.setUsuario(usuarioLogueado);
+
+            if (servicioService.existeServicioPorTipoYUsuario(servicio.getTipo_servicio(),usuarioLogueado)){
+                model.addAttribute("errorDuplicado", "Ya tienes este servicio registrado");
+                return "redirect:/registrar-servicio";
+            }
+             servicio.setUsuario(usuarioLogueado);
             servicioService.registrarservicio(servicio);
 
-            // mesnajse de exito cuando se registra el servicio
             model.addAttribute("mensaje", "Servicio registrado exitosamente");
             return "redirect:/registrar-servicio";
         } else {
-            // comprobar si hay  usuarios en sesion, y si no redirigir a la pagina de inicio de sesion, o tambien si no encutra algun usuario u ocurre algun error redirige a la pogina inicio de seion 
             model.addAttribute("error", "No hay usuario autenticado");
             return "iniciosesion";  
         }
@@ -45,7 +47,7 @@ public class ServicioController {
 
      @GetMapping("/editar/{id}")
     public String editarServicio(@PathVariable Long id, Model model) {
-        ServicioModel servicio = servicioService.obtenerServicioPorId(id).orElseThrow(() ->
+        servicioService.obtenerServicioPorId(id).orElseThrow(() ->
         new IllegalArgumentException("Servicio no encontrado con id: " + id));
 
         model.addAttribute("editarServicioId", id);

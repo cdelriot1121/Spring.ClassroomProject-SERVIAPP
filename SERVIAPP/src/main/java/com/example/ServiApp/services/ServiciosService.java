@@ -52,8 +52,11 @@ public ServicioModel registrarservicio(ServicioModel servicio){
     public void eliminarServicio(Long id){
         servicioRepository.deleteById(id);
     }
-
-   
+    
+    public boolean existeServicioPorTipoYUsuario(String tipo_servicio, UsuarioModel usuario) {
+        return servicioRepository.existsByTipoServicioAndUsuario(tipo_servicio, usuario);
+    }
+    
 
 
 }
