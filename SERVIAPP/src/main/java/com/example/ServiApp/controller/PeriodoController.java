@@ -58,19 +58,21 @@ public class PeriodoController {
             float promedioHabitante = promedioHogar / habitantes;
             float promedioSemanal = promedioHogar / 4;
 
-            switch (servicioSeleccionado.getTipo_servicio().toLowerCase()) {
+            switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
                     break;
-                case "Energía":
+                case "energía":
                     promedioCartagena = PROMEDIO_ENERGIA * habitantes;
                     break;
                 case "gas":
                     promedioCartagena = PROMEDIO_GAS * habitantes;
                     break;
                 default:
-                    throw new IllegalArgumentException("Tipo de servicio no válido");
+                    throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
             }
+            System.out.println("Tipo de servicio seleccionado: " + servicioSeleccionado.getTipo_servicio());
+
 
             periodoService.registrarPeriodo(periodo);
 
