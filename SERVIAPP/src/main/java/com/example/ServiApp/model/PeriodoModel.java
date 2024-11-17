@@ -1,6 +1,7 @@
 package com.example.ServiApp.model;
 
 import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,12 +27,12 @@ public class PeriodoModel {
     @Column(name="Consumo", nullable=false, length=50)
     private float consumo;
 
-    // Relación muchos a uno: un periodo pertenece a un servicio
+    // relacion de muchos a uno: un periodo pertenece a un servicio
     @ManyToOne
     @JoinColumn(name = "servicio_id", nullable = false)
     private ServicioModel servicio;
 
-    // Relación muchos a muchos con ConsejosModel
+    // esta es la relacion de  muchos a muchos con ConsejosModel
     @ManyToMany
     @JoinTable(
         name = "periodo_consejo",
