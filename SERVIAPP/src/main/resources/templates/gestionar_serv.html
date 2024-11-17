@@ -77,31 +77,30 @@
     
         <!-- Formulario -->
         <section class="formulario">
-            <form id="servicio-form">
+            <form id="servicio-form" action="/calcular-consumo" method="post">
                 <label for="servicio">Selecciona el Servicio:</label>
-                <input class="casilla_rs" list="opciones" id="servicio" name="servicio" placeholder="Selecciona el Servicio" required>
-                <datalist id="opciones">                    
-                    <option value="Agua">
-                    <option value="Energia">
-                    <option value="Gas">
-                </datalist>
+                <select name="servicio.id" id="servicio" required>
+                    <option value="1">Agua</option>
+                    <option value="2">Energía</option>
+                    <option value="3">Gas</option>
+                </select>
     
                 <div id="form-content" >
                     <label for="mes">Selecciona un mes:</label>
                     <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
                     <datalist id="opciones_mes">
-                        <option value="Enero">
-                        <option value="Febrero">
-                        <option value="Marzo">
-                        <option value="Abril">
-                        <option value="Mayo">
-                        <option value="Junio">
-                        <option value="Julio">
-                        <option value="Agosto">
-                        <option value="Septiembre">
-                        <option value="Octubre">
-                        <option value="Noviembre">
-                        <option value="Diciembre">
+                        <option value="Enero">Enero
+                        <option value="Febrero">Febrero
+                        <option value="Marzo">Marzo
+                        <option value="Abril">Abril
+                        <option value="Mayo">Mayo
+                        <option value="Junio">Junio
+                        <option value="Julio">Julio
+                        <option value="Agosto">Agosto
+                        <option value="Septiembre">Septiembre
+                        <option value="Octubre">Octubre
+                        <option value="Noviembre">Noviembre
+                        <option value="Diciembre">Diciembre
                     </datalist>
     
                     <label id="consumo-label" for="consumo">Consumo:</label>
@@ -113,24 +112,26 @@
         </section>
 
         <!-- Cuadros de Información de Consumo -->
-            <section id="cuadros-consumo">
-                <div class="cuadro">
-                    <h3>Promedio en Cartagena</h3>
-                    <p id="promedio-cartagena">--</p>
-                </div>
-                <div class="cuadro">
-                    <h3>Promedio del Hogar</h3>
-                    <p id="promedio-hogar">--</p>
-                </div>
-                <div class="cuadro">
-                    <h3>Promedio Mensual por Habitante</h3>
-                    <p id="promedio-habitante">--</p>
-                </div>
-                <div class="cuadro">
-                    <h3>Promedio Semanal</h3>
-                    <p id="promedio-semanal">--</p>
-                </div>
-            </section>
+           <!-- Cuadros de Información de Consumo -->
+        <section id="cuadros-consumo">
+            <div class="cuadro">
+                <h3>Promedio en Cartagena</h3>
+                <p id="promedio-cartagena" th:text="${promedioCartagena}">--</p>
+            </div>
+            <div class="cuadro">
+                <h3>Promedio del Hogar</h3>
+                <p id="promedio-hogar" th:text="${promedioHogar}">--</p>
+            </div>
+            <div class="cuadro">
+                <h3>Promedio Mensual por Habitante</h3>
+                <p id="promedio-habitante" th:text="${promedioHabitante}">--</p>
+            </div>
+            <div class="cuadro">
+                <h3>Promedio Semanal</h3>
+                <p id="promedio-semanal" th:text="${promedioSemanal}">--</p>
+            </div>
+        </section>
+
 
 <div class="tips-box">
     <h3>Consejos Personalizados</h3>
@@ -149,7 +150,7 @@
             <ul class="enlaces-pie-pagina">
                 <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
                 <li><a href="">Terminos</a></li>
-                <li><a href="">Securidad</a></li>
+                <li><a href="">Seguridad</a></li>
                 <li><a href="">Estatus</a></li>
                 <li><a href="">Contacto</a></li>
                 <li><a href="">Manejo de cookies</a></li>
