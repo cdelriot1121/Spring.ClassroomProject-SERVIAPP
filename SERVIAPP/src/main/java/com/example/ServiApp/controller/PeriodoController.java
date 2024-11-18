@@ -32,10 +32,8 @@ public class PeriodoController {
                 throw new IllegalArgumentException("Usuario no logueado.");
             }
 
-            // Obtener servicios del usuario logueado
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
-
-            // Buscar el servicio seleccionado por su tipo
+            model.addAttribute("servicios", servicios);
             ServicioModel servicioSeleccionado = servicios.stream()
                     .filter(servicio -> servicio.getId() == periodo.getServicio().getId())
                     .findFirst()
@@ -48,7 +46,6 @@ public class PeriodoController {
 
             periodo.setServicio(servicioSeleccionado);
 
-            // Cálculo de consumos
             final float PROMEDIO_AGUA = 11.5f;
             final float PROMEDIO_ENERGIA = 150f;
             final float PROMEDIO_GAS = 30f;
@@ -57,33 +54,36 @@ public class PeriodoController {
             float promedioHogar = periodo.getConsumo();
             float promedioHabitante = promedioHogar / habitantes;
             float promedioSemanal = promedioHogar / 4;
+            String unidad = ""; // Unidad de medida
 
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
+                    unidad = "m³";
                     break;
                 case "energía":
                     promedioCartagena = PROMEDIO_ENERGIA * habitantes;
+                    unidad = "kWh";
                     break;
                 case "gas":
                     promedioCartagena = PROMEDIO_GAS * habitantes;
+                    unidad = "m³";
                     break;
                 default:
                     throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
             }
-            System.out.println("Tipo de servicio seleccionado: " + servicioSeleccionado.getTipo_servicio());
-
 
             periodoService.registrarPeriodo(periodo);
 
-            // Agregar resultados al modelo
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
             model.addAttribute("promedioSemanal", promedioSemanal);
+            model.addAttribute("unidad", unidad); // Agregar la unidad al modelo
 
             return "gestionar_serv";
         }
+
 
         @GetMapping("/gestionar-servicio")
         public String gestionarServicio(Model model, HttpSession session) {
@@ -96,9 +96,6 @@ public class PeriodoController {
             model.addAttribute("servicios", servicios);
             return "gestionar_serv";
         }
-
-
-
 
 
 

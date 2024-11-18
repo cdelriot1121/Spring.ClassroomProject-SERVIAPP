@@ -112,26 +112,26 @@
             </form>
         </section>
 
-        <!-- Cuadros de Información de Consumo -->
-           <!-- Cuadros de Información de Consumo -->
-        <section id="cuadros-consumo">
+        <!--cuadros para mostrar los resultados de consumo-->
+        <<section id="cuadros-consumo">
             <div class="cuadro">
                 <h3>Promedio en Cartagena</h3>
-                <p id="promedio-cartagena" th:text="${promedioCartagena}">--</p>
+                <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
             </div>
             <div class="cuadro">
                 <h3>Promedio del Hogar</h3>
-                <p id="promedio-hogar" th:text="${promedioHogar}">--</p>
+                <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
             </div>
             <div class="cuadro">
                 <h3>Promedio Mensual por Habitante</h3>
-                <p id="promedio-habitante" th:text="${promedioHabitante}">--</p>
+                <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
             </div>
             <div class="cuadro">
                 <h3>Promedio Semanal</h3>
-                <p id="promedio-semanal" th:text="${promedioSemanal}">--</p>
+                <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
             </div>
         </section>
+        
 
 
 <div class="tips-box">
