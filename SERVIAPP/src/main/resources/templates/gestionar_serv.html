@@ -68,7 +68,7 @@
 
       <main>
         <div class="titulo"> 
-            <h1> Analiza Tus Consumos </h1>
+            <h1> ANALIZA TUS CONSUMOS </h1>
             <h2>Con esta función podrás comparar tus consumos con tu promedio, 
                 <br>el consumo de cada habitante de tu hogar y cómo se comportan 
                 <br>estas cifras con respecto a tu ciudad, así como recibir tus 
@@ -88,7 +88,7 @@
                 </select>
                 <div id="form-content" >
                     <label for="mes">Selecciona un mes:</label>
-                    <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
+                    <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required oninput="validateInput(this)">
                     <datalist id="opciones_mes">
                         <option value="Enero">Enero
                         <option value="Febrero">Febrero
@@ -112,26 +112,26 @@
             </form>
         </section>
 
-        <!-- Cuadros de Información de Consumo -->
-           <!-- Cuadros de Información de Consumo -->
+        <!--cuadros para mostrar los resultados de consumo-->
         <section id="cuadros-consumo">
             <div class="cuadro">
                 <h3>Promedio en Cartagena</h3>
-                <p id="promedio-cartagena" th:text="${promedioCartagena}">--</p>
+                <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
             </div>
             <div class="cuadro">
                 <h3>Promedio del Hogar</h3>
-                <p id="promedio-hogar" th:text="${promedioHogar}">--</p>
+                <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
             </div>
             <div class="cuadro">
                 <h3>Promedio Mensual por Habitante</h3>
-                <p id="promedio-habitante" th:text="${promedioHabitante}">--</p>
+                <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
             </div>
             <div class="cuadro">
                 <h3>Promedio Semanal</h3>
-                <p id="promedio-semanal" th:text="${promedioSemanal}">--</p>
+                <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
             </div>
         </section>
+        
 
 
 <div class="tips-box">
@@ -190,6 +190,18 @@
 
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
+
+    <script>
+        function validateInput(input) {
+          const validMonths = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+          if (!validMonths.includes(input.value) && input.value !== '') {
+            input.setCustomValidity('Por favor, selecciona un mes de la lista.');
+            input.value = ''; 
+          } else {
+            input.setCustomValidity('');
+          }
+        }
+      </script>
     
     
 </body>
