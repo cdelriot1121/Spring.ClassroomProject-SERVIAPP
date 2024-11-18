@@ -46,15 +46,15 @@ public class PeriodoController {
 
             periodo.setServicio(servicioSeleccionado);
 
-            final float PROMEDIO_AGUA = 11.5f;
-            final float PROMEDIO_ENERGIA = 150f;
-            final float PROMEDIO_GAS = 30f;
+            final float PROMEDIO_AGUA = 4.3f;
+            final float PROMEDIO_ENERGIA = 80.7f;
+            final float PROMEDIO_GAS = 3.9f;
 
             float promedioCartagena = 0;
             float promedioHogar = periodo.getConsumo();
             float promedioHabitante = promedioHogar / habitantes;
             float promedioSemanal = promedioHogar / 4;
-            String unidad = ""; // Unidad de medida
+            String unidad = ""; 
 
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
@@ -73,13 +73,16 @@ public class PeriodoController {
                     throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
             }
 
+            String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
+
             periodoService.registrarPeriodo(periodo);
 
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
             model.addAttribute("promedioSemanal", promedioSemanal);
-            model.addAttribute("unidad", unidad); // Agregar la unidad al modelo
+            model.addAttribute("unidad", unidad);
+            model.addAttribute("clasePromedioCartagena", clasePromedioCartagena);
 
             return "gestionar_serv";
         }
@@ -89,7 +92,7 @@ public class PeriodoController {
         public String gestionarServicio(Model model, HttpSession session) {
             UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
             if (usuarioLogueado == null) {
-                return "redirect:/login"; // Redirige al login si no hay usuario en sesión
+                return "redirect:/login"; 
             }
 
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
