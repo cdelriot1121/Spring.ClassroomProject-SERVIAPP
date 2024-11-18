@@ -88,7 +88,7 @@
                 </select>
                 <div id="form-content" >
                     <label for="mes">Selecciona un mes:</label>
-                    <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required>
+                    <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required oninput="validateInput(this)">
                     <datalist id="opciones_mes">
                         <option value="Enero">Enero
                         <option value="Febrero">Febrero
@@ -113,7 +113,7 @@
         </section>
 
         <!--cuadros para mostrar los resultados de consumo-->
-        <<section id="cuadros-consumo">
+        <section id="cuadros-consumo">
             <div class="cuadro">
                 <h3>Promedio en Cartagena</h3>
                 <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
@@ -190,6 +190,18 @@
 
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
+
+    <script>
+        function validateInput(input) {
+          const validMonths = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+          if (!validMonths.includes(input.value) && input.value !== '') {
+            input.setCustomValidity('Por favor, selecciona un mes de la lista.');
+            input.value = ''; 
+          } else {
+            input.setCustomValidity('');
+          }
+        }
+      </script>
     
     
 </body>
