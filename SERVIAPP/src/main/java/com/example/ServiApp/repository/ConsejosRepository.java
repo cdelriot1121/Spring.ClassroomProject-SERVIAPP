@@ -6,9 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.ServiApp.model.ConsejosModel;
+import java.util.List;
+
 
 
 @Repository
 public interface ConsejosRepository extends JpaRepository<ConsejosModel, Long> {
     Optional<ConsejosModel> findById(long id);
+   
+    List<ConsejosModel> findByTipoServicioAndCategoriaConsumo(String tipoServicio, String categoriaConsumo);
+    
+
 }
