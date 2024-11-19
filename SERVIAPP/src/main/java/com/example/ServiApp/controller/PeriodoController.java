@@ -72,7 +72,7 @@ public class PeriodoController {
                 case "energía":
                     promedioHabitanteCartagena = PROMEDIO_ENERGIA;
                     unidad = "kWh";
-                    categoriaConsumo = categorizarConsumo(promedioHabitante, PROMEDIO_ENERGIA, 10);
+                    categoriaConsumo = categorizarConsumo(promedioHabitante, PROMEDIO_ENERGIA, 8);
                     break;
                 case "gas":
                     promedioHabitanteCartagena = PROMEDIO_GAS;
