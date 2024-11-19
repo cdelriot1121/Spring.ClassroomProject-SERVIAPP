@@ -58,6 +58,7 @@ public class PeriodoController {
             float promedioHabitanteCartagena = 0;
             float promedioHogar = periodo.getConsumo();
             float promedioHabitante = promedioHogar / habitantes;
+            float promedioSemanal = promedioHogar / 4;
             String unidad = "";
             String categoriaConsumo = ""; 
 
@@ -83,7 +84,7 @@ public class PeriodoController {
             }
 
 
-            String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
+            String clasePromedioCartagena = promedioHogar > promedioHabitanteCartagena ? "alto" : "bajo";
 
 
             periodoService.registrarPeriodo(periodo);
