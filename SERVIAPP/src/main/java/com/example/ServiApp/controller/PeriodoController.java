@@ -51,16 +51,16 @@ public class PeriodoController {
 
             periodo.setServicio(servicioSeleccionado);
 
-            final float PROMEDIO_AGUA = 11.5f;
-            final float PROMEDIO_ENERGIA = 150f;
-            final float PROMEDIO_GAS = 30f;
+            final float PROMEDIO_AGUA = 4.3f;
+            final float PROMEDIO_ENERGIA = 80.7f;
+            final float PROMEDIO_GAS = 3.9f;
 
             float promedioHabitanteCartagena = 0;
             float promedioHogar = periodo.getConsumo();
             float promedioHabitante = promedioHogar / habitantes;
-            float promedioSemanal = promedioHogar / 4;
             String unidad = "";
             String categoriaConsumo = ""; 
+
 
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
@@ -82,24 +82,28 @@ public class PeriodoController {
                     throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
             }
 
-            // Registrar el periodo
+
+            String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
+
+
             periodoService.registrarPeriodo(periodo);
 
-            // Buscar consejos personalizados
+           
             List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(categoriaConsumo, servicioSeleccionado.getTipo_servicio());
 
-            // Añadir datos al modelo
+           
             model.addAttribute("promedioCartagena", promedioHabitanteCartagena * habitantes);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
             model.addAttribute("promedioSemanal", promedioSemanal);
             model.addAttribute("unidad", unidad);
             model.addAttribute("consejos", consejosPersonalizados);
+            model.addAttribute("clasePromedioCartagena", clasePromedioCartagena);
 
             return "gestionar_serv";
         }
 
-        // Método para categorizar el consumo
+        
         private String categorizarConsumo(float consumoHabitante, float promedio, float margen) {
             if (consumoHabitante < promedio - margen) {
                 return "Bajo";
@@ -116,7 +120,7 @@ public class PeriodoController {
         public String gestionarServicio(Model model, HttpSession session) {
             UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
             if (usuarioLogueado == null) {
-                return "redirect:/login"; // Redirige al login si no hay usuario en sesión
+                return "redirect:/login"; 
             }
 
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
