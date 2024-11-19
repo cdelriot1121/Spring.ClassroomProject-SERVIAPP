@@ -48,7 +48,7 @@
       <form th:action="@{/registrar-consejo}" th:object="${consejoModel}" method="post" class="mt-3">
         <div class="mb-3">
             <label for="servicio" class="form-label">Tipo de Servicio</label>
-            <select id="tipo_servicio" name="tipo_servicio" class="form-select" required>
+            <select id="tipoServicio" name="tipoServicio" class="form-select" required>
                 <option value="" disabled selected>Selecciona una opción</option>
                 <option value="Agua">Agua</option>
                 <option value="Energia">Energía</option>
@@ -58,7 +58,7 @@
     
         <div class="mb-3">
             <label for="caracteristica" class="form-label">Categoria Consumo</label>
-            <select id="categoria_consumo" name="categoria_consumo" class="form-select" required>
+            <select id="categoriaConsumo" name="categoriaConsumo" class="form-select" required>
                 <option value="" disabled selected>Selecciona una opción</option>
                 <option value="Elevado">Elevado</option>
                 <option value="Moderado">Moderado</option>

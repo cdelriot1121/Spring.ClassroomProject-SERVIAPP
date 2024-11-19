@@ -20,10 +20,10 @@ public class ConsejosModel {
     private long id;
 
     @Column(name="tipo_servicio", nullable=false, length=50)
-    private String tipo_servicio;
+    private String tipoServicio;
 
     @Column(name="categoria_consumo", nullable=false, length=50)
-    private String categoria_consumo;
+    private String categoriaConsumo;
 
     @Column(name="contenido", nullable=false, length=1500)
     private String contenido;
@@ -37,14 +37,17 @@ public class ConsejosModel {
     @ManyToMany(mappedBy = "consejos")
     private List<PeriodoModel> periodos;
 
-    public ConsejosModel() {}
+    public ConsejosModel() {
+    }
 
-    public ConsejosModel(long id, String tipo_servicio, String categoria_consumo, String contenido, AdminModel administrador) {
+    public ConsejosModel(long id, String tipoServicio, String categoriaConsumo, String contenido,
+            AdminModel administrador, List<PeriodoModel> periodos) {
         this.id = id;
-        this.tipo_servicio = tipo_servicio;
-        this.categoria_consumo = categoria_consumo;
+        this.tipoServicio = tipoServicio;
+        this.categoriaConsumo = categoriaConsumo;
         this.contenido = contenido;
         this.administrador = administrador;
+        this.periodos = periodos;
     }
 
     public long getId() {
@@ -55,20 +58,20 @@ public class ConsejosModel {
         this.id = id;
     }
 
-    public String getTipo_servicio() {
-        return tipo_servicio;
+    public String getTipoServicio() {
+        return tipoServicio;
     }
 
-    public void setTipo_servicio(String tipo_servicio) {
-        this.tipo_servicio = tipo_servicio;
+    public void setTipoServicio(String tipoServicio) {
+        this.tipoServicio = tipoServicio;
     }
 
-    public String getCategoria_consumo() {
-        return categoria_consumo;
+    public String getCategoriaConsumo() {
+        return categoriaConsumo;
     }
 
-    public void setCategoria_consumo(String categoria_consumo) {
-        this.categoria_consumo = categoria_consumo;
+    public void setCategoriaConsumo(String categoriaConsumo) {
+        this.categoriaConsumo = categoriaConsumo;
     }
 
     public String getContenido() {
@@ -97,12 +100,10 @@ public class ConsejosModel {
 
     @Override
     public String toString() {
-        return "ConsejosModel{" +
-                "id=" + id +
-                ", tipo_servicio='" + tipo_servicio + '\'' +
-                ", categoria_consumo='" + categoria_consumo + '\'' +
-                ", contenido='" + contenido + '\'' +
-                ", administrador=" + administrador +
-                '}';
+        return "ConsejosModel [id=" + id + ", tipoServicio=" + tipoServicio + ", categoriaConsumo=" + categoriaConsumo
+                + ", contenido=" + contenido + ", administrador=" + administrador + ", periodos=" + periodos + "]";
     }
+
+    
+    
 }

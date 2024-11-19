@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.ServiApp.model.ConsejosModel;
 import com.example.ServiApp.model.PeriodoModel;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
+import com.example.ServiApp.services.ConsejosService;
 import com.example.ServiApp.services.PeriodoService;
 import com.example.ServiApp.services.ServiciosService;
 
@@ -24,6 +26,9 @@ public class PeriodoController {
 
         @Autowired
         private PeriodoService periodoService;
+
+        @Autowired
+        private ConsejosService consejosService;
 
         @PostMapping("/calcular-consumo")
         public String calcularConsumo(@ModelAttribute PeriodoModel periodo, Model model, HttpSession session) {
@@ -50,39 +55,61 @@ public class PeriodoController {
             final float PROMEDIO_ENERGIA = 150f;
             final float PROMEDIO_GAS = 30f;
 
-            float promedioCartagena = 0;
+            float promedioHabitanteCartagena = 0;
             float promedioHogar = periodo.getConsumo();
             float promedioHabitante = promedioHogar / habitantes;
             float promedioSemanal = promedioHogar / 4;
-            String unidad = ""; // Unidad de medida
+            String unidad = "";
+            String categoriaConsumo = ""; 
 
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
-                    promedioCartagena = PROMEDIO_AGUA * habitantes;
+                    promedioHabitanteCartagena = PROMEDIO_AGUA;
                     unidad = "m³";
+                    categoriaConsumo = categorizarConsumo(promedioHabitante, PROMEDIO_AGUA, 2);
                     break;
                 case "energía":
-                    promedioCartagena = PROMEDIO_ENERGIA * habitantes;
+                    promedioHabitanteCartagena = PROMEDIO_ENERGIA;
                     unidad = "kWh";
+                    categoriaConsumo = categorizarConsumo(promedioHabitante, PROMEDIO_ENERGIA, 10);
                     break;
                 case "gas":
-                    promedioCartagena = PROMEDIO_GAS * habitantes;
+                    promedioHabitanteCartagena = PROMEDIO_GAS;
                     unidad = "m³";
+                    categoriaConsumo = categorizarConsumo(promedioHabitante, PROMEDIO_GAS, 2);
                     break;
                 default:
                     throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
             }
 
+            // Registrar el periodo
             periodoService.registrarPeriodo(periodo);
 
-            model.addAttribute("promedioCartagena", promedioCartagena);
+            // Buscar consejos personalizados
+            List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(categoriaConsumo, servicioSeleccionado.getTipo_servicio());
+
+            // Añadir datos al modelo
+            model.addAttribute("promedioCartagena", promedioHabitanteCartagena * habitantes);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
             model.addAttribute("promedioSemanal", promedioSemanal);
-            model.addAttribute("unidad", unidad); // Agregar la unidad al modelo
+            model.addAttribute("unidad", unidad);
+            model.addAttribute("consejos", consejosPersonalizados);
 
             return "gestionar_serv";
         }
+
+        // Método para categorizar el consumo
+        private String categorizarConsumo(float consumoHabitante, float promedio, float margen) {
+            if (consumoHabitante < promedio - margen) {
+                return "Bajo";
+            } else if (consumoHabitante > promedio + margen) {
+                return "Elevado";
+            } else {
+                return "Moderado";
+            }
+        }
+
 
 
         @GetMapping("/gestionar-servicio")
