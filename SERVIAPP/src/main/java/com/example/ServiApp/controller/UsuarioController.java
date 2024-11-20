@@ -39,6 +39,13 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/usuarios/verificar-email")
+public ResponseEntity<Boolean> verificarEmail(@RequestParam String email) {
+    boolean existe = usuarioService.emailYaRegistrado(email);
+    return ResponseEntity.ok(existe);
+}
+
+
 
 
    @GetMapping("/usuarios/contador")
