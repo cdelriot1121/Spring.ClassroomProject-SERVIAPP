@@ -112,31 +112,40 @@
             </form>
         </section>
 
-        <!--cuadros para mostrar los resultados de consumo-->
         <section id="cuadros-consumo">
             <div class="cuadro">
-                <h3>Promedio en Cartagena</h3>
-                <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
-            </div>
-            <div class="cuadro">
-                <h3>Promedio del Hogar</h3>
+                <h3>Tu consumo del Hogar actual</h3>
                 <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
             </div>
+        
+            <div class="cuadro" th:classappend="${clasePromedioCartagena}">
+                <h3>Consumo comparado con promedio en Cartagena</h3>
+                <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
+            </div>
+        
             <div class="cuadro">
                 <h3>Promedio Mensual por Habitante</h3>
                 <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
             </div>
+        
             <div class="cuadro">
                 <h3>Promedio Semanal</h3>
                 <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
             </div>
         </section>
         
+        
+        
+        
 
 
 <div class="tips-box">
     <h3>Consejos Personalizados</h3>
     <p>Aquí aparecerán consejos personalizados según tu consumo.</p>
+    <ul>
+        <li th:each="consejo : ${consejos}" th:text="${consejo.contenido}">Consejo</li>
+    </ul>
+
 </div>
 </div>
     </main>

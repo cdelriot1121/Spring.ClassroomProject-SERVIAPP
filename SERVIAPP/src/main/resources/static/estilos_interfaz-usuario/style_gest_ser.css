@@ -211,4 +211,24 @@ button:hover {
 }
 
 
+#cuadros-consumo .cuadro {
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+#cuadros-consumo .cuadro.alto {
+    background-color: #be6b6b; 
+}
+
+#cuadros-consumo .cuadro.bajo {
+    background-color: #55ff55cb; 
+}
+
+
+
+
 

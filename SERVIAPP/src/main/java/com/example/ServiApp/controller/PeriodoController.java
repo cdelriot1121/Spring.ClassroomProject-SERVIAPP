@@ -75,6 +75,8 @@ public class PeriodoController {
 
             String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
 
+
+
             periodoService.registrarPeriodo(periodo);
 
             model.addAttribute("promedioCartagena", promedioCartagena);
