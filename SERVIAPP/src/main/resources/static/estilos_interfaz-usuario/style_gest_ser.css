@@ -1,4 +1,4 @@
-/* Estilo de la tabla */
+
 table {
     width: 80%;
     border-collapse: collapse;
@@ -14,7 +14,7 @@ main {
     margin-bottom: 10px;
 }
 
-/* Título principal */
+
 .titulo h1 {
     color: #004a99; 
     margin-bottom: 10px;
@@ -23,7 +23,7 @@ main {
     text-align: center;
 }
 
-/* Subtítulo */
+
 .titulo h2 {
     color: #666666;
     margin-bottom: 20px;
@@ -38,7 +38,7 @@ main {
 
 
 
-/* Estilo del formulario */
+
 form {
     background-color: #fff;
     padding: 20px;
@@ -83,14 +83,6 @@ button:hover {
     background-color: #4bc0f2;
 }
 
-/* Cuadros de Información de Consumo */
-#cuadros-consumo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 20px;
-}
 
 .cuadro {
     background-color: #ffffff;
@@ -108,13 +100,13 @@ button:hover {
     margin-bottom: 20px;
 }
 
-/* Animación de aparición */
+
 .cuadro {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Estilo de título del cuadro */
+
 .cuadro h3 {
     color: #004a99; 
     margin-bottom: 10px;
@@ -122,14 +114,14 @@ button:hover {
     font-weight: 700;
 }
 
-/* Estilo de texto del cuadro */
+
 .cuadro p {
     color: #333333;
     font-size: 16px;
     font-weight: 600;
 }
 
-/* Estilo del cuadro de resultados */
+
 .result-box {
     background-color: #f8f9fa;
     border-radius: 10px;
@@ -210,6 +202,14 @@ button:hover {
     margin-bottom: 20px;
 }
 
+#cuadros-consumo {
+    display: flex !important;
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+    justify-content: center;
+    gap: 16px; 
+    padding: 16px 0; 
+}
 
 #cuadros-consumo .cuadro {
     padding: 20px;

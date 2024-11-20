@@ -111,7 +111,7 @@
             </form>
         </section>
 
-        <section id="cuadros-consumo">
+        <section id="cuadros-consumo" th:if="${promedioHogar != null}" style="display: none;">
             <div class="cuadro">
                 <h3>Tu consumo del Hogar actual</h3>
                 <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
@@ -131,12 +131,13 @@
                 <h3>Promedio Semanal</h3>
                 <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
             </div>
+
         </section>
         
         
         
         
-        <div class="tips-box">
+        <div class="tips-box" id="tips-box" th:if="${consejos != null}" style="display: none;">
             <h3>Consejos Personalizados</h3>
             <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>
             <ul th:if="${!#lists.isEmpty(consejos)}">
@@ -203,6 +204,21 @@
           }
         }
       </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+           
+            const cuadrosConsumo = document.getElementById('cuadros-consumo');
+            const tipsBox = document.getElementById('tips-box');
+    
+            if (cuadrosConsumo) {
+                cuadrosConsumo.style.display = 'block';
+            }
+            if (tipsBox) {
+                tipsBox.style.display = 'block';
+            }
+        });
+    </script>
     
     
 </body>
