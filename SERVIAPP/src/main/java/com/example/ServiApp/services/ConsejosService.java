@@ -26,5 +26,13 @@ public class ConsejosService {
         return consejos;
     }
 
+    public List<ConsejosModel> obtenerConsejosTipoServ_TipoCateg(String categoria, String tipo_servicio) {
+        List<ConsejosModel> consejos = consejoRepository.findByTipoServicioAndCategoriaConsumo(tipo_servicio, categoria);
+        if (consejos.isEmpty()) {
+            throw new IllegalArgumentException("No se encontraron consejos para los criterios especificados.");
+        }
+        return consejos;
+    }
+
 
 }

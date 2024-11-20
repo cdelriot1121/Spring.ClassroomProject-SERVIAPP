@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.ServiApp.model.ConsejosModel;
 import com.example.ServiApp.model.PeriodoModel;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
+import com.example.ServiApp.services.ConsejosService;
 import com.example.ServiApp.services.PeriodoService;
 import com.example.ServiApp.services.ServiciosService;
 
@@ -24,6 +26,9 @@ public class PeriodoController {
 
         @Autowired
         private PeriodoService periodoService;
+
+        @Autowired
+        private ConsejosService consejosService;
 
         @PostMapping("/calcular-consumo")
         public String calcularConsumo(@ModelAttribute PeriodoModel periodo, Model model, HttpSession session) {
@@ -54,20 +59,24 @@ public class PeriodoController {
             float promedioHogar = periodo.getConsumo();
             float promedioHabitante = promedioHogar / habitantes;
             float promedioSemanal = promedioHogar / 4;
+            String categoriaConsumo = ""; 
             String unidad = ""; 
 
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
                     unidad = "m³";
+                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
                 case "energía":
                     promedioCartagena = PROMEDIO_ENERGIA * habitantes;
                     unidad = "kWh";
+                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 8);
                     break;
                 case "gas":
                     promedioCartagena = PROMEDIO_GAS * habitantes;
                     unidad = "m³";
+                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
                 default:
                     throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
@@ -78,15 +87,27 @@ public class PeriodoController {
 
 
             periodoService.registrarPeriodo(periodo);
+            List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(categoriaConsumo, servicioSeleccionado.getTipo_servicio());
 
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
             model.addAttribute("promedioSemanal", promedioSemanal);
             model.addAttribute("unidad", unidad);
+            model.addAttribute("consejos", consejosPersonalizados);
             model.addAttribute("clasePromedioCartagena", clasePromedioCartagena);
 
             return "gestionar_serv";
+        }
+
+        private String categorizarConsumo(float consumoHogar, float promedio, float margen) {
+            if (consumoHogar < promedio - margen) {
+                return "Bajo";
+            } else if (consumoHogar > promedio + margen) {
+                return "Elevado";
+            } else {
+                return "Moderado";
+            }
         }
 
 

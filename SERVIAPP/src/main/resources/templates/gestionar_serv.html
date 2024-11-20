@@ -137,16 +137,13 @@
         
         
         
-
-
-<div class="tips-box">
-    <h3>Consejos Personalizados</h3>
-    <p>Aquí aparecerán consejos personalizados según tu consumo.</p>
-    <ul>
-        <li th:each="consejo : ${consejos}" th:text="${consejo.contenido}">Consejo</li>
-    </ul>
-
-</div>
+        <div class="tips-box">
+            <h3>Consejos Personalizados</h3>
+            <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>
+            <ul th:if="${!#lists.isEmpty(consejos)}">
+                <li th:each="consejo : ${consejos}" th:text="${consejo.contenido}"></li>
+            </ul>
+        </div>
 </div>
     </main>
    
