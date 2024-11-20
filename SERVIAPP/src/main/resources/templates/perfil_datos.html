@@ -122,7 +122,8 @@
                 <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
                 <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
             
-                <form th:action="@{/usuarios/cambiar-contrasena}" method="post" id="changePasswordForm">
+                <form th:action="@{/usuarios/cambiar-contrasena}" method="post" id="changePasswordForm" onsubmit="confirmarCambioContraseña(event)"
+>
                     <div class="mb-3">
                         <label for="current-password" class="form-label">Contraseña Actual</label>
                         <div class="input-group">
@@ -147,6 +148,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="boton-cambiar-password">Cambiar Contraseña</button>
+
                 </form>
             </section>
                 
