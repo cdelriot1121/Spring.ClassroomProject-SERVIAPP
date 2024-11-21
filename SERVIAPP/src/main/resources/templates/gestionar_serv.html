@@ -54,12 +54,11 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="p-2 g-col-6"><a href="inicio"><i class='bx bx-home'></i> Inicio</a></li>
-                    <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro Personalizados </a></li>
-                    <li class="p-2 g-col-6"><a href="cortes"><i class='bx bxs-alarm'></i> Cortes</a></li>
-                    <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
-                  
+                <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
+                <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
+                <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro Personalizados </a></li>
+                <li class="p-2 g-col-6"><a href="cortes"><i class='bx bxs-alarm'></i> Cortes</a></li>
+                <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
             </ul>
           </div>
         </div>
@@ -112,7 +111,7 @@
             </form>
         </section>
 
-        <section id="cuadros-consumo">
+        <section id="cuadros-consumo" th:if="${promedioHogar != null}" style="display: none;">
             <div class="cuadro">
                 <h3>Tu consumo del Hogar actual</h3>
                 <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
@@ -132,12 +131,13 @@
                 <h3>Promedio Semanal</h3>
                 <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
             </div>
+
         </section>
         
         
         
         
-        <div class="tips-box">
+        <div class="tips-box" id="tips-box" th:if="${consejos != null}" style="display: none;">
             <h3>Consejos Personalizados</h3>
             <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>
             <ul th:if="${!#lists.isEmpty(consejos)}">
@@ -156,11 +156,7 @@
             <span>© 2024 ServiApp / todos los derechos reservados</span>
             <ul class="enlaces-pie-pagina">
                 <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
-                <li><a href="">Terminos</a></li>
-                <li><a href="">Seguridad</a></li>
-                <li><a href="">Estatus</a></li>
-                <li><a href="">Contacto</a></li>
-                <li><a href="">Manejo de cookies</a></li>
+             
             </ul>
         </div>
         <div class="nota-pie-pagina">
@@ -208,6 +204,21 @@
           }
         }
       </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+           
+            const cuadrosConsumo = document.getElementById('cuadros-consumo');
+            const tipsBox = document.getElementById('tips-box');
+    
+            if (cuadrosConsumo) {
+                cuadrosConsumo.style.display = 'block';
+            }
+            if (tipsBox) {
+                tipsBox.style.display = 'block';
+            }
+        });
+    </script>
     
     
 </body>

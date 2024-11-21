@@ -10,4 +10,7 @@ import com.example.ServiApp.model.UsuarioModel;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
     Optional<UsuarioModel> findById(long id);
+
+    Optional<UsuarioModel> findByEmail(String email);
+
 }

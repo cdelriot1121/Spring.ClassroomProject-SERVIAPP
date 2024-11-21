@@ -3,7 +3,6 @@ package com.example.ServiApp.services;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +60,11 @@ public class UsuarioService {
     public void eliminarUsuario(Long id) {
         usuarioRepository.deleteById(id); // Usamos el método deleteById del repositorio
     }
+
+    public boolean emailYaRegistrado(String email) {
+        return usuarioRepository.findByEmail(email).isPresent();
+    }
+    
 
 
 
