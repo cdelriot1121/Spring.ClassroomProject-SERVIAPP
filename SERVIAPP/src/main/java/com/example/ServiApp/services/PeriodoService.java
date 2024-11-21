@@ -1,6 +1,7 @@
 package com.example.ServiApp.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,9 @@ public class PeriodoService {
         return periodos;
     }
 
-    
+    public Optional<PeriodoModel> obtenerPeriodoPorId(Long id) {
+        return periodoRepository.findById(id);
+    }
     
 
 

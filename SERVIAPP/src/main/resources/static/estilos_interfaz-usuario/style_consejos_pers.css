@@ -52,6 +52,7 @@ thead th {
 tbody tr {
     background-color: #ffffff;
     transition: background-color 0.3s ease;
+    
 }
 
 tbody tr:nth-child(odd) {
@@ -60,11 +61,13 @@ tbody tr:nth-child(odd) {
 
 tbody tr:hover {
     background-color: #d5e8f7;
+    
 }
 
 td {
     padding: 10px;
     border-bottom: 1px solid #bdc3c7;
+    
 }
 
 td:nth-child(3) {
@@ -75,6 +78,35 @@ td:nth-child(4) {
     font-size: 1.2em;
     text-align: center;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 
 @media (max-width: 768px) {
     table {
