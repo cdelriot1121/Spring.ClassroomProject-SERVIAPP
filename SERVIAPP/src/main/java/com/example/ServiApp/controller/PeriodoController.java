@@ -92,11 +92,9 @@ public class PeriodoController {
             
             List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(categoriaConsumo, servicioSeleccionado.getTipo_servicio());
             
-            // Relacionar el período con los consejos
             periodo.setConsejos(consejosPersonalizados);
             periodoService.registrarPeriodo(periodo); 
 
-            
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
@@ -135,25 +133,29 @@ public class PeriodoController {
 
         @GetMapping("/consejos-personzalidos")
         public String consejosPersonalizados(Model model, HttpSession session) {
-            
             UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
             if (usuarioLogueado == null) {
                 return "redirect:/login"; 
             }
 
-            
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
 
-            
             List<PeriodoModel> periodos = servicios.stream()
-                    .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream())
+                    .flatMap(servicio -> {
+                        List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicios(servicio);
+                        // Cargar los consejos para cada periodo
+                        periodosServicio.forEach(periodo -> {
+                            List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
+                            periodo.setConsejos(consejos);
+                        });
+                        return periodosServicio.stream();
+                    })
                     .toList();
 
-            
             model.addAttribute("periodos", periodos);
-
             return "consejos_personalizados"; 
         }
+
 
 
 }

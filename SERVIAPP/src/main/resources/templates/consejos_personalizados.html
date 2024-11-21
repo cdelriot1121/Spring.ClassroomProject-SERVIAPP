@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
-    <html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,9 +22,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-
-    
-
 
 </head>
 
@@ -74,7 +70,7 @@
 
     </div>
 
-      <table class="tabla-consejos-personalizados">
+    <table class="tabla-consejos-personalizados">
         <thead>
             <tr>
                 <th>Servicio</th>
@@ -86,16 +82,24 @@
         <tbody>
             <tr th:each="periodo : ${periodos}">
                 <td th:text="${periodo.servicio.tipo_servicio}"></td>
-                <td th:text="${periodo.mes}"></td> <!--colocaste date algo raro, cuando solo pido el mes-->
+                <td th:text="${periodo.mes}"></td>
                 <td th:text="${periodo.consumo}"></td>
                 <td>
-                    <a href="">
-                        <i class="bx bx-book-content"></i> 
-                    </a>
+                    <!-- Botón para expandir consejos -->
+                    <button class="btn btn-info" onclick="toggleConsejos(this)">
+                        Ver Consejos
+                    </button>
+                    <ul class="lista-consejos" style="display: none;">
+                        <li th:each="consejo : ${periodo.consejos}" th:text="${consejo.contenido}"></li>
+
+                    </ul>
                 </td>
             </tr>
         </tbody>
+        
     </table>
+    
+    
 
      <!-- Pie de página -->
      <footer>
@@ -140,8 +144,8 @@
 
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
-    <script src="/javascripts/formulario-servicio.js"></script>
+    <script src="/javascripts/consejo_personal.js"></script>
+    
     
 </body>
-
 </html>
