@@ -1,5 +1,6 @@
-/* index.css*/
+/* index.css */
 
+/* Estilo del Carrusel */
 #carouselExampleIndicators {
     width: 80%; 
     height: auto;
@@ -10,7 +11,16 @@
     margin-bottom: 20px;
 }
 
-/* Estilos para la sección "Sobre Nosotros" */
+
+
+
+@media (max-width: 768px) {
+    #carouselExampleIndicators {
+        width: 100%;
+    }
+}
+
+
 #sobre-nosotros {
     background-color: #e2e2e2; 
     padding: 50px 20px; 
@@ -24,26 +34,131 @@
     border-radius: 10px;
 }
 
-.titulo-sobre-nosotros{
-    font-size: 3rem;
+@media (max-width: 768px) {
+    #sobre-nosotros {
+        width: 90%;
+        padding: 30px 15px;
+    }
+    .titulo-sobre-nosotros {
+        font-size: 2rem;
+    }
+    .descripcion-sobre-nosotros {
+        font-size: 1.2rem;
+    }
+    .btn-login-admin {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
 }
 
-.container {
-    max-width: 900px; 
+
+#header1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+
+@media (max-width: 768px) {
+    #header1 {
+        flex-direction: column;
+        text-align: center;
+    }
+    .botones-datos {
+        margin-top: 10px;
+    }
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar-nav li {
+    padding: 10px;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .navbar-nav li {
+        padding: 5px;
+    }
+}
+
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 30px 20px;
     text-align: center;
 }
 
-
-
-/* Estilo para el texto de administradores */
-.administradores-texto .descripcion-sobre-nosotros {
-    font-size: 1.5rem;
-    color: #333;
-    margin: 20px 0;
-    font-weight: 600;
+footer .footer-logo {
+    max-width: 120px;
+    margin-bottom: 10px;
 }
 
-/* Botón de login para administradores */
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+@media (max-width: 768px) {
+    footer .footer-logo {
+        max-width: 100px;
+    }
+    footer ul {
+        padding: 0;
+        margin: 10px 0;
+    }
+    footer ul li {
+        display: block;
+        margin: 5px 0;
+    }
+}
+
+.modal-privacidad {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content-privacidad {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 70%;
+    max-width: 600px;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .modal-content-privacidad {
+        width: 90%;
+    }
+}
+
+
 .btn-login-admin {
     display: inline-block;
     padding: 10px 25px;
@@ -60,3 +175,5 @@
 .btn-login-admin:hover {
     background-color: #005fa3; 
 }
+
+

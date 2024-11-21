@@ -171,17 +171,18 @@ nav ul li a {
 table.dataTable {
     width: 100% !important;
     border-collapse: separate;
-    border-spacing: 0 10px; }
+    border-spacing: 0 10px;
+}
 
 /* Cabecera de la tabla */
 table.dataTable thead th {
-    background-color: #007ccf; 
+    background-color: #007ccf;
     color: white;
     font-weight: bold;
     text-align: center;
     padding: 12px 15px;
     font-size: 14px;
-    border-radius: 8px 8px 0 0; 
+    border-radius: 8px 8px 0 0;
 }
 
 /* Celdas de la tabla */
@@ -192,14 +193,14 @@ table.dataTable tbody td {
     padding: 10px 15px;
     font-size: 14px;
     vertical-align: middle;
-    border-radius: 8px; 
+    border-radius: 8px;
 }
 
 /* Efecto hover sobre las filas */
 table.dataTable tbody tr:hover {
     background-color: #f7f7f7;
-    transform: translateY(-2px); 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Bordes de las celdas */
@@ -231,7 +232,7 @@ table.dataTable td, table.dataTable th {
 .btn-outline-danger:hover {
     background-color: #d9534f;
     color: #fff;
-    transform: scale(1.05); 
+    transform: scale(1.05);
 }
 
 /* Paginación */
@@ -246,7 +247,8 @@ table.dataTable td, table.dataTable th {
 }
 
 .dataTables_paginate .paginate_button:hover {
-    background-color: #005a8a; }
+    background-color: #005a8a;
+}
 
 .dataTables_paginate .paginate_button:active {
     background-color: #004b77;
@@ -255,9 +257,8 @@ table.dataTable td, table.dataTable th {
 /* Resaltado de la fila activa */
 .dataTable tbody tr.selected {
     background-color: #f4f7fa;
-    border-left: 5px solid #007ccf; 
+    border-left: 5px solid #007ccf;
 }
-
 
 .dataTables_filter input {
     border-radius: 5px;
@@ -268,18 +269,12 @@ table.dataTable td, table.dataTable th {
 }
 
 .dashboard {
-    margin-bottom: 50px; 
+    margin-bottom: 50px;
 }
 
 .card {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
-
-
-
-
-
-
 
 .swal-custom-popup {
     border-radius: 10px;
@@ -324,7 +319,85 @@ table.dataTable td, table.dataTable th {
 }
 
 .swal2-icon.swal2-warning {
-    border-color: red !important;  
-    color: red !important;  
+    border-color: red !important;
+    color: red !important;
 }
 
+/* ** Media Queries para hacerlo responsivo** */
+
+/* Para dispositivos pequeños (móviles) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .contenedor-principal {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    nav ul li {
+        margin: 1rem 0;
+    }
+
+    .botones-datos a {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .table {
+        margin-top: 0;
+    }
+
+    .dataTables_filter input {
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+/* Para pantallas muy pequeñas (móviles más pequeños) */
+@media (max-width: 480px) {
+    header {
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    .contenedor-principal {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones-datos a {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .table {
+        margin-top: 0;
+    }
+
+    .dataTables_filter input {
+        width: 100%;
+    }
+}

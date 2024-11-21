@@ -1,3 +1,4 @@
+/* Estilos generales */
 * {
     margin: 0;
     padding: 0;
@@ -25,6 +26,7 @@ body {
     overflow: hidden;
 }
 
+/* Caja de registro */
 .caja-registro {
     display: flex;
     width: 100%;
@@ -32,6 +34,7 @@ body {
     background: linear-gradient(135deg, #9efcff, #36b2fa);
 }
 
+/* Formulario de registro */
 .formulario-registro {
     width: 50%;
     padding: 2rem;
@@ -85,6 +88,7 @@ body {
     font-weight: bold;
 }
 
+/* Imagen */
 .imagen {
     width: 50%;
     background: linear-gradient(45deg, #A0E3FF);
@@ -95,9 +99,7 @@ body {
     align-items: center;
     position: relative;
     text-decoration: none;
-    
 }
-
 
 .imagen a{  
     text-decoration: none;
@@ -130,3 +132,62 @@ body {
     overflow: hidden; 
     padding: 10px; 
 }
+
+/* Media Queries para hacer la página responsiva */
+
+/* Pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor {
+        width: 90%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .caja-registro {
+        flex-direction: column-reverse; /* Cambiar la dirección de los elementos para que el logo esté arriba */
+    }
+
+    .formulario-registro {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .imagen {
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+        order: -1; /* Asegura que el logo aparezca antes que el formulario en dispositivos pequeños */
+    }
+
+    .formulario-registro h2 {
+        font-size: 2rem;
+    }
+
+    .formulario-registro button {
+        width: 70%;
+    }
+}
+
+/* Pantallas muy pequeñas, como teléfonos móviles */
+@media (max-width: 480px) {
+    .formulario-registro {
+        padding: 1rem;
+    }
+
+    .formulario-registro input, .formulario-registro button {
+        font-size: 0.9rem;
+    }
+
+    .imagen {
+        font-size: 1.5rem;
+    }
+
+    .formulario-registro button {
+        width: 80%;
+    }
+
+    .formulario-registro h2 {
+        font-size: 1.8rem;
+    }
+}
+
