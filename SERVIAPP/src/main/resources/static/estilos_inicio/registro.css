@@ -26,7 +26,7 @@ body {
     overflow: hidden;
 }
 
-/* Caja de registro */
+
 .caja-registro {
     display: flex;
     width: 100%;
@@ -34,7 +34,7 @@ body {
     background: linear-gradient(135deg, #9efcff, #36b2fa);
 }
 
-/* Formulario de registro */
+
 .formulario-registro {
     width: 50%;
     padding: 2rem;
@@ -88,7 +88,6 @@ body {
     font-weight: bold;
 }
 
-/* Imagen */
 .imagen {
     width: 50%;
     background: linear-gradient(45deg, #A0E3FF);
@@ -133,9 +132,8 @@ body {
     padding: 10px; 
 }
 
-/* Media Queries para hacer la página responsiva */
 
-/* Pantallas pequeñas */
+
 @media (max-width: 768px) {
     .contenedor {
         width: 90%;
@@ -144,7 +142,7 @@ body {
     }
 
     .caja-registro {
-        flex-direction: column-reverse; /* Cambiar la dirección de los elementos para que el logo esté arriba */
+        flex-direction: column-reverse; 
     }
 
     .formulario-registro {
@@ -156,7 +154,7 @@ body {
         width: 100%;
         padding: 2rem;
         text-align: center;
-        order: -1; /* Asegura que el logo aparezca antes que el formulario en dispositivos pequeños */
+        order: -1;
     }
 
     .formulario-registro h2 {
@@ -168,7 +166,7 @@ body {
     }
 }
 
-/* Pantallas muy pequeñas, como teléfonos móviles */
+
 @media (max-width: 480px) {
     .formulario-registro {
         padding: 1rem;

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var buttons = document.querySelectorAll(".boton-consejo");
     var closeModalButton = document.getElementById("closeConsejos");
 
-    // Textos modales usando template literals para soportar múltiples líneas y etiquetas HTML
+    
     var textosModal = {
         agua: `
 
@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = "none";
     }
 
-    // Cerrar la ventana emergente al hacer clic fuera de ella
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";

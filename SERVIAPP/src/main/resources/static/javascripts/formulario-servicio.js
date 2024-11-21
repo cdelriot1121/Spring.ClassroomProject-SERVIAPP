@@ -10,12 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const promedioSemanal = document.getElementById("promedio-semanal");
     let unidadMedida = "";
 
-    // Mostrar formulario al seleccionar servicio
     servicioSelect.addEventListener("change", function () {
         formContent.style.display = "block";
         let servicio = servicioSelect.value.toLowerCase();
 
-        // Cambiar unidad de medida acorde al servicio seleccionado
+      
         if (servicio === "agua" || servicio === "gas") {
             consumoLabel.textContent = "Consumo (m³):";
             unidadMedida = "m³";
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Enviar el formulario y mostrar cuadros
     document.getElementById("servicio-form").addEventListener("submit", function (e) {
         e.preventDefault(); 
 
@@ -36,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         promedioHabitante.textContent = `${(consumo / 4).toFixed(2)} ${unidadMedida}`;
         promedioSemanal.textContent = `${(consumo / 4.33).toFixed(2)} ${unidadMedida}`;
 
-        // Mostrar cuadros
+      
         cuadrosConsumo.style.display = "flex";
         document.querySelectorAll('.cuadro').forEach(cuadro => {
             cuadro.classList.add('show');

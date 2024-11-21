@@ -70,7 +70,6 @@
     margin-top: 1rem;
 }
 
-/* Animación y estilo para el GIF flotante */
 abbr[title] {
     position: relative;
     cursor: pointer;
@@ -131,9 +130,6 @@ abbr[title]:hover::after {
     background-color: #218838;
 }
 
-/* Media Queries para Responsividad */
-
-/* Pantallas pequeñas (tabletas y móviles grandes) */
 @media (max-width: 768px) {
     .contenedor {
         max-width: 90%;
@@ -154,7 +150,6 @@ abbr[title]:hover::after {
     }
 }
 
-/* Pantallas muy pequeñas (móviles pequeños) */
 @media (max-width: 480px) {
     .contenedor {
         max-width: 100%;

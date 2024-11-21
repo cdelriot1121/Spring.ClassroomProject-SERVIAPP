@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     logo.style.margin = '0 auto 5px'; 
                     Swal.getIcon().before(logo);
                     
-                    // Subir el ícono de advertencia
+                   
                     const warningIcon = Swal.getIcon();
                     warningIcon.style.position = 'relative';
                     warningIcon.style.top = '-10px';  

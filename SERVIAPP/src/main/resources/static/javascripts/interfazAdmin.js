@@ -33,7 +33,7 @@ function confirmarEliminacion(form) {
             logo.style.margin = '0 auto 2px';  
             Swal.getIcon().before(logo);
             
-            // Subir el ícono de advertencia
+          
             const warningIcon = Swal.getIcon();
             warningIcon.style.position = 'relative';
             warningIcon.style.top = '-5px';  

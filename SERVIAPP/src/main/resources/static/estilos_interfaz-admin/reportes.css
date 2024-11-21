@@ -58,9 +58,9 @@ button:hover {
 }
 
 table {
-    width: 100%; /* Ajusta la tabla al 100% del contenedor */
+    width: 100%; 
     border-collapse: collapse;
-    margin: 20px 0; /* Añadido margen superior e inferior */
+    margin: 20px 0; 
     font-size: 16px;
     text-align: left;
     font-family: 'Kanit', sans-serif;
@@ -101,7 +101,6 @@ table tbody tr:last-child td {
     border-bottom-right-radius: 12px;
 }
 
-/* Contenedor de checkboxes para organizar la disposición */
 .barrios-container {
     display: flex;
     flex-wrap: wrap;
@@ -140,7 +139,6 @@ table tbody tr:last-child td {
     cursor: pointer;
 }
 
-/* Estilos para DataTable */
 .table-responsive {
     width: 100%;
     overflow-x: auto;

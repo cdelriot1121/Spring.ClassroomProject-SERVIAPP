@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // Inicializar la tabla con DataTables
+    
     $('#usuarios-table').DataTable({
         responsive: true,    
         searching: true,    
