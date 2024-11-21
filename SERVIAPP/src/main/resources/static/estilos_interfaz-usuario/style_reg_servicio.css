@@ -74,19 +74,19 @@
 abbr[title] {
     position: relative;
     cursor: pointer;
-    overflow: visible; /* Asegura que el GIF no se recorte */
+    overflow: visible;
 }
 
 abbr[title]::after {
     content: "";
     position: absolute;
-    top: 1.5em; /* Ajuste de posición */
+    top: 1.5em;
     left: 50%;
     transform: translateX(-50%);
-    width: 400px; /* Tamaño ampliado */
-    height: 150px; /* Ajuste de altura para que sea visible */
+    width: 400px;
+    height: 150px;
     background-image: url('/img_local/poliza2.gif');
-    background-size: contain; /* Asegura que el GIF se escale correctamente */
+    background-size: contain;
     background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
@@ -128,5 +128,53 @@ abbr[title]:hover::after {
 }
 
 .btn-confirmar:hover {
-    background-color: #218838; }
+    background-color: #218838;
+}
 
+/* Media Queries para Responsividad */
+
+/* Pantallas pequeñas (tabletas y móviles grandes) */
+@media (max-width: 768px) {
+    .contenedor {
+        max-width: 90%;
+        padding: 1rem;
+    }
+
+    .formulario-registro-serv {
+        padding: 1.5rem;
+    }
+
+    .formulario-registro-serv h2 {
+        font-size: 2rem;
+    }
+
+    abbr[title]::after {
+        width: 300px;
+        height: 120px;
+    }
+}
+
+/* Pantallas muy pequeñas (móviles pequeños) */
+@media (max-width: 480px) {
+    .contenedor {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .formulario-registro-serv h2 {
+        font-size: 1.8rem;
+    }
+
+    .formulario-registro-serv input {
+        font-size: 0.9rem;
+    }
+
+    .formulario-registro-serv button {
+        font-size: 0.9rem;
+    }
+
+    abbr[title]::after {
+        width: 200px;
+        height: 100px;
+    }
+}

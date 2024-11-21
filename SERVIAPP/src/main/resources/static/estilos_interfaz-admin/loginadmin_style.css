@@ -107,3 +107,60 @@ body {
     position: relative;
 }
 
+/* Media Queries para hacer la página responsiva */
+
+/* Pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor {
+        width: 90%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .caja-inicioSesion {
+        flex-direction: column-reverse; /* Cambiar la dirección de los elementos para que el logo esté arriba */
+    }
+
+    .formulario-login {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .imagen {
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+        order: -1; /* Asegura que el logo aparezca antes que el formulario en dispositivos pequeños */
+    }
+
+    .formulario-login h2 {
+        font-size: 2rem;
+    }
+
+    .formulario-login button {
+        width: 70%;
+    }
+}
+
+/* Pantallas muy pequeñas, como teléfonos móviles */
+@media (max-width: 480px) {
+    .formulario-login {
+        padding: 1rem;
+    }
+
+    .formulario-login input, .formulario-login button {
+        font-size: 0.9rem;
+    }
+
+    .imagen {
+        font-size: 1.5rem;
+    }
+
+    .formulario-login button {
+        width: 80%;
+    }
+
+    .formulario-login h2 {
+        font-size: 1.8rem;
+    }
+}

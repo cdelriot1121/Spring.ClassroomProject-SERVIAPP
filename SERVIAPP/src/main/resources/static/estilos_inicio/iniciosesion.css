@@ -14,7 +14,6 @@ body {
 }
 
 .contenedor {
-    
     width: 80%;
     max-width: 1000px;
     display: flex;
@@ -26,6 +25,7 @@ body {
     overflow: hidden;
 }
 
+/* Caja de inicio de sesión */
 .caja-inicioSesion {
     display: flex;
     width: 100%;
@@ -33,6 +33,7 @@ body {
     background: linear-gradient(135deg, #9efcff, #36b2fa);
 }
 
+/* Formulario de inicio de sesión */
 .formulario-login {
     width: 50%;
     padding: 2rem;
@@ -54,13 +55,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 1rem;
-}
-
-
-.mensaje-error{
-    margin: auto;
-    margin-top: 2px;
-    margin-bottom: 2px;
 }
 
 .formulario-login button {
@@ -93,6 +87,7 @@ body {
     font-weight: bold;
 }
 
+/* Imagen */
 .imagen {
     width: 50%;
     background: linear-gradient(45deg, #A0E3FF);
@@ -102,10 +97,67 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    
 }
 
-.imagen a{  
+.imagen a {
     text-decoration: none;
     color: white;
+}
+
+/* Media Queries para hacer la página responsiva */
+
+/* Pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor {
+        width: 90%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .caja-inicioSesion {
+        flex-direction: column-reverse; /* Cambiar la dirección de los elementos para que el logo esté arriba */
+    }
+
+    .formulario-login {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .imagen {
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+        order: -1; /* Asegura que el logo aparezca antes que el formulario en dispositivos pequeños */
+    }
+
+    .formulario-login h2 {
+        font-size: 2rem;
+    }
+
+    .formulario-login button {
+        width: 70%;
+    }
+}
+
+/* Pantallas muy pequeñas, como teléfonos móviles */
+@media (max-width: 480px) {
+    .formulario-login {
+        padding: 1rem;
+    }
+
+    .formulario-login input, .formulario-login button {
+        font-size: 0.9rem;
+    }
+
+    .imagen {
+        font-size: 1.5rem;
+    }
+
+    .formulario-login button {
+        width: 80%;
+    }
+
+    .formulario-login h2 {
+        font-size: 1.8rem;
+    }
 }
