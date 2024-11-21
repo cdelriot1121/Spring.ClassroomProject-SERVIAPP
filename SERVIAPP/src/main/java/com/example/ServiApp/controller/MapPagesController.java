@@ -43,6 +43,8 @@ public class MapPagesController {
    }
    */
 
+
+
    @GetMapping("/consejos-ahorro")
    public String consejosAhorro(){
        return "consejos_ahorro";
@@ -53,11 +55,12 @@ public class MapPagesController {
        return "Lineas_atencion";
    }
 
-
+   /* 
    @GetMapping("/consejos-personzalidos")
    public String consejospersonalizdos(){
        return "consejos_personalizados";
    }
+   */
    
    @GetMapping ("/acercade")
    public String acercade(){

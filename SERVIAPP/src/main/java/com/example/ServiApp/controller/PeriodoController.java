@@ -124,5 +124,27 @@ public class PeriodoController {
         }
 
 
+        @GetMapping("/consejos-personzalidos")
+        public String consejosPersonalizados(Model model, HttpSession session) {
+            
+            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+            if (usuarioLogueado == null) {
+                return "redirect:/login"; 
+            }
+
+            
+            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+
+            
+            List<PeriodoModel> periodos = servicios.stream()
+                    .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream())
+                    .toList();
+
+            
+            model.addAttribute("periodos", periodos);
+
+            return "consejos_personalizados"; 
+        }
+
 
 }
