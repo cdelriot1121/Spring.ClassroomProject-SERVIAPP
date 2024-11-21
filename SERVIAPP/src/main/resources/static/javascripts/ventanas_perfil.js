@@ -57,7 +57,7 @@ function validateForm(event) {
     return true; 
 }
 
-// Función para alternar la visibilidad de la contraseña
+
 function togglePasswordVisibility(inputId) {
     const input = document.getElementById(inputId);
     if (input.type === "password") {
@@ -67,7 +67,6 @@ function togglePasswordVisibility(inputId) {
     }
 }
 
-// Mostrar por defecto la sección "Datos Personales"
 showSection("datos-personales");
 
 
@@ -82,9 +81,7 @@ function togglePasswordVisibility(inputId) {
 }
 
 
-// codigo js para todas las alertas de sweet alert contenidas en la pagina de profile users
 
-//alertas en la seccion de datos de perfil
 function confirmarCambioDatos(event) {
     event.preventDefault();  
 
@@ -121,7 +118,6 @@ function confirmarCambioDatos(event) {
 
 
 
-// alertas para la seccion de mis servicios
 function confirmarCambioServicio(event) {
     event.preventDefault();  
 
@@ -186,7 +182,7 @@ function confirmarEliminarServicio(event, servicioId) {
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            // Enviar el formulario para eliminar el servicio
+           
             document.getElementById(`form-eliminar-servicio-${servicioId}`).submit(); 
         } else {
             Swal.fire('Eliminación cancelada', 'Tu servicio no ha sido eliminado', 'info');
@@ -197,7 +193,6 @@ function confirmarEliminarServicio(event, servicioId) {
 
 
 
-//alerta para la pagina de cambiar contraseña
 function confirmarCambioContraseña(event) {
     event.preventDefault(); 
 

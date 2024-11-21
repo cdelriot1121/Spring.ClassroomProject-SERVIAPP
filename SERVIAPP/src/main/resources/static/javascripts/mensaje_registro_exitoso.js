@@ -38,20 +38,20 @@ if (window.location.search.includes('exito=true')) {
 
 
 document.querySelector('.btn_registro').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevenir el envío del formulario inicial
+    e.preventDefault(); 
 
     const emailInput = document.querySelector('input[name="email"]').value;
 
-    // Deshabilitar el botón mientras se procesa la verificación
+   
     const btnRegistro = this;
     btnRegistro.disabled = true;
 
-    // Verificar el correo en el backend
+   
     fetch(`/usuarios/verificar-email?email=${emailInput}`)
         .then(response => response.json())
         .then(isRegistered => {
             if (isRegistered) {
-                // SweetAlert: Correo ya registrado
+               
                 Swal.fire({
                     icon: 'error',
                     title: `Correo en uso`,
@@ -73,12 +73,12 @@ document.querySelector('.btn_registro').addEventListener('click', function (e) {
                     }
                 });
             } else {
-                // Si no está registrado, envía el formulario
+           
                 document.querySelector('form').submit();
             }
         })
         .catch(error => {
-            // Muestra una alerta si hubo un error al verificar el correo
+      
             Swal.fire({
                 icon: 'error',
                 title: 'Error al verificar el correo',
@@ -88,7 +88,7 @@ document.querySelector('.btn_registro').addEventListener('click', function (e) {
             console.error('Error al verificar el correo:', error);
         })
         .finally(() => {
-            // Rehabilitar el botón después de la verificación
+        
             btnRegistro.disabled = false;
         });
 });

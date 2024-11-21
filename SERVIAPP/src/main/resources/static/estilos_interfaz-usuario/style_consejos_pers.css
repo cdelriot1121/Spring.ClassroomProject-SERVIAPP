@@ -122,3 +122,19 @@ td:nth-child(4) {
         font-size: 24px;
     }
 }
+
+
+.custom-button {
+    background: linear-gradient(45deg, #cffff9, #6bcdfd);
+    color: #000; 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer;
+    transition: background 0.3s ease; 
+}
+
+.custom-button:hover {
+    background: linear-gradient(45deg, #6bcdfd, #cffff9); 
+}

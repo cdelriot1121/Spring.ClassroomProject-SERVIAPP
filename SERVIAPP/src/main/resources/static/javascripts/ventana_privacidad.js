@@ -12,12 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = "block";
     }
 
-    // Cerrar la ventana emergente al hacer clic en "X"
     closeModalButton.onclick = function() {
         modal.style.display = "none";
     }
-
-    // Cerrar la ventana emergente al hacer clic fuera de ella
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";

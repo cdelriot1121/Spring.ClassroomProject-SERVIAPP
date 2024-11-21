@@ -86,18 +86,17 @@
                 <td th:text="${periodo.servicio.tipo_servicio}"></td>
                 <td th:text="${periodo.mes}"></td>
                 <td th:text="${periodo.consumo}"></td>
-                <td>
-                    <!-- Botón para expandir consejos -->
-                    <button class="btn btn-info" onclick="toggleConsejos(this)">
+                <td class="buton-con">
+                    <button class="btn btn-info custom-button" onclick="toggleConsejos(this)">
                         Ver Consejos
                     </button>
                     <ul class="lista-consejos" style="display: none;">
                         <li th:each="consejo : ${periodo.consejos}" th:text="${consejo.contenido}"></li>
-
                     </ul>
                 </td>
             </tr>
         </tbody>
+        
         
     </table>
     

@@ -323,9 +323,6 @@ table.dataTable td, table.dataTable th {
     color: red !important;
 }
 
-/* ** Media Queries para hacerlo responsivo** */
-
-/* Para dispositivos pequeños (móviles) */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -367,7 +364,6 @@ table.dataTable td, table.dataTable th {
     }
 }
 
-/* Para pantallas muy pequeñas (móviles más pequeños) */
 @media (max-width: 480px) {
     header {
         padding: 1rem;
@@ -400,4 +396,5 @@ table.dataTable td, table.dataTable th {
     .dataTables_filter input {
         width: 100%;
     }
+    
 }

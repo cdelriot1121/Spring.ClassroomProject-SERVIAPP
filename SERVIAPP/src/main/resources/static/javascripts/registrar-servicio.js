@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Actualización de empresa según el servicio seleccionado
+    
     document.getElementById('tipo_servicio').addEventListener('input', function () {
         const empresaInput = document.getElementById('empresa');
         const empresaMap = {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         empresaInput.readOnly = empresa !== '';
     });
 
-    // Función para mostrar alertas con SweetAlert
+    
     const showAlert = (icon, title, text, customClass) => {
         Swal.fire({
             icon,
@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    // Error de duplicado 
     const errorDuplicado = document.querySelector('meta[name="errorDuplicado"]');
     if (errorDuplicado && errorDuplicado.content) {
         Swal.fire({
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Mensaje de éxito
+
     const mensaje = document.querySelector('meta[name="mensaje"]');
     if (mensaje && mensaje.content) {
         showAlert('success', '¡Éxito!', mensaje.content, {
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Confirmar el registro del servicio
+  
     function confirmarRegistroServicio(event, form) {
         event.preventDefault();
 
@@ -108,13 +107,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const poliza = document.querySelector('[name="poliza"]').value;
         const habitantes = document.querySelector('[name="habitantes"]').value;
 
-        // Validación básica de campos vacíos
+       
         if (!tipoServicio || !empresa || !poliza || !habitantes) {
             showAlert('error', 'Campos incompletos', 'Por favor, completa todos los campos antes de registrar el servicio.');
             return;
         }
 
-        // Validación AJAX
+        
         fetch('/servicios/validar-servicio', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -149,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             } else {
-                // Si todo está bien, confirmar el registro del servicio
+             
                 confirmarRegistroServicio(event, form);
             }
         })

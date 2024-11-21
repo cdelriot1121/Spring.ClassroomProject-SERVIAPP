@@ -45,7 +45,6 @@
     background-color: #b6b6b6;
 }
 
-/* Imágenes dentro del contenedor */
 .lineas-atencion-contenedor div img {
     margin-left: 400px;
     margin-top: 20px;
@@ -63,7 +62,7 @@
     border-radius: 10px;
 }
 
-/* Botones de mapas */
+
 .map-buttons {
     display: flex;
     justify-content: center;
@@ -87,7 +86,6 @@
     background-color: #3498db;
 }
 
-/* Estilo para el iframe del mapa */
 .map-container {
     display: none; 
     margin-top: 20px;
@@ -103,7 +101,6 @@
     margin: 0 auto; 
 }
 
-/* Estilos del modal */
 .modal {
     display: none; 
     position: fixed;
@@ -116,7 +113,6 @@
     justify-content: center;
 }
 
-/* Contenido del modal */
 .modal-content {
     background-color: #fefefe;
     margin: auto; 
@@ -130,7 +126,7 @@
     position: relative;
 }
 
-/* Botón de cierre del modal */
+
 .close {
     position: absolute;
     top: 10px;
@@ -145,12 +141,10 @@
     color: black;
 }
 
-/* Separar la tabla del buscador */
 .buscador {
     margin-bottom: 100px; 
 }
 
-/* Estilos para la sección de instrucciones */
 .instrucciones-recomendaciones {
     background-color: #f0f0f0;
     border-radius: 10px;

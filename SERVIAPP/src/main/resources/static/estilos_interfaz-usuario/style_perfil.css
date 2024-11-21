@@ -49,14 +49,13 @@ hr {
     border-color: #dc3545;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
     .list-group {
         margin-bottom: 20px;
     }
 }
 
-/* Personalización de las alertas */
 .swal-custom-popup {
     font-family: 'Kanit', sans-serif;
     text-align: center;

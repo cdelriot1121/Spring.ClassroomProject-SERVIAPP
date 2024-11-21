@@ -1,4 +1,4 @@
-/* Estilos generales */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -6,28 +6,27 @@ body {
     padding: 0;
 }
 
-/* Estilos para el formulario */
 form {
     background-color: #fff;
     padding: 20px;
     border-radius: 16px; 
     margin: 20px auto;
-    width: 90%; /* Ajusta el ancho en función del tamaño de pantalla */
+    width: 90%; 
     max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
 }
 
-/* Estilos para las tablas */
+
 table {
-    width: 100%; /* La tabla ocupa todo el ancho disponible */
+    width: 100%; 
     border-collapse: collapse;
     margin: 20px auto;
-    font-size: 1rem; /* Usamos rem para un tamaño de fuente más flexible */
+    font-size: 1rem; 
     text-align: left;
     font-family: 'Kanit', sans-serif;
     border-radius: 12px; 
     overflow: hidden; 
-    table-layout: fixed; /* Esto ayuda a evitar que las columnas se desborden */
+    table-layout: fixed; 
 }
 
 table th, table td {
@@ -63,12 +62,12 @@ table tbody tr:last-child td {
     border-bottom-right-radius: 12px;
 }
 
-/* Hacemos que la tabla sea scrollable horizontalmente en pantallas pequeñas */
+
 @media screen and (max-width: 768px) {
     table {
         display: block;
-        overflow-x: auto; /* Permite el desplazamiento horizontal */
-        -webkit-overflow-scrolling: touch; /* Mejora la experiencia en dispositivos táctiles */
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch; 
     }
 
     table th, table td {
@@ -77,7 +76,7 @@ table tbody tr:last-child td {
     }
 }
 
-/* Convertir la tabla en un formato "card" para pantallas más pequeñas */
+
 @media screen and (max-width: 480px) {
     table {
         display: block;
@@ -85,12 +84,12 @@ table tbody tr:last-child td {
     }
 
     table thead {
-        display: none; /* Ocultamos los encabezados de la tabla */
+        display: none;
     }
 
     table tbody tr {
         display: block;
-        margin-bottom: 15px; /* Espaciado entre las "cards" */
+        margin-bottom: 15px; 
         border-radius: 12px;
         background-color: #fff;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -100,14 +99,14 @@ table tbody tr:last-child td {
     table tbody tr td {
         display: block;
         width: 100%;
-        text-align: right; /* Alineamos los datos a la derecha */
+        text-align: right; 
         position: relative;
         padding: 8px 0;
         font-size: 14px;
     }
 
     table tbody tr td::before {
-        /* Etiquetas para cada columna */
+      
         content: attr(data-label);
         font-weight: bold;
         position: absolute;
@@ -116,7 +115,6 @@ table tbody tr:last-child td {
         padding-left: 15px;
     }
 
-    /* Ajuste del tamaño de fuente en pantallas móviles */
     table th, table td {
         font-size: 12px;
     }
