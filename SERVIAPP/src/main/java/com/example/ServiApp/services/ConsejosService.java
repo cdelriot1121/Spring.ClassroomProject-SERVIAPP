@@ -34,5 +34,9 @@ public class ConsejosService {
         return consejos;
     }
 
+    public List<ConsejosModel> obtenerConsejosPorPeriodo(long periodoId) {
+        return consejoRepository.findByPeriodos_Id(periodoId);
+    }
+
 
 }

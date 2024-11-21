@@ -37,6 +37,7 @@ public class PeriodoController {
                 throw new IllegalArgumentException("Usuario no logueado.");
             }
 
+            
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
             model.addAttribute("servicios", servicios);
             ServicioModel servicioSeleccionado = servicios.stream()
@@ -62,6 +63,7 @@ public class PeriodoController {
             String categoriaConsumo = ""; 
             String unidad = ""; 
 
+            
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
@@ -84,10 +86,14 @@ public class PeriodoController {
 
             String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
 
-
-
+            
             periodoService.registrarPeriodo(periodo);
+
+            
             List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(categoriaConsumo, servicioSeleccionado.getTipo_servicio());
+            
+            periodo.setConsejos(consejosPersonalizados);
+            periodoService.registrarPeriodo(periodo); 
 
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
@@ -99,6 +105,7 @@ public class PeriodoController {
 
             return "gestionar_serv";
         }
+
 
         private String categorizarConsumo(float consumoHogar, float promedio, float margen) {
             if (consumoHogar < promedio - margen) {
@@ -126,25 +133,29 @@ public class PeriodoController {
 
         @GetMapping("/consejos-personzalidos")
         public String consejosPersonalizados(Model model, HttpSession session) {
-            
             UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
             if (usuarioLogueado == null) {
                 return "redirect:/login"; 
             }
 
-            
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
 
-            
             List<PeriodoModel> periodos = servicios.stream()
-                    .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream())
+                    .flatMap(servicio -> {
+                        List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicios(servicio);
+                        // Cargar los consejos para cada periodo
+                        periodosServicio.forEach(periodo -> {
+                            List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
+                            periodo.setConsejos(consejos);
+                        });
+                        return periodosServicio.stream();
+                    })
                     .toList();
 
-            
             model.addAttribute("periodos", periodos);
-
             return "consejos_personalizados"; 
         }
+
 
 
 }

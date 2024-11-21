@@ -13,4 +13,6 @@ import com.example.ServiApp.model.ConsejosModel;
 public interface ConsejosRepository extends JpaRepository<ConsejosModel, Long> {
     Optional<ConsejosModel> findById(long id);
     List<ConsejosModel> findByTipoServicioAndCategoriaConsumo(String tipoServicio, String categoriaConsumo);
+    List<ConsejosModel> findByPeriodos_Id(long periodoId);
+
 }
