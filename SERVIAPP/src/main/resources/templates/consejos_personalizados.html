@@ -79,40 +79,20 @@
             <tr>
                 <th>Servicio</th>
                 <th>Mes</th>
-                <th>Categoría</th>
+                <th>Consumo</th>
                 <th>Consejo</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Agua</td>
-                <td>Enero</td>
-                <td>✅</td>
-                <td>📄</td>
-            </tr>
-            <tr>
-                <td>Agua</td>
-                <td>Febrero</td>
-                <td>▬</td>
-                <td>📄</td>
-            </tr>
-            <tr>
-                <td>Agua</td>
-                <td>Marzo</td>
-                <td>❌</td>
-                <td>📄</td>
-            </tr>
-            <tr>
-                <td>Luz</td>
-                <td>Abril</td>
-                <td>✅</td>
-                <td>📄</td>
-            </tr>
-            <tr>
-                <td>Gas</td>
-                <td>Mayo</td>
-                <td>▬</td>
-                <td>📄</td>
+            <tr th:each="periodo : ${periodos}">
+                <td th:text="${periodo.servicio.tipo_servicio}"></td>
+                <td th:text="${periodo.mes}"></td> <!--colocaste date algo raro, cuando solo pido el mes-->
+                <td th:text="${periodo.consumo}"></td>
+                <td>
+                    <a href="">
+                        <i class="bx bx-book-content"></i> 
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

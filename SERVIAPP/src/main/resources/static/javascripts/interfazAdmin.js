@@ -10,7 +10,10 @@ function confirmarEliminacion(form) {
     swalWithBootstrapButtons.fire({
         title: "¿Estás seguro?",
         text: "¡No podrás revertir esto!",
-        icon: "warning",
+        html: `<div style="text-align: center;">
+            <img src="img_local/gato.gif" alt="GIF de gato" style="width: 180px; height: 250px; border-radius: 15px;">
+            <p style="margin-top: 50px;">¡No podrás revertir esto!</p>
+        </div>`,
         showCancelButton: true,
         confirmButtonText: "Sí, eliminar",
         cancelButtonText: "No, cancelar",
@@ -19,6 +22,8 @@ function confirmarEliminacion(form) {
         customClass: {
             popup: 'swal-custom-popup'
         },
+
+
         didRender: () => {
             const logo = document.createElement('img');
             logo.src = '/img_local/logo-pagina-serviapp.png';
@@ -40,7 +45,7 @@ function confirmarEliminacion(form) {
             swalWithBootstrapButtons.fire({
                 title: "Cancelado",
                 text: "El usuario está a salvo :)",
-                icon: "error",
+                icon: "info",
                 background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)'
             });
         }

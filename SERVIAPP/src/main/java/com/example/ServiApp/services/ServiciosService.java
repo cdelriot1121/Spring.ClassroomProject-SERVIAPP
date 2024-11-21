@@ -21,7 +21,7 @@ public ServicioModel registrarservicio(ServicioModel servicio){
     return servicioRepository.save(servicio);
 }
 
-
+    
     public List<ServicioModel> obtenerServiciosPorUsuario(UsuarioModel usuario) {
         return servicioRepository.findByUsuario(usuario);
     }
