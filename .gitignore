@@ -33,3 +33,7 @@ build/
 .vscode/
 ### devcontainer ###
 .devcontainer/
+
+### DOCKER FILES ###
+docker-compose.yml
+Dockerfile
