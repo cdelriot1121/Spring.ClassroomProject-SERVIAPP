@@ -17,6 +17,5 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
     // Métodos para filtrar por rol
     List<UsuarioModel> findByRol(UsuarioModel.Rol rol);
     
-    // Para autenticación de administradores (con email y pin)
-    Optional<UsuarioModel> findByEmailAndPin(String email, String pin);
+    // Optional<UsuarioModel> findByEmailAndPin(String email, String pin);
 }
