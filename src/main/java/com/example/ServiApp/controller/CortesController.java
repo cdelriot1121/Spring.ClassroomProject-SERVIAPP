@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.ServiApp.model.AdminModel;
 import com.example.ServiApp.model.CortesModel;
+import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.services.CortesService;
 
 import jakarta.servlet.http.HttpSession;
@@ -27,9 +27,9 @@ public class CortesController {
                                   HttpSession sessionadmin) {
 
         // Obtener el administrador logueado
-        AdminModel adminLogueado = (AdminModel) sessionadmin.getAttribute("adminLogueado");
+        UsuarioModel adminLogueado = (UsuarioModel) sessionadmin.getAttribute("adminLogueado");
 
-        if (adminLogueado != null) {
+        if (adminLogueado != null && adminLogueado.esAdministrador()) {
             corte.setAdministrador(adminLogueado); 
 
             // Obtener los barrios seleccionados como una lista de cadenas
@@ -50,8 +50,8 @@ public class CortesController {
         }
     }
 
-        @GetMapping("/cortes")
-        public String mostrarCortes(Model model) {
+    @GetMapping("/cortes")
+    public String mostrarCortes(Model model) {
         List<CortesModel> cortes = cortesService.obtenerTodosLosCortes();
         model.addAttribute("cortes", cortes);
         return "cortes_fallas";
@@ -59,10 +59,8 @@ public class CortesController {
 
     @GetMapping("/cortes-admin")
     public String mostrarCortesAlternativa(Model model) {
-    List<CortesModel> cortes = cortesService.obtenerTodosLosCortes();
-    model.addAttribute("cortes", cortes);
-    return "reportes_admin"; 
-}
-
-
+        List<CortesModel> cortes = cortesService.obtenerTodosLosCortes();
+        model.addAttribute("cortes", cortes);
+        return "reportes_admin"; 
+    }
 }

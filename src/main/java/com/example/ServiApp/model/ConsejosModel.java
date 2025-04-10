@@ -29,10 +29,10 @@ public class ConsejosModel {
     @Column(name="contenido", nullable=false, length=1500)
     private String contenido;
 
-    // relacion de muchos a uno, entonces un consejo pertenece a un administrador
+    // Modifica la referencia al administrador
     @ManyToOne
     @JoinColumn(name = "administrador_id", nullable = false)
-    private AdminModel administrador;
+    private UsuarioModel administrador;
 
     // relacion de muchos a muchos con PeriodoModel
     @ManyToMany(mappedBy = "consejos")
@@ -42,7 +42,7 @@ public class ConsejosModel {
     }
 
     public ConsejosModel(long id, String tipoServicio, String categoriaConsumo, String contenido,
-            AdminModel administrador, List<PeriodoModel> periodos) {
+            UsuarioModel administrador, List<PeriodoModel> periodos) {
         this.id = id;
         this.tipoServicio = tipoServicio;
         this.categoriaConsumo = categoriaConsumo;
@@ -83,11 +83,11 @@ public class ConsejosModel {
         this.contenido = contenido;
     }
 
-    public AdminModel getAdministrador() {
+    public UsuarioModel getAdministrador() {
         return administrador;
     }
 
-    public void setAdministrador(AdminModel administrador) {
+    public void setAdministrador(UsuarioModel administrador) {
         this.administrador = administrador;
     }
 

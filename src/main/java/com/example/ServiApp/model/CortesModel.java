@@ -38,9 +38,10 @@ public class CortesModel {
     @Column(name = "hora_final", nullable = false)
     private String hora_final;   
 
+    // Modifica la referencia al administrador
     @ManyToOne
     @JoinColumn(name = "administrador_id", nullable = false)
-    private AdminModel administrador;
+    private UsuarioModel administrador;
 
     // Getters y Setters
     public long getId() {
@@ -100,11 +101,11 @@ public class CortesModel {
         this.hora_final = hora_final;
     }
 
-    public AdminModel getAdministrador() {
+    public UsuarioModel getAdministrador() {
         return administrador;
     }
 
-    public void setAdministrador(AdminModel administrador) {
+    public void setAdministrador(UsuarioModel administrador) {
         this.administrador = administrador;
     }
 }

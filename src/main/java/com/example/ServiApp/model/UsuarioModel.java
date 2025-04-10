@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,34 +32,83 @@ public class UsuarioModel {
 
     @Column(name = "password", nullable = false, length = 200)
     private String password;
+    
+    // Enum para representar el rol del usuario
+    public enum Rol {
+        USUARIO,
+        ADMINISTRADOR
+    }
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol", nullable = false)
+    private Rol rol;
+    
+    // Campo estrato solo usado por usuarios normales
+    @Column(name = "estrato", length = 50)
+    private Integer estrato;
 
-    @Column(name = "estrato", nullable = false, length = 50)
-    private int estrato;
-
-    // Relación uno a muchos con servicios
+    // Relación uno a muchos con servicios (solo para usuarios normales)
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ServicioModel> servicios;
 
-    // Relación uno a muchos con fallas de servicios
+    // Relación uno a muchos con fallas de servicios (solo para usuarios normales)
     @OneToMany(mappedBy="usuario", cascade= CascadeType.ALL)
     @JsonIgnore
     private List<Falla_Ser_Model> fallas_Servicio;
+    
+    // Relación uno a muchos con cortes (solo para administradores)
+    @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<CortesModel> cortes;
+    
+    // Relación uno a muchos con consejos (solo para administradores)
+    @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ConsejosModel> consejos;
 
     public UsuarioModel() {
     }
-
-    public UsuarioModel(long id, String nombre, String email, String password, int estrato,
-                        List<ServicioModel> servicios, List<Falla_Ser_Model> fallas_Servicio) {
+    
+    // Constructor completo
+    public UsuarioModel(long id, String nombre, String email, String password, Rol rol, 
+                      Integer estrato, List<ServicioModel> servicios, 
+                      List<Falla_Ser_Model> fallas_Servicio, List<CortesModel> cortes, 
+                      List<ConsejosModel> consejos) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+        this.rol = rol;
         this.estrato = estrato;
         this.servicios = servicios;
         this.fallas_Servicio = fallas_Servicio;
+        this.cortes = cortes;
+        this.consejos = consejos;
+    }
+    
+    // Constructor para usuario normal
+    public static UsuarioModel crearUsuario(String nombre, String email, String password, int estrato) {
+        UsuarioModel usuario = new UsuarioModel();
+        usuario.setNombre(nombre);
+        usuario.setEmail(email);
+        usuario.setPassword(password);
+        usuario.setRol(Rol.USUARIO);
+        usuario.setEstrato(estrato);
+        return usuario;
+    }
+    
+    // Constructor para administrador
+    public static UsuarioModel crearAdministrador(String nombre, String email, String password) {
+        UsuarioModel admin = new UsuarioModel();
+        admin.setNombre(nombre);
+        admin.setEmail(email);
+        admin.setPassword(password);
+        admin.setRol(Rol.ADMINISTRADOR);
+        return admin;
     }
 
+    // Getters y setters
     public long getId() {
         return id;
     }
@@ -89,12 +140,24 @@ public class UsuarioModel {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public Rol getRol() {
+        return rol;
+    }
+    
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+    
+    public boolean esAdministrador() {
+        return Rol.ADMINISTRADOR.equals(this.rol);
+    }
 
-    public int getEstrato() {
+    public Integer getEstrato() {
         return estrato;
     }
 
-    public void setEstrato(int estrato) {
+    public void setEstrato(Integer estrato) {
         this.estrato = estrato;
     }
 
@@ -113,6 +176,22 @@ public class UsuarioModel {
     public void setFallas_Servicio(List<Falla_Ser_Model> fallas_Servicio) {
         this.fallas_Servicio = fallas_Servicio;
     }
+    
+    public List<CortesModel> getCortes() {
+        return cortes;
+    }
+    
+    public void setCortes(List<CortesModel> cortes) {
+        this.cortes = cortes;
+    }
+    
+    public List<ConsejosModel> getConsejos() {
+        return consejos;
+    }
+    
+    public void setConsejos(List<ConsejosModel> consejos) {
+        this.consejos = consejos;
+    }
 
     @Override
     public String toString() {
@@ -121,10 +200,17 @@ public class UsuarioModel {
         sb.append("id=").append(id);
         sb.append(", nombre=").append(nombre);
         sb.append(", email=").append(email);
-        sb.append(", password=").append(password);
-        sb.append(", estrato=").append(estrato);
-        sb.append(", servicios=").append(servicios != null ? servicios.size() : 0); // Mostrar cantidad de servicios
-        sb.append(", fallas_Servicio=").append(fallas_Servicio != null ? fallas_Servicio.size() : 0); // Mostrar cantidad de fallas
+        sb.append(", rol=").append(rol);
+        
+        if (rol == Rol.USUARIO) {
+            sb.append(", estrato=").append(estrato);
+            sb.append(", servicios=").append(servicios != null ? servicios.size() : 0);
+            sb.append(", fallas_Servicio=").append(fallas_Servicio != null ? fallas_Servicio.size() : 0);
+        } else {
+            sb.append(", cortes=").append(cortes != null ? cortes.size() : 0);
+            sb.append(", consejos=").append(consejos != null ? consejos.size() : 0);
+        }
+        
         sb.append('}');
         return sb.toString();
     }
