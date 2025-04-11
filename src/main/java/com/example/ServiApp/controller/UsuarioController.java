@@ -30,6 +30,9 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
+        // Establecer el rol como USUARIO por defecto
+        usuario.setRol(UsuarioModel.Rol.USUARIO);
+        
         UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
         if (usuarioRegistrado != null) {
             return "redirect:/registro?exito=true&nombre=" + usuario.getNombre();
@@ -60,7 +63,7 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
                                 Model model,
                                 HttpSession session) {
         UsuarioModel usuario = usuarioService.autenticar(email, contraseña);
-        if (usuario != null) {
+        if (usuario != null && usuario.getRol() == UsuarioModel.Rol.USUARIO) {
             session.setAttribute("usuarioLogueado", usuario);
             return "redirect:/interfaz_inicio";
         } else {
