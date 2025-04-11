@@ -6,34 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.ServiApp.model.AdminModel;
 import com.example.ServiApp.model.Falla_Ser_Model;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
-import com.example.ServiApp.services.AdminService;
 import com.example.ServiApp.services.FallasUserService;
 import com.example.ServiApp.services.ServiciosService;
 import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
-
-
+/**
+ * Controlador para la gestión de administradores.
+ * Maneja autenticación y operaciones específicas de administración.
+ */
 @Controller
 public class AdminController {
+    
     @Autowired
-    private AdminService adminService;
-
+    private UsuarioService usuarioService;
+    
+    /**
+     * Autentica administradores usando el modelo unificado de usuarios.
+     * Ya no requiere PIN después de la migración.
+     */
     @PostMapping("/login-admin")
-    public String login(@RequestParam("usuario-admin") String usuario,
+    public String login(@RequestParam("usuario-admin") String email,
                         @RequestParam("password") String password,
-                        @RequestParam("pin") String pin,
                         Model model, HttpSession sessionadmin) {
-        AdminModel admin = adminService.authenticate(usuario, password, pin);
+        UsuarioModel admin = usuarioService.autenticarAdministrador(email, password);
         if (admin != null) {
             sessionadmin.setAttribute("adminLogueado", admin);
             return "redirect:/interfaz-admin"; 
@@ -43,53 +48,57 @@ public class AdminController {
         }
     }
 
-    //metodo para listar usuarios en administrador
-
-    @Autowired
-    private UsuarioService usuarioService;
-
-        @GetMapping("/interfaz-admin")
-        public String listarUsuarios(Model model) {
-            List<UsuarioModel> usuarios = usuarioService.obtenerUsuarios();
-            model.addAttribute("usuarios", usuarios); // Asegúrate de que la variable es 'usuarios'
-            return "interfaz-admin"; // El nombre de la vista
-        }
-
-        // Método para eliminar un usuario
-    @PostMapping("/eliminar-usuario/{id}")
-    public String eliminarUsuario(@PathVariable("id") Long id) {
-        usuarioService.eliminarUsuario(id); // Llamamos al servicio para eliminar el usuario
-        return "redirect:/interfaz-admin"; 
+    @GetMapping("/registro-admin")
+    public String mostrarRegistroAdmin(Model model) {
+        model.addAttribute("usuario", new UsuarioModel());
+        return "registro-admin";
+    }
     
+    /**
+     * Registra un nuevo administrador asignando el rol ADMINISTRADOR.
+     * Parte de la migración para unificar modelos Usuario y Administrador.
+     */
+    @PostMapping("/registrar-admin")
+    public String registrarAdmin(@ModelAttribute("usuario") UsuarioModel usuario, Model model) {
+        usuario.setRol(UsuarioModel.Rol.ADMINISTRADOR);
+        UsuarioModel administradorRegistrado = usuarioService.registrarUsuario(usuario);
+        
+        if (administradorRegistrado != null) {
+            return "redirect:/login-admin?exito=true";
+        } else {
+            model.addAttribute("error", "No se pudo registrar el administrador");
+            return "registro-admin";
+        }
     }
 
-    
+    @GetMapping("/interfaz-admin")
+    public String listarUsuarios(Model model) {
+        List<UsuarioModel> usuarios = usuarioService.obtenerUsuarios();
+        model.addAttribute("usuarios", usuarios);
+        return "interfaz-admin";
+    }
 
+    @PostMapping("/eliminar-usuario/{id}")
+    public String eliminarUsuario(@PathVariable("id") Long id) {
+        usuarioService.eliminarUsuario(id);
+        return "redirect:/interfaz-admin"; 
+    }
 
     @Autowired
     private ServiciosService serviciosService;
 
-    //METODO PARA VER LOS SERVICIOS EN ges-servicios-admin
     @GetMapping("/gestionar-servicios-admin")
     public String listarServicios(Model model){
-
         List<ServicioModel> servicios = serviciosService.ObtenerServicios();
         model.addAttribute("servicios", servicios);
         return "ges-servicios-admin";
     }
 
-    //METODO PARA ELIMINAR SERVICIO
-
     @PostMapping("/eliminar-servicio/{id}")
     public String eliminarServicio (@PathVariable("id") Long id){
         serviciosService.eliminarServicio(id);
         return "redirect:/gestionar-servicios-admin";
-
     }
-
-
-
-    //METODOS PARA VER LOS REPORTES DE USUARIOS en ResportesUserAdmin
 
     @Autowired
     private FallasUserService fallasUserService;
@@ -99,9 +108,5 @@ public class AdminController {
         List<Falla_Ser_Model> fallas = fallasUserService.obtenerFallas();
         model.addAttribute("fallas", fallas);
         return "ReportesUserAdmin";
-
     }
-    
-
-
 }

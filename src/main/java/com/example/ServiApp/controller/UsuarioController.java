@@ -19,6 +19,10 @@ import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Controlador para la gestión de usuarios normales.
+ * Maneja el registro, autenticación y operaciones específicas de usuarios.
+ */
 @Controller
 public class UsuarioController {
 
@@ -28,8 +32,15 @@ public class UsuarioController {
     @Autowired
     private ServiciosService servicioService;
 
+    /**
+     * Registra un nuevo usuario asignando el rol USUARIO por defecto.
+     * Parte de la migración para unificar modelos Usuario y Administrador.
+     */
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
+        // Establecer el rol como USUARIO por defecto
+        usuario.setRol(UsuarioModel.Rol.USUARIO);
+        
         UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
         if (usuarioRegistrado != null) {
             return "redirect:/registro?exito=true&nombre=" + usuario.getNombre();
@@ -53,14 +64,17 @@ public ResponseEntity<Long> obtenerContadorUsuarios() {
     return ResponseEntity.ok(usuarioService.contarUsuarios());
 }
 
-
+    /**
+     * Autentica a un usuario y verifica que tenga rol USUARIO.
+     * Parte de la migración para unificar modelos Usuario y Administrador.
+     */
     @PostMapping("/login-usuario")
     public String login_usuario(@RequestParam("correo") String email,
                                 @RequestParam("contraseña") String contraseña,
                                 Model model,
                                 HttpSession session) {
         UsuarioModel usuario = usuarioService.autenticar(email, contraseña);
-        if (usuario != null) {
+        if (usuario != null && usuario.getRol() == UsuarioModel.Rol.USUARIO) {
             session.setAttribute("usuarioLogueado", usuario);
             return "redirect:/interfaz_inicio";
         } else {

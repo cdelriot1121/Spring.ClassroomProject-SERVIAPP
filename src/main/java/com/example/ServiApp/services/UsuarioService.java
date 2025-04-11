@@ -12,60 +12,62 @@ import com.example.ServiApp.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    // Métodos generales
     public UsuarioModel registrarUsuario(UsuarioModel usuario) {
         return usuarioRepository.save(usuario);
     }
-
+    
+    public UsuarioModel guardarUsuario(UsuarioModel usuario) {
+        return usuarioRepository.save(usuario);
+    }
+    
     public long contarUsuarios() {
         return usuarioRepository.count();
     }
-
-    public UsuarioModel autenticar(String email, String contraseña){
-        return usuarioRepository.findAll().stream()
-        .filter(usuario -> usuario.getEmail().equals(email) &&
-                           usuario.getPassword().equals(contraseña))
-                           .findFirst()
-                           .orElse(null);
-    }
-
-
-  
+    
     public Optional<UsuarioModel> obtenerUsuarioPorId(Long id) {
         return usuarioRepository.findById(id);
     }
-
-    public UsuarioModel guardarUsuario(UsuarioModel usuario){
-        return usuarioRepository.save(usuario);
-    }
-
-  
-  //Mismos metodos pero instaciados de manera dirente
-    public List<UsuarioModel> obtenerTodosLosUsuarios() {
+    
+    public List<UsuarioModel> obtenerUsuarios(){
         return usuarioRepository.findAll();
     }
-
-    public List<UsuarioModel> obtenerUsuarios(){
-    List<UsuarioModel> usuarios = usuarioRepository.findAll();
-    System.out.println("Usuarios encontrados: " + usuarios.size()); // Log para ver si se encuentran usuarios
-    return usuarios;
-    }
-  
-  
-
-    // Método para eliminar un usuario
+    
     public void eliminarUsuario(Long id) {
-        usuarioRepository.deleteById(id); // Usamos el método deleteById del repositorio
+        usuarioRepository.deleteById(id);
     }
-
+    
     public boolean emailYaRegistrado(String email) {
         return usuarioRepository.findByEmail(email).isPresent();
     }
+
+    // Método para autenticar usuarios (generales)
+    public UsuarioModel autenticar(String email, String contraseña) {
+        return usuarioRepository.findAll().stream()
+            .filter(u -> u.getEmail().equals(email) && u.getPassword().equals(contraseña))
+            .findFirst()
+            .orElse(null);
+    }
     
-
-
-
+    // Métodos para usuarios normales
+    public List<UsuarioModel> obtenerUsuariosNormales() {
+        return usuarioRepository.findByRol(UsuarioModel.Rol.USUARIO);
+    }
+    
+    // Métodos para administradores
+    public UsuarioModel autenticarAdministrador(String email, String contraseña) {
+        return usuarioRepository.findAll().stream()
+            .filter(u -> u.getRol() == UsuarioModel.Rol.ADMINISTRADOR && 
+                   u.getEmail().equals(email) &&
+                   u.getPassword().equals(contraseña))
+            .findFirst()
+            .orElse(null);
+    }
+    
+    public List<UsuarioModel> obtenerAdministradores() {
+        return usuarioRepository.findByRol(UsuarioModel.Rol.ADMINISTRADOR);
+    }
 }
