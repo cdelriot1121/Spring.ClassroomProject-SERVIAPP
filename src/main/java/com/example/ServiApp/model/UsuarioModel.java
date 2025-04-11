@@ -16,6 +16,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+/**
+ * Modelo unificado para usuarios y administradores.
+ * La diferenciación entre tipos se realiza mediante el campo rol.
+ */
 @Entity
 @Table(name= "usuarios", uniqueConstraints= @UniqueConstraint(columnNames = "email"))
 public class UsuarioModel {
@@ -33,7 +37,10 @@ public class UsuarioModel {
     @Column(name = "password", nullable = false, length = 200)
     private String password;
     
-    // Enum para representar el rol del usuario
+    /**
+     * Enumeración que define los roles disponibles en el sistema.
+     * Permite distinguir entre usuarios normales y administradores.
+     */
     public enum Rol {
         USUARIO,
         ADMINISTRADOR
@@ -43,11 +50,12 @@ public class UsuarioModel {
     @Column(name = "rol", nullable = false)
     private Rol rol;
     
-    // Campo estrato solo usado por usuarios normales
+    // Campo estrato solo usado por usuarios con rol USUARIO
     @Column(name = "estrato", length = 50)
     private Integer estrato;
 
-    // Relación uno a muchos con servicios (solo para usuarios normales)
+    // Relaciones específicas según el rol del usuario
+    // Relaciones para usuarios normales
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ServicioModel> servicios;
@@ -57,7 +65,7 @@ public class UsuarioModel {
     @JsonIgnore
     private List<Falla_Ser_Model> fallas_Servicio;
     
-    // Relación uno a muchos con cortes (solo para administradores)
+    // Relaciones para administradores
     @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CortesModel> cortes;
@@ -87,7 +95,10 @@ public class UsuarioModel {
         this.consejos = consejos;
     }
     
-    // Constructor para usuario normal
+    /**
+     * Método factory para crear un usuario normal.
+     * Establece automáticamente el rol como USUARIO.
+     */
     public static UsuarioModel crearUsuario(String nombre, String email, String password, int estrato) {
         UsuarioModel usuario = new UsuarioModel();
         usuario.setNombre(nombre);
@@ -98,7 +109,10 @@ public class UsuarioModel {
         return usuario;
     }
     
-    // Constructor para administrador
+    /**
+     * Método factory para crear un administrador.
+     * Establece automáticamente el rol como ADMINISTRADOR.
+     */
     public static UsuarioModel crearAdministrador(String nombre, String email, String password) {
         UsuarioModel admin = new UsuarioModel();
         admin.setNombre(nombre);
@@ -149,6 +163,10 @@ public class UsuarioModel {
         this.rol = rol;
     }
     
+    /**
+     * Método helper para verificar si un usuario es administrador.
+     * @return true si el usuario tiene rol ADMINISTRADOR, false en caso contrario
+     */
     public boolean esAdministrador() {
         return Rol.ADMINISTRADOR.equals(this.rol);
     }

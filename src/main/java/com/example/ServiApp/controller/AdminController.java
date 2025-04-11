@@ -20,12 +20,20 @@ import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Controlador para la gestión de administradores.
+ * Maneja autenticación y operaciones específicas de administración.
+ */
 @Controller
 public class AdminController {
     
     @Autowired
     private UsuarioService usuarioService;
     
+    /**
+     * Autentica administradores usando el modelo unificado de usuarios.
+     * Ya no requiere PIN después de la migración.
+     */
     @PostMapping("/login-admin")
     public String login(@RequestParam("usuario-admin") String email,
                         @RequestParam("password") String password,
@@ -46,6 +54,10 @@ public class AdminController {
         return "registro-admin";
     }
     
+    /**
+     * Registra un nuevo administrador asignando el rol ADMINISTRADOR.
+     * Parte de la migración para unificar modelos Usuario y Administrador.
+     */
     @PostMapping("/registrar-admin")
     public String registrarAdmin(@ModelAttribute("usuario") UsuarioModel usuario, Model model) {
         usuario.setRol(UsuarioModel.Rol.ADMINISTRADOR);
