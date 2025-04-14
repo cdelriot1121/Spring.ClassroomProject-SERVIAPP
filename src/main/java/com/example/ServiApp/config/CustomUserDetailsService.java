@@ -1,7 +1,9 @@
 package com.example.ServiApp.config;
 
-import com.example.ServiApp.model.UsuarioModel;
-import com.example.ServiApp.repository.UsuarioRepository;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,9 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import com.example.ServiApp.model.UsuarioModel;
+import com.example.ServiApp.repository.UsuarioRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -39,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // 3. Registrar detalles para depuración (opcional)
         System.out.println("Usuario encontrado: " + usuario.getEmail() +
                 " | Rol: " + usuario.getRol() +
-                " | Contraseña (hash): " + usuario.getPassword().substring(0, 10) + "...");
+                " | Contraseña (hash): " + usuario.getPassword().substring(0, 60) + "...");
 
         // 4. Crear autoridades (roles)
         List<GrantedAuthority> autoridades = Collections.singletonList(

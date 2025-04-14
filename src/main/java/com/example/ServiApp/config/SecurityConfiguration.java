@@ -77,7 +77,6 @@ public class SecurityConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // Configuración explícita para evitar inconsistencias
-        return new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A, 10);
+        return new BCryptPasswordEncoder();
     }
 }

@@ -7,7 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
@@ -31,10 +35,14 @@ public class UsuarioController {
 
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
+        System.out.println("Contraseña antes de encriptar (primeros 4 caracteres): " + 
+                           (usuario.getPassword().length() > 10 ? usuario.getPassword().substring(0, 4) + "..." : usuario.getPassword()));
+        
+        // Solo establecemos el rol, la encriptación se hará en el servicio
         usuario.setRol(UsuarioModel.Rol.ROLE_USUARIO);
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-
+        
         UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
+        
         if (usuarioRegistrado != null) {
             return "redirect:/registro?exito=true&nombre=" + usuario.getNombre();
         } else {
