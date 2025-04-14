@@ -11,100 +11,120 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #E5F0FF;
+    background: linear-gradient(135deg, #dbefff, #f5fbff);
 }
 
+/* Contenedor principal */
 .contenedor {
-    width: 80%;
+    width: 90%;
     max-width: 1000px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
     background-color: white;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
     overflow: hidden;
+    transition: transform 0.3s ease-in-out;
 }
 
-
+/* Caja del formulario */
 .caja-registro {
     display: flex;
     width: 100%;
-    align-items: center;
     background: linear-gradient(135deg, #9efcff, #36b2fa);
+    align-items: center;
 }
 
-
+/* Formulario */
 .formulario-registro {
     width: 50%;
-    padding: 2rem;
+    padding: 3rem 2rem;
     background: linear-gradient(135deg, #ffffff, #c3eeff);
-    border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0 25px 25px 0;
+    box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .formulario-registro h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: #333;
+    font-size: 2.2rem;
+    margin-bottom: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
 }
 
 .formulario-registro input {
     width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1.2rem;
+    border: 1.5px solid #cce7f5;
+    border-radius: 12px;
     font-size: 1rem;
+    background-color: #f9fdff;
+    transition: all 0.3s ease;
+}
+
+.formulario-registro input:focus {
+    border-color: #5ab4f3;
+    outline: none;
+    box-shadow: 0 0 8px rgba(90, 180, 243, 0.4);
 }
 
 .formulario-registro button {
-    width: 50%;
-    padding: 0.8rem;
-    background: linear-gradient(45deg, #cffff9, #6bcdfd);
+    width: 60%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, #61dafb, #2980b9);
     border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    color: black;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
     cursor: pointer;
-    transition: background 0.4s ease;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     display: block;
+    margin: 1.5rem auto 0 auto;
 }
 
 .formulario-registro button:hover {
-    background: linear-gradient(45deg, #A0E3FF, #FFD1FF);
+    background: linear-gradient(135deg, #2980b9, #61dafb);
+    transform: translateY(-2px);
 }
 
 .formulario-registro p {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
 }
 
 .formulario-registro a {
-    color: #777;
+    color: #3498db;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
 }
 
+.formulario-registro a:hover {
+    text-decoration: underline;
+}
+
+/* Imagen lado izquierdo */
 .imagen {
     width: 50%;
-    background: linear-gradient(45deg, #A0E3FF);
-    font-size: xx-large;
-    color: #ffffff;
+    background: linear-gradient(transparent); /* ← degradado limpio */
     display: flex;
-    justify-content: center;
     align-items: center;
-    position: relative;
-    text-decoration: none;
-}
-
-.imagen a{  
-    text-decoration: none;
+    justify-content: center;
+    padding: 2rem;
+    font-size: 5rem;
     color: white;
 }
 
+.imagen a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+/* Campo con ícono para mostrar/ocultar contraseña */
 .password-container {
     position: relative;
     display: flex;
@@ -123,69 +143,71 @@ body {
     color: #333;
 }
 
-.swal-custom-popup {
-    border-radius: 12px; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
-    max-width: 590px; 
-    max-height: 590px; 
-    overflow: hidden; 
-    padding: 10px; 
+/* Animación de aparición */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* Estilos SweetAlert personalizados */
+.swal-custom-popup {
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-
+/* Responsividad */
 @media (max-width: 768px) {
     .contenedor {
-        width: 90%;
         flex-direction: column;
-        align-items: flex-start;
+        border-radius: 20px;
     }
 
     .caja-registro {
-        flex-direction: column-reverse; 
+        flex-direction: column-reverse;
+    }
+
+    .formulario-registro,
+    .imagen {
+        width: 100%;
     }
 
     .formulario-registro {
-        width: 100%;
-        padding: 1rem;
-    }
-
-    .imagen {
-        width: 100%;
+        border-radius: 25px 25px 0 0;
         padding: 2rem;
-        text-align: center;
-        order: -1;
-    }
-
-    .formulario-registro h2 {
-        font-size: 2rem;
-    }
-
-    .formulario-registro button {
-        width: 70%;
-    }
-}
-
-
-@media (max-width: 480px) {
-    .formulario-registro {
-        padding: 1rem;
-    }
-
-    .formulario-registro input, .formulario-registro button {
-        font-size: 0.9rem;
     }
 
     .imagen {
-        font-size: 1.5rem;
+        font-size: 2.5rem;
+        border-radius: 0;
+        padding: 1.5rem;
     }
 
     .formulario-registro button {
         width: 80%;
     }
+}
 
+@media (max-width: 480px) {
     .formulario-registro h2 {
         font-size: 1.8rem;
     }
-}
 
+    .formulario-registro input,
+    .formulario-registro button {
+        font-size: 1rem;
+    }
+
+    .imagen {
+        font-size: 2rem;
+    }
+
+    .formulario-registro button {
+        width: 90%;
+    }
+}

@@ -10,150 +10,248 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #E5F0FF;
+    background: linear-gradient(135deg, #dbefff, #f5fbff);
 }
 
-.contenedor {
-    width: 80%;
-    max-width: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
 
 
 .caja-inicioSesion {
     display: flex;
     width: 100%;
-    align-items: center;
-    background: linear-gradient(135deg, #9efcff, #36b2fa);
+    background: linear-gradient(135deg, #a1e0ff, #62b5ff);
 }
 
 .formulario-login {
     width: 50%;
-    padding: 2rem;
-    background: linear-gradient(135deg, #ffffff, #c3eeff);
-    border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2.5rem;
+    background: linear-gradient(135deg, #ffffff, #e1f5ff);
+    border-radius: 0 25px 25px 0;
+    box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .formulario-login h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: #333;
+    font-size: 2.2rem;
+    margin-bottom: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
 }
 
 .formulario-login input {
     width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1.2rem;
+    border: 1.5px solid #cce7f5;
+    border-radius: 12px;
     font-size: 1rem;
+    background-color: #f9fdff;
+    transition: all 0.3s ease;
+}
+
+.formulario-login input:focus {
+    border-color: #5ab4f3;
+    outline: none;
+    box-shadow: 0 0 8px rgba(90, 180, 243, 0.4);
 }
 
 .formulario-login button {
-    width: 50%;
-    padding: 0.8rem;
-    background: linear-gradient(45deg, #cffff9, #6bcdfd);
+    width: 60%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, #61dafb, #2980b9);
     border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    color: black;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
     cursor: pointer;
-    transition: background 0.4s ease;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.1);
-    margin: 0 auto;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     display: block;
+    margin: 1.5rem auto 0 auto;
 }
 
 .formulario-login button:hover {
-    background: linear-gradient(45deg, #A0E3FF, #7f3a7f);
+    background: linear-gradient(135deg, #2980b9, #61dafb);
+    transform: translateY(-2px);
 }
 
 .formulario-login p {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
 }
 
 .formulario-login a {
-    color: #777;
+    color: #3498db;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
 }
 
+.formulario-login a:hover {
+    text-decoration: underline;
+}
 
 .imagen {
     width: 50%;
-    background: linear-gradient(45deg, #A0E3FF);
-    font-size: xx-large;
-    color: #ffffff;
+    background: linear-gradient(to bottom right, #64c2ff, #4aa0dd);
     display: flex;
-    justify-content: center;
     align-items: center;
-    position: relative;
+    justify-content: center;
+    padding: 2rem;
 }
 
 .imagen a {
     text-decoration: none;
     color: white;
+    font-weight: bold;
+    font-size: 2rem;
 }
 
+.titulo-serviapp {
+    font-size: 4rem;
+    color: white;
+    font-weight: bold;
+}
 
+.logo-opciones {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.logo-opciones a {
+    display: inline-block;
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-opciones a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.logo-opciones img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: white;
+    padding: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media Queries Responsive */
 @media (max-width: 768px) {
     .contenedor {
-        width: 90%;
         flex-direction: column;
-        align-items: flex-start;
+        border-radius: 20px;
+        padding-bottom: 20px;
     }
 
     .caja-inicioSesion {
-        flex-direction: column-reverse; 
+        flex-direction: column-reverse;
+    }
+
+    .formulario-login, .imagen {
+        width: 100%;
     }
 
     .formulario-login {
-        width: 100%;
-        padding: 1rem;
-    }
-
-    .imagen {
-        width: 100%;
+        border-radius: 25px 25px 0 0;
         padding: 2rem;
-        text-align: center;
-        order: -1; 
-    }
-
-    .formulario-login h2 {
-        font-size: 2rem;
-    }
-
-    .formulario-login button {
-        width: 70%;
-    }
-}
-
-@media (max-width: 480px) {
-    .formulario-login {
-        padding: 1rem;
-    }
-
-    .formulario-login input, .formulario-login button {
-        font-size: 0.9rem;
     }
 
     .imagen {
-        font-size: 1.5rem;
+        border-radius: 0;
+        font-size: 1.6rem;
+        padding: 1.5rem;
     }
 
     .formulario-login button {
         width: 80%;
     }
 
+    .logo-opciones {
+        margin-top: 20px;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
     .formulario-login h2 {
         font-size: 1.8rem;
     }
+
+    .formulario-login input, 
+    .formulario-login button {
+        font-size: 1rem;
+    }
+
+    .imagen {
+        font-size: 1.4rem;
+    }
+
+    .formulario-login button {
+        width: 90%;
+    }
+}
+
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .logo-opciones {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  .logo-opciones a {
+    display: inline-block;
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .logo-opciones a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  .logo-opciones img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: white;
+    padding: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .contenedor {
+ 
+    overflow: hidden;
+    border-radius: 30px; 
 }

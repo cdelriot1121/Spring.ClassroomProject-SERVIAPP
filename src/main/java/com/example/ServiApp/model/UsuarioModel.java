@@ -21,7 +21,7 @@ import jakarta.persistence.UniqueConstraint;
  * La diferenciación entre tipos se realiza mediante el campo rol.
  */
 @Entity
-@Table(name= "usuarios", uniqueConstraints= @UniqueConstraint(columnNames = "email"))
+@Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class UsuarioModel {
 
     @Id
@@ -36,20 +36,20 @@ public class UsuarioModel {
 
     @Column(name = "password", nullable = false, length = 200)
     private String password;
-    
+
     /**
      * Enumeración que define los roles disponibles en el sistema.
      * Permite distinguir entre usuarios normales y administradores.
      */
     public enum Rol {
-        USUARIO,
-        ADMINISTRADOR
+        ROLE_USUARIO,
+        ROLE_ADMINISTRADOR
     }
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
     private Rol rol;
-    
+
     // Campo estrato solo usado por usuarios con rol USUARIO
     @Column(name = "estrato", length = 50)
     private Integer estrato;
@@ -61,15 +61,15 @@ public class UsuarioModel {
     private List<ServicioModel> servicios;
 
     // Relación uno a muchos con fallas de servicios (solo para usuarios normales)
-    @OneToMany(mappedBy="usuario", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Falla_Ser_Model> fallas_Servicio;
-    
+
     // Relaciones para administradores
     @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CortesModel> cortes;
-    
+
     // Relación uno a muchos con consejos (solo para administradores)
     @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -77,12 +77,12 @@ public class UsuarioModel {
 
     public UsuarioModel() {
     }
-    
+
     // Constructor completo
-    public UsuarioModel(long id, String nombre, String email, String password, Rol rol, 
-                      Integer estrato, List<ServicioModel> servicios, 
-                      List<Falla_Ser_Model> fallas_Servicio, List<CortesModel> cortes, 
-                      List<ConsejosModel> consejos) {
+    public UsuarioModel(long id, String nombre, String email, String password, Rol rol,
+            Integer estrato, List<ServicioModel> servicios,
+            List<Falla_Ser_Model> fallas_Servicio, List<CortesModel> cortes,
+            List<ConsejosModel> consejos) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
@@ -94,7 +94,7 @@ public class UsuarioModel {
         this.cortes = cortes;
         this.consejos = consejos;
     }
-    
+
     /**
      * Método factory para crear un usuario normal.
      * Establece automáticamente el rol como USUARIO.
@@ -104,11 +104,11 @@ public class UsuarioModel {
         usuario.setNombre(nombre);
         usuario.setEmail(email);
         usuario.setPassword(password);
-        usuario.setRol(Rol.USUARIO);
+        usuario.setRol(Rol.ROLE_USUARIO);
         usuario.setEstrato(estrato);
         return usuario;
     }
-    
+
     /**
      * Método factory para crear un administrador.
      * Establece automáticamente el rol como ADMINISTRADOR.
@@ -118,7 +118,7 @@ public class UsuarioModel {
         admin.setNombre(nombre);
         admin.setEmail(email);
         admin.setPassword(password);
-        admin.setRol(Rol.ADMINISTRADOR);
+        admin.setRol(Rol.ROLE_ADMINISTRADOR);
         return admin;
     }
 
@@ -154,21 +154,22 @@ public class UsuarioModel {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public Rol getRol() {
         return rol;
     }
-    
+
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-    
+
     /**
      * Método helper para verificar si un usuario es administrador.
+     * 
      * @return true si el usuario tiene rol ADMINISTRADOR, false en caso contrario
      */
     public boolean esAdministrador() {
-        return Rol.ADMINISTRADOR.equals(this.rol);
+        return Rol.ROLE_ADMINISTRADOR.equals(this.rol);
     }
 
     public Integer getEstrato() {
@@ -194,19 +195,19 @@ public class UsuarioModel {
     public void setFallas_Servicio(List<Falla_Ser_Model> fallas_Servicio) {
         this.fallas_Servicio = fallas_Servicio;
     }
-    
+
     public List<CortesModel> getCortes() {
         return cortes;
     }
-    
+
     public void setCortes(List<CortesModel> cortes) {
         this.cortes = cortes;
     }
-    
+
     public List<ConsejosModel> getConsejos() {
         return consejos;
     }
-    
+
     public void setConsejos(List<ConsejosModel> consejos) {
         this.consejos = consejos;
     }
@@ -219,8 +220,8 @@ public class UsuarioModel {
         sb.append(", nombre=").append(nombre);
         sb.append(", email=").append(email);
         sb.append(", rol=").append(rol);
-        
-        if (rol == Rol.USUARIO) {
+
+        if (rol == Rol.ROLE_USUARIO) {
             sb.append(", estrato=").append(estrato);
             sb.append(", servicios=").append(servicios != null ? servicios.size() : 0);
             sb.append(", fallas_Servicio=").append(fallas_Servicio != null ? fallas_Servicio.size() : 0);
@@ -228,7 +229,7 @@ public class UsuarioModel {
             sb.append(", cortes=").append(cortes != null ? cortes.size() : 0);
             sb.append(", consejos=").append(consejos != null ? consejos.size() : 0);
         }
-        
+
         sb.append('}');
         return sb.toString();
     }
