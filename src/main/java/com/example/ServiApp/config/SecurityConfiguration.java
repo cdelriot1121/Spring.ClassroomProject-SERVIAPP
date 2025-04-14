@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -35,23 +36,44 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/registro").permitAll()
-                        .requestMatchers("/javascripts/**", "/**",
+                        // Recursos públicos y páginas de acceso general
+                        .requestMatchers("/", "/login", "/registro", "/acercade", "/usuarios/verificar-email", 
+                                "/usuarios/registrar", "/usuarios/contador", "/consejos-ahorro").permitAll()
+                        
+                        // Recursos estáticos
+                        .requestMatchers("/javascripts/**",
+                                "/main.css", 
                                 "/estilos_inicio/**",
                                 "/estilos_interfaz-usuario/**",
                                 "/img_local/**",
-                                "/estilos_interfaz-admin/**")
-                        .permitAll()
-                        .requestMatchers("/reportes-admin", "/consejos-admin", "/interfaz-admin")
-                        .hasAuthority("ROLE_ADMINISTRADOR")
-                        .requestMatchers("/interfaz-inicio", "/registrar-servicio", "/consejos-ahorro")
-                        .hasAuthority("ROLE_USUARIO")
+                                "/estilos_interfaz-admin/**",
+                                "/favicon.ico").permitAll()
+                        
+                        // Rutas específicas para administradores
+                        .requestMatchers("/reportes-admin", "/consejos-admin", "/interfaz-admin", 
+                                "/gestionar-servicios-admin", "/cortes-admin", "/reportes_usuarios", 
+                                "/admin/**", "/login-admin", "/registro-admin").hasAuthority("ROLE_ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.POST, "/registrar-corte", "/registrar-consejo", 
+                                "/login-admin", "/registrar-admin", "/eliminar-usuario/**", 
+                                "/eliminar-servicio/**").hasAuthority("ROLE_ADMINISTRADOR")
+                        
+                        // Rutas específicas para usuarios normales
+                        .requestMatchers("/interfaz-inicio", "/interfaz_inicio", "/registrar-servicio", 
+                                "/lineas-atencion", "/gestionar-servicio", "/consejos-personzalidos", "/inicio",
+                                "/cortes", "/datos-personales", "/cambiar-contrasena", "/mis-servicios", 
+                                "/calcular-consumo", "/usuarios/cambiar-contrasena", "/usuarios/actualizar/**", 
+                                "/reportar-falla").hasAuthority("ROLE_USUARIO")
+                        
+                        // Controlador de servicios (todos los métodos)
+                        .requestMatchers("/servicios/**").hasAuthority("ROLE_USUARIO")
+                        
+                        // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .failureUrl("/login?error=true") // Redirige cuando las credenciales son incorrectas
-                        .successHandler(customSuccessHandler) // Redirige según el rol
+                        .failureUrl("/login?error=true")
+                        .successHandler(customSuccessHandler)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
