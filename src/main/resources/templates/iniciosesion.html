@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>INICIO DE SESIÓN</title>
-
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,17 +11,16 @@
       href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Kanit:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
-
     <!-- Estilos -->
     <link rel="stylesheet" href="/estilos_inicio/iniciosesion.css" />
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
+  
   </head>
   <body>
     <div class="contenedor">
       <div class="caja-inicioSesion">
         <div class="formulario-login">
           <h2>Iniciar Sesión</h2>
-
           <form action="/login" method="post">
             <input type="text" name="username" placeholder="Email" required />
             <input
@@ -31,20 +29,38 @@
               placeholder="Contraseña"
               required
             />
-
-            <!-- Mensaje de error si hay un fallo en las credenciales -->
             <div th:if="${param.error}" style="color: red">
               Credenciales incorrectas. Intenta nuevamente.
             </div>
-
             <button type="submit">Entrar</button>
           </form>
-
           <p>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></p>
         </div>
 
         <div class="imagen">
-          <a href="/"><h1>ServiApp</h1></a>
+          <div class="logo-container">
+            <!-- Logo ServiApp -->
+            <a href="/"><h1 class="titulo-serviapp">ServiApp</h1></a>
+
+          
+
+
+
+
+               <!-- Botones google y OTP -->
+            <div class="logo-opciones">
+              <a href="/login-google" title="Inicia con Google">
+                <img src="/img_local/logo-google.png" alt="Login con Google" />
+              </a>
+              <a href="/login-otp" title="Verificación OTP">
+                <img src="/img_local/icono-otp.png" alt="Login con OTP" />
+              </a>
+
+
+
+              
+            </div>
+          </div>
         </div>
       </div>
     </div>
