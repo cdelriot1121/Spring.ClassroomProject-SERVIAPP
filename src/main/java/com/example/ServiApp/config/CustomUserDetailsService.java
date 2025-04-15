@@ -40,23 +40,26 @@ public class CustomUserDetailsService implements UserDetailsService {
         // 3. Registrar detalles para depuración (opcional)
         System.out.println("Usuario encontrado: " + usuario.getEmail() +
                 " | Rol: " + usuario.getRol() +
+                " | Estado: " + usuario.getEstado() +
                 " | Contraseña (hash): " + usuario.getPassword().substring(0, 60) + "...");
 
         // 4. Crear autoridades (roles)
         List<GrantedAuthority> autoridades = Collections.singletonList(
                 new SimpleGrantedAuthority(usuario.getRol().name()));
 
-        // 5. Retornar UserDetails con las credenciales
+        // 5. Verificar si el usuario está habilitado
+        boolean habilitado = usuario.estaHabilitado();
+        
+        // 6. Retornar UserDetails con las credenciales
         return new User(
                 usuario.getEmail(),
                 usuario.getPassword(),
-                true, // cuenta habilitada
-                true, // cuenta no expirada
-                true, // credenciales no expiradas
-                true, // cuenta no bloqueada
+                habilitado, // cuenta habilitada según el estado del usuario
+                true,       // cuenta no expirada
+                true,       // credenciales no expiradas
+                true,       // cuenta no bloqueada
                 autoridades);
     }
-
 
     
 }

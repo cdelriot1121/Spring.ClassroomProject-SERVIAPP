@@ -216,29 +216,31 @@ body {
     gap: 20px;
   }
   .logo-opciones {
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
-    gap: 30px;
-    animation: fadeIn 1s ease-in-out;
+    gap: 20px;
   }
+  
   .logo-opciones a {
     display: inline-block;
-    border-radius: 50%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
   }
+  
   .logo-opciones a:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
+  
   .logo-opciones img {
-    width: 50px;
-    height: 50px;
+    width: 30px; /* Más pequeño */
+    height: 30px;
     object-fit: contain;
-    border-radius: 50%;
-    background-color: white;
-    padding: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: transparent; /* Quitamos fondo blanco */
+    padding: 0; /* Sin relleno extra */
+    box-shadow: none; /* Sin sombra */
+    border-radius: 0; /* No redondeado */
   }
+  
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -254,4 +256,12 @@ body {
  
     overflow: hidden;
     border-radius: 30px; 
+}
+
+.texto-social {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 500;
 }
