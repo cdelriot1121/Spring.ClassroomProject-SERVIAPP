@@ -49,6 +49,19 @@ public class UsuarioModel {
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
     private Rol rol;
+    
+    /**
+     * Enumeración que define los estados posibles de un usuario en el sistema.
+     * Permite habilitar o deshabilitar cuentas de usuario.
+     */
+    public enum EstadoUsuario {
+        HABILITADO,
+        DESHABILITADO
+    }
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado", nullable = false)
+    private EstadoUsuario estado = EstadoUsuario.HABILITADO; // Por defecto, todos los usuarios están habilitados
 
     // Campo estrato solo usado por usuarios con rol USUARIO
     @Column(name = "estrato", length = 50)
@@ -105,6 +118,7 @@ public class UsuarioModel {
         usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setRol(Rol.ROLE_USUARIO);
+        usuario.setEstado(EstadoUsuario.HABILITADO);
         usuario.setEstrato(estrato);
         return usuario;
     }
@@ -119,6 +133,7 @@ public class UsuarioModel {
         admin.setEmail(email);
         admin.setPassword(password);
         admin.setRol(Rol.ROLE_ADMINISTRADOR);
+        admin.setEstado(EstadoUsuario.HABILITADO);
         return admin;
     }
 
@@ -212,6 +227,23 @@ public class UsuarioModel {
         this.consejos = consejos;
     }
 
+    public EstadoUsuario getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoUsuario estado) {
+        this.estado = estado;
+    }
+    
+    /**
+     * Método helper para verificar si un usuario está habilitado.
+     * 
+     * @return true si el usuario está habilitado, false en caso contrario
+     */
+    public boolean estaHabilitado() {
+        return EstadoUsuario.HABILITADO.equals(this.estado);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -220,6 +252,7 @@ public class UsuarioModel {
         sb.append(", nombre=").append(nombre);
         sb.append(", email=").append(email);
         sb.append(", rol=").append(rol);
+        sb.append(", estado=").append(estado);
 
         if (rol == Rol.ROLE_USUARIO) {
             sb.append(", estrato=").append(estrato);

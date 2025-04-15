@@ -45,6 +45,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             nuevoUsuario.setNombre(nombre);
             // Por defecto los usuarios de Google serán usuarios normales
             nuevoUsuario.setRol(UsuarioModel.Rol.ROLE_USUARIO);
+            // Por defecto, todos los usuarios están habilitados
+            nuevoUsuario.setEstado(UsuarioModel.EstadoUsuario.HABILITADO);
             
             // Establecer una contraseña aleatoria (nunca se usará directamente)
             // ya que el usuario se autenticará siempre con Google
