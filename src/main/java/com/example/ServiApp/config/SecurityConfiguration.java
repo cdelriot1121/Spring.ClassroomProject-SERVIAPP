@@ -15,6 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.example.ServiApp.repository.UsuarioRepository;
 
 /**
  * Configuración principal de seguridad para la aplicación ServiApp.
@@ -36,19 +39,31 @@ public class SecurityConfiguration {
     // Manejador personalizado para redirecciones después de login exitoso
     private final CustomSuccessHandler customSuccessHandler;
 
+    // Servicio personalizado para OAuth2
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    // Repositorio de usuarios
+    private final UsuarioRepository usuarioRepository;
+
     /**
      * Constructor con inyección de dependencias.
      * 
      * @param customUserDetailsService Servicio para cargar datos de usuario
      * @param customSuccessHandler Manejador para el éxito de autenticación
+     * @param customOAuth2UserService Servicio para OAuth2
+     * @param usuarioRepository Repositorio de usuarios
      * 
      * @Lazy se usa para evitar dependencias circulares durante la inicialización
      */
     @Autowired
     public SecurityConfiguration(@Lazy CustomUserDetailsService customUserDetailsService,
-            @Lazy CustomSuccessHandler customSuccessHandler) {
+            @Lazy CustomSuccessHandler customSuccessHandler,
+            @Lazy CustomOAuth2UserService customOAuth2UserService,
+            @Lazy UsuarioRepository usuarioRepository) {
         this.customUserDetailsService = customUserDetailsService;
         this.customSuccessHandler = customSuccessHandler;
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     /**
@@ -109,11 +124,22 @@ public class SecurityConfiguration {
                         .failureUrl("/login?error=true")
                         .successHandler(customSuccessHandler)
                         .permitAll())
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService))
+                        .successHandler(customOAuth2SuccessHandler())
+                        .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                         .permitAll());
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customOAuth2SuccessHandler() {
+        return new CustomOAuth2SuccessHandler(usuarioRepository);
     }
 
     @Bean
