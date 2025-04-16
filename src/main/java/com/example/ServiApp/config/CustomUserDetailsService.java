@@ -40,6 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // 3. Verificar si el usuario está habilitado
         if (!usuario.estaHabilitado()) {
+            System.out.println("ADVERTENCIA: Usuario deshabilitado intentó iniciar sesión: " + email);
             throw new DisabledException("Usuario deshabilitado");
         }
 

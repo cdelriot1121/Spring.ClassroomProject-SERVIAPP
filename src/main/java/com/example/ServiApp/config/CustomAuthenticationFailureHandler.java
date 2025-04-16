@@ -20,15 +20,22 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
         
-        System.out.println("Error de autenticación: " + exception.getMessage());
-        
-        // Si el error es porque la cuenta está deshabilitada
-        if (exception instanceof DisabledException) {
-            // Redirigir a la página personalizada de usuario deshabilitado
-            response.sendRedirect("/error/usuario-inhabilitado");
-        } else {
-            // Para otros errores, usar la redirección estándar
-            response.sendRedirect("/login?error=true");
+        System.out.println("Error de autenticación detallado: " + exception.getClass().getName());
+        System.out.println("Mensaje: " + exception.getMessage());
+        if (exception.getCause() != null) {
+            System.out.println("Causa: " + exception.getCause().getMessage());
         }
+        
+        // Manejar usuario deshabilitado - verificar por tipo o mensaje
+        if (exception instanceof DisabledException || 
+            (exception.getMessage() != null && exception.getMessage().contains("deshabilitado"))) {
+            System.out.println("Redirigiendo a página de usuario deshabilitado");
+            response.sendRedirect("/error/usuario-inhabilitado");
+            return; // Asegurar que el código termine aquí
+        } 
+        
+        // Para otros errores
+        System.out.println("Redirigiendo a login con error genérico");
+        response.sendRedirect("/login?error=true");
     }
 }

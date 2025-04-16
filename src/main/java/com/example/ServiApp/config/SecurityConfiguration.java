@@ -92,6 +92,7 @@ public class SecurityConfiguration {
                         // Recursos estáticos (CSS, JavaScript, imágenes)
                         .requestMatchers("/javascripts/**",
                                 "/main.css", 
+                                "MainErrores.css",
                                 "/estilos_inicio/**",
                                 "/estilos_interfaz-usuario/**",
                                 "/img_local/**",
