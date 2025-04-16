@@ -96,7 +96,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 .findFirst()
                 .map(role -> role.equals("ROLE_ADMINISTRADOR")
                         ? "/interfaz-admin"   // Redirección para administradores
-                        : "/interfaz-inicio") // Redirección para usuarios normales
+                        : "/interfaz_inicio") // Redirección para usuarios normales
                 .orElse("/login?error=invalid_role"); // Redirección en caso de rol inválido
 
         // 5. Redirigir al usuario a la página correspondiente
