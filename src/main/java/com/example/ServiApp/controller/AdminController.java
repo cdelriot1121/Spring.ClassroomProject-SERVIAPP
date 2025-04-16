@@ -1,6 +1,7 @@
 package com.example.ServiApp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,11 +79,7 @@ public class AdminController {
         return "interfaz-admin";
     }
 
-    @PostMapping("/eliminar-usuario/{id}")
-    public String eliminarUsuario(@PathVariable("id") Long id) {
-        usuarioService.eliminarUsuario(id);
-        return "redirect:/interfaz-admin";
-    }
+    
 
     @Autowired
     private ServiciosService serviciosService;
@@ -109,4 +106,33 @@ public class AdminController {
         model.addAttribute("fallas", fallas);
         return "ReportesUserAdmin";
     }
+
+
+
+    @PostMapping("/inhabilitar-usuario/{id}")
+    public String inhabilitarUsuario(@PathVariable("id") Long id) {
+        usuarioService.inhabilitarUsuario(id);
+        return "redirect:/interfaz-admin";
+    }
+    
+    @PostMapping("/habilitar-usuario/{id}")
+    public String habilitarUsuario(@PathVariable("id") Long id) {
+        usuarioService.habilitarUsuario(id);
+        return "redirect:/interfaz-admin";
+    }
+    
+
+
+
+    
+    
+    
+
+
+
+
+
+
+
+
 }

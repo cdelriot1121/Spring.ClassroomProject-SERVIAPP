@@ -29,14 +29,16 @@
               placeholder="Contraseña"
               required
             />
-            <div th:if="${param.error}" style="color: red">
-              Credenciales incorrectas. Intenta nuevamente.
+            
+            <div th:if="${param.error == 'disabled'}" style="color: red;">
+              <p>Tu cuenta está deshabilitada. Contacta al administrador.</p>
             </div>
+
             <button type="submit">Entrar</button>
             <p class="texto-social">──── O inicia sesión con ────</p>
             <div class="logo-opciones">
               <a href="/oauth2/authorization/google" title="Inicia con Google">
-                <img src="/img_local/logo-google.png" alt="Login con Google" />
+                <img src="/img_local/logo-google.png" alt="Login con Google"
               </a>
               <a href="/login-otp" title="Verificación OTP">
                 <img src="/img_local/icono-otp.png" alt="Login con OTP" />

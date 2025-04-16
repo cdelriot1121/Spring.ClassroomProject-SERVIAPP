@@ -31,37 +31,31 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-        // Extraer información del usuario de Google
         String email = oAuth2User.getAttribute("email");
-        String nombre = oAuth2User.getAttribute("name");
-        
-        // Verificar si el usuario ya existe en nuestra base de datos
-        Optional<UsuarioModel> usuarioExistente = usuarioRepository.findByEmail(email);
-        
-        if (!usuarioExistente.isPresent()) {
+        Optional<UsuarioModel> usuarioOpt = usuarioRepository.findByEmail(email);
+
+        if (usuarioOpt.isPresent()) {
+            UsuarioModel usuario = usuarioOpt.get();
+
+            // Verificar si el usuario está habilitado
+            if (!usuario.estaHabilitado()) {
+                throw new OAuth2AuthenticationException("El usuario está deshabilitado.");
+            }
+
+            System.out.println("Usuario de Google existente: " + email);
+        } else {
             // Crear nuevo usuario si no existe
             UsuarioModel nuevoUsuario = new UsuarioModel();
             nuevoUsuario.setEmail(email);
-            nuevoUsuario.setNombre(nombre);
-            // Por defecto los usuarios de Google serán usuarios normales
+            nuevoUsuario.setNombre(oAuth2User.getAttribute("name"));
             nuevoUsuario.setRol(UsuarioModel.Rol.ROLE_USUARIO);
-            // Por defecto, todos los usuarios están habilitados
             nuevoUsuario.setEstado(UsuarioModel.EstadoUsuario.HABILITADO);
-            
-            // Establecer una contraseña aleatoria (nunca se usará directamente)
-            // ya que el usuario se autenticará siempre con Google
-            String randomPassword = "google_" + System.currentTimeMillis();
-            nuevoUsuario.setPassword(new BCryptPasswordEncoder().encode(randomPassword));
-            
-            // Guardar el nuevo usuario
+            nuevoUsuario.setPassword(new BCryptPasswordEncoder().encode("google_" + System.currentTimeMillis()));
             usuarioRepository.save(nuevoUsuario);
-            
+
             System.out.println("Nuevo usuario de Google registrado: " + email);
-        } else {
-            System.out.println("Usuario de Google existente: " + email);
         }
 
-        // Devolver el usuario OAuth2 con la autoridad ROLE_USUARIO
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USUARIO")),
                 oAuth2User.getAttributes(),

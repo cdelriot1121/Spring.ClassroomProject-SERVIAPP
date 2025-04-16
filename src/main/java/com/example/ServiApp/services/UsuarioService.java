@@ -48,8 +48,25 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public void eliminarUsuario(Long id) {
-        usuarioRepository.deleteById(id);
+   
+
+
+    public void inhabilitarUsuario(Long id) {
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findById(id);
+        if (usuarioOptional.isPresent()) {
+            UsuarioModel usuario = usuarioOptional.get();
+            usuario.setEstado(UsuarioModel.EstadoUsuario.DESHABILITADO);
+            usuarioRepository.save(usuario);
+        }
+    }
+    
+    public void habilitarUsuario(Long id) {
+        Optional<UsuarioModel> usuarioOptional = usuarioRepository.findById(id);
+        if (usuarioOptional.isPresent()) {
+            UsuarioModel usuario = usuarioOptional.get();
+            usuario.setEstado(UsuarioModel.EstadoUsuario.HABILITADO);
+            usuarioRepository.save(usuario);
+        }
     }
 
     public boolean emailYaRegistrado(String email) {
