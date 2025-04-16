@@ -39,7 +39,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
             // Verificar si el usuario está habilitado
             if (!usuario.estaHabilitado()) {
-                throw new OAuth2AuthenticationException("El usuario está deshabilitado.");
+                throw new OAuth2AuthenticationException("usuario_deshabilitado");
             }
 
             System.out.println("Usuario de Google existente: " + email);
