@@ -44,7 +44,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
                               usuario.getNombre() + " con rol: " + usuario.getRol());
             
             // Redirigir a la interfaz de inicio de usuario normal
-            response.sendRedirect("/interfaz-inicio");
+            response.sendRedirect("/interfaz_inicio");
         } else {
             // En caso de que no se encuentre el usuario (no debería ocurrir)
             System.out.println("ERROR: No se encontró el usuario OAuth2 con email: " + email);
