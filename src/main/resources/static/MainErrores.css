@@ -1,0 +1,99 @@
+/* Estilos mejorados para la página de error */
+.error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    animation: fadeIn 1s ease-out; /* Animación de entrada */
+    font-family: 'Roboto', sans-serif; /* Fuente de Google */
+}
+
+.error-content {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    transform: scale(0.8);
+    animation: slideIn 1s forwards; /* Animación de deslizamiento */
+    font-family: 'Montserrat', sans-serif; /* Fuente secundaria */
+}
+
+.error-logo {
+    width: 120px;
+    margin-bottom: 30px;
+    animation: bounce 1s infinite alternate; /* Animación de rebote */
+}
+
+.error-content h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #007bff;
+    animation: fadeInText 1s ease-out; /* Animación de aparición de texto */
+    font-family: 'Montserrat', sans-serif; /* Fuente más fuerte para los títulos */
+}
+
+.error-content p {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 30px;
+    animation: fadeInText 1.2s ease-out; /* Animación de aparición de texto */
+    font-family: 'Roboto', sans-serif; /* Fuente más suave para el texto */
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-family: 'Roboto', sans-serif; /* Fuente coherente para los botones */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px); /* Efecto de elevación */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
