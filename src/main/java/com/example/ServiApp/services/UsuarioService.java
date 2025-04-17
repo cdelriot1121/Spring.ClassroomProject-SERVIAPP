@@ -95,4 +95,9 @@ public class UsuarioService {
     public List<UsuarioModel> obtenerAdministradores() {
         return usuarioRepository.findByRol(UsuarioModel.Rol.ROLE_ADMINISTRADOR);
     }
+
+    public Optional<UsuarioModel> obtenerUsuarioPorEmail(String email) {
+        return usuarioRepository.findByEmail(email); // Suponiendo que ya existe este método en el repositorio
+    }
+    
 }

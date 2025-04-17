@@ -1,0 +1,56 @@
+/* Estilos del formulario de registro de predios */
+section.container {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.1);
+    max-width: 600px;
+    margin: auto;
+    font-family: 'Kanit', sans-serif;
+    color: #002f4b;
+}
+
+section.container h2 {
+    color: #007BFF;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+section.container .form-label {
+    font-weight: 500;
+    color: #003d73;
+}
+
+section.container .form-control {
+    border-radius: 12px;
+    border: 1px solid #cfe2ff;
+    padding: 10px 15px;
+    background-color: #f8faff;
+    color: #002f4b;
+}
+
+section.container .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    background-color: #ffffff;
+}
+
+/* Botón con animación */
+section.container button[type="submit"] {
+    background-color: #007BFF;
+    color: #ffffff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+section.container button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}

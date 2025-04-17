@@ -63,10 +63,7 @@ public class UsuarioModel {
     @Column(name = "estado", nullable = false)
     private EstadoUsuario estado = EstadoUsuario.HABILITADO; // Por defecto, todos los usuarios están habilitados
 
-    // Campo estrato solo usado por usuarios con rol USUARIO
-    @Column(name = "estrato", length = 50)
-    private Integer estrato;
-
+    
     // Relaciones específicas según el rol del usuario
     // Relaciones para usuarios normales
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -88,12 +85,17 @@ public class UsuarioModel {
     @JsonIgnore
     private List<ConsejosModel> consejos;
 
+    // Relación uno a muchos con predios (solo para usuarios normales)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<PredioModel> predios;
+
+
     public UsuarioModel() {
     }
 
     // Constructor completo
-    public UsuarioModel(long id, String nombre, String email, String password, Rol rol,
-            Integer estrato, List<ServicioModel> servicios,
+    public UsuarioModel(long id, String nombre, String email, String password, Rol rol, List<ServicioModel> servicios,
             List<Falla_Ser_Model> fallas_Servicio, List<CortesModel> cortes,
             List<ConsejosModel> consejos) {
         this.id = id;
@@ -101,7 +103,7 @@ public class UsuarioModel {
         this.email = email;
         this.password = password;
         this.rol = rol;
-        this.estrato = estrato;
+       
         this.servicios = servicios;
         this.fallas_Servicio = fallas_Servicio;
         this.cortes = cortes;
@@ -119,7 +121,7 @@ public class UsuarioModel {
         usuario.setPassword(password);
         usuario.setRol(Rol.ROLE_USUARIO);
         usuario.setEstado(EstadoUsuario.HABILITADO);
-        usuario.setEstrato(estrato);
+       
         return usuario;
     }
 
@@ -187,14 +189,9 @@ public class UsuarioModel {
         return Rol.ROLE_ADMINISTRADOR.equals(this.rol);
     }
 
-    public Integer getEstrato() {
-        return estrato;
-    }
+  
 
-    public void setEstrato(Integer estrato) {
-        this.estrato = estrato;
-    }
-
+   
     public List<ServicioModel> getServicios() {
         return servicios;
     }
@@ -255,7 +252,7 @@ public class UsuarioModel {
         sb.append(", estado=").append(estado);
 
         if (rol == Rol.ROLE_USUARIO) {
-            sb.append(", estrato=").append(estrato);
+           
             sb.append(", servicios=").append(servicios != null ? servicios.size() : 0);
             sb.append(", fallas_Servicio=").append(fallas_Servicio != null ? fallas_Servicio.size() : 0);
         } else {

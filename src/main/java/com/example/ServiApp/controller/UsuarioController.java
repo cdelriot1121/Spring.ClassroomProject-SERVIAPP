@@ -99,7 +99,7 @@ public class UsuarioController {
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
 
         usuarioExistente.setEmail(usuario.getEmail());
-        usuarioExistente.setEstrato(usuario.getEstrato());
+      
         usuarioService.guardarUsuario(usuarioExistente);
 
         model.addAttribute("usuario", usuarioExistente);

@@ -31,6 +31,15 @@ public class ServicioModel {
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<PeriodoModel> periodos;
+    
+
+    // Relación muchos a uno con predio
+    @ManyToOne
+    @JoinColumn(name = "predio_id", nullable = false)
+    private PredioModel predio;
+
+
+
 
     @Column(name = "tipo_servicio", nullable = false, length = 50)
     private String tipoServicio;
