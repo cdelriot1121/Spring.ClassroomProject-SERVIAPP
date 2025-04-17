@@ -26,6 +26,9 @@ public class PeriodoModel {
     @Column(name= "mes", nullable=false, length=50)
     private String mes;
 
+    @Column(name = "ano", nullable = false)
+    private  int ano;
+
     @Column(name="Consumo", nullable=false, length=50)
     private float consumo;
 
@@ -70,6 +73,14 @@ public class PeriodoModel {
         this.mes = mes;
     }
 
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
     public float getConsumo() {
         return consumo;
     }
@@ -104,4 +115,6 @@ public class PeriodoModel {
                 ", consejos=" + consejos +
                 '}';
     }
+
+
 }

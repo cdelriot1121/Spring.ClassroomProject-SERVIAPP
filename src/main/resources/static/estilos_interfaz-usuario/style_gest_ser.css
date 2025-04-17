@@ -228,7 +228,26 @@ button:hover {
     background-color: #49d749cb; 
 }
 
+.casilla_rs {
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease;
+}
 
+.casilla_rs:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+#form-content {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
 
 
 

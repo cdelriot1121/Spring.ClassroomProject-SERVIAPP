@@ -22,10 +22,10 @@
         />
         <h1>Cuenta Deshabilitada</h1>
         <p>
-          Tu cuenta ha sido deshabilitada. Si crees que esto es un error, por favor
-          contacta con el administrador del sistema.
+          Tu cuenta ha sido deshabilitada por un administrador, Si consideras que es un error.
         </p>
-        <a href="/login" class="btn btn-primary">Volver al Inicio de Sesión</a>
+        <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+        <a href="/" class="btn btn-primary">Volver al Inicio</a>
       </div>
     </div>
   </body>
