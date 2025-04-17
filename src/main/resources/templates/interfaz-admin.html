@@ -1,114 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-    <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+  <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Admin Panel</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap"
+        rel="stylesheet"
+      />
+      <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 
-    <link rel="stylesheet" href="/estilos_interfaz-admin/style_admin.css">
-    <!-- DataTables CSS y JS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/estilos_interfaz-admin/style_admin.css" />
+      <!-- DataTables CSS y JS -->
+      <link
+        rel="stylesheet"
+        href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"
+      />
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-    <header>
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+      />
+    </head>
+    <body>
+      <header>
         <div class="contenedor-principal" id="header1">
-            <h1 id="h1001">ServiApp - Administrador</h1>
-            <div class="botones-datos">
-                <a href="/" class="login">Log Out</a>
-            </div>
+          <h1 id="h1001">ServiApp - Administrador</h1>
+          <div class="botones-datos">
+            <a href="/" class="login">Log Out</a>
+          </div>
         </div>
-    </header>
+      </header>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="p-2 g-col-6"><a href="/interfaz-admin">Usuarios</a></li>
-                    <li class="p-2 g-col-6"><a href="/gestionar-servicios-admin">Servicios públicos</a></li>
-                    <li class="p-2 g-col-6"><a href="cortes-admin">Reportes</a></li>
-                    <li class="p-2 g-col-6"><a href="/reportes_usuarios">Reportes usuarios</a></li>
-                    <li class="p-2 g-col-6"><a href="/consejos-admin">Consejos</a></li>
-                </ul>
-            </div>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="p-2 g-col-6">
+                <a href="/interfaz-admin">Usuarios</a>
+              </li>
+              <li class="p-2 g-col-6">
+                <a href="/gestionar-servicios-admin">Servicios públicos</a>
+              </li>
+              <li class="p-2 g-col-6"><a href="cortes-admin">Reportes</a></li>
+              <li class="p-2 g-col-6">
+                <a href="/reportes_usuarios">Reportes usuarios</a>
+              </li>
+              <li class="p-2 g-col-6">
+                <a href="/consejos-admin">Consejos</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
 
-    <section class="dashboard">
+      <section class="dashboard">
         <div class="container">
-            <div class="row justify-content-center">
-                <!-- Cuadro: Cantidad de Usuarios -->
-                <div class="col-md-4">
-                    <div class="info-box">
-                        <h4>Cantidad de Usuarios</h4>
-                        <p class="info-number" id="user-count">0</p>
-                    </div>
-                </div>
+          <div class="row justify-content-center">
+            <!-- Cuadro: Cantidad de Usuarios -->
+            <div class="col-md-4">
+              <div class="info-box">
+                <h4>Cantidad de Usuarios</h4>
+                <p class="info-number" id="user-count">0</p>
+              </div>
             </div>
+          </div>
 
-            <!-- Tabla de Usuarios -->
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5>Usuarios Registrados</h5>
-                        </div>
-                        <div class="card-body">
-                            <table id="usuarios-table" class="table table-hover table-responsive">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Email</th>
-                                        <th>Estrato</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="usuario : ${usuarios}">
-                                        <td th:text="${usuario.id}"></td>
-                                        <td th:text="${usuario.nombre}"></td>
-                                        <td th:text="${usuario.email}"></td>
-                                        <td th:text="${usuario.estrato}"></td>
-                                        <td>
-                                            <form th:action="@{/eliminar-usuario/{id}(id=${usuario.id})}" method="post" onsubmit="return confirmarEliminacion(this)">
-                                                <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+          <!-- Tabla de Usuarios -->
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <div class="card">
+                <div
+                  class="card-header d-flex justify-content-between align-items-center"
+                >
+                  <h5>Usuarios Registrados</h5>
                 </div>
+                <div class="card-body">
+                  <table
+                    id="usuarios-table"
+                    class="table table-hover table-responsive"
+                  >
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Estrato</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.id}"></td>
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.email}"></td>
+                        <td th:text="${usuario.estrato}"></td>
+                        <td th:text="${usuario.estado}"></td>
+                        <!-- Nuevo: mostrar estado -->
+
+                        <td>
+                          <!-- Botón dinámico según el estado -->
+                          <form
+                            th:action="@{${usuario.estado.name() == 'HABILITADO'} ? '/inhabilitar-usuario/' + ${usuario.id} : '/habilitar-usuario/' + ${usuario.id}}"
+                            method="post"
+                          >
+                            <button
+                              type="submit"
+                              class="btn"
+                              th:classappend="${usuario.estado.name() == 'HABILITADO'} ? 'btn-outline-warning' : 'btn-outline-success'"
+                              th:text="${usuario.estado.name() == 'HABILITADO'} ? 'Inhabilitar' : 'Habilitar'"
+                            ></button>
+                          </form>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-    
-    <script src="/javascripts/TablaUsuariosAdmin.js"></script>
-    <script src="/javascripts/interfazAdmin.js"></script>
-    <script src="/javascripts/contador_usuarios.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      </section>
 
-    
-    
-</body>
+      <script src="/javascripts/TablaUsuariosAdmin.js"></script>
+      <script src="/javascripts/interfazAdmin.js"></script>
+      <script src="/javascripts/contador_usuarios.js"></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
+    </body>
+  </html>
 </html>

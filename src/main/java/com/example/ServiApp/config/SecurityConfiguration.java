@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.example.ServiApp.repository.UsuarioRepository;
@@ -85,11 +86,13 @@ public class SecurityConfiguration {
                         // ======== ACCESO PÚBLICO ========
                         // Recursos públicos y páginas de acceso general
                         .requestMatchers("/", "/login", "/registro", "/acercade", "/usuarios/verificar-email", 
-                                "/usuarios/registrar", "/usuarios/contador", "/consejos-ahorro").permitAll()
+                                "/usuarios/registrar", "/usuarios/contador", "/consejos-ahorro",
+                                "/error/usuario-inhabilitado").permitAll()  // Añadir la página de error
                         
                         // Recursos estáticos (CSS, JavaScript, imágenes)
                         .requestMatchers("/javascripts/**",
                                 "/main.css", 
+                                "MainErrores.css",
                                 "/estilos_inicio/**",
                                 "/estilos_interfaz-usuario/**",
                                 "/img_local/**",
@@ -121,7 +124,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .failureUrl("/login?error=true")
+                        .failureHandler(customAuthenticationFailureHandler())  // Usar el manejador personalizado
                         .successHandler(customSuccessHandler)
                         .permitAll())
                 .oauth2Login(oauth2 -> oauth2
@@ -129,6 +132,7 @@ public class SecurityConfiguration {
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService))
                         .successHandler(customOAuth2SuccessHandler())
+                        .failureHandler(customOAuth2FailureHandler())  // Añadir manejador de error OAuth2
                         .permitAll())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
@@ -140,6 +144,16 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationSuccessHandler customOAuth2SuccessHandler() {
         return new CustomOAuth2SuccessHandler(usuarioRepository);
+    }
+
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler customOAuth2FailureHandler() {
+        return new CustomOAuth2FailureHandler();
     }
 
     @Bean

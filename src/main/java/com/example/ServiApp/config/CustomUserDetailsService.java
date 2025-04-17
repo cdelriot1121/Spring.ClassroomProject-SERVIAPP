@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.DisabledException;
 
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
@@ -37,27 +38,30 @@ public class CustomUserDetailsService implements UserDetailsService {
         UsuarioModel usuario = usuarioOptional.orElseThrow(
                 () -> new UsernameNotFoundException("No se encontró usuario con email: " + emailNormalizado));
 
-        // 3. Registrar detalles para depuración (opcional)
+        // 3. Verificar si el usuario está habilitado
+        if (!usuario.estaHabilitado()) {
+            System.out.println("ADVERTENCIA: Usuario deshabilitado intentó iniciar sesión: " + email);
+            throw new DisabledException("Usuario deshabilitado");
+        }
+
+        // 4. Registrar detalles para depuración (opcional)
         System.out.println("Usuario encontrado: " + usuario.getEmail() +
                 " | Rol: " + usuario.getRol() +
                 " | Estado: " + usuario.getEstado() +
-                " | Contraseña (hash): " + usuario.getPassword().substring(0, 60) + "...");
+                " | Contraseña (hash): " + usuario.getPassword().substring(0, 10) + "...");
 
-        // 4. Crear autoridades (roles)
+        // 5. Crear autoridades (roles)
         List<GrantedAuthority> autoridades = Collections.singletonList(
                 new SimpleGrantedAuthority(usuario.getRol().name()));
-
-        // 5. Verificar si el usuario está habilitado
-        boolean habilitado = usuario.estaHabilitado();
         
-        // 6. Retornar UserDetails con las credenciales
+        // 6. Retornar UserDetails
         return new User(
                 usuario.getEmail(),
                 usuario.getPassword(),
-                habilitado, // cuenta habilitada según el estado del usuario
-                true,       // cuenta no expirada
-                true,       // credenciales no expiradas
-                true,       // cuenta no bloqueada
+                true,        // cuenta habilitada (ya verificamos esto antes)
+                true,        // cuenta no expirada
+                true,        // credenciales no expiradas
+                true,        // cuenta no bloqueada
                 autoridades);
     }
 
