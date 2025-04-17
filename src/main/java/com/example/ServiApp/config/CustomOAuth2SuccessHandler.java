@@ -40,7 +40,8 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             // Verificar si el usuario está habilitado
             if (!usuario.estaHabilitado()) {
                 System.out.println("ERROR: Usuario deshabilitado intentó iniciar sesión: " + email);
-                response.sendRedirect("/login?error=disabled");
+                // Cambiar esta línea para redirigir a la página de usuario inhabilitado
+                response.sendRedirect("/error/usuario-inhabilitado");
                 return;
             }
 

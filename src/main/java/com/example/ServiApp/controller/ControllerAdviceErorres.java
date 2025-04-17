@@ -1,12 +1,12 @@
 package com.example.ServiApp.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.http.HttpStatus;
 
 @ControllerAdvice
 public class ControllerAdviceErorres {
@@ -47,7 +47,7 @@ public class ControllerAdviceErorres {
         return "error/401"; // Redirige a la plantilla error/401
     }
 
-    @GetMapping("/error/usuario-inhabilitado")
+    @RequestMapping("/error/usuario-inhabilitado")
     public String usuarioInhabilitado() {
         return "error/usuario-inhabilitado";
     }
