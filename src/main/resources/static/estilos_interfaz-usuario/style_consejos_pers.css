@@ -138,3 +138,84 @@ td:nth-child(4) {
 .custom-button:hover {
     background: linear-gradient(45deg, #6bcdfd, #cffff9); 
 }
+
+
+
+
+#tablaConsejos {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    table-layout: fixed;
+}
+
+#tablaConsejos th, #tablaConsejos td {
+    padding: 8px 10px;
+    word-wrap: break-word;
+}
+
+#tablaConsejos th:nth-child(1), #tablaConsejos td:nth-child(1) {
+    width: 20%;
+}
+
+#tablaConsejos th:nth-child(2), #tablaConsejos td:nth-child(2) {
+    width: 15%;
+}
+
+#tablaConsejos th:nth-child(3), #tablaConsejos td:nth-child(3) {
+    width: 15%;
+}
+
+#tablaConsejos th:nth-child(4), #tablaConsejos td:nth-child(4) {
+    width: 10%;
+}
+
+#tablaConsejos th:nth-child(5), #tablaConsejos td:nth-child(5) {
+    width: 40%;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.form-select {
+    width: auto;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+#tablaConsejos th, #tablaConsejos td {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+}
+
+.form-select {
+    min-width: 150px;
+}
+
+
+    .form-select {
+        min-width: 150px;
+    }
+
+    .tabla-consejos-personalizados th,
+    .tabla-consejos-personalizados td {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        background-color: #f8f9fa;
+    }
+

@@ -87,24 +87,27 @@
                             th:value="${servicio.id}" 
                             th:text="${servicio.tipo_servicio}">Servicio</option>
                 </select>
-                <div id="form-content" >
+                <div id="form-content" class="p-3 rounded shadow-sm" style="background-color: #f8f9fa; max-width: 400px; margin: auto;">
                     <label for="mes">Selecciona un mes:</label>
-                    <input class="casilla_rs" list="opciones_mes" id="mes" name="mes" placeholder="Selecciona un mes" required oninput="validateInput(this)">
-                    <datalist id="opciones_mes">
-                        <option value="Enero">Enero
-                        <option value="Febrero">Febrero
-                        <option value="Marzo">Marzo
-                        <option value="Abril">Abril
-                        <option value="Mayo">Mayo
-                        <option value="Junio">Junio
-                        <option value="Julio">Julio
-                        <option value="Agosto">Agosto
-                        <option value="Septiembre">Septiembre
-                        <option value="Octubre">Octubre
-                        <option value="Noviembre">Noviembre
-                        <option value="Diciembre">Diciembre
-                    </datalist>
-    
+                    <input class="casilla_rs" type="month" id="mes" name="mes" min="2020-01" required> 
+
+                    <script>
+                        // Obtener la fecha actual
+                        const hoy = new Date();
+                        const año = hoy.getFullYear();
+                        const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Mes actual con dos dígitos
+                    
+                        // Establecer el atributo "max" dinámicamente
+                        const inputMes = document.getElementById('mes');
+                        inputMes.max = `${año}-${mes}`;
+                    
+                        // Si el valor ya está fuera del rango (por defecto), limpiarlo
+                        if (inputMes.value && (inputMes.value < inputMes.min || inputMes.value > inputMes.max)) {
+                            inputMes.value = '';
+                        }
+                    </script>
+
+
                     <label id="consumo-label" for="consumo">Consumo:</label>
                     <input class="casilla_rs" type="number" id="consumo" name="consumo" min="0" step="any" placeholder="Ingresa el consumo" required>
     

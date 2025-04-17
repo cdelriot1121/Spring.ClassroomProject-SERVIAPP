@@ -52,6 +52,35 @@ public class PeriodoController {
 
             periodo.setServicio(servicioSeleccionado);
 
+              // === CONVERSIÓN DEL MES NUMÉRICO A TEXTO Y SEPARACIÓN DEL AÑO ===
+        String mesYAnio = periodo.getMes(); // por ejemplo "2025-04"
+        if (mesYAnio != null && mesYAnio.matches("\\d{4}-\\d{2}")) {
+            String[] partes = mesYAnio.split("-");
+            int ano = Integer.parseInt(partes[0]);
+            String mesNumero = partes[1];
+
+            String mesTxt = switch (mesNumero) {
+                case "01" -> "Enero";
+                case "02" -> "Febrero";
+                case "03" -> "Marzo";
+                case "04" -> "Abril";
+                case "05" -> "Mayo";
+                case "06" -> "Junio";
+                case "07" -> "Julio";
+                case "08" -> "Agosto";
+                case "09" -> "Septiembre";
+                case "10" -> "Octubre";
+                case "11" -> "Noviembre";
+                case "12" -> "Diciembre";
+                default -> "Desconocido";
+            };
+
+            periodo.setMes(mesTxt);   // Guardar el mes como texto
+            periodo.setAno(ano);      // Guardar el año por separado
+        }
+
+
+
             final float PROMEDIO_AGUA = 4.3f;
             final float PROMEDIO_ENERGIA = 80.7f;
             final float PROMEDIO_GAS = 3.9f;
