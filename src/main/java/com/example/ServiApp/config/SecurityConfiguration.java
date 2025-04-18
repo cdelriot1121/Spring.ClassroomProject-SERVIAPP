@@ -87,7 +87,7 @@ public class SecurityConfiguration {
                         // Recursos públicos y páginas de acceso general
                         .requestMatchers("/", "/login", "/registro", "/acercade", "/usuarios/verificar-email", 
                                 "/usuarios/registrar", "/usuarios/contador", "/consejos-ahorro",
-                                "/error/usuario-inhabilitado").permitAll()  // Añadir la página de error
+                                "/error/usuario-inhabilitado", "/completar-registro").permitAll()  // Añadir la página de error
                         
                         // Recursos estáticos (CSS, JavaScript, imágenes)
                         .requestMatchers("/javascripts/**",

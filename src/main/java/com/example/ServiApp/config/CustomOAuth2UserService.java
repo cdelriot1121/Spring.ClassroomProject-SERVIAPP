@@ -44,16 +44,17 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
             System.out.println("Usuario de Google existente: " + email);
         } else {
-            // Crear nuevo usuario si no existe
+            // Crear nuevo usuario pero marcarlo como registro incompleto
             UsuarioModel nuevoUsuario = new UsuarioModel();
             nuevoUsuario.setEmail(email);
             nuevoUsuario.setNombre(oAuth2User.getAttribute("name"));
             nuevoUsuario.setRol(UsuarioModel.Rol.ROLE_USUARIO);
             nuevoUsuario.setEstado(UsuarioModel.EstadoUsuario.HABILITADO);
+            nuevoUsuario.setRegistroCompleto(false); // Marcarlo como registro incompleto
             nuevoUsuario.setPassword(new BCryptPasswordEncoder().encode("google_" + System.currentTimeMillis()));
             usuarioRepository.save(nuevoUsuario);
 
-            System.out.println("Nuevo usuario de Google registrado: " + email);
+            System.out.println("Nuevo usuario de Google registrado: " + email + " (registro incompleto)");
         }
 
         return new DefaultOAuth2User(
