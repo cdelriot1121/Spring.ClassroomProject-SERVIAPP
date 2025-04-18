@@ -71,6 +71,11 @@
         </div>
       </nav>
 
+
+    
+
+<main>
+      
       <div class="consejos">
 
       <h1>Tus Consejos De Ahorro Personalizados</h1>
@@ -150,88 +155,9 @@
     </div>
     
     
-    <script>
-        function toggleConsejos(button) {
-            const lista = button.nextElementSibling;
-            lista.style.display = lista.style.display === "block" ? "none" : "block";
-        }
+   
     
-        $(document).ready(function () {
-            const tabla = $('#tablaConsejos').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                },
-                initComplete: function () {
-                    const api = this.api();
-                    const columnaMes = api.column(1); 
-                    const columnaAno = api.column(2); 
-                    const columnaServicio = api.column(0); 
-    
-                    let meses = new Set();
-                    let anos = new Set();
-                    let servicios = new Set();
-    
-                    // Recolecta valores únicos
-                    api.rows().every(function () {
-                        const data = this.data();
-                        meses.add(data[1]); // Mes
-                        anos.add(data[2]); // Año
-                        servicios.add(data[0]); // Servicio
-                    });
-    
-                    // Llenar select de Mes
-                    meses = Array.from(meses).sort();
-                    meses.forEach(m => {
-                        $('#filtroMes').append(`<option value="${m}">${m}</option>`);
-                    });
-    
-                    // Llenar select de Año
-                    anos = Array.from(anos).sort();
-                    anos.forEach(a => {
-                        $('#filtroAnio').append(`<option value="${a}">${a}</option>`);
-                    });
-    
-                    // Llenar select de Servicios
-                    servicios = Array.from(servicios).sort();
-                    servicios.forEach(s => {
-                        $('#filtroServicio').append(`<option value="${s}">${s}</option>`);
-                    });
-    
-                    // Función para aplicar filtros
-                    function filtrarPorMesAnoYServicio() {
-                        const mes = $('#filtroMes').val();
-                        const ano = $('#filtroAnio').val();
-                        const servicio = $('#filtroServicio').val();
-    
-                        let regex = "";
-                        if (mes) {
-                            regex += `^${mes} `;
-                        }
-                        if (ano) {
-                            regex += `${ano} `;
-                        }
-                        if (servicio) {
-                            regex = regex ? regex + servicio : servicio;
-                        }
-    
-                        // Aplica el filtro
-                        api.columns([1, 3, 0]).every(function () {
-                            const column = this;
-                            column.search(regex, true, false).draw();
-                        });
-                    }
-    
-                    // Aplicar filtro cuando el usuario cambia alguna opción
-                    $('#filtroMes, #filtroAnio, #filtroServicio').on('change', filtrarPorMesAnoYServicio);
-                }
-            });
-        });
-    </script>
-    
-
+</main>
 
      <!-- Pie de página -->
      <footer>
@@ -247,6 +173,9 @@
             <a href="">No compartir información</a>
         </div>
     </footer>
+
+
+    
 
         <!-- ventana privacidasd -->
         <div id="termsModal-privacidad" class="modal-privacidad">
@@ -279,61 +208,8 @@
     <script src="/javascripts/consejo_personal.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <style>
-    /* Ajuste para el contenedor de la tabla */
-    .tabla-consejos-personalizados {
-        margin-top: 1rem;
-        width: 100% !important;
-        border-collapse: separate;
-        border-spacing: 0 10px;
-    }
-    
-    /* Cabecera de la tabla */
-    .tabla-consejos-personalizados thead th {
-        background-color: #007ccf;
-        color: white;
-        font-weight: bold;
-        text-align: center;
-        padding: 12px 15px;
-        font-size: 14px;
-        border-radius: 8px 8px 0 0;
-    }
-    
-    /* Celdas del cuerpo de la tabla */
-    .tabla-consejos-personalizados tbody td {
-        background-color: #ffffff;
-        color: #333;
-        text-align: center;
-        padding: 10px 15px;
-        font-size: 14px;
-        vertical-align: middle;
-        border-radius: 8px;
-    }
-    
-    /* Hover sobre filas */
-    .tabla-consejos-personalizados tbody tr:hover {
-        background-color: #f7f7f7;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Bordes de las celdas */
-    .tabla-consejos-personalizados td,
-    .tabla-consejos-personalizados th {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-    
-    /* Estilo para el filtro de búsqueda de DataTables */
-    .dataTables_filter input {
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        padding: 8px 12px;
-        margin-left: 10px;
-        font-size: 14px;
-        width: 250px;
-    }
-</style>
+
+
     
 </body>
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="es">
-    <html xmlns:th="http://www.thymeleaf.org">
+<html lang="es"  xmlns:th="http://www.thymeleaf.org">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,7 +67,7 @@
       </nav>
   
 
-      <main>
+<main>
         <div class="titulo"> 
             <h1> ANALIZA TUS CONSUMOS </h1>
             <h2>Con esta función podrás comparar tus consumos con tu promedio, 
@@ -104,70 +104,43 @@
                 </div>
             </form>
         </section>
-        
-        <script>
-            // Establecer el mes máximo como el actual
-            const hoy = new Date();
-            const año = hoy.getFullYear();
-            const mes = String(hoy.getMonth() + 1).padStart(2, '0');
-            document.getElementById('mes').max = `${año}-${mes}`;
-        
-            // Cambiar automáticamente unidad según servicio seleccionado
-            document.getElementById('servicio').addEventListener('change', function () {
-                const tipo = this.options[this.selectedIndex].textContent.toLowerCase();
-                const unidadInput = document.getElementById('unidad');
-        
-                if (tipo.includes('agua') || tipo.includes('gas')) {
-                    unidadInput.value = 'm3';
-                } else if (tipo.includes('energía') || tipo.includes('luz') || tipo.includes('electricidad')) {
-                    unidadInput.value = 'kwh';
-                } else {
-                    unidadInput.value = '';
-                }
-            });
-        </script>
-        
 
+                    <section id="cuadros-consumo" th:if="${promedioHogar != null}" style="display: none;">
+                        <div class="cuadro">
+                            <h3>Tu consumo del Hogar actual</h3>
+                            <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
+                        </div>
+                    
+                        <div class="cuadro" th:classappend="${clasePromedioCartagena}">
+                            <h3>Consumo comparado con promedio en Cartagena</h3>
+                            <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
+                        </div>
+                    
+                        <div class="cuadro">
+                            <h3>Promedio Mensual por Habitante</h3>
+                            <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
+                        </div>
+                    
+                        <div class="cuadro">
+                            <h3>Promedio Semanal</h3>
+                            <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
+                        </div>
 
+                    </section>
+                    
+        
+        
+        
+                        <div class="tips-box" id="tips-box" th:if="${consejos != null}" style="display: none;">
+                            <h3>Consejos Personalizados</h3>
+                            <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>
+                            <ul th:if="${!#lists.isEmpty(consejos)}">
+                                <li th:each="consejo : ${consejos}" th:text="${consejo.contenido}"></li>
+                            </ul>
+                        </div>
+                </div>
 
-
-        
-
-        <section id="cuadros-consumo" th:if="${promedioHogar != null}" style="display: none;">
-            <div class="cuadro">
-                <h3>Tu consumo del Hogar actual</h3>
-                <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
-            </div>
-        
-            <div class="cuadro" th:classappend="${clasePromedioCartagena}">
-                <h3>Consumo comparado con promedio en Cartagena</h3>
-                <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
-            </div>
-        
-            <div class="cuadro">
-                <h3>Promedio Mensual por Habitante</h3>
-                <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
-            </div>
-        
-            <div class="cuadro">
-                <h3>Promedio Semanal</h3>
-                <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
-            </div>
-
-        </section>
-        
-        
-        
-        
-        <div class="tips-box" id="tips-box" th:if="${consejos != null}" style="display: none;">
-            <h3>Consejos Personalizados</h3>
-            <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>
-            <ul th:if="${!#lists.isEmpty(consejos)}">
-                <li th:each="consejo : ${consejos}" th:text="${consejo.contenido}"></li>
-            </ul>
-        </div>
-</div>
-    </main>
+</main>
    
     </div>
 
@@ -214,34 +187,7 @@
 
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 
-
-    <script>
-        function validateInput(input) {
-          const validMonths = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-          if (!validMonths.includes(input.value) && input.value !== '') {
-            input.setCustomValidity('Por favor, selecciona un mes de la lista.');
-            input.value = ''; 
-          } else {
-            input.setCustomValidity('');
-          }
-        }
-      </script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-           
-            const cuadrosConsumo = document.getElementById('cuadros-consumo');
-            const tipsBox = document.getElementById('tips-box');
-    
-            if (cuadrosConsumo) {
-                cuadrosConsumo.style.display = 'block';
-            }
-            if (tipsBox) {
-                tipsBox.style.display = 'block';
-            }
-        });
-    </script>
-
+    <script src="/javascripts/gestion_servicios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
     

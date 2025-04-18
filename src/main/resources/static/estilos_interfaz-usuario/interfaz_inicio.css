@@ -1,17 +1,32 @@
 /* Estilos para la página de Inicio */
 
 #carouselExampleIndicators {
-    width: 75%; 
+    width: 80%; /* Se ajusta para pantallas grandes */
     height: auto;
-    margin: auto; 
+    margin: 3em auto;
     border: 0px solid #000000;
-    border-radius: 6px;
-    margin-top:3em;
+    border-radius: 8px;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.377);
     margin-bottom: 30px;
 }
 
+@media (max-width: 1200px) {
+    #carouselExampleIndicators {
+        width: 90%; /* Ajuste para pantallas medianas */
+    }
+}
 
+@media (max-width: 768px) {
+    #carouselExampleIndicators {
+        width: 100%; /* Ajuste para pantallas pequeñas */
+        margin-top: 1.5em; /* Reducir el margen superior en dispositivos pequeños */
+    }
+}
 
-
-
+@media (max-width: 480px) {
+    #carouselExampleIndicators {
+        width: 100%; /* Ajuste para dispositivos móviles */
+        margin-top: 1em; /* Asegura que el margen superior no sea demasiado grande */
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); /* Reduce la sombra para dispositivos más pequeños */
+    }
+}

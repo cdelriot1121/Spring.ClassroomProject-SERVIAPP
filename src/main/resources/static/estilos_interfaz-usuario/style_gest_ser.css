@@ -1,3 +1,4 @@
+/* -------------------- ESTILOS BASE -------------------- */
 
 table {
     width: 80%;
@@ -14,7 +15,6 @@ main {
     margin-bottom: 10px;
 }
 
-
 .titulo h1 {
     color: #004a99; 
     margin-bottom: 10px;
@@ -22,7 +22,6 @@ main {
     font-size: 30px;
     text-align: center;
 }
-
 
 .titulo h2 {
     color: #666666;
@@ -34,10 +33,6 @@ main {
 .tabla-servicios h2 {
     margin-left: 20px;
 }
-
-
-
-
 
 form {
     background-color: #fff;
@@ -83,7 +78,6 @@ button:hover {
     background-color: #4bc0f2;
 }
 
-
 .cuadro {
     background-color: #ffffff;
     border-radius: 12px;
@@ -93,19 +87,12 @@ button:hover {
     max-width: 250px;
     text-align: center;
     font-family: 'Kanit', sans-serif;
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.5s ease, transform 0.5s ease;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-
-
-.cuadro {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 
 .cuadro h3 {
     color: #004a99; 
@@ -114,13 +101,11 @@ button:hover {
     font-weight: 700;
 }
 
-
 .cuadro p {
     color: #333333;
     font-size: 16px;
     font-weight: 600;
 }
-
 
 .result-box {
     background-color: #f8f9fa;
@@ -158,8 +143,6 @@ button:hover {
     color: #333;
     font-size: 14px;
 }
-
-
 
 #servicio-form {
     width: 100%; 
@@ -247,6 +230,163 @@ button:hover {
 
 #form-content {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* -------------------- ESTILOS RESPONSIVE PRO -------------------- */
+
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+table {
+    width: 100%;
+    font-size: 14px;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+}
+
+main {
+    padding: 0 10px;
+}
+
+.titulo h1,
+.titulo h2 {
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.titulo h1 {
+    font-size: 28px;
+}
+
+.titulo h2 {
+    font-size: 20px;
+}
+
+form {
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+}
+
+input[type="text"],
+input[type="number"],
+input[list],
+button,
+.casilla_rs {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+}
+
+#cuadros-consumo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px;
+}
+
+#cuadros-consumo .cuadro {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 250px;
+}
+
+.result-box {
+    font-size: 16px;
+    width: 90%;
+}
+
+.tips-box {
+    font-size: 14px;
+}
+
+/* Media Queries para diferentes dispositivos */
+
+@media (max-width: 1024px) {
+    .titulo h1 {
+        font-size: 26px;
+    }
+
+    .titulo h2 {
+        font-size: 18px;
+    }
+
+    form {
+        max-width: 95%;
+    }
+
+    .cuadro {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .titulo h1 {
+        font-size: 22px;
+    }
+
+    .titulo h2 {
+        font-size: 16px;
+    }
+
+    .cuadro h3 {
+        font-size: 18px;
+    }
+
+    .cuadro p,
+    .tips-box p {
+        font-size: 13px;
+    }
+
+    .result-box {
+        font-size: 15px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo h1 {
+        font-size: 20px;
+    }
+
+    .titulo h2 {
+        font-size: 15px;
+    }
+
+    .cuadro h3 {
+        font-size: 16px;
+    }
+
+    .cuadro p,
+    .tips-box p {
+        font-size: 12px;
+    }
+
+    input,
+    button,
+    .casilla_rs {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .result-box {
+        font-size: 14px;
+    }
 }
 
 

@@ -1,10 +1,16 @@
 /* Perfil */
 .container {
     font-family: 'Kanit', sans-serif;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 h4 {
     color: #007bff;
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .list-group-item-action {
@@ -12,6 +18,8 @@ h4 {
     border: 1px solid #007bff;
     color: #007bff;
     text-align: left;
+    padding: 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .list-group-item-action:hover, .list-group-item-action:focus {
@@ -23,36 +31,81 @@ h4 {
     background-color: #007bff;
     border-color: #007bff;
 }
-.btn-secondary{
+
+.btn-secondary {
     margin-top: 3px;
 }
 
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#section-datos-personales{
-    margin-bottom: 10px;
+.btn-primary:hover {
+    background-color: #0056b3;
 }
 
-#section-cambiar-contrasena{
-    margin-bottom: 20px ;
+#section-datos-personales, #section-cambiar-contrasena {
+    margin-bottom: 30px;
 }
 
 hr {
     margin: 30px 0;
+    border-color: #ddd;
 }
 
 #deleteAccountButton {
     background-color: #dc3545;
     border-color: #dc3545;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+#deleteAccountButton:hover {
+    background-color: #c82333;
+}
 
 @media (max-width: 768px) {
-    .list-group {
+    .container {
+        padding: 10px;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    .list-group-item-action {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+
+    .btn-primary, #deleteAccountButton {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    #section-datos-personales, #section-cambiar-contrasena {
         margin-bottom: 20px;
+    }
+
+    .swal-custom-popup {
+        padding: 15px;
+        font-size: 0.9em;
+    }
+
+    .btn-confirmar, .btn-cancelar {
+        padding: 8px 16px;
+        font-size: 1em;
     }
 }
 
@@ -83,6 +136,6 @@ hr {
     font-family: 'Kanit', sans-serif;
 }
 
-.seccion_cambiar_password{
-     margin-bottom: 50px;
+.seccion_cambiar_password {
+    margin-bottom: 50px;
 }

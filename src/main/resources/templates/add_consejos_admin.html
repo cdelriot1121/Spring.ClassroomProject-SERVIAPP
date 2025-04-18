@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-    <html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +45,7 @@
         </div>
       </nav>
 
-
+<main>
       <h2>Ingresa Tus Consejos Que Ayuden A Mejorar El Consumo De Los Usuarios</h2>
       <form th:action="@{/registrar-consejo}" th:object="${consejoModel}" method="post" class="mt-3">
         <div class="mb-3">
@@ -76,6 +76,7 @@
     </form>
 </div>
 
+</main>
 
 
       

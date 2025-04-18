@@ -1,20 +1,19 @@
-/* Estilos del contenedor de atención */
 .lineas-atencion-contenedor {
     background-color: #dbdada;
-    padding: 10px;
-    margin: auto; 
+    padding: 20px;
+    margin: 5px auto 20px auto;
     border-radius: 20px;
-    width: 60%; 
-    text-align: center; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    margin-top: 5px;
-    margin-bottom: 20px;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.lineas-atencion-contenedor h3, h2 {
+.lineas-atencion-contenedor h2,
+.lineas-atencion-contenedor h3 {
     color: #333333;
+    margin-top: 40px;
     margin-bottom: 10px;
-    margin-top: 40px; 
 }
 
 .lineas-atencion-contenedor p {
@@ -24,20 +23,21 @@
 
 /* Tabla */
 .lineas-atencion-contenedor table {
-    width: 100%; 
-    margin: 100 auto; 
+    width: 100%;
     border-collapse: collapse;
-    
+    margin: 0 auto;
 }
 
-.lineas-atencion-contenedor th, .lineas-atencion-contenedor td {
+.lineas-atencion-contenedor th,
+.lineas-atencion-contenedor td {
     text-align: center;
     vertical-align: middle;
-    padding: 8px;
+    padding: 10px;
+    font-size: 15px;
 }
 
 .lineas-atencion-contenedor th {
-    background-color: #3498db ;
+    background-color: #3498db;
     color: white;
 }
 
@@ -45,28 +45,23 @@
     background-color: #b6b6b6;
 }
 
-.lineas-atencion-contenedor div img {
-    margin-left: 400px;
-    margin-top: 20px;
-    padding: 0px;
-    border: solid 1px black;
-    width: 33%;
-    border-radius: 10px;
-}
-
+/* Imágenes */
 .lineas-atencion-contenedor img {
-    margin-left: 400px;
-    margin-top: 20px;
-    padding: 0px;
-    width: 50%;
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 400px;
+    border: solid 1px black;
     border-radius: 10px;
 }
 
-
+/* Botones */
 .map-buttons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
+    gap: 10px;
 }
 
 .map-buttons button {
@@ -74,20 +69,21 @@
     color: white;
     border: none;
     padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-family: 'Kanit', sans-serif;
     font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .map-buttons button:hover {
-    background-color: #3498db;
+    background-color: #217dbb;
+    transform: scale(1.05);
 }
 
+/* Mapa */
 .map-container {
-    display: none; 
+    display: none;
     margin-top: 20px;
     text-align: center;
 }
@@ -97,35 +93,37 @@
     height: 450px;
     border: none;
     border-radius: 10px;
-    max-width: 500px; 
-    margin: 0 auto; 
+    max-width: 500px;
+    margin: 0 auto;
 }
 
+/* Modal */
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
+    z-index: 999;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0, 0, 0, 0.4); 
-    overflow-y: auto; 
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 65%; 
-    max-width: 680px; 
+    width: 90%;
+    max-width: 680px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
 }
-
 
 .close {
     position: absolute;
@@ -137,14 +135,17 @@
     cursor: pointer;
 }
 
-.close:hover, .close:focus {
+.close:hover,
+.close:focus {
     color: black;
 }
 
+/* Buscador */
 .buscador {
-    margin-bottom: 100px; 
+    margin-bottom: 100px;
 }
 
+/* Instrucciones */
 .instrucciones-recomendaciones {
     background-color: #f0f0f0;
     border-radius: 10px;
@@ -159,7 +160,7 @@
     margin-bottom: 10px;
 }
 
-.instrucciones-recomendaciones p, 
+.instrucciones-recomendaciones p,
 .instrucciones-recomendaciones ul li {
     color: #222121;
     font-size: 15px;
@@ -168,18 +169,47 @@
 }
 
 ul {
-    
-    padding-left: 0;
+    padding-left: 20px;
     margin: 0 auto;
-    
 }
 
 li {
-   text-align: center;
-   margin-left: 0px;
-   align-items: flex-start;
-   display: flex;
-   justify-content: center;
-   margin-left: -20px;
-   text-align: left;
+    text-align: left;
+    margin-left: 0;
+    list-style-position: inside;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lineas-atencion-contenedor {
+        padding: 15px;
+    }
+
+    .lineas-atencion-contenedor th,
+    .lineas-atencion-contenedor td {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .map-buttons button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+
+    .map-container iframe {
+        height: 300px;
+    }
+
+    .instrucciones-recomendaciones h4 {
+        font-size: 16px;
+    }
+
+    .instrucciones-recomendaciones p,
+    .instrucciones-recomendaciones ul li {
+        font-size: 14px;
+    }
 }
