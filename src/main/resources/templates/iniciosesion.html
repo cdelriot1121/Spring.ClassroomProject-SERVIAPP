@@ -14,7 +14,6 @@
     <!-- Estilos -->
     <link rel="stylesheet" href="/estilos_inicio/iniciosesion.css" />
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-  
   </head>
   <body>
     <div class="contenedor">
@@ -35,15 +34,13 @@
             </div>
 
             <button type="submit">Entrar</button>
-            <p class="texto-social">──── O inicia sesión con ────</p>
-            <div class="logo-opciones">
-              <a href="/oauth2/authorization/google" title="Inicia con Google">
-                <img src="/img_local/logo-google.png" alt="Login con Google">
-              </a>
-              <a href="/login-otp" title="Verificación OTP">
-                <img src="/img_local/icono-otp.png" alt="Login con OTP" />
-              </a>
-            </div> 
+            <p class="texto-social">────────</p>
+
+            <!-- Botón Google -->
+            <a href="/oauth2/authorization/google" class="google-btn" title="Inicia con Google">
+              <img src="/img_local/logo-google.png" alt="Logo Google" class="google-logo" />
+              <span>Inicia sesión con Google</span>
+            </a>
 
           </form>
           <p>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></p>
@@ -53,9 +50,6 @@
           <div class="logo-container">
             <!-- Logo ServiApp -->
             <a href="/"><h1 class="titulo-serviapp">ServiApp</h1></a>
-
-              
-            </div>
           </div>
         </div>
       </div>
