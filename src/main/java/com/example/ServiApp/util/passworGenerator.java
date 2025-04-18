@@ -6,7 +6,7 @@ public class passworGenerator {
 
     public static void main(String[] args) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String password = "Gaos";  // Usa una contraseña que cumpla con el patrón de tu formulario
+        String password = "admin";  // Usa una contraseña que cumpla con el patrón de tu formulario
         
         String hashedPassword = encoder.encode(password);
         System.out.println("Contraseña original: " + password);
