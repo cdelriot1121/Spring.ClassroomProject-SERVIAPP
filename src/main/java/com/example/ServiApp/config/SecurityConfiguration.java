@@ -114,7 +114,7 @@ public class SecurityConfiguration {
                                 "/lineas-atencion", "/gestionar-servicio", "/consejos-personzalidos", "/inicio",
                                 "/cortes", "/datos-personales", "/cambiar-contrasena", "/mis-servicios", 
                                 "/calcular-consumo", "/usuarios/cambiar-contrasena", "/usuarios/actualizar/**", 
-                                "/reportar-falla").hasAuthority("ROLE_USUARIO")
+                                "/reportar-falla","/grafico-consumo").hasAuthority("ROLE_USUARIO")
                         
                         // Controlador de servicios (todos los métodos)
                         .requestMatchers("/servicios/**").hasAuthority("ROLE_USUARIO")
