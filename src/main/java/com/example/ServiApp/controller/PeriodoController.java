@@ -96,7 +96,7 @@ public class PeriodoController {
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
-                    unidad = "m³";
+                    unidad = "m3";
                     categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
                 case "energía":
@@ -106,12 +106,14 @@ public class PeriodoController {
                     break;
                 case "gas":
                     promedioCartagena = PROMEDIO_GAS * habitantes;
-                    unidad = "m³";
+                    unidad = "m3";
                     categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
                 default:
                     throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
             }
+
+            periodo.setUnidad(unidad);
 
             String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
 

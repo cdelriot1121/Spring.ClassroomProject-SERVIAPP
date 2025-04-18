@@ -78,43 +78,60 @@
     
         <!-- Formulario -->
         <section class="formulario">
-            <form id="servicio-form" action="/calcular-consumo" method="post" placeholder="Selecciona un servicio">
-            <label for="servicio">Selecciona el Servicio:</label>
-            <select name="servicio.id" id="servicio" required>
-                <option value="" disabled selected>Selecciona un servicio</option>
+            <form id="servicio-form" action="/calcular-consumo" method="post">
+                <label for="servicio">Selecciona el Servicio:</label>
+                <select name="servicio.id" id="servicio" required>
+                    <option value="" disabled selected>Selecciona un servicio</option>
                     <option 
-                            th:each="servicio : ${servicios}" 
-                            th:value="${servicio.id}" 
-                            th:text="${servicio.tipo_servicio}">Servicio</option>
+                        th:each="servicio : ${servicios}" 
+                        th:value="${servicio.id}" 
+                        th:text="${servicio.tipo_servicio}"
+                        th:data-tipo="${servicio.tipo_servicio}">
+                    </option>
                 </select>
+        
                 <div id="form-content" class="p-3 rounded shadow-sm" style="background-color: #f8f9fa; max-width: 400px; margin: auto;">
                     <label for="mes">Selecciona un mes:</label>
-                    <input class="casilla_rs" type="month" id="mes" name="mes" min="2020-01" required> 
-
-                    <script>
-                        // Obtener la fecha actual
-                        const hoy = new Date();
-                        const año = hoy.getFullYear();
-                        const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Mes actual con dos dígitos
-                    
-                        // Establecer el atributo "max" dinámicamente
-                        const inputMes = document.getElementById('mes');
-                        inputMes.max = `${año}-${mes}`;
-                    
-                        // Si el valor ya está fuera del rango (por defecto), limpiarlo
-                        if (inputMes.value && (inputMes.value < inputMes.min || inputMes.value > inputMes.max)) {
-                            inputMes.value = '';
-                        }
-                    </script>
-
-
-                    <label id="consumo-label" for="consumo">Consumo:</label>
-                    <input class="casilla_rs" type="number" id="consumo" name="consumo" min="0" step="any" placeholder="Ingresa el consumo" required>
-    
-                    <button type="submit" class="btn-enviar-servi">Enviar</button>
+                    <input class="casilla_rs form-control mb-3" type="month" id="mes" name="mes" min="2020-01" required>
+        
+                    <label for="consumo">Consumo:</label>
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <input class="casilla_rs form-control" type="number" name="consumo" id="consumoNum" min="0" step="any" placeholder="Ingresa el consumo" required>
+                        <input type="text" class="form-control" id="unidad" name="unidad" readonly>
+                    </div>
+        
+                    <button type="submit" class="btn btn-primary w-100">Enviar</button>
                 </div>
             </form>
         </section>
+        
+        <script>
+            // Establecer el mes máximo como el actual
+            const hoy = new Date();
+            const año = hoy.getFullYear();
+            const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+            document.getElementById('mes').max = `${año}-${mes}`;
+        
+            // Cambiar automáticamente unidad según servicio seleccionado
+            document.getElementById('servicio').addEventListener('change', function () {
+                const tipo = this.options[this.selectedIndex].textContent.toLowerCase();
+                const unidadInput = document.getElementById('unidad');
+        
+                if (tipo.includes('agua') || tipo.includes('gas')) {
+                    unidadInput.value = 'm3';
+                } else if (tipo.includes('energía') || tipo.includes('luz') || tipo.includes('electricidad')) {
+                    unidadInput.value = 'kwh';
+                } else {
+                    unidadInput.value = '';
+                }
+            });
+        </script>
+        
+
+
+
+
+        
 
         <section id="cuadros-consumo" th:if="${promedioHogar != null}" style="display: none;">
             <div class="cuadro">
