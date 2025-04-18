@@ -33,7 +33,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -109,6 +108,13 @@
                                     <option value="">Seleccionar servicio</option>
                                 </select>
                             </div>
+
+                            <div class="d-flex align-items-end">
+                                <button id="limpiarFiltros" class="btn" style="border: none; background: transparent; padding: 0;" title="Limpiar filtro">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/4645/4645927.png" alt="Limpiar filtros" style="width: 40px; height: 40px; cursor: pointer;">
+                                </button>
+                            </div>
+
                         </div>
     
                         <div class="table-responsive">
@@ -207,6 +213,21 @@
     
                     // Eventos de cambio
                     $('#filtroMes, #filtroAnio, #filtroServicio').on('change', filtrarPorMesAnoYServicio);
+
+                                // Botón para limpiar filtros
+            $('#limpiarFiltros').on('click', function () {
+                $('#filtroMes').val('');
+                $('#filtroAnio').val('');
+                $('#filtroServicio').val('');
+
+                // Limpia las búsquedas en las columnas
+                api.column(1).search('');
+                api.column(2).search('');
+                api.column(0).search('');
+
+                api.draw(); // Redibuja la tabla
+            });
+
                 }
             });
         });
