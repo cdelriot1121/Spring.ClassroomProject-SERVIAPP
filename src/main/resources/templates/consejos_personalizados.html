@@ -167,7 +167,7 @@
                 initComplete: function () {
                     const api = this.api();
                     const columnaMes = api.column(1); 
-                    const columnaAno = api.column(3); 
+                    const columnaAno = api.column(2); 
                     const columnaServicio = api.column(0); 
     
                     let meses = new Set();
@@ -178,7 +178,7 @@
                     api.rows().every(function () {
                         const data = this.data();
                         meses.add(data[1]); // Mes
-                        anos.add(data[3]); // Año
+                        anos.add(data[2]); // Año
                         servicios.add(data[0]); // Servicio
                     });
     
