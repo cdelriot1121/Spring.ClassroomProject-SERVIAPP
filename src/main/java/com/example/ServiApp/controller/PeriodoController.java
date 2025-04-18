@@ -1,6 +1,8 @@
 package com.example.ServiApp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ServiApp.model.ConsejosModel;
 import com.example.ServiApp.model.PeriodoModel;
@@ -217,6 +220,65 @@ public class PeriodoController {
             // Redirigimos a mis-consumos para mostrar todos los periodos con el modo edición activado
             return misConsumos(model, session);
         }
+
+
+        @GetMapping("/api/consumos/{tipoServicio}")
+        @ResponseBody
+        public Map<String, Object> obtenerConsumosPorTipoServicio(@PathVariable String tipoServicio, HttpSession session) {
+            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+            if (usuarioLogueado == null) {
+                throw new IllegalArgumentException("Usuario no logueado.");
+            }
+        
+            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+        
+            // Promedios por tipo de servicio por habitante
+            final Map<String, Float> promediosPorHabitante = Map.of(
+                "agua", 4.3f,
+                "energía", 80.7f,
+                "gas", 3.9f
+            );
+        
+            
+            List<PeriodoModel> periodos = servicios.stream()
+                    .filter(servicio -> servicio.getTipo_servicio().equalsIgnoreCase(tipoServicio))
+                    .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream()
+                        .map(periodo -> {
+                            
+                            periodo.getServicio().setHabitantes(servicio.getHabitantes());
+                            return periodo;
+                        }))
+                    .toList();
+        
+            List<String> labels = periodos.stream()
+                    .map(p -> p.getMes() + " " + p.getAno())
+                    .toList();
+        
+            List<Float> consumosPorHabitante = periodos.stream()
+                    .map(p -> {
+                        long habitantes = p.getServicio().getHabitantes();
+                        return habitantes > 0 ? p.getConsumo() / habitantes : 0f;
+                    })
+                    .toList();
+        
+            float promedioCartagenaPorHabitante = promediosPorHabitante.getOrDefault(tipoServicio.toLowerCase(), 0f);
+        
+            
+            List<Long> habitantesPorPeriodo = periodos.stream()
+                    .map(p -> p.getServicio().getHabitantes())
+                    .toList();
+        
+            Map<String, Object> response = new HashMap<>();
+            response.put("labels", labels);
+            response.put("consumosPorHabitante", consumosPorHabitante);
+            response.put("promedioPorHabitante", promedioCartagenaPorHabitante);
+            response.put("habitantes", habitantesPorPeriodo);  
+        
+            return response;
+        }
+         
+
+
 
         @PostMapping("/actualizar-consumo/{id}")
         public String actualizarConsumo(@PathVariable Long id, @ModelAttribute PeriodoModel periodo) {
