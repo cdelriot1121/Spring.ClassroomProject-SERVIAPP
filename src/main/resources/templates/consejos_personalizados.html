@@ -34,42 +34,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
 <body>
     <header>
-        <div class="contenedor-principal" id="header1">
-            <h1 id="h1001">ServiApp</h1>
+        <div class="header-left">
+          <button class="toggle-btn" onclick="toggleSidebar()">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="header-logo">
+            <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="header-logo-img">
+            <h1 class="header-title">ServiApp</h1>
+          </div>
         </div>
         
         <div class="profile-menu">
-            <button class="profile-button" id="profileButton">
-                <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
-            </button>
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="datos-personales">Configuración</a>
-                <a href="/logout">Cerrar Sesion</a>
-                
-            </div>
-        </div>
-    </header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <button class="profile-button" id="profileButton">
+            <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="p-2 g-col-6"><a href="interfaz_inicio"><i class='bx bx-home'></i> Inicio</a></li>
-                <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
-                <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
-                <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro Personalizados </a></li>
-                <li class="p-2 g-col-6"><a href="cortes"><i class='bx bxs-alarm'></i> Cortes</a></li>
-                <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
-            </ul>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="datos-personales">Configuración</a>
+            <a href="/">Cerrar Sesion</a>
           </div>
         </div>
-      </nav>
+      </header>
+    
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <a href="interfaz_inicio"><i class="bi bi-house-door-fill"></i>Inicio</a>
+        <a href="registrar_servicio"><i class="bi bi-check-square"></i>Registrar Servicio</a>
+        <a href="gestionar-servicio"><i class="bi bi-bar-chart-line"></i>Gestionar Servicio</a>
+        <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i>Consejos de Ahorro</a>
+        <a href="cortes"><i class="bi bi-clock-history"></i>Cortes</a>
+        <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i>Líneas de Atención</a>
+      </div>
 
       <div class="consejos">
 
@@ -229,6 +228,35 @@
                 }
             });
         });
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const content = document.getElementById('content');
+      const footer = document.querySelector('footer');
+      
+      sidebar.classList.toggle('open');
+      content.classList.toggle('sidebar-open');
+      footer.classList.toggle('sidebar-open');
+    }
+
+    // Modal cierre
+    document.querySelector('.close').onclick = function() {
+      document.getElementById('mapModal').style.display = 'none';
+    }
+
+    // Cerrar sidebar al hacer clic fuera en móviles
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggleBtn = document.querySelector('.toggle-btn');
+      
+      if (window.innerWidth <= 768 && 
+          !sidebar.contains(event.target) && 
+          !toggleBtn.contains(event.target) && 
+          sidebar.classList.contains('open')) {
+        toggleSidebar();
+      }
+    });
+ 
     </script>
     
 
