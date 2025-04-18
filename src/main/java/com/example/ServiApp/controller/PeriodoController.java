@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ServiApp.model.ConsejosModel;
@@ -96,7 +97,7 @@ public class PeriodoController {
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
-                    unidad = "m³";
+                    unidad = "m3";
                     categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
                 case "energía":
@@ -106,12 +107,14 @@ public class PeriodoController {
                     break;
                 case "gas":
                     promedioCartagena = PROMEDIO_GAS * habitantes;
-                    unidad = "m³";
+                    unidad = "m3";
                     categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
                 default:
                     throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
             }
+
+            periodo.setUnidad(unidad);
 
             String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
 
@@ -185,6 +188,54 @@ public class PeriodoController {
             return "consejos_personalizados"; 
         }
 
+        @GetMapping("/mis-consumos")
+        public String misConsumos(Model model, HttpSession session) {
+            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+            if (usuarioLogueado == null) {
+                return "redirect:/login"; 
+            }
 
+            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+
+            // Obtener todos los periodos de todos los servicios del usuario
+            List<PeriodoModel> periodos = servicios.stream()
+                    .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream())
+                    .toList();
+
+            model.addAttribute("periodos", periodos);
+            model.addAttribute("section", "mis-consumos");
+            return "perfil_datos";
+        }
+
+        @GetMapping("/editar-consumo/{id}")
+        public String editarConsumo(@PathVariable Long id, Model model, HttpSession session) {
+            periodoService.obtenerPeriodoPorId(id).orElseThrow(() ->
+                    new IllegalArgumentException("Consumo no encontrado con id: " + id));
+
+            model.addAttribute("editarConsumoId", id);
+            
+            // Redirigimos a mis-consumos para mostrar todos los periodos con el modo edición activado
+            return misConsumos(model, session);
+        }
+
+        @PostMapping("/actualizar-consumo/{id}")
+        public String actualizarConsumo(@PathVariable Long id, @ModelAttribute PeriodoModel periodo) {
+            PeriodoModel periodoExistente = periodoService.obtenerPeriodoPorId(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Consumo no encontrado con id: " + id));
+
+            periodoExistente.setConsumo(periodo.getConsumo());
+            periodoExistente.setMes(periodo.getMes());
+            periodoExistente.setAno(periodo.getAno());
+            
+            periodoService.guardarPeriodo(periodoExistente);
+
+            return "redirect:/mis-consumos";
+        }
+
+        @PostMapping("/eliminar-consumo/{id}")
+        public String eliminarConsumo(@PathVariable Long id) {
+            periodoService.eliminarPeriodo(id);
+            return "redirect:/mis-consumos";
+        }
 
 }

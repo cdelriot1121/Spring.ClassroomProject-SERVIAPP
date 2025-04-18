@@ -42,7 +42,7 @@
             </button>
             <div class="profile-dropdown" id="profileDropdown">
                 <a href="datos-personales">Configuración</a>
-                <a href="/">Cerrar Sesion</a>
+                <a href="/logout">Cerrar Sesion</a>
             </div>
         </div>
     </header>
@@ -74,6 +74,7 @@
                 <a th:href="@{/datos-personales}" class="list-group-item list-group-item-action" th:classappend="${section == 'datos-personales'} ? 'active'">Datos Personales</a>
                 <a th:href="@{/cambiar-contrasena}" class="list-group-item list-group-item-action" th:classappend="${section == 'cambiar-contrasena'} ? 'active'">Cambiar Contraseña</a>
                 <a th:href="@{/mis-servicios}" class="list-group-item list-group-item-action" th:classappend="${section == 'mis-servicios'} ? 'active'">Mis Servicios</a>
+                <a th:href="@{/mis-consumos}" class="list-group-item list-group-item-action" th:classappend="${section == 'mis-consumos'} ? 'active'">Mis Consumos</a>
                 </div>
             </div>
 
@@ -196,6 +197,58 @@
     </table>
 </section>
 
+<!-- Mis Consumos -->
+<section th:if="${section == 'mis-consumos'}">
+    <h4>Historial de Consumos</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Servicio</th>
+                <th>Mes</th>
+                <th>Año</th>
+                <th>Consumo</th>
+                <th>Unidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="periodo : ${periodos}">
+                <td th:text="${periodo.servicio.tipo_servicio}">Tipo de Servicio</td>
+                
+                <!-- Formulario de edición -->
+                <td colspan="4" th:if="${editarConsumoId == periodo.id}">
+                    <form th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}" method="post" id="form-consumos">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" name="mes" th:value="${periodo.mes}" required style="flex: 1;">
+                            <input type="number" name="ano" th:value="${periodo.ano}" required style="flex: 1;">
+                            <input type="number" step="0.01" name="consumo" th:value="${periodo.consumo}" required style="flex: 1;">
+                            <input type="hidden" name="unidad" th:value="${periodo.unidad}">
+                            <button type="button" class="btn btn-success" onclick="confirmarCambioConsumo(event)">Guardar Cambios</button>
+                            <a th:href="@{/mis-consumos}" class="btn btn-danger">Cancelar</a>
+                        </div>
+                    </form>
+                </td>
+                
+                <!-- Vista normal (no edición) -->
+                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.mes}">Mes</td>
+                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.ano}">Año</td>
+                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.consumo}">Consumo</td>
+                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.unidad}">Unidad</td>
+                
+                <!-- Botones de acción -->
+                <td th:if="${editarConsumoId != periodo.id}">
+                    <a th:href="@{/editar-consumo/{id}(id=${periodo.id})}" class="btn btn-primary">Editar</a>
+                    <form th:action="@{/eliminar-consumo/{id}(id=${periodo.id})}" method="post" style="display:inline;" onsubmit="return confirmarEliminarConsumo()">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${periodos.empty}">
+                <td colspan="6" class="text-center">No hay registros de consumo</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
             </div>
         </div>

@@ -32,6 +32,13 @@ public class PeriodoService {
         return periodoRepository.findById(id);
     }
     
-
-
+    // Método para guardar un periodo (actualizar)
+    public PeriodoModel guardarPeriodo(PeriodoModel periodo) {
+        return periodoRepository.save(periodo);
+    }
+    
+    // Método para eliminar un periodo
+    public void eliminarPeriodo(Long id) {
+        periodoRepository.deleteById(id);
+    }
 }

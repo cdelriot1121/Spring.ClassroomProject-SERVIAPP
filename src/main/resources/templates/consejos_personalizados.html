@@ -48,7 +48,7 @@
             </button>
             <div class="profile-dropdown" id="profileDropdown">
                 <a href="datos-personales">Configuración</a>
-                <a href="/">Cerrar Sesion</a>
+                <a href="/logout">Cerrar Sesion</a>
                 
             </div>
         </div>
@@ -115,11 +115,12 @@
                             <table id="tablaConsejos" class="tabla-consejos-personalizados table table-hover table-striped table-bordered mx-auto">
                                 <thead class="table-primary text-center">
                                     <tr>
-                                        <th>Servicio</th>   <!-- Col 0 -->
-                                        <th>Mes</th>        <!-- Col 1 -->
-                                        <th>Año</th>        <!-- Col 2 -->
-                                        <th>Consumo</th>    <!-- Col 3 -->
-                                        <th>Consejo</th>    <!-- Col 4 -->
+                                        <th>Servicio</th>  
+                                        <th>Mes</th>        
+                                        <th>Año</th>        
+                                        <th>Consumo</th>    
+                                        <th>Unidad</th>
+                                        <th>Consejo</th>    
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -128,6 +129,7 @@
                                         <td th:text="${periodo.mes}"></td>
                                         <td th:text="${periodo.ano}"></td>
                                         <td th:text="${periodo.consumo}"></td>
+                                        <td th:text="${periodo.unidad}">Unidad</td>
                                         <td class="buton-con">
                                             <button class="btn btn-info custom-button" onclick="toggleConsejos(this)">
                                                 Ver Consejos
@@ -165,7 +167,7 @@
                 initComplete: function () {
                     const api = this.api();
                     const columnaMes = api.column(1); 
-                    const columnaAno = api.column(3); 
+                    const columnaAno = api.column(2); 
                     const columnaServicio = api.column(0); 
     
                     let meses = new Set();
@@ -176,7 +178,7 @@
                     api.rows().every(function () {
                         const data = this.data();
                         meses.add(data[1]); // Mes
-                        anos.add(data[3]); // Año
+                        anos.add(data[2]); // Año
                         servicios.add(data[0]); // Servicio
                     });
     

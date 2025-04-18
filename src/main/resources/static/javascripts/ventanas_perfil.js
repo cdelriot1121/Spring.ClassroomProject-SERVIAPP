@@ -242,3 +242,39 @@ function confirmarCambioContraseña(event) {
         }
     });
 }
+
+// Función para confirmar cambios de consumo
+function confirmarCambioConsumo(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: '¿Confirmar cambios?',
+        text: 'Se actualizarán los datos del consumo',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, actualizar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-consumos').submit();
+        }
+    });
+}
+
+// Función para confirmar eliminación de consumo
+function confirmarEliminarConsumo() {
+    return Swal.fire({
+        title: '¿Eliminar consumo?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        return result.isConfirmed;
+    });
+}
