@@ -32,6 +32,10 @@ public class PeriodoModel {
     @Column(name="Consumo", nullable=false, length=50)
     private float consumo;
 
+    @Column(length = 10)
+    private String unidad;
+
+
     // relacion de muchos a uno: un periodo pertenece a un servicio
     @ManyToOne
     @JoinColumn(name = "servicio_id", nullable = false)
@@ -73,14 +77,6 @@ public class PeriodoModel {
         this.mes = mes;
     }
 
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
     public float getConsumo() {
         return consumo;
     }
@@ -101,6 +97,25 @@ public class PeriodoModel {
         return consejos;
     }
 
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+    
+    public String getUnidad() {
+        return unidad;
+    }
+    
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
+    }
+    
+
+    
+
     public void setConsejos(List<ConsejosModel> consejos) {
         this.consejos = consejos;
     }
@@ -115,6 +130,4 @@ public class PeriodoModel {
                 ", consejos=" + consejos +
                 '}';
     }
-
-
 }
