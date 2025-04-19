@@ -137,14 +137,24 @@ public class PeriodoController {
             periodoService.registrarPeriodo(periodo);
 
             // Consejos
-            List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(
-                categoriaConsumo, 
-                servicioSeleccionado.getTipo_servicio()
-            );
-            periodo.setConsejos(consejosPersonalizados);
-
-            // Actualizar nuevamente con los consejos (opcional, según implementación)
-            periodoService.registrarPeriodo(periodo);
+            List<ConsejosModel> consejosPersonalizados = Collections.emptyList(); // Lista vacía por defecto
+            try {
+                consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(
+                    categoriaConsumo, 
+                    servicioSeleccionado.getTipo_servicio()
+                );
+                
+                // Si llegamos aquí sin excepción, intentamos asignar los consejos al periodo
+                if (consejosPersonalizados != null) {
+                    periodo.setConsejos(consejosPersonalizados);
+                    // Actualizar nuevamente con los consejos
+                    periodoService.registrarPeriodo(periodo);
+                }
+            } catch (Exception e) {
+                // Log del error pero continuación del flujo normal
+                System.err.println("Error al obtener consejos: " + e.getMessage());
+                consejosPersonalizados = Collections.emptyList();
+            }
 
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
@@ -191,18 +201,29 @@ public class PeriodoController {
             }
 
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+            List<PeriodoModel> periodos = new ArrayList<>();
 
-            List<PeriodoModel> periodos = servicios.stream()
-                    .flatMap(servicio -> {
-                        List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicios(servicio);
-                        // Cargar los consejos para cada periodo
-                        periodosServicio.forEach(periodo -> {
-                            List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
-                            periodo.setConsejos(consejos);
-                        });
-                        return periodosServicio.stream();
-                    })
-                    .toList();
+            try {
+                periodos = servicios.stream()
+                        .flatMap(servicio -> {
+                            List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicios(servicio);
+                            // Cargar los consejos para cada periodo, con manejo de excepciones por periodo
+                            periodosServicio.forEach(periodo -> {
+                                try {
+                                    List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
+                                    periodo.setConsejos(consejos != null ? consejos : Collections.emptyList());
+                                } catch (Exception e) {
+                                    System.err.println("Error al cargar consejos para periodo " + periodo.getId() + ": " + e.getMessage());
+                                    periodo.setConsejos(Collections.emptyList());
+                                }
+                            });
+                            return periodosServicio.stream();
+                        })
+                        .toList();
+            } catch (Exception e) {
+                System.err.println("Error general al procesar periodos y consejos: " + e.getMessage());
+                // No propagamos la excepción, mostramos una lista vacía
+            }
 
             model.addAttribute("periodos", periodos);
             return "consejos_personalizados"; 

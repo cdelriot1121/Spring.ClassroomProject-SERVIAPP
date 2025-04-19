@@ -148,6 +148,7 @@
                                                 Ver Consejos
                                             </button>
                                             <ul class="lista-consejos" style="display: none;">
+                                                <li th:if="${#lists.isEmpty(periodo.consejos)}" class="text-muted">No hay consejos disponibles para este consumo</li>
                                                 <li th:each="consejo : ${periodo.consejos}" th:text="${consejo.contenido}"></li>
                                             </ul>
                                         </td>
