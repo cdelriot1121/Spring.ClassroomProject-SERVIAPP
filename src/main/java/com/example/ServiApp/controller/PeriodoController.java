@@ -1,5 +1,6 @@
 package com.example.ServiApp.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -225,92 +226,91 @@ public class PeriodoController {
 
 
         @GetMapping("/api/consumos/{tipoServicio}/{orden}")
-        @ResponseBody
-        public Map<String, Object> obtenerConsumosPorTipoServicio(@PathVariable String tipoServicio, @PathVariable String orden, HttpSession session) {
-            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-            if (usuarioLogueado == null) {
-                throw new IllegalArgumentException("Usuario no logueado.");
-            }
-        
-            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
-        
-            // Mapa de promedios por tipo de servicio por habitante
-            final Map<String, Float> promediosPorHabitante = Map.of(
-                "agua", 4.3f,
-                "energía", 80.7f,
-                "gas", 3.9f
-            );
-        
-            // Filtrar y obtener periodos de servicio
-            List<PeriodoModel> periodos = servicios.stream()
-                    .filter(servicio -> servicio.getTipo_servicio().equalsIgnoreCase(tipoServicio))
-                    .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream()
-                        .map(periodo -> {
-                            // Adjuntar info de habitantes
-                            periodo.getServicio().setHabitantes(servicio.getHabitantes());
-                            return periodo;
-                        }))
-                    .collect(Collectors.toList());
-        
-            // Crear un mapa mutable para los meses
-            Map<String, Integer> meses = new HashMap<>();
-            meses.put("Enero", 1);
-            meses.put("Febrero", 2);
-            meses.put("Marzo", 3);
-            meses.put("Abril", 4);
-            meses.put("Mayo", 5);
-            meses.put("Junio", 6);
-            meses.put("Julio", 7);
-            meses.put("Agosto", 8);
-            meses.put("Septiembre", 9);
-            meses.put("Octubre", 10);
-            meses.put("Noviembre", 11);
-            meses.put("Diciembre", 12);
-        
-            // Ordenar los períodos por año y mes
-            periodos.sort((p1, p2) -> {
-                // Comparar primero por año
-                int compareAno = Integer.compare(p1.getAno(), p2.getAno());
-                if (compareAno != 0) {
-                    return compareAno;  // Si los años son diferentes, devolver la comparación de años
-                } else {
-                    // Si los años son iguales, comparar por mes
-                    return Integer.compare(meses.get(p1.getMes()), meses.get(p2.getMes()));
-                }
-            });
-        
-            // Si el parámetro 'orden' es 'desc', invertir el orden de los períodos
-            if ("desc".equalsIgnoreCase(orden)) {
-                Collections.reverse(periodos);
-            }
-        
-            // Generar las listas de labels y consumos por habitante
-            List<String> labels = periodos.stream()
-                    .map(p -> p.getMes() + " " + p.getAno())
-                    .collect(Collectors.toList());
-        
-            List<Float> consumosPorHabitante = periodos.stream()
-                    .map(p -> {
-                        long habitantes = p.getServicio().getHabitantes();
-                        return habitantes > 0 ? p.getConsumo() / habitantes : 0f;
-                    })
-                    .collect(Collectors.toList());
-        
-            // Obtener el promedio por habitante para el servicio
-            float promedioCartagenaPorHabitante = promediosPorHabitante.getOrDefault(tipoServicio.toLowerCase(), 0f);
-        
-            // Crear la respuesta
-            Map<String, Object> response = new HashMap<>();
-            response.put("labels", labels);
-            response.put("consumosPorHabitante", consumosPorHabitante);
-            response.put("promedioPorHabitante", promedioCartagenaPorHabitante);
-        
-            return response;
+    @ResponseBody
+    public Map<String, Object> obtenerConsumosPorTipoServicio(
+            @PathVariable String tipoServicio,
+            @PathVariable String orden,
+            HttpSession session) {
+
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado == null) {
+            throw new IllegalArgumentException("Usuario no logueado.");
         }
-        
 
+        List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
 
-         
+        final Map<String, Float> promediosPorPersona = Map.of(
+            "agua", 4.3f,
+            "energía", 80.7f,
+            "gas", 3.9f
+        );
+
+    List<PeriodoModel> periodos = servicios.stream()
+        .filter(servicio -> servicio.getTipo_servicio().equalsIgnoreCase(tipoServicio))
+        .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream()
+            .map(periodo -> {
+                periodo.getServicio().setHabitantes(servicio.getHabitantes());
+                return periodo;
+            }))
+        .collect(Collectors.toList());
+
+    Map<String, Integer> meses = Map.ofEntries(
+        Map.entry("Enero", 1), Map.entry("Febrero", 2), Map.entry("Marzo", 3),
+        Map.entry("Abril", 4), Map.entry("Mayo", 5), Map.entry("Junio", 6),
+        Map.entry("Julio", 7), Map.entry("Agosto", 8), Map.entry("Septiembre", 9),
+        Map.entry("Octubre", 10), Map.entry("Noviembre", 11), Map.entry("Diciembre", 12)
+    );
+
+    periodos.sort((p1, p2) -> {
+        int cAno = Integer.compare(p1.getAno(), p2.getAno());
+        return cAno != 0 ? cAno : Integer.compare(meses.get(p1.getMes()), meses.get(p2.getMes()));
+    });
+
+    if ("desc".equalsIgnoreCase(orden)) {
+        Collections.reverse(periodos);
+    }
+
+    List<String> labels = new ArrayList<>();
+    List<Float> consumosTotales = new ArrayList<>();
+    List<Float> consumosPorHabitante = new ArrayList<>();
+    List<Long> habitantesPorMes = new ArrayList<>();
+
+    float totalConsumo = 0f;
+
+    for (PeriodoModel p : periodos) {
+        labels.add(p.getMes() + " " + p.getAno());
+        float consumo = p.getConsumo();
+        long habitantes = p.getServicio().getHabitantes();
+
+        totalConsumo += consumo;
+        habitantesPorMes.add(habitantes);
+        consumosTotales.add(consumo);
+        consumosPorHabitante.add(habitantes > 0 ? consumo / habitantes : 0f);
+    }
+
+    float promedioPorPersona = promediosPorPersona.getOrDefault(tipoServicio.toLowerCase(), 0f);
+    float promedioPorHogar = 0f;
+
+    if (!habitantesPorMes.isEmpty()) {
+        long promedioHabitantes = Math.round(habitantesPorMes.stream().mapToLong(i -> i).average().orElse(1));
+        promedioPorHogar = promedioHabitantes * promedioPorPersona;
+    }
+
+    float promedioConsumoHogar = !consumosTotales.isEmpty()
+            ? (float) consumosTotales.stream().mapToDouble(Float::doubleValue).average().orElse(0f)
+            : 0f;
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("labels", labels);
+    response.put("consumosTotales", consumosTotales);
+    response.put("consumosPorHabitante", consumosPorHabitante);
+    response.put("habitantesPorMes", habitantesPorMes);
+    response.put("promedioPorHogar", promedioPorHogar);
+    response.put("promedioConsumoHogar", promedioConsumoHogar);
+
+    return response;
+}
+
 
 
 
