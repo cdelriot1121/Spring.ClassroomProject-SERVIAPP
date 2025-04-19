@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -239,6 +239,39 @@
             if (tipsBox) {
                 tipsBox.style.display = 'block';
             }
+        });
+    </script>
+
+    <script th:if="${error}">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mensaje = "[[${error}]]";
+            const tipoServicio = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex]?.textContent || 'servicio';
+            
+            Swal.fire({
+                title: "Consumo ya registrado",
+                text: mensaje,
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: "Aceptar",
+                background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+                customClass: {
+                    popup: 'swal-custom-popup',
+                    confirmButton: 'btn-error'
+                },
+                didRender: () => {
+                    const logo = document.createElement('img');
+                    logo.src = '/img_local/logo-pagina-serviapp.png';
+                    logo.style.width = '155px';
+                    logo.style.display = 'block';
+                    logo.style.margin = '0 auto 10px';
+                    Swal.getIcon().before(logo);
+
+                    const errorIcon = Swal.getIcon();
+                    errorIcon.style.position = 'relative';
+                    errorIcon.style.top = '-10px';
+                    errorIcon.style.marginBottom = '10px';
+                }
+            });
         });
     </script>
 

@@ -67,6 +67,9 @@ public class UsuarioModel {
     @Column(name = "estrato", length = 50)
     private Integer estrato;
 
+    @Column(name = "registro_completo", nullable = false)
+    private boolean registroCompleto = true; // Por defecto true para usuarios normales
+
     // Relaciones específicas según el rol del usuario
     // Relaciones para usuarios normales
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -242,6 +245,14 @@ public class UsuarioModel {
      */
     public boolean estaHabilitado() {
         return EstadoUsuario.HABILITADO.equals(this.estado);
+    }
+
+    public boolean isRegistroCompleto() {
+        return registroCompleto;
+    }
+
+    public void setRegistroCompleto(boolean registroCompleto) {
+        this.registroCompleto = registroCompleto;
     }
 
     @Override

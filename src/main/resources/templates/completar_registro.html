@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completa tu registro - ServiApp</title>
+    <!-- links para las fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/estilos_inicio/registro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
+    <style>
+        /* Estilos específicos para este formulario */
+        .contenedor {
+            width: 90%;
+            max-width: 550px;
+            margin: 30px auto;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .caja-registro {
+            display: flex;
+            width: 100%;
+            background: linear-gradient(135deg, #9efcff, #36b2fa);
+        }
+        
+        .formulario-registro {
+            width: 100%;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #ffffff, #c3eeff);
+            border-radius: 20px;
+        }
+        
+        .logo-serviapp {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo-serviapp img {
+            width: 100px;
+            height: auto;
+        }
+        
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .casilla_r {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.8rem;
+            border: 1.5px solid #cce7f5;
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: #f9fdff;
+            transition: all 0.3s ease;
+        }
+        
+        .casilla_r:focus {
+            border-color: #5ab4f3;
+            outline: none;
+            box-shadow: 0 0 8px rgba(90, 180, 243, 0.4);
+        }
+        
+        .btn_registro {
+            width: 60%;
+            padding: 0.9rem;
+            background: linear-gradient(135deg, #61dafb, #2980b9);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            display: block;
+            margin: 1.5rem auto 0 auto;
+        }
+        
+        .btn_registro:hover {
+            background: linear-gradient(135deg, #2980b9, #61dafb);
+            transform: translateY(-2px);
+        }
+
+        /* Mensajes */
+        .mensaje-bienvenida {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        /* Animación de aparición */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="formulario-registro">
+            <div class="logo-serviapp">
+                <img src="/img_local/logo-pagina-serviapp.png" alt="Logo ServiApp">
+            </div>
+            
+            <h2>¡Completa tu registro!</h2>
+            <p class="mensaje-bienvenida">Para continuar, necesitamos algunos datos adicionales</p>
+            
+            <div th:if="${error}" style="color: red; margin-bottom: 15px; text-align: center;" th:text="${error}"></div>
+            
+            <form action="/completar-registro" method="post">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input class="casilla_r" type="text" id="nombre" name="nombre" 
+                           th:value="${usuario.nombre}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="casilla_r" type="email" id="email" 
+                           th:value="${usuario.email}" readonly disabled>
+                </div>
+                
+                <div class="password-container">
+                    <label for="password">Establece tu contraseña</label>
+                    <input class="casilla_r" type="password" id="password" name="password" 
+                           placeholder="Contraseña"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}"
+                           title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial"
+                           required>
+                    <span class="icon-eye" id="togglePassword"><i class="fas fa-eye"></i></span>
+                </div>
+                
+                <div class="password-container">
+                    <label for="confirmPassword">Confirma tu contraseña</label>
+                    <input class="casilla_r" type="password" id="confirmPassword" name="confirmPassword" 
+                           placeholder="Confirma tu contraseña" required>
+                    <span class="icon-eye" id="toggleConfirmPassword"><i class="fas fa-eye"></i></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="estrato">Estrato (1-6)</label>
+                    <input class="casilla_r" type="number" id="estrato" name="estrato" 
+                           placeholder="Estrato" min="1" max="6" step="1" required>
+                </div>
+                
+                <button class="btn_registro" type="submit">Completar registro</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle para mostrar/ocultar contraseña
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+        
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const passwordField = document.getElementById('confirmPassword');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>

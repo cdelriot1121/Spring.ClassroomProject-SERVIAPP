@@ -31,6 +31,11 @@ public class PeriodoService {
     public Optional<PeriodoModel> obtenerPeriodoPorId(Long id) {
         return periodoRepository.findById(id);
     }
+    //se agrega para validar que no haya duplicaciones de mes y año para el mismo servicio
+    public boolean existePeriodoRegistrado(Long idUsuario, String mes, int ano, Long idServicio) {
+        return periodoRepository.existsByUsuarioAndMesAndAnoAndServicio(idUsuario, mes, ano, idServicio);
+    }
+    
     
     // Método para guardar un periodo (actualizar)
     public PeriodoModel guardarPeriodo(PeriodoModel periodo) {

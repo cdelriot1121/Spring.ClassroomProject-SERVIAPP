@@ -60,4 +60,10 @@ public class MapPagesController {
     public String consejosAdmin() {
         return "add_consejos_admin";
     }
+
+    @GetMapping("/grafico-consumo")
+    public String graficoConsumo() {
+    return "grafico_consumo";
+}
+
 }

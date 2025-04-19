@@ -87,7 +87,7 @@ public class SecurityConfiguration {
                         // Recursos públicos y páginas de acceso general
                         .requestMatchers("/", "/login", "/registro", "/acercade", "/usuarios/verificar-email", 
                                 "/usuarios/registrar", "/usuarios/contador", "/consejos-ahorro",
-                                "/error/usuario-inhabilitado").permitAll()  // Añadir la página de error
+                                "/error/usuario-inhabilitado", "/completar-registro").permitAll()  // Añadir la página de error
                         
                         // Recursos estáticos (CSS, JavaScript, imágenes)
                         .requestMatchers("/javascripts/**",
@@ -114,7 +114,7 @@ public class SecurityConfiguration {
                                 "/lineas-atencion", "/gestionar-servicio", "/consejos-personzalidos", "/inicio",
                                 "/cortes", "/datos-personales", "/cambiar-contrasena", "/mis-servicios", 
                                 "/calcular-consumo", "/usuarios/cambiar-contrasena", "/usuarios/actualizar/**", 
-                                "/reportar-falla").hasAuthority("ROLE_USUARIO")
+                                "/reportar-falla","/grafico-consumo").hasAuthority("ROLE_USUARIO")
                         
                         // Controlador de servicios (todos los métodos)
                         .requestMatchers("/servicios/**").hasAuthority("ROLE_USUARIO")

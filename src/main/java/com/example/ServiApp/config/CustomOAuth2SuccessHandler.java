@@ -39,8 +39,6 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             
             // Verificar si el usuario está habilitado
             if (!usuario.estaHabilitado()) {
-                System.out.println("ERROR: Usuario deshabilitado intentó iniciar sesión: " + email);
-                // Cambiar esta línea para redirigir a la página de usuario inhabilitado
                 response.sendRedirect("/error/usuario-inhabilitado");
                 return;
             }
@@ -48,14 +46,15 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             // Guardar el usuario en la sesión
             request.getSession().setAttribute("usuarioLogueado", usuario);
             
-            System.out.println("Usuario OAuth2 almacenado en sesión: " + 
-                              usuario.getNombre() + " con rol: " + usuario.getRol());
+            // Verificar si necesita completar su registro
+            if (!usuario.isRegistroCompleto()) {
+                response.sendRedirect("/completar-registro");
+                return;
+            }
             
-            // Redirigir a la interfaz de inicio de usuario normal
+            // Redirigir a la interfaz normal
             response.sendRedirect("/interfaz_inicio");
         } else {
-            // En caso de que no se encuentre el usuario (no debería ocurrir)
-            System.out.println("ERROR: No se encontró el usuario OAuth2 con email: " + email);
             response.sendRedirect("/login?error=oauth2_user_not_found");
         }
     }
