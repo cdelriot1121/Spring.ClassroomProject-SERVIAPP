@@ -226,20 +226,24 @@ public class PeriodoController {
 
 
         @GetMapping("/api/consumos/{tipoServicio}/{orden}")
-@ResponseBody
-public Map<String, Object> obtenerConsumosPorTipoServicio(@PathVariable String tipoServicio, @PathVariable String orden, HttpSession session) {
-    UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-    if (usuarioLogueado == null) {
-        throw new IllegalArgumentException("Usuario no logueado.");
-    }
+    @ResponseBody
+    public Map<String, Object> obtenerConsumosPorTipoServicio(
+            @PathVariable String tipoServicio,
+            @PathVariable String orden,
+            HttpSession session) {
 
-    List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado == null) {
+            throw new IllegalArgumentException("Usuario no logueado.");
+        }
 
-    final Map<String, Float> promediosPorHabitante = Map.of(
-        "agua", 4.3f,
-        "energía", 80.7f,
-        "gas", 3.9f
-    );
+        List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+
+        final Map<String, Float> promediosPorPersona = Map.of(
+            "agua", 4.3f,
+            "energía", 80.7f,
+            "gas", 3.9f
+        );
 
     List<PeriodoModel> periodos = servicios.stream()
         .filter(servicio -> servicio.getTipo_servicio().equalsIgnoreCase(tipoServicio))
@@ -271,32 +275,42 @@ public Map<String, Object> obtenerConsumosPorTipoServicio(@PathVariable String t
     List<Float> consumosPorHabitante = new ArrayList<>();
     List<Long> habitantesPorMes = new ArrayList<>();
 
+    float totalConsumo = 0f;
+
     for (PeriodoModel p : periodos) {
         labels.add(p.getMes() + " " + p.getAno());
         float consumo = p.getConsumo();
         long habitantes = p.getServicio().getHabitantes();
 
-        consumosTotales.add(consumo);
+        totalConsumo += consumo;
         habitantesPorMes.add(habitantes);
+        consumosTotales.add(consumo);
         consumosPorHabitante.add(habitantes > 0 ? consumo / habitantes : 0f);
     }
 
-    float promedioCartagenaPorHabitante = promediosPorHabitante.getOrDefault(tipoServicio.toLowerCase(), 0f);
+    float promedioPorPersona = promediosPorPersona.getOrDefault(tipoServicio.toLowerCase(), 0f);
+    float promedioPorHogar = 0f;
+
+    if (!habitantesPorMes.isEmpty()) {
+        long promedioHabitantes = Math.round(habitantesPorMes.stream().mapToLong(i -> i).average().orElse(1));
+        promedioPorHogar = promedioHabitantes * promedioPorPersona;
+    }
+
+    float promedioConsumoHogar = !consumosTotales.isEmpty()
+            ? (float) consumosTotales.stream().mapToDouble(Float::doubleValue).average().orElse(0f)
+            : 0f;
 
     Map<String, Object> response = new HashMap<>();
     response.put("labels", labels);
     response.put("consumosTotales", consumosTotales);
     response.put("consumosPorHabitante", consumosPorHabitante);
     response.put("habitantesPorMes", habitantesPorMes);
-    response.put("promedioPorHabitante", promedioCartagenaPorHabitante);
+    response.put("promedioPorHogar", promedioPorHogar);
+    response.put("promedioConsumoHogar", promedioConsumoHogar);
 
     return response;
 }
 
-        
-
-
-         
 
 
 
