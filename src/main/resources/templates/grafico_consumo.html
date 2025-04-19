@@ -141,7 +141,7 @@
             cursor: pointer;
         }
 
-          /* Estilos base mejorados para los botones */
+         
     .btn-servicio {
         border-radius: 2rem;
         padding: 0.5rem 1.5rem;
@@ -154,13 +154,13 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    /* Efecto hover para los botones de servicio */
+    
     .btn-servicio:not(.active):hover {
         transform: translateY(-3px);
         box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
     }
 
-    /* Efecto de onda al hacer clic */
+    
     .btn-servicio:after {
         content: "";
         position: absolute;
@@ -225,26 +225,20 @@
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     }
 
-    /* Animación para el icono de orden ascendente */
+    /* Animación para el icono de orden ascendente   descendente*/
     #filtroOrden .fa-sort-amount-up {
         transition: transform 0.4s ease;
     }
-
-    /* Animación para el icono de orden descendente */
     #filtroOrden .fa-sort-amount-down {
         transition: transform 0.4s ease;
     }
-
-    /* Efecto de rotación al cambiar el orden */
     #filtroOrden.ascendente .fa-sort-amount-up {
         transform: rotate(0deg);
     }
-
     #filtroOrden.descendente .fa-sort-amount-down {
         transform: rotate(180deg);
     }
 
-    /* Efecto de brillo para botones activos */
     .btn-servicio.active:before {
         content: "";
         position: absolute;
