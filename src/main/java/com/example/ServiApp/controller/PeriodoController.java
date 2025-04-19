@@ -44,7 +44,6 @@ public class PeriodoController {
                 throw new IllegalArgumentException("Usuario no logueado.");
             }
 
-            
             List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
             model.addAttribute("servicios", servicios);
             ServicioModel servicioSeleccionado = servicios.stream()
@@ -59,35 +58,47 @@ public class PeriodoController {
 
             periodo.setServicio(servicioSeleccionado);
 
-              // === CONVERSIÓN DEL MES NUMÉRICO A TEXTO Y SEPARACIÓN DEL AÑO ===
-        String mesYAnio = periodo.getMes(); // por ejemplo "2025-04"
-        if (mesYAnio != null && mesYAnio.matches("\\d{4}-\\d{2}")) {
-            String[] partes = mesYAnio.split("-");
-            int ano = Integer.parseInt(partes[0]);
-            String mesNumero = partes[1];
+            //Convertir "2025-04" a mes (texto) y año 
+            String mesYAnio = periodo.getMes(); // "2025-04"
+            if (mesYAnio != null && mesYAnio.matches("\\d{4}-\\d{2}")) {
+                String[] partes = mesYAnio.split("-");
+                int ano = Integer.parseInt(partes[0]);
+                String mesNumero = partes[1];
 
-            String mesTxt = switch (mesNumero) {
-                case "01" -> "Enero";
-                case "02" -> "Febrero";
-                case "03" -> "Marzo";
-                case "04" -> "Abril";
-                case "05" -> "Mayo";
-                case "06" -> "Junio";
-                case "07" -> "Julio";
-                case "08" -> "Agosto";
-                case "09" -> "Septiembre";
-                case "10" -> "Octubre";
-                case "11" -> "Noviembre";
-                case "12" -> "Diciembre";
-                default -> "Desconocido";
-            };
+                String mesTxt = switch (mesNumero) {
+                    case "01" -> "Enero";
+                    case "02" -> "Febrero";
+                    case "03" -> "Marzo";
+                    case "04" -> "Abril";
+                    case "05" -> "Mayo";
+                    case "06" -> "Junio";
+                    case "07" -> "Julio";
+                    case "08" -> "Agosto";
+                    case "09" -> "Septiembre";
+                    case "10" -> "Octubre";
+                    case "11" -> "Noviembre";
+                    case "12" -> "Diciembre";
+                    default -> "Desconocido";
+                };
 
-            periodo.setMes(mesTxt);   // Guardar el mes como texto
-            periodo.setAno(ano);      // Guardar el año por separado
-        }
+                periodo.setMes(mesTxt);
+                periodo.setAno(ano);
+            }
 
+            
+            boolean yaExiste = periodoService.existePeriodoRegistrado(
+                usuarioLogueado.getId(), 
+                periodo.getMes(), 
+                periodo.getAno(), 
+                servicioSeleccionado.getId()
+            );
 
+            if (yaExiste) {
+                model.addAttribute("error", "Ya existe un registro de consumo para este mes. Si deseas cambiar la información de este Consumo puedes dirigirte al apartado de mi Perfil");
+                return "gestionar_serv"; 
+            }
 
+            //  Cálculos 
             final float PROMEDIO_AGUA = 4.3f;
             final float PROMEDIO_ENERGIA = 80.7f;
             final float PROMEDIO_GAS = 3.9f;
@@ -99,7 +110,6 @@ public class PeriodoController {
             String categoriaConsumo = ""; 
             String unidad = ""; 
 
-            
             switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
@@ -121,17 +131,20 @@ public class PeriodoController {
             }
 
             periodo.setUnidad(unidad);
-
             String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
 
-            
+            // Registrar periodo
             periodoService.registrarPeriodo(periodo);
 
-            
-            List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(categoriaConsumo, servicioSeleccionado.getTipo_servicio());
-            
+            // Consejos
+            List<ConsejosModel> consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(
+                categoriaConsumo, 
+                servicioSeleccionado.getTipo_servicio()
+            );
             periodo.setConsejos(consejosPersonalizados);
-            periodoService.registrarPeriodo(periodo); 
+
+            // Actualizar nuevamente con los consejos (opcional, según implementación)
+            periodoService.registrarPeriodo(periodo);
 
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
@@ -143,6 +156,7 @@ public class PeriodoController {
 
             return "gestionar_serv";
         }
+
 
 
         private String categorizarConsumo(float consumoHogar, float promedio, float margen) {

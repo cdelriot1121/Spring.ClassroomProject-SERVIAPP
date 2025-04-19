@@ -81,19 +81,25 @@
         }
 
         #filtroOrden {
-            border-radius: 2rem;
-            font-weight: 600;
-            padding: 0.5rem 1.5rem;
-        }
+        border-radius: 2rem;
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.875rem;
+        float: right;
+        margin-bottom: 1rem;
+        width: 150px; 
+}
 
         .card.shadow {
             border-radius: 1.25rem;
         }
 
         #cardPromedio {
+            background: #11c1d9;
+            background: linear-gradient(90deg, rgba(17, 193, 217, 1) 0%, rgba(39, 185, 230, 1) 35%, rgba(0, 212, 255, 1) 100%);
             border-radius: 1.25rem;
-            color: #c82333;
-        }
+}
+
 
         footer {
             margin-top: 4rem;
@@ -134,6 +140,133 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
+
+         
+    .btn-servicio {
+        border-radius: 2rem;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    
+    .btn-servicio:not(.active):hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    
+    .btn-servicio:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
+        z-index: -1;
+    }
+
+    .btn-servicio:focus:not(:active)::after {
+        animation: ripple 0.6s ease-out;
+    }
+
+    @keyframes ripple {
+        0% {
+            transform: scale(0, 0);
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(20, 20);
+            opacity: 0;
+        }
+    }
+
+    /* Animación para botón activo */
+    .btn-servicio.active {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        }
+    }
+
+    /* Estilos específicos para el botón de orden */
+    #filtroOrden {
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid #343a40;
+    }
+
+    #filtroOrden:hover {
+        background-color: #343a40;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Animación para el icono de orden ascendente   descendente*/
+    #filtroOrden .fa-sort-amount-up {
+        transition: transform 0.4s ease;
+    }
+    #filtroOrden .fa-sort-amount-down {
+        transition: transform 0.4s ease;
+    }
+    #filtroOrden.ascendente .fa-sort-amount-up {
+        transform: rotate(0deg);
+    }
+    #filtroOrden.descendente .fa-sort-amount-down {
+        transform: rotate(180deg);
+    }
+
+    .btn-servicio.active:before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to bottom right,
+            rgba(255, 255, 255, 0) 45%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 55%
+        );
+        transform: rotate(30deg);
+        animation: shine 3s infinite;
+        z-index: 0;
+    }
+
+    @keyframes shine {
+        0% {
+            left: -50%;
+            top: -50%;
+        }
+        100% {
+            left: 150%;
+            top: 150%;
+        }
+    }
     </style>
 </head>
 <body>
@@ -191,7 +324,7 @@
             <button class="btn btn-servicio btn-gas" onclick="cargarGrafico('gas', ordenSeleccionado)">🔥 Gas</button>
         </div>
         <button id="filtroOrden" class="btn btn-outline-dark" onclick="cambiarOrden()">
-            <i class="fas fa-sort-amount-up"></i> Orden
+            <i class='bx bx-sort-up'></i> Orden
         </button>
     </div>
 
@@ -230,15 +363,47 @@
 <script>
     let ordenSeleccionado = 'asc';
 
+    
+
+
+
     function cambiarOrden() {
         ordenSeleccionado = ordenSeleccionado === 'asc' ? 'desc' : 'asc';
         const tipo = document.querySelector('.btn-servicio.active')?.innerText.toLowerCase().replace('💧 ', '').replace('⚡ ', '').replace('🔥 ', '') || 'agua';
         cargarGrafico(tipo, ordenSeleccionado);
 
-        const iconoOrden = document.querySelector('#filtroOrden i');
-        iconoOrden.classList.toggle('fa-sort-amount-up');
-        iconoOrden.classList.toggle('fa-sort-amount-down');
+        const filtroBtn = document.getElementById('filtroOrden');
+        const iconoOrden = filtroBtn.querySelector('i');
+        
+        // Cambiar clases para la animación
+        filtroBtn.classList.remove('ascendente', 'descendente');
+        filtroBtn.classList.add(ordenSeleccionado === 'asc' ? 'ascendente' : 'descendente');
+        
+        // Cambiar icono con animación
+        if (ordenSeleccionado === 'asc') {
+            iconoOrden.classList.remove('fa-sort-amount-down');
+            iconoOrden.classList.add('fa-sort-amount-up');
+        } else {
+            iconoOrden.classList.remove('fa-sort-amount-up');
+            iconoOrden.classList.add('fa-sort-amount-down');
+        }
+        
+        // Efecto de clic
+        filtroBtn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            filtroBtn.style.transform = '';
+        }, 200);
     }
+
+    // Añadir efecto de clic a los botones de servicio
+    document.querySelectorAll('.btn-servicio').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = this.classList.contains('active') ? 'scale(1.05)' : '';
+            }, 200);
+        });
+    });
 
     function cargarGrafico(tipoServicio, orden) {
         document.querySelectorAll('.btn-servicio').forEach(btn => btn.classList.remove('active'));
