@@ -234,6 +234,7 @@ font-family: 'Kanit', sans-serif;
 
 .mensaje_bienvenida p {
 margin: 0;
+margin-top: 80%;
 font-size: 15px;
 color: rgba(255, 255, 255, 0.9);
 font-weight: 500;
@@ -443,4 +444,36 @@ footer.sidebar-open {
   .header-logo-img {
     height: 25px;
   }
+}
+
+footer {
+  background: linear-gradient(to right, #005ea3, #0b436f);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto; /* Esto es clave para que se quede abajo */
+}
+
+.mini-footer {
+  background: #005ea3; /* Azul de ServiApp */
+  padding: 1rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  height: 25px;
+  filter: brightness(0) invert(1); /* Convierte el logo a blanco */
+  margin-bottom: 0.5rem;
+}
+
+.footer-text {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  margin: 0;
 }

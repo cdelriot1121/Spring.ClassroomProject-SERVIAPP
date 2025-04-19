@@ -10,62 +10,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="/estilos_interfaz-usuario/interfaz_inicio.css">
-
-  <style>
-    html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Viewport Height */
-  font-family: 'Poppins', sans-serif;
-  background-color: #f5f7ff;
-}
-
-.content {
-  flex: 1; /* Esto hace que el contenido ocupe todo el espacio disponible */
-  padding: 20px;
-}
-
-/* Estilos para el footer (ajusta según tu diseño) */
-footer {
-  background: linear-gradient(to right, #005ea3, #0b436f);
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  margin-top: auto; /* Esto es clave para que se quede abajo */
-}
-
- .mini-footer {
-  background: #005ea3; /* Azul de ServiApp */
-  padding: 1rem;
-  text-align: center;
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-logo {
-  height: 25px;
-  filter: brightness(0) invert(1); /* Convierte el logo a blanco */
-  margin-bottom: 0.5rem;
-}
-
-.footer-text {
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  margin: 0;
-}
-  </style>
 </head>
 <body>
   <header>
@@ -101,55 +46,70 @@ footer {
     <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas de Atención</a>
   </div>
   
+  <main class="main-content" id="mainContent">
     <section class="inicio-hero">
-  <div class="hero-text">
-    <h1>Bienvenido a <span class="app-name">ServiApp</span></h1>
-    <p class="hero-subtitle">Tu aliado inteligente para gestionar servicios públicos</p>
-    <a href="/gestionar-servicio" class="cta-button">Comenzar ahora</a>
-  </div>
-  <div class="hero-illustration">
-    <img src="" alt="Ilustración servicios públicos">
-  </div>
-</section>
-  
-  <div class="service-cards">
-    <!-- Tarjeta 1 -->
-    <a href="/gestionar-servicio" class="service-card">
-      <div class="card-icon">
-        <i class="bi bi-lightning-charge"></i>
+      <div class="hero-text">
+        <h1>Bienvenido a <span class="app-name">ServiApp</span></h1>
+        <p class="hero-subtitle">Tu aliado inteligente para gestionar servicios públicos de manera eficiente y sencilla</p>
+        <a href="/gestionar-servicio" class="cta-button">Comenzar ahora <i class="bi bi-arrow-right"></i></a>
       </div>
-      <h3>Estado de Servicios</h3>
-      <p>Consulta el estado actual de todos tus servicios</p>
-    </a>
+      <div class="hero-illustration">
+        <div class="services-animation">
+          <!-- Círculo central -->
+          <div class="center-circle">
+            <i class="bi bi-house-gear"></i>
+          </div>
+          
+          <!-- Iconos de servicios públicos flotantes -->
+          <i class="bi bi-droplet service-icon water" title="Agua"></i>
+          <i class="bi bi-lightning-charge service-icon electricity" title="Electricidad"></i>
+          <i class="bi bi-fire service-icon gas" title="Gas"></i>
+          <i class="bi bi-wifi service-icon internet" title="Internet"></i>
+          <i class="bi bi-telephone service-icon phone" title="Teléfono"></i>
+          <i class="bi bi-recycle service-icon recycle" title="Reciclaje"></i>
+        </div>
+      </div>
+    </section>
     
-    <!-- Tarjeta 2 -->
-    <a href="/cortes" class="service-card">
-      <div class="card-icon">
-        <i class="bi bi-exclamation-triangle"></i>
-      </div>
-      <h3>Cortes Programados</h3>
-      <p>Revisa los cortes programados en tu zona</p>
-    </a>
-    
-    <!-- Tarjeta 3 -->
-    <a href="/consejos-personzalidos" class="service-card">
-      <div class="card-icon">
-        <i class="bi bi-graph-down-arrow"></i>
-      </div>
-      <h3>Consejos de Ahorro</h3>
-      <p>Aprende a reducir tus consumos</p>
-    </a>
-  </div>
-</section>
+    <div class="service-cards">
+      <!-- Tarjeta 1 -->
+      <a href="/gestionar-servicio" class="service-card">
+        <div class="card-icon">
+          <i class="bi bi-lightning-charge"></i>
+        </div>
+        <h3>Estado de Servicios</h3>
+        <p>Consulta el estado actual de todos tus servicios públicos en un solo lugar</p>
+        <span class="card-link">Ver detalles <i class="bi bi-chevron-right"></i></span>
+      </a>
+      
+      <!-- Tarjeta 2 -->
+      <a href="/cortes" class="service-card">
+        <div class="card-icon">
+          <i class="bi bi-exclamation-triangle"></i>
+        </div>
+        <h3>Cortes Programados</h3>
+        <p>Revisa los cortes programados en tu zona y planifica con anticipación</p>
+        <span class="card-link">Ver detalles <i class="bi bi-chevron-right"></i></span>
+      </a>
+      
+      <!-- Tarjeta 3 -->
+      <a href="/consejos-personzalidos" class="service-card">
+        <div class="card-icon">
+          <i class="bi bi-graph-down-arrow"></i>
+        </div>
+        <h3>Consejos de Ahorro</h3>
+        <p>Aprende a reducir tus consumos y optimiza el uso de tus servicios</p>
+        <span class="card-link">Ver detalles <i class="bi bi-chevron-right"></i></span>
+      </a>
+    </div>
+  </main>
   
   <footer class="mini-footer">
     <div class="footer-content">
       <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
-      <p class="footer-text">© 2024 ServiApp</p>
+      <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
     </div>
   </footer>
-
-
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -159,12 +119,34 @@ footer {
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      const footer = document.querySelector('footer');
-
+      const mainContent = document.getElementById('mainContent');
+      
       sidebar.classList.toggle('open');
-      content.classList.toggle('sidebar-open');
-      footer.classList.toggle('sidebar-open');
+      mainContent.classList.toggle('sidebar-open');
+      
+      // Efecto de overlay en móviles
+      if (window.innerWidth <= 768) {
+        const overlay = document.createElement('div');
+        overlay.id = 'sidebar-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.background = 'rgba(0,0,0,0.5)';
+        overlay.style.zIndex = '998';
+        overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+        overlay.onclick = toggleSidebar;
+        
+        if (sidebar.classList.contains('open')) {
+          document.body.appendChild(overlay);
+        } else {
+          const existingOverlay = document.getElementById('sidebar-overlay');
+          if (existingOverlay) {
+            existingOverlay.remove();
+          }
+        }
+      }
     }
 
     // Profile dropdown functionality
@@ -172,19 +154,14 @@ footer {
       const profileButton = document.getElementById('profileButton');
       const profileDropdown = document.getElementById('profileDropdown');
       
-      profileButton.addEventListener('click', function() {
+      profileButton.addEventListener('click', function(e) {
+        e.stopPropagation();
         profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
       });
       
       // Close dropdown when clicking outside
-      document.addEventListener('click', function(event) {
-        if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-          profileDropdown.style.display = 'none';
-        }
-      });
-
-      document.querySelector('.close')?.addEventListener('click', function () {
-        document.getElementById('mapModal').style.display = 'none';
+      document.addEventListener('click', function() {
+        profileDropdown.style.display = 'none';
       });
 
       // Close sidebar when clicking outside on mobile
