@@ -25,32 +25,33 @@
         <i class="bi bi-list"></i>
       </button>
       <div class="header-logo">
-        <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="header-logo-img">
         <h1 class="header-title">ServiApp</h1>
+        <div class="mensaje_bienvenida" id="mensajeBienvenida">
+          <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
+        </div>
       </div>
     </div>
-    
+
     <div class="profile-menu">
       <button class="profile-button" id="profileButton">
         <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
       </button>
       <div class="profile-dropdown" id="profileDropdown">
-        <a href="datos-personales">Configuración</a>
-        <a href="/">Cerrar Sesion</a>
+        <a href="datos-personales"><i class="bi bi-gear"></i> Configuración</a>
+        <a href="/"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
       </div>
     </div>
   </header>
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="interfaz_inicio"><i class="bi bi-house-door-fill"></i>Inicio</a>
-    <a href="registrar_servicio"><i class="bi bi-check-square"></i>Registrar Servicio</a>
-    <a href="gestionar-servicio"><i class="bi bi-bar-chart-line"></i>Gestionar Servicio</a>
-    <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i>Consejos de Ahorro</a>
-    <a href="cortes"><i class="bi bi-clock-history"></i>Cortes</a>
-    <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i>Líneas de Atención</a>
+    <a href="interfaz_inicio" class="active"><i class="bi bi-house-door-fill"></i> Inicio</a>
+    <a href="registrar_servicio"><i class="bi bi-check-square"></i> Registrar Servicio</a>
+    <a href="gestionar-servicio"><i class="bi bi-bar-chart-line"></i> Gestionar Servicio</a>
+    <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i> Consejos de Ahorro</a>
+    <a href="cortes"><i class="bi bi-clock-history"></i> Cortes</a>
+    <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas de Atención</a>
   </div>
-
 
   <!-- Contenido principal -->
   <main id="content">
@@ -196,33 +197,32 @@
       const profileButton = document.getElementById('profileButton');
       const profileDropdown = document.getElementById('profileDropdown');
       
-      profileButton.addEventListener('click', function() {
-        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-      });
-      
-      // Close dropdown when clicking outside
-      document.addEventListener('click', function(event) {
-        if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-          profileDropdown.style.display = 'none';
-        }
-      });
-      
-      // Modal functionality
-      const modal = document.getElementById('termsModal-privacidad');
-      const btn = document.getElementById('openModal-privacidad');
-      const span = document.getElementsByClassName('cerrar-privacidad')[0];
-      
-      btn.onclick = function() {
-        modal.style.display = "block";
+      if (profileButton && profileDropdown) {
+        profileButton.addEventListener('click', function() {
+          profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+          if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+            profileDropdown.style.display = 'none';
+          }
+        });
       }
+
+      // Modal functionality
+      const modal = document.getElementById('mapModal');
+      const closeBtn = document.querySelector('.close');
       
-      span.onclick = function() {
-        modal.style.display = "none";
+      if (closeBtn) {
+        closeBtn.onclick = function() {
+          modal.style.display = 'none';
+        }
       }
       
       window.onclick = function(event) {
         if (event.target == modal) {
-          modal.style.display = "none";
+          modal.style.display = 'none';
         }
       }
       
@@ -231,13 +231,25 @@
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.querySelector('.toggle-btn');
         
-        if (window.innerWidth <= 768 && 
+        if (window.innerWidth <= 768 && sidebar && toggleBtn && 
             !sidebar.contains(event.target) && 
             !toggleBtn.contains(event.target) && 
             sidebar.classList.contains('open')) {
           toggleSidebar();
         }
       });
+
+      // Map buttons functionality (example for Afinia)
+      const btnAfinia = document.getElementById('btnAfinia');
+      if (btnAfinia) {
+        btnAfinia.addEventListener('click', function() {
+          const mapFrame = document.getElementById('mapFrame');
+          mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123456789!2d-75.123456789!3d10.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA3JzI0LjQiTiA3NcKwMDcnMjQuNCJX!5e0!3m2!1sen!2sco!4v1234567890";
+          document.getElementById('mapModal').style.display = 'block';
+        });
+      }
+
+      // Add similar event listeners for btnAguas and btnSurtigas
     });
   </script>
 </body>

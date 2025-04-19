@@ -42,33 +42,34 @@
             <i class="bi bi-list"></i>
           </button>
           <div class="header-logo">
-            <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="header-logo-img">
             <h1 class="header-title">ServiApp</h1>
+            <div class="mensaje_bienvenida" id="mensajeBienvenida">
+              <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
+            </div>
           </div>
         </div>
-        
+    
         <div class="profile-menu">
           <button class="profile-button" id="profileButton">
             <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
           </button>
           <div class="profile-dropdown" id="profileDropdown">
-            <a href="datos-personales">Configuración</a>
-            <a href="/">Cerrar Sesion</a>
+            <a href="datos-personales"><i class="bi bi-gear"></i> Configuración</a>
+            <a href="/"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
           </div>
         </div>
       </header>
     
       <!-- Sidebar -->
-      <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <a href="interfaz_inicio"><i class="bi bi-house-door-fill"></i>Inicio</a>
-    <a href="registrar_servicio"><i class="bi bi-check-square"></i>Registrar Servicio</a>
-    <a href="gestionar-servicio"><i class="bi bi-bar-chart-line"></i>Gestionar Servicio</a>
-    <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i>Consejos de Ahorro</a>
-    <a href="cortes"><i class="bi bi-clock-history"></i>Cortes</a>
-    <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i>Líneas de Atención</a>
-  </div>
-  
+      <div class="sidebar" id="sidebar">
+        <a href="interfaz_inicio" class="active"><i class="bi bi-house-door-fill"></i> Inicio</a>
+        <a href="registrar_servicio"><i class="bi bi-check-square"></i> Registrar Servicio</a>
+        <a href="gestionar-servicio"><i class="bi bi-bar-chart-line"></i> Gestionar Servicio</a>
+        <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i> Consejos de Ahorro</a>
+        <a href="cortes"><i class="bi bi-clock-history"></i> Cortes</a>
+        <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas de Atención</a>
+      </div>
+    
 
   <main class="consumo-main">
     <div class="consumo-header"> 
@@ -223,65 +224,78 @@
     </div> 
 
 
-<script src="/javascripts/barra_perfil.js"></script>
-<script src="/javascripts/ventana_privacidad.js"></script> 
-
-<script>
-    function validateInput(input) {
-      const validMonths = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      if (!validMonths.includes(input.value) && input.value !== '') {
-        input.setCustomValidity('Por favor, selecciona un mes de la lista.');
-        input.value = ''; 
-      } else {
-        input.setCustomValidity('');
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const footer = document.querySelector('footer');
+        
+        sidebar.classList.toggle('open');
+        content.classList.toggle('sidebar-open');
+        footer.classList.toggle('sidebar-open');
       }
-    }
-  </script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-       
-        const cuadrosConsumo = document.getElementById('cuadros-consumo');
-        const tipsBox = document.getElementById('tips-box');
-
-        if (cuadrosConsumo) {
-            cuadrosConsumo.style.display = 'block';
+  
+      // Profile dropdown functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const profileButton = document.getElementById('profileButton');
+        const profileDropdown = document.getElementById('profileDropdown');
+        
+        if (profileButton && profileDropdown) {
+          profileButton.addEventListener('click', function() {
+            profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+          });
+          
+          // Close dropdown when clicking outside
+          document.addEventListener('click', function(event) {
+            if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+              profileDropdown.style.display = 'none';
+            }
+          });
         }
-        if (tipsBox) {
-            tipsBox.style.display = 'block';
+  
+        // Modal functionality
+        const modal = document.getElementById('mapModal');
+        const closeBtn = document.querySelector('.close');
+        
+        if (closeBtn) {
+          closeBtn.onclick = function() {
+            modal.style.display = 'none';
+          }
         }
-    });
- 
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      const footer = document.querySelector('footer');
-      
-      sidebar.classList.toggle('open');
-      content.classList.toggle('sidebar-open');
-      footer.classList.toggle('sidebar-open');
-    }
-
-    // Modal cierre
-    document.querySelector('.close').onclick = function() {
-      document.getElementById('mapModal').style.display = 'none';
-    }
-
-    // Cerrar sidebar al hacer clic fuera en móviles
-    document.addEventListener('click', function(event) {
-      const sidebar = document.getElementById('sidebar');
-      const toggleBtn = document.querySelector('.toggle-btn');
-      
-      if (window.innerWidth <= 768 && 
-          !sidebar.contains(event.target) && 
-          !toggleBtn.contains(event.target) && 
-          sidebar.classList.contains('open')) {
-        toggleSidebar();
-      }
-    });
-  </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = 'none';
+          }
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+          const sidebar = document.getElementById('sidebar');
+          const toggleBtn = document.querySelector('.toggle-btn');
+          
+          if (window.innerWidth <= 768 && sidebar && toggleBtn && 
+              !sidebar.contains(event.target) && 
+              !toggleBtn.contains(event.target) && 
+              sidebar.classList.contains('open')) {
+            toggleSidebar();
+          }
+        });
+  
+        // Map buttons functionality (example for Afinia)
+        const btnAfinia = document.getElementById('btnAfinia');
+        if (btnAfinia) {
+          btnAfinia.addEventListener('click', function() {
+            const mapFrame = document.getElementById('mapFrame');
+            mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123456789!2d-75.123456789!3d10.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA3JzI0LjQiTiA3NcKwMDcnMjQuNCJX!5e0!3m2!1sen!2sco!4v1234567890";
+            document.getElementById('mapModal').style.display = 'block';
+          });
+        }
+  
+        // Add similar event listeners for btnAguas and btnSurtigas
+      });
+    </script>
 
 
 </body>
