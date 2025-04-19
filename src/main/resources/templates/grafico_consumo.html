@@ -2,75 +2,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gráfico de Consumo </title>
+    <title>Gráfico de Consumo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ServiApp</title>
-        
-        <!--Parte Header compartida desde aqui....-->
-        <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-    
-        <!--links CSS-->
-        <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css"> <!-- Barra lateral reutilizable -->
-        <link rel="stylesheet" href="/estilos_interfaz-usuario/style_gest_ser.css"> <!-- CSS de la página Inicio -->
-        <link rel="stylesheet" href="/main.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-        <!--BOXICOINS Y BOOTSTRAP-->
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
-    
-        <!--Fuente Kanit-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    
-    
-    
-    <body>
-        <header>
-            <div class="contenedor-principal" id="header1">
-                <h1 id="h1001">ServiApp</h1>
-            </div>
-            
-            <div class="profile-menu">
-                <button class="profile-button" id="profileButton">
-                    <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
-                </button>
-                <div class="profile-dropdown" id="profileDropdown">
-                    <a href="datos-personales">Configuración</a>
-                    <a href="/logout">Cerrar Sesion</a>
-                    
-                </div>
-            </div>
-        </header>
-    
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="p-2 g-col-6"><a href="interfaz_inicio"><i class='bx bx-home'></i> Inicio</a></li>
-                    <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task' ></i> Registrar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
-                    <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro Personalizados </a></li>
-                    <li class="p-2 g-col-6"><a href="cortes"><i class='bx bxs-alarm'></i> Cortes</a></li>
-                    <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Lineas de Atencion</a></li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css">
+    <link rel="stylesheet" href="/estilos_interfaz-usuario/style_gest_ser.css">
+    <link rel="stylesheet" href="/main.css">
+
+    <!-- Boxicons y Bootstrap -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -144,15 +92,89 @@
 
         #cardPromedio {
             border-radius: 1.25rem;
+            color: #c82333;
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding: 1rem;
+            background-color: #f1f1f1;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-logo {
+            width: 40px;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        .modal-privacidad {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content-privacidad {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 0.75rem;
+            width: 80%;
+        }
+
+        .cerrar-privacidad {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
+<header>
+    <div class="contenedor-principal" id="header1">
+        <h1 id="h1001">ServiApp</h1>
+    </div>
+    
+    <div class="profile-menu">
+        <button class="profile-button" id="profileButton">
+            <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
+        </button>
+        <div class="profile-dropdown" id="profileDropdown">
+            <a href="datos-personales">Configuración</a>
+            <a href="/logout">Cerrar Sesión</a>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="p-2 g-col-6"><a href="interfaz_inicio"><i class='bx bx-home'></i> Inicio</a></li>
+                <li class="p-2 g-col-6"><a href="registrar-servicio"><i class='bx bx-task'></i> Registrar Servicio</a></li>
+                <li class="p-2 g-col-6"><a href="gestionar-servicio"><i class='bx bx-line-chart'></i> Gestionar Servicio</a></li>
+                <li class="p-2 g-col-6"><a href="consejos-personzalidos"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
+                <li class="p-2 g-col-6"><a href="cortes"><i class='bx bxs-alarm'></i> Cortes</a></li>
+                <li class="p-2 g-col-6"><a href="lineas-atencion"><i class='bx bx-phone'></i> Líneas de Atención</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div class="container mt-5">
 
-    <!-- Tarjeta con el promedio de consumo del hogar -->
     <div class="mb-4">
         <div id="cardPromedio" class="card text-white shadow">
             <div class="card-body text-center">
@@ -162,7 +184,6 @@
         </div>
     </div>
 
-    <!-- Botones para seleccionar tipo de servicio -->
     <div class="mb-3 d-flex justify-content-between flex-wrap gap-2">
         <div class="d-flex gap-2">
             <button class="btn btn-servicio btn-agua active" onclick="cargarGrafico('agua', ordenSeleccionado)">💧 Agua</button>
@@ -174,7 +195,6 @@
         </button>
     </div>
 
-    <!-- Contenedor del gráfico -->
     <div class="card shadow">
         <div class="card-body">
             <div id="graficoContainer">
@@ -183,6 +203,28 @@
         </div>
     </div>
 
+</div>
+
+<footer>
+    <div class="contenido-pie-pagina">
+        <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
+        <span>© 2024 ServiApp / todos los derechos reservados</span>
+        <ul class="enlaces-pie-pagina">
+            <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
+        </ul>
+    </div>
+    <div class="nota-pie-pagina">
+        <a href="#">No compartir información</a>
+    </div>
+</footer>
+
+
+<div id="termsModal-privacidad" class="modal-privacidad">
+    <div class="modal-content-privacidad">
+        <span class="cerrar-privacidad" onclick="document.getElementById('termsModal-privacidad').style.display='none'">&times;</span>
+        <h2>PRIVACIDAD</h2>
+        <p>En ServiApp somos conscientes de la importancia de la privacidad y protección de los datos personales de nuestros usuarios. Por esta razón, nuestro deber con la seguridad de la información de nuestros usuarios está fundamentado en este marco legal...</p>
+    </div>
 </div>
 
 <script>
@@ -289,48 +331,3 @@
 
 </body>
 </html>
- <!-- Pie de página -->
- <footer>
-    <div class="contenido-pie-pagina">
-        <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
-        <span>© 2024 ServiApp / todos los derechos reservados</span>
-        <ul class="enlaces-pie-pagina">
-            <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
-         
-        </ul>
-    </div>
-    <div class="nota-pie-pagina">
-        <a href="">No compartir información</a>
-    </div>
-</footer>
-
-    <!-- ventana privacidasd -->
-    <div id="termsModal-privacidad" class="modal-privacidad">
-        <div class="modal-content-privacidad">
-            <span class="cerrar-privacidad">&times;</span>
-            <h2>PRIVACIDAD</h2>
-                <p>
-            En ServiApp somos conscientes de la importancia de la privacidad y protección de los datos personales de nuestros usuarios. Por esta razón, nuestro deber con la seguridad de la información de nuestros usuarios está fundamentado en este marco legal que respalda todos nuestros procesos.<br><br>
-            
-            Las normas internacionales ofrecen un marco general para el tratamiento adecuado de la información de los usuarios. Aunque estas normativas no siempre tienen aplicación directa en Colombia, representan normativas que en ServiApp tratamos de cumplir para proteger la privacidad de nuestros usuarios. El convenio 108 del Consejo de Europa, por ejemplo, es una referencia clave que establece principios básicos sobre la protección de los datos personales frente a su tratamiento automatizado. El Reglamento General de Protección de Datos (GDPR) de la Unión Europea es un referente mundial en términos de la protección de la privacidad y, a pesar de que está dirigido a ciudadanos europeos, se puede considerar un modelo a seguir. De igual forma, los principios de los Derechos Humanos de las Naciones Unidas establecen la importancia de respetar la privacidad como un derecho humano.<br><br>
-            
-            En Colombia, el marco legal se consolida a partir de la Constitución Política Nacional, en la cual el artículo 15 nos expone sobre el derecho a la intimidad y protección de datos personales. En ServiApp, nos aseguramos de que nuestros usuarios puedan ejercer este derecho, permitiéndoles acceder y actualizar su información almacenada en nuestra base de datos cuando lo requieran. También nos basamos en el artículo 20, el cual protege el derecho a recibir información clara y veraz. Para nosotros, esto significa que todo lo relacionado con el tratamiento de datos será siempre transparente y comprensible.<br><br>
-            
-            La Ley 1581 de 2012, conocida como la Ley de Protección de Datos Personales, es la ley central de nuestra operación en Colombia. Esta ley establece los principios y procedimientos que debemos seguir al manejar los datos de nuestros usuarios, asegurando su privacidad y estableciendo obligaciones claras para nosotros como responsables de esa información. De igual forma, seguiremos la Ley 1266 de 2008, que regula específicamente el manejo de información financiera y crediticia, y la Ley 1273 de 2009, que tipifica los delitos informáticos y define las sanciones aplicables para quienes accedan sin autorización a sistemas informáticos, algo esencial para la seguridad de los datos que manejaremos en nuestra plataforma.<br><br>
-            
-            Además de estas leyes, ServiApp sigue las regulaciones emitidas a través de decretos. Por ejemplo, el Decreto 1377 de 2013 es importante, pues nos explica cómo debemos obtener el consentimiento de nuestros usuarios para poder recolectar y usar sus datos. En cada registro debemos asegurarnos de que los usuarios tengan claro para qué fines se usará su información. Por otro lado, el Decreto 886 de 2014, que aborda temas de ciberseguridad, nos ayuda a implementar medidas de protección adecuadas para evitar riesgos de seguridad.<br><br>
-            
-            Para las regulaciones a nivel local en la ciudad de Cartagena, cumplimos con los acuerdos municipales y ordenanzas locales que pueden influir en la manera en que gestionamos los servicios públicos y la información asociada.<br><br>
-            
-            El Código Penal Colombiano también es importante, ya que establece sanciones para quienes cometan delitos informáticos, como la violación de la privacidad o el uso indebido de los datos personales. En ServiApp seguimos estos lineamientos para prevenir cualquier incidente que pudiera comprometer la seguridad de la información.<br><br>
-            
-            Finalmente, aplicamos lo que establecen las resoluciones y circulares emitidas por organismos de control. La Resolución 002 de 2021 de la Superintendencia de Industria y Comercio (SIC) nos ofrece guías claras sobre cómo gestionar los datos personales en nuestro contexto tecnológico, mientras que la Circular Externa 005 de 2017 nos orienta sobre cómo manejar la información en sistemas digitales, garantizando que estemos al día con las mejores prácticas.
-                </p>
-        </div>
-    </div> 
-
-
-<script src="/javascripts/barra_perfil.js"></script>
-<script src="/javascripts/ventana_privacidad.js"></script> 
-
-<script>
