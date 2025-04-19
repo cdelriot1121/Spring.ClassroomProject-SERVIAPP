@@ -94,7 +94,7 @@ public class PeriodoController {
             );
 
             if (yaExiste) {
-                model.addAttribute("error", "Ya existe un registro de consumo para este mes, año y tipo de servicio.");
+                model.addAttribute("error", "Ya existe un registro de consumo para este mes. Si deseas cambiar la información de este Consumo puedes dirigirte al apartado de mi Perfil");
                 return "gestionar_serv"; 
             }
 
