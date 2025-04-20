@@ -4,14 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>INICIO DE SESIÓN</title>
-    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Kanit:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
-    <!-- Estilos -->
     <link rel="stylesheet" href="/estilos_inicio/iniciosesion.css" />
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
   </head>
@@ -20,7 +18,7 @@
       <div class="caja-inicioSesion">
         <div class="formulario-login">
           <h2>Iniciar Sesión</h2>
-          <form action="/login" method="post">
+          <form id="loginForm" action="/login" method="post">
             <input type="text" name="username" placeholder="Email" required />
             <input
               type="password"
@@ -28,31 +26,78 @@
               placeholder="Contraseña"
               required
             />
-            
+
+            <!-- Errores -->
             <div th:if="${param.error}" style="color: red">
               Credenciales incorrectas. Intenta nuevamente.
             </div>
+            <div th:if="${param.captchaError}" style="color: red">
+              Por favor verifica el CAPTCHA.
+            </div>
 
-            <button type="submit">Entrar</button>
+            <!-- Spinner que se muestra mientras se valida -->
+            <div id="spinner" class="spinner hidden"></div>
+
+            <!-- Botón con reCAPTCHA invisible -->
+            <button
+              id="submitButton"
+              class="g-recaptcha"
+              data-sitekey="6Ld36B4rAAAAAHA2fWQ8vsEA_1dstzhr-KO8Qd-L"
+              data-callback="onSubmit"
+              data-size="invisible"
+              type="button"
+              disabled
+            >
+              <span id="buttonText">Entrar</span>
+            </button>
+
             <p class="texto-social">────────</p>
 
-            <!-- Botón Google -->
-            <a href="/oauth2/authorization/google" class="google-btn" title="Inicia con Google">
-              <img src="/img_local/logo-google.png" alt="Logo Google" class="google-logo" />
+            <a
+              href="/oauth2/authorization/google"
+              class="google-btn"
+              title="Inicia con Google"
+            >
+              <img
+                src="/img_local/logo-google.png"
+                alt="Logo Google"
+                class="google-logo"
+              />
               <span>Inicia sesión con Google</span>
             </a>
-
           </form>
+
           <p>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></p>
         </div>
 
         <div class="imagen">
           <div class="logo-container">
-            <!-- Logo ServiApp -->
             <a href="/"><h1 class="titulo-serviapp">ServiApp</h1></a>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Script de reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script>
+      function onSubmit(token) {
+        try {
+          // Mostrar el spinner y desactivar el botón mientras se valida
+          document.getElementById("spinner").classList.remove("hidden"); // Mostrar spinner
+          document.getElementById("submitButton").disabled = true; // Desactivar botón
+          document.getElementById("buttonText").innerText = "Validando..."; // Cambiar texto del botón
+
+          // Esperar un momento para simular la validación, puedes quitar esto para hacerlo inmediato
+          setTimeout(function () {
+            // Cuando el reCAPTCHA se ha validado, enviar el formulario
+            document.getElementById("loginForm").submit();
+          }, 2000); // Retraso de 2 segundos (para simular la validación)
+        } catch (error) {
+          console.error("Error en el proceso de reCAPTCHA:", error);
+        }
+      }
+    </script>
   </body>
 </html>
