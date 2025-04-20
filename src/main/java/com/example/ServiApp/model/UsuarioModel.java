@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -90,6 +91,11 @@ public class UsuarioModel {
     @OneToMany(mappedBy = "administrador", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ConsejosModel> consejos;
+
+    // Relación uno a uno con el predio (opcional)
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private PredioModel predio;
 
     public UsuarioModel() {
     }
@@ -253,6 +259,14 @@ public class UsuarioModel {
 
     public void setRegistroCompleto(boolean registroCompleto) {
         this.registroCompleto = registroCompleto;
+    }
+
+    public PredioModel getPredio() {
+        return predio;
+    }
+
+    public void setPredio(PredioModel predio) {
+        this.predio = predio;
     }
 
     @Override
