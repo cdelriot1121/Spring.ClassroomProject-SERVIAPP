@@ -1,11 +1,125 @@
+:root {
+    --primary-50: #f0f7ff;
+    --primary-100: #e0effe;
+    --primary-200: #b9dffe;
+    --primary-300: #7cc7fd;
+    --primary-400: #36adfa;
+    --primary-500: #0c94eb;
+    --primary-600: #6adcf5;
+    --primary-700: #00b2e0;
+    --primary-800: #005ea3;
+    --primary-900: #0b436f;
+    --primary-950: #072a4a;
+    
+    --white: #ffffff;
+    --light: #f8fbfe;
+    --dark: #1a1a2e;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-            color: #333;
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    background-color: var(--light);
+    overflow-x: hidden;
+    margin: 0;
+    padding-top: 80px;
+}
+
+/* Header */
+.main-header {
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to right, var(--primary-600), var(--primary-800));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    box-shadow: var(--box-shadow);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+}
+
+.logo-text {
+    font-family: 'Kanit', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0;
+}
+
+/* Navegación */
+.main-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 30px;
+}
+
+.nav-link {
+    color: var(--white);
+    font-weight: 500;
+    padding: 8px 20px;
+    margin: 0 5px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.auth-buttons .btn {
+    margin-left: 12px;
+    border-radius: var(--border-radius);
+    padding: 8px 20px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn-login {
+    border: 2px solid var(--white);
+    color: var(--white);
+    background: transparent;
+}
+
+.btn-login:hover {
+    background-color: var(--white);
+    color: var(--primary-800);
+    transform: translateY(-2px);
+}
+
+.btn-register {
+    background: linear-gradient(to right, var(--primary-400), var(--primary-600));
+    color: var(--white);
+    box-shadow: var(--box-shadow);
+    border: none;
+}
+
+.btn-register:hover {
+    background: linear-gradient(to right, var(--primary-500), var(--primary-700));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 146, 235, 0.4);
+}
+        
         
         .about-section {
             max-width: 800px;
@@ -46,10 +160,99 @@
             border-radius: 5px;
         }
 
-        .footer-note {
+        footer {
+            background: linear-gradient(to right, #005ea3, #0b436f);
+            color: white;
+            padding: 1rem;
             text-align: center;
-            font-size: 14px;
-            color: #666;
-            margin-top: 20px;
-            font-style: italic;
+            margin-top: auto; /* Esto es clave para que se quede abajo */
+          }
+        
+          .mini-footer {
+            background: #005ea3; /* Azul de ServiApp */
+            padding: 1rem;
+            text-align: center;
+          }
+        
+          .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+        
+          .footer-logo {
+            height: 25px;
+            filter: brightness(0) invert(1); /* Convierte el logo a blanco */
+            margin-bottom: 0.5rem;
+          }
+        
+          .footer-text {
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            margin: 0;
+          }
+
+          @media (max-width: 1200px) {
+            .hero-carousel {
+                min-height: 500px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .nav-links {
+                margin-left: 15px;
+            }
+            
+            .nav-link {
+                padding: 8px 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-header {
+                padding: 0 1rem;
+                flex-wrap: wrap;
+                height: auto;
+                padding: 15px;
+            }
+            
+            .logo-text {
+                font-size: 22px;
+            }
+            
+            .main-nav {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+            
+            .nav-links {
+                margin-left: 0;
+            }
+            
+            .hero-carousel {
+                height: 60vh;
+                min-height: 400px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 20px;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .auth-buttons .btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+                margin-left: 5px;
+            }
+            
+            .hero-carousel {
+                min-height: 300px;
+            }
         }

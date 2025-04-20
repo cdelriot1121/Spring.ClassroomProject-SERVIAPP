@@ -1,132 +1,135 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiApp</title>
+    <title>ServiApp | Gestión Inteligente de Servicios Públicos</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/estilos_inicio/index.css"> <!--PROPIO DEL CONTENIDO DE LA PAGINA-->
-    <link rel="stylesheet" href="/main.css">
-    <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Kanit:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/estilos_inicio/index.css">
+      
 </head>
 <body>
-    <header>
-        <div class="contenedor-principal" id="header1">
-            <h1 id="h1001">ServiApp</h1>
-            <div class="botones-datos">
-                <a href="login" class="login">Inicia Sesión</a>
-                <a href="registro" class="register">Regístrate</a>
+    <!-- Header Completo Visible -->
+    <header class="main-header">
+        <a href="/" class="logo">
+            <h1 class="logo-text">ServiApp</h1>
+        </a>
+        
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Inicio</a></li>
+                <li><a href="/acercade" class="nav-link">Acerca de</a></li>
+                <li><a href="consejos-ahorro" class="nav-link">Consejos</a></li>
+            </ul>
+            
+            <div class="auth-buttons ms-4">
+                <a href="login" class="btn btn-login">Iniciar Sesión</a>
+                <a href="registro" class="btn btn-register">Registrarse</a>
             </div>
-        </div>
+        </nav>
     </header>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+    <!-- Carrusel como Hero Section -->
+    <section class="hero-carousel">
+      <div id="mainCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="3"></button>
+          </div>
+          
+          <div class="carousel-inner h-100">
+              <!-- Slide 1 - Gestión de Servicios -->
+              <div class="carousel-item active h-100">
+                  <a href="index" class="carousel-link">
+                      <img src="img_local\GESTIONA TUS SERVICIOS.png" class="d-block w-100 carousel-img" alt="Gestión de Servicios">
+                  </a>
+              </div>
+              
+              <!-- Slide 2 - Control de Consumos -->
+              <div class="carousel-item h-100">
+                  <a href="consejos_ahorro" class="carousel-link">
+                      <img src="\img_local\Consejos de ahorro.png" class="d-block w-100 carousel-img" alt="Control de Consumos">
+                  </a>
+              </div>
+              
+              
+              <!-- Slide 4 - Soporte -->
+              <div class="carousel-item h-100">
+                  <a href="Lineas_atencion" class="carousel-link">
+                      <img src="\img_local\LINEAS DE ATENCION.png" class="d-block w-100 carousel-img" alt="Soporte y Líneas de Atención">
+                  </a>
+              </div>
+          </div>
+          
+          <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="p-2"><a href="/">Principal</a></li>
-                <li class="p-2"><a href="/acercade">Acerca del Proyecto</a></li>
-                <li class="p-2 g-col-6"><a href="consejos-ahorro"><i class='bx bx-bulb'></i> Consejos de Ahorro</a></li>
-            </ul>
-          </div>
-        </div>
-    </nav>
-
-   
-    <div id="carouselExampleIndicators" class="carousel slide">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        </div>
-        
-        <div class="carousel-inner">
-
-          <div class="carousel-item active">
-            
-            <img src="/img_local/GESTIONA TUS SERVICIOS.png" class="d-block w-100" alt="">
-          </div>
-
-
-          <div class="carousel-item ">
-            
-            <img src="/img_local/Gestiona Servicios .png" class="d-block w-100" alt="">
-          </div>
-
-          <div class="carousel-item">
-            
-            <img src="/img_local/Consejos de ahorro.png" class="d-block w-100" alt="">
-          </div>
-
-          <div class="carousel-item">
-            
-            <img src="/img_local/LINEAS DE ATENCION.png" class="d-block w-100" alt="">
-          </div>
-
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
-        
-      
-
-    </div>
-
-    <footer>
-        <div class="contenido-pie-pagina">
-            <img src="/img_local/logo-pagina-serviapp.png" alt="Logo" class="footer-logo">
-            <span>© 2024 ServiApp / Todos los derechos reservados</span>
-            <ul class="enlaces-pie-pagina">
-                <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
-             
-            </ul>
-        </div>
-        <div class="nota-pie-pagina">
-            <a href="#">No compartir información</a>
-        </div>
-    </footer>
-
-    <div id="termsModal-privacidad" class="modal-privacidad">
-      <div class="modal-content-privacidad">
-          <span class="cerrar-privacidad">&times;</span>
-          <h2>Privacidad</h2>
-          <p>
-            En ServiApp somos conscientes de la importancia de la privacidad y protección de los datos personales de nuestros usuarios. Por esta razón, nuestro deber con la seguridad de la información de nuestros usuarios está fundamentado en este marco legal que respalda todos nuestros procesos.<br><br>
-            
-            Las normas internacionales ofrecen un marco general para el tratamiento adecuado de la información de los usuarios. Aunque estas normativas no siempre tienen aplicación directa en Colombia, representan normativas que en ServiApp tratamos de cumplir para proteger la privacidad de nuestros usuarios. El convenio 108 del Consejo de Europa, por ejemplo, es una referencia clave que establece principios básicos sobre la protección de los datos personales frente a su tratamiento automatizado. El Reglamento General de Protección de Datos (GDPR) de la Unión Europea es un referente mundial en términos de la protección de la privacidad y, a pesar de que está dirigido a ciudadanos europeos, se puede considerar un modelo a seguir. De igual forma, los principios de los Derechos Humanos de las Naciones Unidas establecen la importancia de respetar la privacidad como un derecho humano.<br><br>
-            
-            En Colombia, el marco legal se consolida a partir de la Constitución Política Nacional, en la cual el artículo 15 nos expone sobre el derecho a la intimidad y protección de datos personales. En ServiApp, nos aseguramos de que nuestros usuarios puedan ejercer este derecho, permitiéndoles acceder y actualizar su información almacenada en nuestra base de datos cuando lo requieran. También nos basamos en el artículo 20, el cual protege el derecho a recibir información clara y veraz. Para nosotros, esto significa que todo lo relacionado con el tratamiento de datos será siempre transparente y comprensible.<br><br>
-            
-            La Ley 1581 de 2012, conocida como la Ley de Protección de Datos Personales, es la ley central de nuestra operación en Colombia. Esta ley establece los principios y procedimientos que debemos seguir al manejar los datos de nuestros usuarios, asegurando su privacidad y estableciendo obligaciones claras para nosotros como responsables de esa información. De igual forma, seguiremos la Ley 1266 de 2008, que regula específicamente el manejo de información financiera y crediticia, y la Ley 1273 de 2009, que tipifica los delitos informáticos y define las sanciones aplicables para quienes accedan sin autorización a sistemas informáticos, algo esencial para la seguridad de los datos que manejaremos en nuestra plataforma.<br><br>
-            
-            Además de estas leyes, ServiApp sigue las regulaciones emitidas a través de decretos. Por ejemplo, el Decreto 1377 de 2013 es importante, pues nos explica cómo debemos obtener el consentimiento de nuestros usuarios para poder recolectar y usar sus datos. En cada registro debemos asegurarnos de que los usuarios tengan claro para qué fines se usará su información. Por otro lado, el Decreto 886 de 2014, que aborda temas de ciberseguridad, nos ayuda a implementar medidas de protección adecuadas para evitar riesgos de seguridad.<br><br>
-            
-            Para las regulaciones a nivel local en la ciudad de Cartagena, cumplimos con los acuerdos municipales y ordenanzas locales que pueden influir en la manera en que gestionamos los servicios públicos y la información asociada.<br><br>
-            
-            El Código Penal Colombiano también es importante, ya que establece sanciones para quienes cometan delitos informáticos, como la violación de la privacidad o el uso indebido de los datos personales. En ServiApp seguimos estos lineamientos para prevenir cualquier incidente que pudiera comprometer la seguridad de la información.<br><br>
-            
-            Finalmente, aplicamos lo que establecen las resoluciones y circulares emitidas por organismos de control. La Resolución 002 de 2021 de la Superintendencia de Industria y Comercio (SIC) nos ofrece guías claras sobre cómo gestionar los datos personales en nuestro contexto tecnológico, mientras que la Circular Externa 005 de 2017 nos orienta sobre cómo manejar la información en sistemas digitales, garantizando que estemos al día con las mejores prácticas.
-                </p>
+          <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
       </div>
-    </div>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="/javascripts/ventana_privacidad.js"></script> 
-    <script src="javascripts/notificaciones.js"></script>
+    <!-- Sección de Beneficios -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Beneficios de ServiApp</h2>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3 class="benefit-title">Monitoreo en Tiempo Real</h3>
+                        <p>Visualiza el consumo de todos tus servicios desde un único panel de control intuitivo.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 class="benefit-title">Planificación Anticipada</h3>
+                        <p>Recibe alertas sobre cortes programados y mantenimientos en tu área.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="benefit-title">Análisis de Consumo</h3>
+                        <p>Identifica patrones y recibe recomendaciones personalizadas para reducir tus gastos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mini-footer">
+    <div class="footer-content">
+      <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
+      <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/ventana_privacidad.js"></script>
+    <script src="/javascripts/notificaciones.js"></script>
 </body>
 </html>

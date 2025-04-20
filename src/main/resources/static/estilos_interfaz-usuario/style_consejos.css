@@ -1,114 +1,268 @@
-.section-consejosAhorros {
-    background-color: #d5ffc1c4;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.219);
-    margin-left:auto;
-    margin-right: auto;
-    margin-top: 0;
-    max-width: 800px;
-}
+        :root {
+            --primary-50: #f0f7ff;
+            --primary-100: #e0effe;
+            --primary-200: #b9dffe;
+            --primary-300: #7cc7fd;
+            --primary-400: #36adfa;
+            --primary-500: #0c94eb;
+            --primary-600: #6adcf5;
+            --primary-700: #00b2e0;
+            --primary-800: #005ea3;
+            --primary-900: #0b436f;
+            --primary-950: #072a4a;
+            
+            --white: #ffffff;
+            --light: #f8fbfe;
+            --dark: #1a1a2e;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
 
-.imagen-consejos {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            margin: 0;
+            padding-top: 80px;
+        }
 
-.imagen-consejos img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 15px;
-    width: 80%;
-}
+        /* Header */
+        .main-header {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to right, var(--primary-600), var(--primary-800));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            box-shadow: var(--box-shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
 
-.contenedor-consejos {
-    text-align: center;
-    max-width: 100%;
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
 
-.titulos {
-    background-color: #9fdcff59;
-    padding: 20px;
-    border-radius: 22px;
-    margin-bottom: 20px;
-    text-align: center;
-}
+        .logo-text {
+            font-family: 'Kanit', sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--white);
+            margin: 0;
+        }
 
-.titulos h3 {
-    font-size: 35px;
-    color: #333;
-    margin-bottom: 10px;
-}
+        /* Navigation */
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
 
-.botones-consejos {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            margin-left: 30px;
+        }
 
-.boton-consejo {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-family: 'Kanit', sans-serif;
-}
+        .nav-link {
+            color: var(--white);
+            font-weight: 500;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            text-decoration: none;
+        }
 
-.boton-consejo:hover {
-    background-color: #0056b3;
-    transform: scale(1.1);
-}
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
 
-.parraf-prueba p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #777;
-    margin-top: 20px;
-}
+        .auth-buttons .btn {
+            margin-left: 12px;
+            border-radius: var(--border-radius);
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+        .btn-login {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
 
-.modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 50%;
-    max-width: 600px;
-    max-height: 80%;
-    overflow-y: auto;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
-}
+        .btn-login:hover {
+            background-color: var(--white);
+            color: var(--primary-800);
+            transform: translateY(-2px);
+        }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        .btn-register {
+            background: linear-gradient(to right, var(--primary-400), var(--primary-600));
+            color: var(--white);
+            box-shadow: var(--box-shadow);
+            border: none;
+        }
 
-.close:hover, .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
+        .btn-register:hover {
+            background: linear-gradient(to right, var(--primary-500), var(--primary-700));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 146, 235, 0.4);
+        }
+
+        .section-consejosAhorros {
+            background-color: #d5ffc1c4;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.219);
+            margin-left:auto;
+            margin-right: auto;
+            margin-top: 0;
+            max-width: 800px;
+        }
+
+        .imagen-consejos {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .imagen-consejos img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            width: 80%;
+        }
+
+        .contenedor-consejos {
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .titulos {
+            background-color: #9fdcff59;
+            padding: 20px;
+            border-radius: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .titulos h3 {
+            font-size: 35px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .botones-consejos {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .boton-consejo {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .boton-consejo:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .parraf-prueba p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover, .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        footer {
+            background: linear-gradient(to right, #005ea3, #0b436f);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto; /* Esto es clave para que se quede abajo */
+          }
+        
+          .mini-footer {
+            background: #005ea3; /* Azul de ServiApp */
+            padding: 1rem;
+            text-align: center;
+          }
+        
+          .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+          }
+        
+          .footer-logo {
+            height: 25px;
+            filter: brightness(0) invert(1); /* Convierte el logo a blanco */
+            margin-bottom: 0.5rem;
+          }
+        
+          .footer-text {
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            margin: 0;
+          }
