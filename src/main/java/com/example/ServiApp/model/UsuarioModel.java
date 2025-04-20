@@ -64,9 +64,7 @@ public class UsuarioModel {
     @Column(name = "estado", nullable = false)
     private EstadoUsuario estado = EstadoUsuario.HABILITADO; // Por defecto, todos los usuarios están habilitados
 
-    // Campo estrato solo usado por usuarios con rol USUARIO
-    @Column(name = "estrato", length = 50)
-    private Integer estrato;
+    // Se ha eliminado el campo estrato, ahora forma parte del predio
 
     @Column(name = "registro_completo", nullable = false)
     private boolean registroCompleto = true; // Por defecto true para usuarios normales
@@ -100,9 +98,9 @@ public class UsuarioModel {
     public UsuarioModel() {
     }
 
-    // Constructor completo
+    // Constructor completo (sin estrato)
     public UsuarioModel(long id, String nombre, String email, String password, Rol rol,
-            Integer estrato, List<ServicioModel> servicios,
+            List<ServicioModel> servicios,
             List<Falla_Ser_Model> fallas_Servicio, List<CortesModel> cortes,
             List<ConsejosModel> consejos) {
         this.id = id;
@@ -110,7 +108,6 @@ public class UsuarioModel {
         this.email = email;
         this.password = password;
         this.rol = rol;
-        this.estrato = estrato;
         this.servicios = servicios;
         this.fallas_Servicio = fallas_Servicio;
         this.cortes = cortes;
@@ -121,14 +118,13 @@ public class UsuarioModel {
      * Método factory para crear un usuario normal.
      * Establece automáticamente el rol como USUARIO.
      */
-    public static UsuarioModel crearUsuario(String nombre, String email, String password, int estrato) {
+    public static UsuarioModel crearUsuario(String nombre, String email, String password) {
         UsuarioModel usuario = new UsuarioModel();
         usuario.setNombre(nombre);
         usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setRol(Rol.ROLE_USUARIO);
         usuario.setEstado(EstadoUsuario.HABILITADO);
-        usuario.setEstrato(estrato);
         return usuario;
     }
 
@@ -146,7 +142,7 @@ public class UsuarioModel {
         return admin;
     }
 
-    // Getters y setters
+    // Getters y setters (eliminado el estrato)
     public long getId() {
         return id;
     }
@@ -196,13 +192,7 @@ public class UsuarioModel {
         return Rol.ROLE_ADMINISTRADOR.equals(this.rol);
     }
 
-    public Integer getEstrato() {
-        return estrato;
-    }
-
-    public void setEstrato(Integer estrato) {
-        this.estrato = estrato;
-    }
+    // Se ha eliminado getEstrato y setEstrato
 
     public List<ServicioModel> getServicios() {
         return servicios;
@@ -268,6 +258,14 @@ public class UsuarioModel {
     public void setPredio(PredioModel predio) {
         this.predio = predio;
     }
+    
+    /**
+     * Método auxiliar para obtener el estrato desde el predio si existe
+     * @return El estrato del predio o null si no hay predio asociado
+     */
+    public Integer getEstratoDesdePredio() {
+        return this.predio != null ? this.predio.getEstrato() : null;
+    }
 
     @Override
     public String toString() {
@@ -280,7 +278,7 @@ public class UsuarioModel {
         sb.append(", estado=").append(estado);
 
         if (rol == Rol.ROLE_USUARIO) {
-            sb.append(", estrato=").append(estrato);
+            sb.append(", estrato=").append(getEstratoDesdePredio());
             sb.append(", servicios=").append(servicios != null ? servicios.size() : 0);
             sb.append(", fallas_Servicio=").append(fallas_Servicio != null ? fallas_Servicio.size() : 0);
         } else {

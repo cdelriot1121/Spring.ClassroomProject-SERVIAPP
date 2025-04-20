@@ -27,6 +27,9 @@ public class PredioModel {
     @Column(name = "direccion", length = 150)
     private String direccion;
 
+    @Column(name = "estrato", nullable = false)
+    private int estrato;
+
     /**
      * Enumeración que define los tipos de predio disponibles
      */
@@ -50,10 +53,11 @@ public class PredioModel {
     }
 
     // Constructor completo
-    public PredioModel(long id, String barrio, String direccion, TipoPredio tipoPredio, UsuarioModel usuario) {
+    public PredioModel(long id, String barrio, String direccion, int estrato, TipoPredio tipoPredio, UsuarioModel usuario) {
         this.id = id;
         this.barrio = barrio;
         this.direccion = direccion;
+        this.estrato = estrato;
         this.tipoPredio = tipoPredio;
         this.usuario = usuario;
     }
@@ -83,6 +87,14 @@ public class PredioModel {
         this.direccion = direccion;
     }
 
+    public int getEstrato() {
+        return estrato;
+    }
+
+    public void setEstrato(int estrato) {
+        this.estrato = estrato;
+    }
+
     public TipoPredio getTipoPredio() {
         return tipoPredio;
     }
@@ -105,6 +117,7 @@ public class PredioModel {
                 "id=" + id +
                 ", barrio='" + barrio + '\'' +
                 ", direccion='" + direccion + '\'' +
+                ", estrato=" + estrato +
                 ", tipoPredio=" + tipoPredio +
                 ", usuarioId=" + (usuario != null ? usuario.getId() : null) +
                 '}';

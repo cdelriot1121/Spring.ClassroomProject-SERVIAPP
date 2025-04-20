@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ServiApp.model.PredioModel;
@@ -48,26 +48,45 @@ public class PredioController {
 
     // Procesa el registro de un nuevo predio
     @PostMapping("/registrar")
-    public String registrarPredio(@ModelAttribute PredioModel predio, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String registrarPredio(
+            @RequestParam String direccion,
+            @RequestParam String barrio,
+            @RequestParam int estrato,
+            @RequestParam PredioModel.TipoPredio tipoPredio,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+        
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
         
         if (usuarioLogueado == null) {
             return "redirect:/login";
         }
         
-        // Asignar el usuario al predio
-        predio.setUsuario(usuarioLogueado);
+        // Verificar si el usuario ya tiene un predio registrado
+        Optional<PredioModel> predioExistente = predioService.obtenerPredioPorUsuario(usuarioLogueado);
         
-        // Guardar el predio
-        predioService.registrarPredio(predio);
+        if (predioExistente.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Ya tiene un predio registrado. Puede editarlo o eliminarlo para registrar uno nuevo.");
+            return "redirect:/mi-predio";
+        }
+        
+        // Crear y guardar el nuevo predio
+        PredioModel nuevoPredio = new PredioModel();
+        nuevoPredio.setDireccion(direccion);
+        nuevoPredio.setBarrio(barrio);
+        nuevoPredio.setEstrato(estrato);
+        nuevoPredio.setTipoPredio(tipoPredio);
+        nuevoPredio.setUsuario(usuarioLogueado);
+        
+        predioService.registrarPredio(nuevoPredio);
         
         redirectAttributes.addFlashAttribute("mensaje", "Predio registrado exitosamente");
-        return "redirect:/perfil";
+        return "redirect:/mi-predio";
     }
 
     // Muestra el formulario para editar un predio
     @GetMapping("/editar")
-    public String mostrarFormularioEdicion(Model model, HttpSession session) {
+    public String mostrarFormularioEdicion(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
         
         if (usuarioLogueado == null) {
@@ -79,15 +98,26 @@ public class PredioController {
         if (predio.isPresent()) {
             model.addAttribute("predio", predio.get());
             model.addAttribute("tiposPredio", PredioModel.TipoPredio.values());
-            return "editar_predio";
+            model.addAttribute("editarPredio", true);
+            model.addAttribute("section", "mi-predio");
+            return "perfil_datos";
         } else {
-            return "redirect:/predios/registrar";
+            redirectAttributes.addFlashAttribute("error", "No se encontró un predio asociado a su cuenta");
+            return "redirect:/mi-predio";
         }
     }
 
     // Procesa la actualización de un predio
     @PostMapping("/actualizar")
-    public String actualizarPredio(@ModelAttribute PredioModel predio, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String actualizarPredio(
+            @RequestParam Long id,
+            @RequestParam String direccion,
+            @RequestParam String barrio,
+            @RequestParam int estrato,
+            @RequestParam PredioModel.TipoPredio tipoPredio,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+        
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
         
         if (usuarioLogueado == null) {
@@ -95,22 +125,24 @@ public class PredioController {
         }
         
         // Verificar que el predio pertenezca al usuario actual
-        Optional<PredioModel> predioExistente = predioService.obtenerPredioPorUsuario(usuarioLogueado);
+        Optional<PredioModel> predioExistente = predioService.obtenerPredioPorId(id);
         
-        if (predioExistente.isPresent()) {
+        if (predioExistente.isPresent() && predioExistente.get().getUsuario().getId() == usuarioLogueado.getId()) {
             PredioModel predioActual = predioExistente.get();
             
-            // Mantener el ID y el usuario originales
-            predio.setId(predioActual.getId());
-            predio.setUsuario(usuarioLogueado);
+            // Actualizar los campos
+            predioActual.setDireccion(direccion);
+            predioActual.setBarrio(barrio);
+            predioActual.setEstrato(estrato);
+            predioActual.setTipoPredio(tipoPredio);
             
-            predioService.actualizarPredio(predio);
+            predioService.actualizarPredio(predioActual);
             redirectAttributes.addFlashAttribute("mensaje", "Predio actualizado exitosamente");
         } else {
             redirectAttributes.addFlashAttribute("error", "No se encontró un predio asociado a su cuenta");
         }
         
-        return "redirect:/perfil";
+        return "redirect:/mi-predio";
     }
 
     // Elimina un predio
@@ -131,6 +163,6 @@ public class PredioController {
             redirectAttributes.addFlashAttribute("error", "No se encontró un predio asociado a su cuenta");
         }
         
-        return "redirect:/perfil";
+        return "redirect:/mi-predio";
     }
 }

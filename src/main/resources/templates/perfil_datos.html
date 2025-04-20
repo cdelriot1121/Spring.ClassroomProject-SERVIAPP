@@ -75,6 +75,8 @@
                 <a th:href="@{/cambiar-contrasena}" class="list-group-item list-group-item-action" th:classappend="${section == 'cambiar-contrasena'} ? 'active'">Cambiar Contraseña</a>
                 <a th:href="@{/mis-servicios}" class="list-group-item list-group-item-action" th:classappend="${section == 'mis-servicios'} ? 'active'">Mis Servicios</a>
                 <a th:href="@{/mis-consumos}" class="list-group-item list-group-item-action" th:classappend="${section == 'mis-consumos'} ? 'active'">Mis Consumos</a>
+                <!-- Nueva opción de menú para gestionar predio -->
+                <a th:href="@{/mi-predio}" class="list-group-item list-group-item-action" th:classappend="${section == 'mi-predio'} ? 'active'">Mi Predio</a>
                 </div>
             </div>
 
@@ -88,18 +90,16 @@
                     <tr>
                         <th>Nombre Completo</th>
                         <th>Correo Electrónico</th>
-                        <th>Estrato</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td th:text="${usuario.nombre}">Nombre Completo</td>
-                        <td colspan="3" th:if="${editarUsuarioId == usuario.id}">
+                        <td colspan="2" th:if="${editarUsuarioId == usuario.id}">
                             <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post" id="form-datos-personales">
                                 <div style="display: flex; gap: 10px;">
                                     <input type="text" name="email" th:value="${usuario.email}" required style="flex: 1;">
-                                    <input type="number" name="estrato" max="6" min="1" th:value="${usuario.estrato}" maxlength="3" required style="flex: 1;">
                                     <button type="button" class="btn btn-success" onclick="confirmarCambioDatos(event)">Guardar Cambios</button>
                                     <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
                                 </div>
@@ -107,7 +107,6 @@
                             
                         </td>
                         <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.email}">Correo Electrónico</td>
-                        <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.estrato}">Estrato</td>
                         <td th:if="${editarUsuarioId != usuario.id}">
                             <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-success">Actualizar</a>
                         </td>
@@ -248,6 +247,131 @@
             </tr>
         </tbody>
     </table>
+</section>
+
+<!-- Sección Mi Predio - Añadir después de la sección de Mis Consumos -->
+<section th:if="${section == 'mi-predio'}">
+    <h4>Mi Predio</h4>
+    <div class="alert alert-info">
+        <p><strong>Nota:</strong> El registro de su predio es completamente opcional. Esta información nos ayuda a generar estadísticas de consumo por zonas y ofrecer recomendaciones más personalizadas.</p>
+    </div>
+
+    <!-- Mostrar mensaje de éxito o error si existe -->
+    <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <!-- Si no tiene predio registrado, mostrar formulario de registro -->
+    <div th:if="${predio == null}" class="card">
+        <div class="card-header">Registrar Predio</div>
+        <div class="card-body">
+            <form th:action="@{/predios/registrar}" method="post">
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                </div>
+                <div class="mb-3">
+                    <label for="barrio" class="form-label">Barrio</label>
+                    <input type="text" class="form-control" id="barrio" name="barrio" required>
+                </div>
+                <div class="mb-3">
+                    <label for="estrato" class="form-label">Estrato</label>
+                    <select class="form-control" id="estrato" name="estrato" required>
+                        <option value="">Seleccione...</option>
+                        <option value="1">Estrato 1</option>
+                        <option value="2">Estrato 2</option>
+                        <option value="3">Estrato 3</option>
+                        <option value="4">Estrato 4</option>
+                        <option value="5">Estrato 5</option>
+                        <option value="6">Estrato 6</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="tipoPredio" class="form-label">Tipo de Predio</label>
+                    <select class="form-control" id="tipoPredio" name="tipoPredio" required>
+                        <option value="">Seleccione...</option>
+                        <option th:each="tipo : ${tiposPredio}" th:value="${tipo}" th:text="${tipo}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar Predio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Si ya tiene predio registrado, mostrar información y opciones de edición/eliminación -->
+    <div th:if="${predio != null}" class="card">
+        <div class="card-header">Información de mi Predio</div>
+        <div class="card-body">
+            <!-- Si está en modo edición -->
+            <form th:if="${editarPredio}" th:action="@{/predios/actualizar}" method="post">
+                <input type="hidden" name="id" th:value="${predio.id}">
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" 
+                           th:value="${predio.direccion}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="barrio" class="form-label">Barrio</label>
+                    <input type="text" class="form-control" id="barrio" name="barrio" 
+                           th:value="${predio.barrio}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="estrato" class="form-label">Estrato</label>
+                    <select class="form-control" id="estrato" name="estrato" required>
+                        <option value="">Seleccione...</option>
+                        <option value="1" th:selected="${predio.estrato == 1}">Estrato 1</option>
+                        <option value="2" th:selected="${predio.estrato == 2}">Estrato 2</option>
+                        <option value="3" th:selected="${predio.estrato == 3}">Estrato 3</option>
+                        <option value="4" th:selected="${predio.estrato == 4}">Estrato 4</option>
+                        <option value="5" th:selected="${predio.estrato == 5}">Estrato 5</option>
+                        <option value="6" th:selected="${predio.estrato == 6}">Estrato 6</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="tipoPredio" class="form-label">Tipo de Predio</label>
+                    <select class="form-control" id="tipoPredio" name="tipoPredio" required>
+                        <option th:each="tipo : ${tiposPredio}" 
+                                th:value="${tipo}" 
+                                th:text="${tipo}"
+                                th:selected="${predio.tipoPredio == tipo}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                <a th:href="@{/mi-predio}" class="btn btn-secondary">Cancelar</a>
+            </form>
+            
+            <!-- Si no está en modo edición, mostrar datos -->
+            <div th:unless="${editarPredio}" class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th style="width: 30%">Dirección</th>
+                        <td th:text="${predio.direccion}">Calle 123</td>
+                    </tr>
+                    <tr>
+                        <th>Barrio</th>
+                        <td th:text="${predio.barrio}">Centro</td>
+                    </tr>
+                    <tr>
+                        <th>Estrato</th>
+                        <td th:text="${predio.estrato}">3</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo de Predio</th>
+                        <td th:text="${predio.tipoPredio}">CASA</td>
+                    </tr>
+                </table>
+                
+                <div class="mt-3">
+                    <a th:href="@{/predios/editar}" class="btn btn-primary">Editar Predio</a>
+                    <form th:action="@{/predios/eliminar}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" 
+                                onclick="return confirm('¿Está seguro de eliminar este predio? Esta acción no se puede deshacer.')">
+                            Eliminar Predio
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
             </div>
