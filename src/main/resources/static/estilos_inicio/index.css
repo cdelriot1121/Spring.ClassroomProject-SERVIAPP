@@ -16,9 +16,11 @@
     --dark: #1a1a2e;
     --border-radius: 12px;
     --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --gradient: linear-gradient(135deg, var(--primary-600), var(--primary-800));
 }
 
+/* Estilos base mejorados */
 body {
     font-family: 'Poppins', sans-serif;
     color: var(--dark);
@@ -26,22 +28,26 @@ body {
     overflow-x: hidden;
     margin: 0;
     padding-top: 80px;
+    line-height: 1.6;
 }
 
-/* Header */
+/* Header premium */
 .main-header {
     width: 100%;
     height: 80px;
-    background: linear-gradient(to right, var(--primary-600), var(--primary-800));
+    background: var(--gradient);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 4px 20px rgba(0, 94, 163, 0.2);
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo {
@@ -49,6 +55,11 @@ body {
     align-items: center;
     gap: 15px;
     text-decoration: none;
+    transition: var(--transition);
+}
+
+.logo:hover {
+    transform: translateY(-2px);
 }
 
 .logo-text {
@@ -57,9 +68,11 @@ body {
     font-weight: 600;
     color: var(--white);
     margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
 }
 
-/* Navegación */
+/* Navegación premium */
 .main-nav {
     display: flex;
     align-items: center;
@@ -71,28 +84,61 @@ body {
     margin: 0;
     padding: 0;
     margin-left: 30px;
+    gap: 5px;
 }
 
 .nav-link {
     color: var(--white);
     font-weight: 500;
-    padding: 8px 20px;
+    padding: 10px 20px;
     margin: 0 5px;
     border-radius: var(--border-radius);
     transition: var(--transition);
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--white);
+    transition: var(--transition);
 }
 
 .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link:hover::before {
+    width: 70%;
+}
+
+/* Botones de autenticación premium */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .auth-buttons .btn {
     margin-left: 12px;
     border-radius: var(--border-radius);
-    padding: 8px 20px;
+    padding: 10px 24px;
     font-weight: 500;
     transition: var(--transition);
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .btn-login {
@@ -105,17 +151,18 @@ body {
     background-color: var(--white);
     color: var(--primary-800);
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
 .btn-register {
-    background: linear-gradient(to right, var(--primary-400), var(--primary-600));
+    background: linear-gradient(135deg, var(--primary-400), var(--primary-600));
     color: var(--white);
     box-shadow: var(--box-shadow);
     border: none;
 }
 
 .btn-register:hover {
-    background: linear-gradient(to right, var(--primary-500), var(--primary-700));
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 146, 235, 0.4);
 }
