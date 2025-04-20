@@ -122,10 +122,12 @@ body {
 
 /* Carrusel Optimizado */
 .hero-carousel {
-    width: 100%;
+    width: 85%;
     height: calc(100vh - 80px);
-    min-height: 600px;
+    min-height: 100px;
     position: relative;
+    margin-left:auto;
+    margin-right:auto;
     overflow: hidden;
 }
 
