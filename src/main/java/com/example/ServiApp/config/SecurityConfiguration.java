@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.example.ServiApp.repository.UsuarioRepository;
+import com.example.ServiApp.services.CaptchaService;
 
 /**
  * Configuración principal de seguridad para la aplicación ServiApp.
@@ -46,6 +47,9 @@ public class SecurityConfiguration {
     // Repositorio de usuarios
     private final UsuarioRepository usuarioRepository;
 
+    // Servicio de captcha para verificar la autenticidad de los usuarios
+    private final CaptchaService captchaService;
+
     /**
      * Constructor con inyección de dependencias.
      * 
@@ -58,13 +62,15 @@ public class SecurityConfiguration {
      */
     @Autowired
     public SecurityConfiguration(@Lazy CustomUserDetailsService customUserDetailsService,
-            @Lazy CustomSuccessHandler customSuccessHandler,
-            @Lazy CustomOAuth2UserService customOAuth2UserService,
-            @Lazy UsuarioRepository usuarioRepository) {
+                                 @Lazy CustomSuccessHandler customSuccessHandler,
+                                 @Lazy CustomOAuth2UserService customOAuth2UserService,
+                                 @Lazy UsuarioRepository usuarioRepository,
+                                 @Lazy CaptchaService captchaService) {
         this.customUserDetailsService = customUserDetailsService;
         this.customSuccessHandler = customSuccessHandler;
         this.customOAuth2UserService = customOAuth2UserService;
         this.usuarioRepository = usuarioRepository;
+        this.captchaService = captchaService;
     }
 
     /**
@@ -137,6 +143,11 @@ public class SecurityConfiguration {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                         .permitAll());
+
+        // Añadir el filtro de captcha antes del filtro de autenticación
+        http.addFilterBefore(new CaptchaFilter(captchaService), 
+                     org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }
