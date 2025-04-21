@@ -51,63 +51,70 @@
   </div>
 
   <!-- Contenido principal -->
-  <main class="content" id="content">
-    <section class="lineas-atencion-contenedor">
-      <h3>Líneas de Atención</h3>
-      <p>Aquí encontrarás los números de teléfono de atención de nuestros servicios públicos</p>
+  <section class="lineas-atencion-contenedor">
+    <h3>Líneas de Atención</h3>
+    <p>Aquí encontrarás los números de teléfono de atención de nuestros servicios públicos</p>
 
-      <table>
+    <table>
         <tr>
-          <th>Servicio</th>
-          <th>Número de Emergencia</th>
-          <th>Línea Comercial</th>
+            <th>Servicio</th>
+            <th>Número de Emergencia</th>
+            <th>Línea Comercial</th>
         </tr>
         <tr>
-          <td>Agua</td>
-          <td>116</td>
-          <td>(605) 694 33 37</td>
+            <td>Agua</td>
+            <td>116</td>
+            <td>(605) 694 33 37</td>
         </tr>
         <tr>
-          <td>Energía</td>
-          <td>115</td>
-          <td>(035) 3500444</td>
+            <td>Energía</td>
+            <td>115</td>
+            <td>(035) 3500444</td>
         </tr>
         <tr>
-          <td>Gas</td>
-          <td>164</td>
-          <td>01 8000 910 164</td>
+            <td>Gas</td>
+            <td>164</td>
+            <td>01 8000 910 164</td>
         </tr>
-      </table>
+    </table>
 
-      <!-- Sección de Instrucciones y Recomendaciones -->
-      <section class="instrucciones">
+    <!-- Sección de Instrucciones y Recomendaciones -->
+    <section class="instrucciones">
         <h3>Instrucciones y Recomendaciones</h3>
         <p>Para una atención más rápida, te recomendamos tener a mano la siguiente información antes de llamar:</p>
-        <p>Para los servicios de <b>Agua</b>, proporciona el número de póliza de tu factura junto con la dirección exacta del servicio.</p>
-        <p>Para <b>Energía</b>, incluye el número de NIC, la dirección del servicio y, si es posible, el último recibo de pago.</p>
-        <p>En el caso del <b>Gas</b>, indica el número de NIC y la dirección donde está instalado el servicio.</p>
-        <p>Además, es importante adjuntar documentos personales del titular del servicio, como cédula de ciudadanía, número telefónico, correo electrónico, etc.</p>
-      </section>
+        
+          <p>Para los servicios de <b>Agua</b>, proporciona el número de póliza de tu factura junto 
+            con la dirección exacta del servicio.</p> <p>Para <b>Energia</b>, incluye el número de NIC, la dirección 
+            del servicio y, si es posible, el último recibo de pago.</p> <p>En el caso del <b>Gas</b>, indica el número de NIC y 
+            la dirección donde está instalado el servicio.</p> <p>Además, es importante adjuntar documentos personales del titular 
+            del servicio, como cédula de ciudadanía, número telefónico, correo electrónico, etc.</p>
 
-      <!-- Sección de los mapas con los botones -->
-      <div>
-        <h2>Ubicación de las oficinas principales de atención al cliente en Cartagena</h2>
-        <div class="map-buttons">
-          <button id="btnAfinia">Afinia</button>
-          <button id="btnAguas">Aguas de Cartagena</button>
-          <button id="btnSurtigas">Surtigas</button>
-        </div>
-      </div>
+        
     </section>
 
-    <!-- Modal para mostrar los mapas -->
-    <div id="mapModal" class="modal">
-      <div class="modal-content">
+    <!-- Sección de los mapas con los botones -->
+    <section>
+        <div>
+            <h2 style="font-size: 25px;">Ubicación de las oficinas principales de atención al cliente en Cartagena</h2>
+
+        </div>
+        <!-- Botones que abrirán los mapas -->
+        <div class="map-buttons">
+            <button id="btnAfinia">Afinia</button>
+            <button id="btnAguas">Aguas de Cartagena</button>
+            <button id="btnSurtigas">Surtigas</button>
+        </div>
+    </section>
+</section>
+
+<!-- Modal para mostrar los mapas -->
+<div id="mapModal" class="modal">
+    <div class="modal-content">
         <span class="close">&times;</span>
-        <iframe id="mapFrame" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-      </div>
+        <iframe id="mapFrame" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-  </main>
+</div>
+
 
   <!-- Pie de página -->
   <footer class="mini-footer">
@@ -119,16 +126,41 @@
 
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="/javascripts/barra_perfil.js"></script>
+  <script src="/javascripts/maps.js"></script>
+  <script src="/javascripts/ventana_privacidad.js"></script> 
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      const footer = document.querySelector('footer');
+      const mainContent = document.getElementById('mainContent');
       
       sidebar.classList.toggle('open');
-      content.classList.toggle('sidebar-open');
-      footer.classList.toggle('sidebar-open');
+      mainContent.classList.toggle('sidebar-open');
+      
+      // Efecto de overlay en móviles
+      if (window.innerWidth <= 768) {
+        const overlay = document.createElement('div');
+        overlay.id = 'sidebar-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.background = 'rgba(0,0,0,0.5)';
+        overlay.style.zIndex = '998';
+        overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+        overlay.onclick = toggleSidebar;
+        
+        if (sidebar.classList.contains('open')) {
+          document.body.appendChild(overlay);
+        } else {
+          const existingOverlay = document.getElementById('sidebar-overlay');
+          if (existingOverlay) {
+            existingOverlay.remove();
+          }
+        }
+      }
     }
 
     // Profile dropdown functionality
@@ -136,59 +168,28 @@
       const profileButton = document.getElementById('profileButton');
       const profileDropdown = document.getElementById('profileDropdown');
       
-      if (profileButton && profileDropdown) {
-        profileButton.addEventListener('click', function() {
-          profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-        });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-            profileDropdown.style.display = 'none';
-          }
-        });
-      }
+      profileButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function() {
+        profileDropdown.style.display = 'none';
+      });
 
-      // Modal functionality
-      const modal = document.getElementById('mapModal');
-      const closeBtn = document.querySelector('.close');
-      
-      if (closeBtn) {
-        closeBtn.onclick = function() {
-          modal.style.display = 'none';
-        }
-      }
-      
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = 'none';
-        }
-      }
-      
       // Close sidebar when clicking outside on mobile
       document.addEventListener('click', function(event) {
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.querySelector('.toggle-btn');
         
-        if (window.innerWidth <= 768 && sidebar && toggleBtn && 
+        if (window.innerWidth <= 768 && 
             !sidebar.contains(event.target) && 
             !toggleBtn.contains(event.target) && 
             sidebar.classList.contains('open')) {
           toggleSidebar();
         }
       });
-
-      // Map buttons functionality (example for Afinia)
-      const btnAfinia = document.getElementById('btnAfinia');
-      if (btnAfinia) {
-        btnAfinia.addEventListener('click', function() {
-          const mapFrame = document.getElementById('mapFrame');
-          mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123456789!2d-75.123456789!3d10.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA3JzI0LjQiTiA3NcKwMDcnMjQuNCJX!5e0!3m2!1sen!2sco!4v1234567890";
-          document.getElementById('mapModal').style.display = 'block';
-        });
-      }
-
-      // Add similar event listeners for btnAguas and btnSurtigas
     });
   </script>
 </body>
