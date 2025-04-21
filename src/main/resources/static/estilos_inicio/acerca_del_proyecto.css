@@ -302,3 +302,21 @@ body {
                 min-height: 300px;
             }
         }
+
+        
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;        
+    justify-content: center;    
+    padding-top: 0;            
+}
+
