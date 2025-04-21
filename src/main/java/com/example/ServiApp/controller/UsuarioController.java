@@ -1,6 +1,7 @@
 package com.example.ServiApp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.ServiApp.model.PredioModel;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
+import com.example.ServiApp.services.PredioService;
 import com.example.ServiApp.services.ServiciosService;
 import com.example.ServiApp.services.UsuarioService;
 
@@ -32,6 +35,9 @@ public class UsuarioController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private PredioService predioService;
 
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
@@ -99,7 +105,8 @@ public class UsuarioController {
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
 
         usuarioExistente.setEmail(usuario.getEmail());
-        usuarioExistente.setEstrato(usuario.getEstrato());
+        // Ya no actualizamos el estrato aquí
+        
         usuarioService.guardarUsuario(usuarioExistente);
 
         model.addAttribute("usuario", usuarioExistente);
@@ -159,6 +166,28 @@ public class UsuarioController {
             model.addAttribute("error", "No hay usuario autenticado");
             return "iniciosesion";
         }
+    }
+
+    @GetMapping("/mi-predio")
+    public String mostrarMiPredio(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        
+        if (usuarioLogueado == null) {
+            return "redirect:/login";
+        }
+        
+        // Verificar si el usuario tiene un predio registrado
+        Optional<PredioModel> predio = predioService.obtenerPredioPorUsuario(usuarioLogueado);
+        
+        if (predio.isPresent()) {
+            model.addAttribute("predio", predio.get());
+        }
+        
+        // Añadir tipos de predio para el formulario
+        model.addAttribute("tiposPredio", PredioModel.TipoPredio.values());
+        model.addAttribute("section", "mi-predio");
+        
+        return "perfil_datos";
     }
 
 }

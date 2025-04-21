@@ -43,7 +43,6 @@ public class CompletarRegistroController {
             @RequestParam(required = false) String nombre,
             @RequestParam String password,
             @RequestParam String confirmPassword,
-            @RequestParam Integer estrato,
             HttpSession session, 
             Model model) {
         
@@ -65,7 +64,7 @@ public class CompletarRegistroController {
             usuario.setNombre(nombre);
         }
         
-        usuario.setEstrato(estrato);
+        // Ya no se actualiza el estrato
         
         // Actualizar contraseña y marcar como registro completo
         usuario.setPassword(passwordEncoder.encode(password));
