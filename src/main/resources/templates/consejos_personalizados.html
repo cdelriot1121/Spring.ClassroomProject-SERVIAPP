@@ -30,7 +30,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
-  
 </head>
 
 <body>
@@ -76,6 +75,13 @@
             <h3>Estos son tus consejos obtenidos a la fecha acorde con el comportamiento de tus consumos en los diversos servicios públicos</h3>
         </div>
         
+        <!-- Botón para ver gráficos (recuperado del diseño anterior) -->
+        <div class="text-center mt-3 mb-4">
+            <a href="grafico-consumo" class="btn btn-primary">
+                <i class="bi bi-graph-up"></i> Ver Gráfico de Consumo
+            </a>
+        </div>
+        
         <!-- Contenedor principal -->
         <div class="container" style="max-width: 1200px;">
             <div class="row justify-content-center">
@@ -87,7 +93,7 @@
                         </div>
                         
                         <div class="card-body">
-                            <!-- Filtros -->
+                            <!-- Filtros con botón de limpiar (recuperado) -->
                             <div class="filtros-container d-flex flex-wrap gap-4 mb-4">
                                 <div>
                                     <label for="filtroMes"><i class="bi bi-calendar-month me-2"></i>Filtrar por Mes</label>
@@ -108,6 +114,13 @@
                                     <select id="filtroServicio" class="form-select">
                                         <option value="">Todos los servicios</option>
                                     </select>
+                                </div>
+                                
+                                <!-- Botón de limpiar filtros (recuperado) -->
+                                <div class="d-flex align-items-end">
+                                    <button id="limpiarFiltros" class="btn" style="border: none; background: transparent; padding: 0;" title="Limpiar filtros">
+                                        <i class="bi bi-x-circle-fill" style="font-size: 24px; color: #dc3545;"></i>
+                                    </button>
                                 </div>
                             </div>
             
@@ -136,6 +149,7 @@
                                                     <i class="bi bi-chat-square-text"></i> Ver Consejos
                                                 </button>
                                                 <ul class="lista-consejos" style="display: none;">
+                                                    <li th:if="${#lists.isEmpty(periodo.consejos)}" class="text-muted">No hay consejos disponibles para este consumo</li>
                                                     <li th:each="consejo : ${periodo.consejos}" th:text="${consejo.contenido}"></li>
                                                 </ul>
                                             </td>
@@ -155,8 +169,36 @@
         <div class="footer-content">
           <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
           <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
+          <ul class="enlaces-pie-pagina">
+              <li><a href="#" id="openModal-privacidad">Privacidad</a></li>
+          </ul>
         </div>
       </footer>
+
+      <!-- Modal de privacidad (recuperado) -->
+      <div id="termsModal-privacidad" class="modal">
+        <div class="modal-content">
+            <span class="cerrar-privacidad">&times;</span>
+            <h2>PRIVACIDAD</h2>
+            <p>
+            En ServiApp somos conscientes de la importancia de la privacidad y protección de los datos personales de nuestros usuarios. Por esta razón, nuestro deber con la seguridad de la información de nuestros usuarios está fundamentado en este marco legal que respalda todos nuestros procesos.<br><br>
+            
+            Las normas internacionales ofrecen un marco general para el tratamiento adecuado de la información de los usuarios. Aunque estas normativas no siempre tienen aplicación directa en Colombia, representan normativas que en ServiApp tratamos de cumplir para proteger la privacidad de nuestros usuarios. El convenio 108 del Consejo de Europa, por ejemplo, es una referencia clave que establece principios básicos sobre la protección de los datos personales frente a su tratamiento automatizado. El Reglamento General de Protección de Datos (GDPR) de la Unión Europea es un referente mundial en términos de la protección de la privacidad y, a pesar de que está dirigido a ciudadanos europeos, se puede considerar un modelo a seguir. De igual forma, los principios de los Derechos Humanos de las Naciones Unidas establecen la importancia de respetar la privacidad como un derecho humano.<br><br>
+            
+            En Colombia, el marco legal se consolida a partir de la Constitución Política Nacional, en la cual el artículo 15 nos expone sobre el derecho a la intimidad y protección de datos personales. En ServiApp, nos aseguramos de que nuestros usuarios puedan ejercer este derecho, permitiéndoles acceder y actualizar su información almacenada en nuestra base de datos cuando lo requieran. También nos basamos en el artículo 20, el cual protege el derecho a recibir información clara y veraz. Para nosotros, esto significa que todo lo relacionado con el tratamiento de datos será siempre transparente y comprensible.<br><br>
+            
+            La Ley 1581 de 2012, conocida como la Ley de Protección de Datos Personales, es la ley central de nuestra operación en Colombia. Esta ley establece los principios y procedimientos que debemos seguir al manejar los datos de nuestros usuarios, asegurando su privacidad y estableciendo obligaciones claras para nosotros como responsables de esa información. De igual forma, seguiremos la Ley 1266 de 2008, que regula específicamente el manejo de información financiera y crediticia, y la Ley 1273 de 2009, que tipifica los delitos informáticos y define las sanciones aplicables para quienes accedan sin autorización a sistemas informáticos, algo esencial para la seguridad de los datos que manejaremos en nuestra plataforma.<br><br>
+            
+            Además de estas leyes, ServiApp sigue las regulaciones emitidas a través de decretos. Por ejemplo, el Decreto 1377 de 2013 es importante, pues nos explica cómo debemos obtener el consentimiento de nuestros usuarios para poder recolectar y usar sus datos. En cada registro debemos asegurarnos de que los usuarios tengan claro para qué fines se usará su información. Por otro lado, el Decreto 886 de 2014, que aborda temas de ciberseguridad, nos ayuda a implementar medidas de protección adecuadas para evitar riesgos de seguridad.<br><br>
+            
+            Para las regulaciones a nivel local en la ciudad de Cartagena, cumplimos con los acuerdos municipales y ordenanzas locales que pueden influir en la manera en que gestionamos los servicios públicos y la información asociada.<br><br>
+            
+            El Código Penal Colombiano también es importante, ya que establece sanciones para quienes cometan delitos informáticos, como la violación de la privacidad o el uso indebido de los datos personales. En ServiApp seguimos estos lineamientos para prevenir cualquier incidente que pudiera comprometer la seguridad de la información.<br><br>
+            
+            Finalmente, aplicamos lo que establecen las resoluciones y circulares emitidas por organismos de control. La Resolución 002 de 2021 de la Superintendencia de Industria y Comercio (SIC) nos ofrece guías claras sobre cómo gestionar los datos personales en nuestro contexto tecnológico, mientras que la Circular Externa 005 de 2017 nos orienta sobre cómo manejar la información en sistemas digitales, garantizando que estemos al día con las mejores prácticas.
+            </p>
+        </div>
+      </div> 
 
     <script>
         function toggleConsejos(button) {
@@ -186,9 +228,9 @@
                 },
                 initComplete: function () {
                     const api = this.api();
-                    const columnaMes = api.column(1); 
-                    const columnaAno = api.column(2); 
-                    const columnaServicio = api.column(0); 
+                    const columnaMes = api.column(1); // Mes
+                    const columnaAno = api.column(2); // Año
+                    const columnaServicio = api.column(0); // Servicio
     
                     let meses = new Set();
                     let anos = new Set();
@@ -226,99 +268,171 @@
                         const ano = $('#filtroAnio').val();
                         const servicio = $('#filtroServicio').val();
     
-                        let regex = "";
-                        if (mes) {
-                            regex += `^${mes} `;
-                        }
-                        if (ano) {
-                            regex += `${ano} `;
-                        }
-                        if (servicio) {
-                            regex = regex ? regex + servicio : servicio;
-                        }
-    
-                        // Aplica el filtro
-                        api.columns([1, 3, 0]).every(function () {
-                            const column = this;
-                            column.search(regex, true, false).draw();
-                        });
+                        // Filtrado independiente por columna (recuperado de la versión anterior)
+                        api.column(1).search(mes || '', true, false);  // Mes
+                        api.column(2).search(ano || '', true, false);  // Año
+                        api.column(0).search(servicio || '', true, false); // Servicio
+                        
+                        api.draw();
                     }
     
                     // Aplicar filtro cuando el usuario cambia alguna opción
                     $('#filtroMes, #filtroAnio, #filtroServicio').on('change', filtrarPorMesAnoYServicio);
+                    
+                    // Botón para limpiar filtros (recuperado)
+                    $('#limpiarFiltros').on('click', function () {
+                        $('#filtroMes').val('');
+                        $('#filtroAnio').val('');
+                        $('#filtroServicio').val('');
+
+                        // Limpia las búsquedas en las columnas
+                        api.column(1).search('');
+                        api.column(2).search('');
+                        api.column(0).search('');
+
+                        api.draw(); // Redibuja la tabla
+                    });
                 }
             });
         });
 
-        
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      const footer = document.querySelector('footer');
-      
-      sidebar.classList.toggle('open');
-      content.classList.toggle('sidebar-open');
-      footer.classList.toggle('sidebar-open');
-    }
-
-    // Profile dropdown functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const profileButton = document.getElementById('profileButton');
-      const profileDropdown = document.getElementById('profileDropdown');
-      
-      if (profileButton && profileDropdown) {
-        profileButton.addEventListener('click', function() {
-          profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-        });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-            profileDropdown.style.display = 'none';
-          }
-        });
-      }
-
-      // Modal functionality
-      const modal = document.getElementById('mapModal');
-      const closeBtn = document.querySelector('.close');
-      
-      if (closeBtn) {
-        closeBtn.onclick = function() {
-          modal.style.display = 'none';
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+            const footer = document.querySelector('footer');
+            
+            sidebar.classList.toggle('open');
+            if (content) content.classList.toggle('sidebar-open');
+            if (footer) footer.classList.toggle('sidebar-open');
         }
-      }
-      
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = 'none';
-        }
-      }
-      
-      // Close sidebar when clicking outside on mobile
-      document.addEventListener('click', function(event) {
-        const sidebar = document.getElementById('sidebar');
-        const toggleBtn = document.querySelector('.toggle-btn');
-        
-        if (window.innerWidth <= 768 && sidebar && toggleBtn && 
-            !sidebar.contains(event.target) && 
-            !toggleBtn.contains(event.target) && 
-            sidebar.classList.contains('open')) {
-          toggleSidebar();
-        }
-      });
 
-      // Map buttons functionality (example for Afinia)
-      const btnAfinia = document.getElementById('btnAfinia');
-      if (btnAfinia) {
-        btnAfinia.addEventListener('click', function() {
-          const mapFrame = document.getElementById('mapFrame');
-          mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123456789!2d-75.123456789!3d10.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA3JzI0LjQiTiA3NcKwMDcnMjQuNCJX!5e0!3m2!1sen!2sco!4v1234567890";
-          document.getElementById('mapModal').style.display = 'block';
+        // Profile dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileButton = document.getElementById('profileButton');
+            const profileDropdown = document.getElementById('profileDropdown');
+            
+            if (profileButton && profileDropdown) {
+                profileButton.addEventListener('click', function() {
+                    profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                        profileDropdown.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Modal de privacidad
+            const modalPrivacidad = document.getElementById('termsModal-privacidad');
+            const openModalPrivacidad = document.getElementById('openModal-privacidad');
+            const closeModalPrivacidad = document.querySelector('.cerrar-privacidad');
+            
+            if (openModalPrivacidad && modalPrivacidad) {
+                openModalPrivacidad.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modalPrivacidad.style.display = 'block';
+                });
+            }
+            
+            if (closeModalPrivacidad && modalPrivacidad) {
+                closeModalPrivacidad.addEventListener('click', function() {
+                    modalPrivacidad.style.display = 'none';
+                });
+            }
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modalPrivacidad) {
+                    modalPrivacidad.style.display = 'none';
+                }
+            });
         });
-      }
-    });
-  </script>
+    </script>
+
+    <!-- Estilos adicionales para mantener la consistencia con la versión anterior -->
+    <style>
+        /* Ajustes para la tabla de consejos */
+        .tabla-consejos-personalizados {
+            width: 100% !important;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        
+        .tabla-consejos-personalizados thead th {
+            background-color: #007ccf;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            padding: 12px 15px;
+        }
+        
+        .tabla-consejos-personalizados tbody tr {
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .tabla-consejos-personalizados tbody tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tabla-consejos-personalizados td,
+        .tabla-consejos-personalizados th {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        /* Modal de privacidad ajustado */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 60%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .cerrar-privacidad {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .enlaces-pie-pagina {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .enlaces-pie-pagina li {
+            margin: 0 10px;
+        }
+        
+        .enlaces-pie-pagina a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
 
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script> 

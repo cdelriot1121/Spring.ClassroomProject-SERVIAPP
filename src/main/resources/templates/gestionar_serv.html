@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
-    <html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,107 +14,162 @@
     <link rel="stylesheet" href="/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!--BOXICOINS Y BOOTSTRAP-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 
     <!--Fuente Kanit-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/estilos_interfaz-usuario/style_gest_ser.css">
-
-
-<!-- Agrega esto en el <head> -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
-    </head>
-    <body>
-    
-      <!-- Header -->
-      <header>
+    <!-- SweetAlert2 para notificaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
         <div class="header-left">
-          <button class="toggle-btn" onclick="toggleSidebar()">
-            <i class="bi bi-list"></i>
-          </button>
-          <div class="header-logo">
-            <h1 class="header-title">ServiApp</h1>
-            <div class="mensaje_bienvenida" id="mensajeBienvenida">
-              <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
+            <button class="toggle-btn" onclick="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="header-logo">
+                <h1 class="header-title">ServiApp</h1>
+                <div class="mensaje_bienvenida" id="mensajeBienvenida">
+                    <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
+                </div>
             </div>
-          </div>
         </div>
     
         <div class="profile-menu">
-          <button class="profile-button" id="profileButton">
-            <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
-          </button>
-          <div class="profile-dropdown" id="profileDropdown">
-            <a href="datos-personales"><i class="bi bi-gear"></i> Configuración</a>
-            <a href="/"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
-          </div>
+            <button class="profile-button" id="profileButton">
+                <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
+            </button>
+            <div class="profile-dropdown" id="profileDropdown">
+                <a href="datos-personales"><i class="bi bi-gear"></i> Configuración</a>
+                <a href="/"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
+            </div>
         </div>
-      </header>
+    </header>
     
-      <!-- Sidebar -->
-      <div class="sidebar" id="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
         <a href="interfaz_inicio" class="active"><i class="bi bi-house-door-fill"></i> Inicio</a>
         <a href="registrar-servicio"><i class="bi bi-check-square"></i> Registrar Servicio</a>
         <a href="gestionar-servicio"><i class="bi bi-bar-chart-line"></i> Gestionar Servicio</a>
         <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i> Consejos de Ahorro</a>
         <a href="cortes"><i class="bi bi-clock-history"></i> Cortes</a>
         <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas de Atención</a>
-      </div>
+    </div>
     
+    <main class="consumo-main">
+        <div class="consumo-header"> 
+            <h2 class="consumo-title">ANALIZA TUS CONSUMOS</h2>
+            <p class="consumo-subtitle">
+                Con esta función podrás comparar tus consumos con tu promedio, 
+                el consumo de cada habitante de tu hogar y cómo se comportan 
+                estas cifras con respecto a tu ciudad, así como recibir tus 
+                consejos personalizados.
+            </p>
+        </div>
+    
+        <!-- Formulario -->
+        <section class="consumo-form-section">
+            <form id="servicio-form" class="consumo-form" action="/calcular-consumo" method="post">
+                <div class="form-group">
+                    <label for="servicio">Selecciona el Servicio:</label>
+                    <select name="servicio.id" id="servicio" class="form-control" required>
+                        <option value="" disabled selected>Selecciona un servicio</option>
+                        <option 
+                            th:each="servicio : ${servicios}" 
+                            th:value="${servicio.id}" 
+                            th:text="${servicio.tipo_servicio}"
+                            th:data-tipo="${servicio.tipo_servicio}">
+                        </option>
+                    </select>
+                </div>
+        
+                <div class="form-content">
+                    <div class="form-group">
+                        <label for="mes">Selecciona un mes:</label>
+                        <input type="month" id="mes" name="mes" class="form-control" min="2020-01" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="consumo">Consumo:</label>
+                        <div class="input-group">
+                            <input type="number" name="consumo" id="consumoNum" class="form-control" min="0" step="any" placeholder="Ingresa el consumo" required>
+                            <!-- Campo oculto para la unidad (importante para la funcionalidad) -->
+                            <input type="hidden" id="unidad" name="unidad">
+                        </div>
+                    </div>
+        
+                    <button type="submit" class="btn-submit">Enviar</button>
+                </div>
+            </form>
+        </section>
+    
+        <section id="cuadros-consumo" th:if="${promedioHogar != null}">
+            <div class="cuadro">
+                <h3>Tu consumo del Hogar actual</h3>
+                <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
+            </div>
+        
+            <div class="cuadro" th:classappend="${clasePromedioCartagena}">
+                <h3>Consumo comparado con promedio en Cartagena</h3>
+                <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
+            </div>
+        
+            <div class="cuadro">
+                <h3>Promedio Mensual por Habitante</h3>
+                <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
+            </div>
+        
+            <div class="cuadro">
+                <h3>Promedio Semanal</h3>
+                <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
+            </div>
+        </section>
+        
+        <div class="tips-box" id="tips-box" th:if="${consejos != null}">
+            <h3>Consejos Personalizados</h3>
+            <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>
+            <ul th:if="${!#lists.isEmpty(consejos)}">
+                <li th:each="consejo : ${consejos}" th:text="${consejo.contenido}"></li>
+            </ul>
+        </div>
+    </main>
 
-  <main class="consumo-main">
-    <div class="consumo-header"> 
-        <h2 class="consumo-title">ANALIZA TUS CONSUMOS</h2>
-        <p class="consumo-subtitle">
-            Con esta función podrás comparar tus consumos con tu promedio, 
-            el consumo de cada habitante de tu hogar y cómo se comportan 
-            estas cifras con respecto a tu ciudad, así como recibir tus 
-            consejos personalizados.
-        </p>
+    <!-- Pie de página -->
+    <footer class="mini-footer">
+        <div class="footer-content">
+            <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
+            <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- Modal de privacidad -->
+    <div id="termsModal-privacidad" class="modal">
+        <div class="modal-content">
+            <span class="cerrar-privacidad">&times;</span>
+            <h2>PRIVACIDAD</h2>
+            <p>
+                En ServiApp somos conscientes de la importancia de la privacidad y protección de los datos personales de nuestros usuarios. Por esta razón, nuestro deber con la seguridad de la información de nuestros usuarios está fundamentado en este marco legal que respalda todos nuestros procesos.<br><br>
+                
+                Las normas internacionales ofrecen un marco general para el tratamiento adecuado de la información de los usuarios. Aunque estas normativas no siempre tienen aplicación directa en Colombia, representan normativas que en ServiApp tratamos de cumplir para proteger la privacidad de nuestros usuarios. El convenio 108 del Consejo de Europa, por ejemplo, es una referencia clave que establece principios básicos sobre la protección de los datos personales frente a su tratamiento automatizado. El Reglamento General de Protección de Datos (GDPR) de la Unión Europea es un referente mundial en términos de la protección de la privacidad y, a pesar de que está dirigido a ciudadanos europeos, se puede considerar un modelo a seguir. De igual forma, los principios de los Derechos Humanos de las Naciones Unidas establecen la importancia de respetar la privacidad como un derecho humano.<br><br>
+                
+                <!-- Resto del contenido de privacidad... -->
+            </p>
+        </div>
     </div>
 
-    <!-- Formulario -->
-    <section class="consumo-form-section">
-        <form id="servicio-form" class="consumo-form" action="/calcular-consumo" method="post">
-            <div class="form-group">
-                <label for="servicio">Selecciona el Servicio:</label>
-                <select name="servicio.id" id="servicio" class="form-control" required>
-                    <option value="" disabled selected>Selecciona un servicio</option>
-                    <option 
-                        th:each="servicio : ${servicios}" 
-                        th:value="${servicio.id}" 
-                        th:text="${servicio.tipo_servicio}"
-                        th:data-tipo="${servicio.tipo_servicio}">
-                    </option>
-                </select>
-            </div>
-    
-            <div class="form-content">
-                <div class="form-group">
-                    <label for="mes">Selecciona un mes:</label>
-                    <input type="month" id="mes" name="mes" class="form-control" min="2020-01" required>
-                </div>
-    
-                <div class="form-group">
-                    <label for="consumo">Consumo:</label>
-                    <div class="input-group">
-                        <input type="number" name="consumo" id="consumoNum" class="form-control" min="0" step="any" placeholder="Ingresa el consumo" required>
-                    </div>
-                </div>
-    
-                <button type="submit" class="btn-submit">Enviar</button>
-            </div>
-        </form>
-    </section>
-</main>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascripts/barra_perfil.js"></script>
+    <script src="/javascripts/ventana_privacidad.js"></script>
     
     <script>
         // Establecer el mes máximo como el actual
@@ -123,12 +177,12 @@
         const año = hoy.getFullYear();
         const mes = String(hoy.getMonth() + 1).padStart(2, '0');
         document.getElementById('mes').max = `${año}-${mes}`;
-    
+        
         // Cambiar automáticamente unidad según servicio seleccionado
         document.getElementById('servicio').addEventListener('change', function () {
             const tipo = this.options[this.selectedIndex].textContent.toLowerCase();
             const unidadInput = document.getElementById('unidad');
-    
+        
             if (tipo.includes('agua') || tipo.includes('gas')) {
                 unidadInput.value = 'm3';
             } else if (tipo.includes('energía') || tipo.includes('luz') || tipo.includes('electricidad')) {
@@ -137,134 +191,117 @@
                 unidadInput.value = '';
             }
         });
-    </script>
-    
 
-
-
-
+        // Funcionalidad para mostrar automáticamente los cuadros de consumo y consejos si hay datos
+        document.addEventListener('DOMContentLoaded', function () {
+            const cuadrosConsumo = document.getElementById('cuadros-consumo');
+            const tipsBox = document.getElementById('tips-box');
     
-
-    <section id="cuadros-consumo" th:if="${promedioHogar != null}" style="display: none;">
-        <div class="cuadro">
-            <h3>Tu consumo del Hogar actual</h3>
-            <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
-        </div>
-    
-        <div class="cuadro" th:classappend="${clasePromedioCartagena}">
-            <h3>Consumo comparado con promedio en Cartagena</h3>
-            <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
-        </div>
-    
-        <div class="cuadro">
-            <h3>Promedio Mensual por Habitante</h3>
-            <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
-        </div>
-    
-        <div class="cuadro">
-            <h3>Promedio Semanal</h3>
-            <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
-        </div>
-
-    </section>
-    
-    
-    
-    
-    <div class="tips-box" id="tips-box" th:if="${consejos != null}" style="display: none;">
-        <h3>Consejos Personalizados</h3>
-        <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>
-        <ul th:if="${!#lists.isEmpty(consejos)}">
-            <li th:each="consejo : ${consejos}" th:text="${consejo.contenido}"></li>
-        </ul>
-    </div>
-</div>
-</main>
-
-</div>
-
- <!-- Pie de página -->
- <footer class="mini-footer">
-  <div class="footer-content">
-    <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
-    <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
-  </div>
-</footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const content = document.getElementById('content');
-        const footer = document.querySelector('footer');
-        
-        sidebar.classList.toggle('open');
-        content.classList.toggle('sidebar-open');
-        footer.classList.toggle('sidebar-open');
-      }
-  
-      // Profile dropdown functionality
-      document.addEventListener('DOMContentLoaded', function() {
-        const profileButton = document.getElementById('profileButton');
-        const profileDropdown = document.getElementById('profileDropdown');
-        
-        if (profileButton && profileDropdown) {
-          profileButton.addEventListener('click', function() {
-            profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-          });
-          
-          // Close dropdown when clicking outside
-          document.addEventListener('click', function(event) {
-            if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-              profileDropdown.style.display = 'none';
+            if (cuadrosConsumo) {
+                cuadrosConsumo.style.display = 'flex';
             }
-          });
-        }
-  
-        // Modal functionality
-        const modal = document.getElementById('mapModal');
-        const closeBtn = document.querySelector('.close');
-        
-        if (closeBtn) {
-          closeBtn.onclick = function() {
-            modal.style.display = 'none';
-          }
-        }
-        
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = 'none';
-          }
-        }
-        
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-          const sidebar = document.getElementById('sidebar');
-          const toggleBtn = document.querySelector('.toggle-btn');
-          
-          if (window.innerWidth <= 768 && sidebar && toggleBtn && 
-              !sidebar.contains(event.target) && 
-              !toggleBtn.contains(event.target) && 
-              sidebar.classList.contains('open')) {
-            toggleSidebar();
-          }
+            if (tipsBox) {
+                tipsBox.style.display = 'block';
+            }
         });
-  
-        // Map buttons functionality (example for Afinia)
-        const btnAfinia = document.getElementById('btnAfinia');
-        if (btnAfinia) {
-          btnAfinia.addEventListener('click', function() {
-            const mapFrame = document.getElementById('mapFrame');
-            mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123456789!2d-75.123456789!3d10.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA3JzI0LjQiTiA3NcKwMDcnMjQuNCJX!5e0!3m2!1sen!2sco!4v1234567890";
-            document.getElementById('mapModal').style.display = 'block';
-          });
-        }
-  
-        // Add similar event listeners for btnAguas and btnSurtigas
-      });
+
+        // Funcionalidad para mostrar SweetAlert cuando hay errores
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorMsg = document.querySelector('[data-error]');
+            if (errorMsg) {
+                const mensaje = errorMsg.getAttribute('data-error');
+                Swal.fire({
+                    title: "Consumo ya registrado",
+                    text: mensaje,
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonText: "Aceptar",
+                    background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        confirmButton: 'btn-error'
+                    },
+                    didRender: () => {
+                        const logo = document.createElement('img');
+                        logo.src = '/img_local/logo-pagina-serviapp.png';
+                        logo.style.width = '155px';
+                        logo.style.display = 'block';
+                        logo.style.margin = '0 auto 10px';
+                        Swal.getIcon().before(logo);
+
+                        const errorIcon = Swal.getIcon();
+                        errorIcon.style.position = 'relative';
+                        errorIcon.style.top = '-10px';
+                        errorIcon.style.marginBottom = '10px';
+                    }
+                });
+            }
+        });
     </script>
 
+    <!-- SweetAlert para errores -->
+    <script th:if="${error}">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mensaje = "[[${error}]]";
+            const tipoServicio = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex]?.textContent || 'servicio';
+            
+            Swal.fire({
+                title: "Consumo ya registrado",
+                text: mensaje,
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: "Aceptar",
+                background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+                customClass: {
+                    popup: 'swal-custom-popup',
+                    confirmButton: 'btn-error'
+                },
+                didRender: () => {
+                    const logo = document.createElement('img');
+                    logo.src = '/img_local/logo-pagina-serviapp.png';
+                    logo.style.width = '155px';
+                    logo.style.display = 'block';
+                    logo.style.margin = '0 auto 10px';
+                    Swal.getIcon().before(logo);
 
+                    const errorIcon = Swal.getIcon();
+                    errorIcon.style.position = 'relative';
+                    errorIcon.style.top = '-10px';
+                    errorIcon.style.marginBottom = '10px';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+            const footer = document.querySelector('footer');
+            
+            sidebar.classList.toggle('open');
+            content?.classList.toggle('sidebar-open');
+            footer?.classList.toggle('sidebar-open');
+        }
+    
+        // Profile dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileButton = document.getElementById('profileButton');
+            const profileDropdown = document.getElementById('profileDropdown');
+            
+            if (profileButton && profileDropdown) {
+                profileButton.addEventListener('click', function() {
+                    profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                        profileDropdown.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
-
 </html>
