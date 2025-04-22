@@ -119,7 +119,7 @@
                         <td th:text="${usuario.id}"></td>
                         <td th:text="${usuario.nombre}"></td>
                         <td th:text="${usuario.email}"></td>
-                        <td th:text="${usuario.estrato}"></td>
+                        <td th:text="${usuario.estratoDesdePredio != null ? usuario.estratoDesdePredio : 'No definido'}"></td>
                         <td th:text="${usuario.estado}"></td>
                         <!-- Nuevo: mostrar estado -->
 

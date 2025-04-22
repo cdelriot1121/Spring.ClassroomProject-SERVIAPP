@@ -1,7 +1,6 @@
 package com.example.ServiApp.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,7 +74,11 @@ public class AdminController {
     @GetMapping("/interfaz-admin")
     public String listarUsuarios(Model model) {
         List<UsuarioModel> usuarios = usuarioService.obtenerUsuarios();
+        
+        // Opcional: agrega información adicional para la vista
         model.addAttribute("usuarios", usuarios);
+        model.addAttribute("hayUsuariosSinPredio", usuarios.stream().anyMatch(u -> u.getPredio() == null));
+        
         return "interfaz-admin";
     }
 
