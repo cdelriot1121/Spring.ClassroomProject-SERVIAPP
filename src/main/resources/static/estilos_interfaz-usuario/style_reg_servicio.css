@@ -1,135 +1,380 @@
-/* Estilo del formulario de registro de servicio */
-.contenedor {
-    width: 100%;
-    max-width: 500px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.322);
-    padding: 1.5rem;
-    margin: 5px auto;
+
+:root {
+    --primary-50: #f0f7ff;
+    --primary-100: #e0effe;
+    --primary-200: #b9dffe;
+    --primary-300: #7cc7fd;
+    --primary-400: #36adfa;
+    --primary-500: #0c94eb;
+    --primary-600: #6adcf5;
+    --primary-700: #00b2e0;
+    --primary-800: #005ea3;
+    --primary-900: #0b436f;
+    --primary-950: #072a4a;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-.caja-registro-serv {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #9efcff, #36b2fa);
-    padding: 2rem;
-    border-radius: 20px;
-}
-
-.formulario-registro-serv {
-    width: 100%;
-    padding: 2.5rem;
-    background: linear-gradient(135deg, #ffffff, #c3eeff);
-    border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.801);
-}
-
-.formulario-registro-serv h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+body {
+    margin: 0;
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
     color: #333;
+    background-color: var(--primary-50);
+    padding-top: 80px;
 }
 
-.formulario-registro-serv input {
+/* HEADER */
+header {
     width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 1rem;
+    height: 80px;
+    background: linear-gradient(to right, var(--primary-600), var(--primary-800));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
-.formulario-registro-serv button {
-    width: 100%;
-    padding: 0.8rem;
-    background: linear-gradient(45deg, #cffff9, #6bcdfd);
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-title {
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+.toggle-btn {
+    font-size: 24px;
+    color: white;
+    background-color: transparent;
     border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    color: black;
     cursor: pointer;
-    transition: background 0.4s ease;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.342);
-    margin: 0 auto;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* PROFILE MENU */
+.profile-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    transition: var(--transition);
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: var(--box-shadow);
+    z-index: 1001;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--primary-100);
+}
+
+.profile-dropdown a {
+    color: var(--primary-800);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.profile-dropdown a:hover {
+    background-color: var(--primary-100);
+    color: var(--primary-700);
+}
+
+.profile-dropdown.show {
     display: block;
 }
 
+/* SIDEBAR */
+.sidebar {
+width: 280px;
+height: 100vh;
+background: linear-gradient(to bottom, var(--primary-700), var(--primary-900));
+color: white;
+display: flex;
+flex-direction: column;
+padding-top: 100px;
+position: fixed;
+left: 0;
+top: 0;
+transform: translateX(-100%);
+transition: var(--transition);
+z-index: 999;
+}
+
+.sidebar.open {
+transform: translateX(0);
+}
+
+.sidebar a {
+color: white;
+text-decoration: none;
+padding: 16px 25px;
+display: flex;
+align-items: center;
+transition: var(--transition);
+font-weight: 500;
+border-left: 4px solid transparent;
+}
+
+.sidebar a:hover {
+background: rgba(255, 255, 255, 0.15);
+border-left: 4px solid var(--primary-300);
+padding-left: 30px;
+}
+
+.sidebar i {
+margin-right: 12px;
+font-size: 20px;
+color: var(--primary-300);
+}
+
+.sidebar a.active i {
+color: white;
+}
+
+/* FORMULARIO DE REGISTRO */
+/* Estilo del formulario de registro de servicio */
+.contenedor {
+width: 100%;
+max-width: 500px;
+margin-bottom: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: white;
+border-radius: 20px;
+box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.322);
+padding: 1.5rem;
+margin: 5px auto;
+}
+
+.caja-registro-serv {
+display: flex;
+width: 100%;
+justify-content: center;
+align-items: center;
+background: linear-gradient(135deg, #9efcff, #36b2fa);
+padding: 2rem;
+border-radius: 20px;
+}
+
+.formulario-registro-serv {
+width: 100%;
+padding: 2.5rem;
+background: linear-gradient(135deg, #ffffff, #c3eeff);
+border-radius: 20px;
+box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.801);
+}
+
+.formulario-registro-serv h2 {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+color: #333;
+}
+
+.formulario-registro-serv input {
+width: 100%;
+padding: 0.8rem;
+margin-bottom: 1rem;
+border: 1px solid #ccc;
+border-radius: 10px;
+font-size: 1rem;
+}
+
+.formulario-registro-serv button {
+width: 100%;
+padding: 0.8rem;
+background: linear-gradient(45deg, #cffff9, #6bcdfd);
+border: none;
+border-radius: 10px;
+font-size: 1rem;
+color: black;
+cursor: pointer;
+transition: background 0.4s ease;
+box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.342);
+margin: 0 auto;
+display: block;
+}
+
 .formulario-registro-serv button:hover {
-    background: linear-gradient(45deg, #A0E3FF, #FFD1FF);
+background: linear-gradient(45deg, #A0E3FF, #FFD1FF);
 }
 
 .formulario-registro-serv p {
-    text-align: center;
-    margin-top: 1rem;
+text-align: center;
+margin-top: 1rem;
 }
 
 abbr[title] {
-    position: relative;
-    cursor: pointer;
-    overflow: visible;
+position: relative;
+cursor: pointer;
+overflow: visible;
 }
 
 abbr[title]::after {
-    content: "";
-    position: absolute;
-    top: 1.5em;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    height: 150px;
-    background-image: url('/img_local/poliza2.gif');
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+content: "";
+position: absolute;
+top: 1.5em;
+left: 50%;
+transform: translateX(-50%);
+width: 400px;
+height: 150px;
+background-image: url('/img_local/poliza2.gif');
+background-size: contain;
+background-repeat: no-repeat;
+opacity: 0;
+transition: opacity 0.4s ease-in-out;
+border: 1px solid #ddd;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+z-index: 10;
 }
 
 abbr[title]:hover::after {
-    opacity: 1;
-    animation: fadeIn 0.5s ease-in-out forwards;
+opacity: 1;
+animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+from {
+opacity: 0;
+transform: translateY(-10px) scale(0.95);
+}
+to {
+opacity: 1;
+transform: translateY(0) scale(1);
+}
 }
 
 .info {
-    text-align: left;
-    margin-top: 20px;
-    font-size: x-large;
+text-align: left;
+margin-top: 20px;
+font-size: x-large;
 }
 
 .btn-confirmar {
-    background-color: #28a745; 
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
+background-color: #28a745; 
+color: white;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+cursor: pointer;
+border-radius: 5px;
 }
 
 .btn-confirmar:hover {
-    background-color: #218838;
+background-color: #218838;
 }
 
+@media (max-width: 768px) {
+.contenedor {
+max-width: 90%;
+padding: 1rem;
+}
+
+.formulario-registro-serv {
+padding: 1.5rem;
+}
+
+.formulario-registro-serv h2 {
+font-size: 2rem;
+}
+
+abbr[title]::after {
+width: 300px;
+height: 120px;
+}
+}
+
+@media (max-width: 480px) {
+.contenedor {
+max-width: 100%;
+padding: 1rem;
+}
+
+.formulario-registro-serv h2 {
+font-size: 1.8rem;
+}
+
+.formulario-registro-serv input {
+font-size: 0.9rem;
+}
+
+.formulario-registro-serv button {
+font-size: 0.9rem;
+}
+
+abbr[title]::after {
+width: 200px;
+height: 100px;
+}
+}
+/* FOOTER */
+.mini-footer {
+    background: linear-gradient(to right, var(--primary-800), var(--primary-600));
+    color: white;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    height: 40px;
+    width: auto;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .contenedor {
         max-width: 90%;
@@ -143,14 +388,21 @@ abbr[title]:hover::after {
     .formulario-registro-serv h2 {
         font-size: 2rem;
     }
-
-    abbr[title]::after {
-        width: 300px;
-        height: 120px;
-    }
 }
 
 @media (max-width: 480px) {
+    header {
+        padding: 0 15px;
+    }
+
+    .header-title {
+        font-size: 22px;
+    }
+
+    .mensaje_bienvenida p {
+        display: none;
+    }
+
     .contenedor {
         max-width: 100%;
         padding: 1rem;
@@ -160,16 +412,24 @@ abbr[title]:hover::after {
         font-size: 1.8rem;
     }
 
-    .formulario-registro-serv input {
-        font-size: 0.9rem;
-    }
-
+    .formulario-registro-serv input,
     .formulario-registro-serv button {
         font-size: 0.9rem;
     }
+}
 
-    abbr[title]::after {
-        width: 200px;
-        height: 100px;
-    }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;        
+    justify-content: center;    
+    padding-top: 0;            
 }
