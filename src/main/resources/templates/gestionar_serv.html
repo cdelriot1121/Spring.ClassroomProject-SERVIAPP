@@ -102,7 +102,8 @@
                         <label for="consumo">Consumo:</label>
                         <div class="input-group">
                             <input type="number" name="consumo" id="consumoNum" class="form-control" min="0" step="any" placeholder="Ingresa el consumo" required>
-                            <!-- Campo oculto para la unidad (importante para la funcionalidad) -->
+                            <input type="text" class="form-control unidad-visible" id="unidadVisible" readonly style="max-width: 70px; background-color: #f8f9fa; text-align: center;">
+                            <!-- Mantener el campo oculto para la funcionalidad -->
                             <input type="hidden" id="unidad" name="unidad">
                         </div>
                     </div>
@@ -182,13 +183,17 @@
         document.getElementById('servicio').addEventListener('change', function () {
             const tipo = this.options[this.selectedIndex].textContent.toLowerCase();
             const unidadInput = document.getElementById('unidad');
-        
+            const unidadVisible = document.getElementById('unidadVisible');
+            
             if (tipo.includes('agua') || tipo.includes('gas')) {
                 unidadInput.value = 'm3';
+                unidadVisible.value = 'm³';
             } else if (tipo.includes('energía') || tipo.includes('luz') || tipo.includes('electricidad')) {
                 unidadInput.value = 'kwh';
+                unidadVisible.value = 'kWh';
             } else {
                 unidadInput.value = '';
+                unidadVisible.value = '';
             }
         });
 
@@ -197,11 +202,25 @@
             const cuadrosConsumo = document.getElementById('cuadros-consumo');
             const tipsBox = document.getElementById('tips-box');
     
-            if (cuadrosConsumo) {
+            if (cuadrosConsumo && cuadrosConsumo.hasChildNodes()) {
                 cuadrosConsumo.style.display = 'flex';
             }
-            if (tipsBox) {
+            
+            if (tipsBox && tipsBox.hasChildNodes()) {
                 tipsBox.style.display = 'block';
+            }
+            
+            // Si tenemos un servicio seleccionado, actualizar la unidad visible
+            const servicio = document.getElementById('servicio');
+            if (servicio && servicio.selectedIndex > 0) {
+                const tipo = servicio.options[servicio.selectedIndex].textContent.toLowerCase();
+                const unidadVisible = document.getElementById('unidadVisible');
+                
+                if (tipo.includes('agua') || tipo.includes('gas')) {
+                    unidadVisible.value = 'm³';
+                } else if (tipo.includes('energía') || tipo.includes('luz') || tipo.includes('electricidad')) {
+                    unidadVisible.value = 'kWh';
+                }
             }
         });
 

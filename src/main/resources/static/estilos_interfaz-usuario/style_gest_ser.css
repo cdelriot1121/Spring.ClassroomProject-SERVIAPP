@@ -402,6 +402,119 @@ footer {
   margin: 0;
 }
 
+/* Estilos para los cuadros de consumo */
+#cuadros-consumo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 40px auto;
+  justify-content: center;
+  max-width: 1200px;
+}
+
+.cuadro {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px 20px;
+  text-align: center;
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 5px solid var(--primary-600);
+}
+
+.cuadro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cuadro h3 {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.cuadro p {
+  color: var(--primary-700);
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Estilos para cuadros con consumo alto o bajo */
+.alto {
+  border-left: 5px solid #dc3545;
+}
+
+.alto p {
+  color: #dc3545;
+}
+
+.bajo {
+  border-left: 5px solid #28a745;
+}
+
+.bajo p {
+  color: #28a745;
+}
+
+/* Estilos para la caja de consejos si no existen ya */
+.tips-box {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin: 30px auto;
+  max-width: 800px;
+  border-left: 5px solid #17a2b8;
+}
+
+.tips-box h3 {
+  color: #17a2b8;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tips-box ul {
+  padding-left: 20px;
+}
+
+.tips-box li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+/* Estilos para el campo de unidad visible */
+.unidad-visible {
+  border-left: 0;
+  font-weight: bold;
+  color: var(--primary-700);
+  text-align: center !important;
+}
+
+.input-group .form-control:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Ajustes responsive para los cuadros de consumo */
+@media (max-width: 768px) {
+  #cuadros-consumo {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cuadro {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
 /* Responsive mejoras */
 @media (max-width: 992px) {
   .content {
