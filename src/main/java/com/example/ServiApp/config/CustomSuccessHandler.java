@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
+import com.example.ServiApp.services.PredioService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,6 +28,9 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     // Repositorio para acceder a los datos de usuario en la base de datos
     private final UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PredioService predioService;
 
     /**
      * Constructor con inyección de dependencias.
@@ -83,6 +87,22 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 usuario.esAdministrador() ? "adminLogueado" : "usuarioLogueado", 
                 usuario
             );
+            
+            // Si es un usuario normal (no administrador)
+            if (!usuario.esAdministrador()) {
+                // Verificar si necesita completar registro (para OAuth2)
+                if (!usuario.isRegistroCompleto()) {
+                    response.sendRedirect("/completar-registro");
+                    return;
+                }
+                
+                // Verificar si tiene predio registrado
+                boolean tienePredio = predioService.existePredioParaUsuario(usuario.getId());
+                if (!tienePredio) {
+                    response.sendRedirect("/registrar-predio-obligatorio");
+                    return;
+                }
+            }
             
             System.out.println("Usuario almacenado en sesión: " + usuario.getNombre() + " con rol: " + usuario.getRol());
         } else {
