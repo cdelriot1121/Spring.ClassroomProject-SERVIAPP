@@ -1,85 +1,135 @@
-body {
-    background-color: #f0f4f8;
-    font-family: 'Arial', sans-serif;
-    color: #333333;
+:root {
+    --primary-50: #f0f7ff;
+    --primary-100: #e0effe;
+    --primary-200: #b9dffe;
+    --primary-300: #7cc7fd;
+    --primary-400: #36adfa;
+    --primary-500: #0c94eb;
+    --primary-600: #6adcf5;
+    --primary-700: #00b2e0;
+    --primary-800: #005ea3;
+    --primary-900: #0b436f;
+    --primary-950: #072a4a;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
     line-height: 1.6;
-}
-
-.consejos h1 {
-    color: #004a99;
-    margin-top: 8px;
-    margin-bottom: 10px;
-    font-size: 30px;
+    color: #333;
+    background-color: var(--primary-50);
+  }
+  
+  .consejos h1, .consejos h3 {
     text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .consejos h1 {
+    color: #004a99;
+    font-size: 30px;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-.consejos h3 {
+    margin-top: 8px;
+  }
+  
+  .consejos h3 {
     color: #34495e;
-    margin-bottom: 20px;
     font-size: 24px;
-    text-align: center;
     font-weight: 400;
-}
-
-table {
-    width: 90%;
-    margin: 30px auto;
+  }
+  
+  /* Tablas */
+  table, #tablaConsejos {
     border-collapse: separate;
     border-spacing: 0;
-    font-size: 0.95em;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.tabla-consejos-personalizados {
-    margin-bottom: 20px;
-}
-
-thead th {
+    margin: 30px auto;
+    font-size: 0.95em;
+    width: 90%;
+  }
+  
+  #tablaConsejos {
+    width: 100%;
+    max-width: 1200px;
+    table-layout: fixed;
+  }
+  
+  #tablaConsejos th, #tablaConsejos td,
+  .tabla-consejos-personalizados th,
+  .tabla-consejos-personalizados td {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    word-wrap: break-word;
+  }
+  
+  thead th {
     background-color: #3498db;
     color: white;
     font-weight: bold;
     padding: 12px;
-    text-align: left;
     text-transform: uppercase;
-    font-size: 0.9em;
     letter-spacing: 0.5px;
-}
-
-tbody tr {
-    background-color: #ffffff;
+    font-size: 0.9em;
+  }
+  
+  tbody tr {
+    background-color: #fff;
     transition: background-color 0.3s ease;
-    
-}
-
-tbody tr:nth-child(odd) {
+  }
+  
+  tbody tr:nth-child(odd) {
     background-color: #ecf0f1;
-}
-
-tbody tr:hover {
+  }
+  
+  tbody tr:hover {
     background-color: #d5e8f7;
-    
-}
-
-td {
+  }
+  
+  td {
     padding: 10px;
     border-bottom: 1px solid #bdc3c7;
-    
-}
-
-td:nth-child(3) {
+  }
+  
+  td:nth-child(3) {
     font-weight: bold;
-}
-
-td:nth-child(4) {
+  }
+  
+  td:nth-child(4) {
     font-size: 1.2em;
-    text-align: center;
-}
-
-.modal {
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .tabla-pequena th, .tabla-pequena td {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  table.dataTable thead th {
+    font-size: 0.9rem;
+  }
+  
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    background-color: #f8f9fa;
+  }
+  
+  /* Modal */
+  .modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -89,125 +139,432 @@ td:nth-child(4) {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
+  }
+  
+  .modal-content {
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-}
-
-.close {
+  }
+  
+  .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-}
-
-
-@media (max-width: 768px) {
-    table {
-        width: 95%;
-        font-size: 0.85em;
-    }
-
-    .consejos h1 {
-        font-size: 28px;
-    }
-
-    .consejos h3 {
-        font-size: 24px;
-    }
-}
-
-
-.custom-button {
+  }
+  
+  /* Botón personalizado */
+  .custom-button {
     background: linear-gradient(45deg, #cffff9, #6bcdfd);
-    color: #000; 
-    border: none; 
+    color: #000;
+    border: none;
     padding: 10px 20px;
-    border-radius: 5px; 
-    font-size: 16px; 
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s ease; 
-}
-
-.custom-button:hover {
-    background: linear-gradient(45deg, #6bcdfd, #cffff9); 
-}
-
-
-
-#tablaConsejos {
+    transition: background 0.3s ease;
+  }
+  
+  .custom-button:hover {
+    background: linear-gradient(45deg, #6bcdfd, #cffff9);
+  }
+  
+  /* Header */
+  header {
     width: 100%;
+    height: 80px;
+    background: linear-gradient(to right, var(--primary-600), var(--primary-800));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .header-left, .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .header-logo-img {
+    height: 40px;
+    filter: brightness(0) invert(1);
+  }
+  
+  .header-title {
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    font-family: 'Kanit', sans-serif;
+  }
+  
+  .mensaje_bienvenida p {
+    margin: 0;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    margin-left: 15px;
+    padding-left: 15px;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .toggle-btn, .profile-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: var(--transition);
+  }
+  
+  .toggle-btn:hover {
+    color: var(--primary-200);
+    transform: scale(1.1);
+  }
+  
+  .profile-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    transition: var(--transition);
+  }
+  
+  .profile-button:hover .profile-avatar {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  .profile-menu {
+    position: relative;
+  }
+  
+  .profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: var(--box-shadow);
+    z-index: 1;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--primary-100);
+  }
+  
+  .profile-dropdown a {
+    color: var(--primary-800);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: var(--transition);
+  }
+  
+  .profile-dropdown a:hover {
+    background-color: var(--primary-100);
+    color: var(--primary-700);
+  }
+  
+  .profile-menu:hover .profile-dropdown {
+    display: block;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(to bottom, var(--primary-700), var(--primary-900));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    transition: var(--transition);
+    z-index: 999;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 16px 25px;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+    font-weight: 500;
+    border-left: 4px solid transparent;
+  }
+  
+  .sidebar a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid var(--primary-300);
+    padding-left: 30px;
+  }
+  
+  .sidebar i {
+    margin-right: 12px;
+    font-size: 20px;
+    color: var(--primary-300);
+  }
+  
+  .sidebar a.active i {
+    color: white;
+  }
+  
+  /* Footer */
+  footer, .mini-footer {
+    background: linear-gradient(to right, #005ea3, #0b436f);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    margin-top: auto;
+  }
+  
+  .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    table-layout: fixed;
-}
-
-#tablaConsejos th, #tablaConsejos td {
-    padding: 6px 10px;
+  }
+  
+  .footer-logo {
+    height: 25px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-text {
+    color: white;
+    font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    word-wrap: break-word;
-    text-align: center;
-}
-
-#tablaConsejos th:nth-child(1), #tablaConsejos td:nth-child(1) {
-    width: 20%;
-}
-
-#tablaConsejos th:nth-child(2), #tablaConsejos td:nth-child(2) {
-    width: 15%;
-}
-
-#tablaConsejos th:nth-child(3), #tablaConsejos td:nth-child(3) {
-    width: 15%;
-}
-
-#tablaConsejos th:nth-child(4), #tablaConsejos td:nth-child(4) {
-    width: 10%;
-}
-
-#tablaConsejos th:nth-child(5), #tablaConsejos td:nth-child(5) {
-    width: 10%;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-.tabla-consejos-personalizados th,
-.tabla-consejos-personalizados td {
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-#tablaConsejos th {
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.tabla-pequena th {
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-.tabla-pequena td {
-    font-size: 0.875rem;
-}
-
-.card {
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.card-body {
-    background-color: #f8f9fa;
-}
-
-table.dataTable thead th {
-    font-size: 0.9rem;
-}
+    margin: 0;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    table {
+      width: 95%;
+      font-size: 0.85em;
+    }
+    .consejos h1 {
+      font-size: 28px;
+    }
+    .consejos h3 {
+      font-size: 24px;
+    }
+  }
+    <style>
+          /* Estilos generales */
+          body {
+              font-family: 'Kanit', sans-serif;
+              background-color: #f5f9ff;
+              color: #333;
+          }
+          
+          /* Encabezado de consejos */
+          .consejos-header {
+              background: linear-gradient(135deg, #007ccf, #00b4d8);
+              color: white;
+              padding: 2.5rem 1rem;
+              margin-bottom: 2rem;
+              border-radius: 0 0 20px 20px;
+              box-shadow: 0 4px 20px rgba(0, 116, 217, 0.15);
+              text-align: center;
+          }
+          
+          .consejos-header h1 {
+              font-size: 2.5rem;
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+              text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          
+          .consejos-header h3 {
+              font-size: 1.2rem;
+              font-weight: 300;
+              opacity: 0.9;
+              max-width: 800px;
+              margin: 0 auto;
+              line-height: 1.6;
+          }
+          
+          /* Tarjeta principal */
+          .consejos-card {
+              border: none;
+              border-radius: 15px;
+              box-shadow: 0 10px 30px rgba(0, 82, 217, 0.1);
+              overflow: hidden;
+              margin-bottom: 3rem;
+          }
+          
+          .consejos-card .card-header {
+              background: linear-gradient(to right, #007ccf, #00a8e8);
+              color: white;
+              font-size: 1.25rem;
+              font-weight: 500;
+              padding: 1.25rem 1.5rem;
+              border-bottom: none;
+          }
+          
+          /* Filtros */
+          .filtros-container {
+              background-color: #f8fafc;
+              padding: 1.5rem;
+              border-radius: 10px;
+              margin-bottom: 1.5rem;
+              border: 1px solid #e2e8f0;
+          }
+          
+          .filtros-container label {
+              font-weight: 500;
+              color: #4a5568;
+              margin-bottom: 0.5rem;
+              display: block;
+          }
+          
+          .filtros-container .form-select {
+              border-radius: 8px;
+              border: 1px solid #cbd5e0;
+              padding: 0.5rem 1rem;
+              min-width: 200px;
+              transition: all 0.3s ease;
+          }
+          
+          .filtros-container .form-select:focus {
+              border-color: #007ccf;
+              box-shadow: 0 0 0 0.25rem rgba(0, 124, 207, 0.25);
+          }
+          
+          /* Tabla de consejos */
+          .tabla-consejos-personalizados {
+              width: 100% !important;
+              border-collapse: separate;
+              border-spacing: 0 8px;
+          }
+          
+          .tabla-consejos-personalizados thead th {
+              background-color: #007ccf;
+              color: white;
+              font-weight: 500;
+              text-align: center;
+              padding: 12px 15px;
+              font-size: 0.95rem;
+              border: none;
+              position: sticky;
+              top: 0;
+          }
+          
+          .tabla-consejos-personalizados tbody tr {
+              background-color: white;
+              transition: all 0.3s ease;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+              border-radius: 8px;
+          }
+          
+          .tabla-consejos-personalizados tbody tr:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 5px 15px rgba(0, 116, 217, 0.15);
+          }
+          
+          .tabla-consejos-personalizados tbody td {
+              padding: 12px 15px;
+              vertical-align: middle;
+              border: none;
+              font-size: 0.9rem;
+          }
+          
+          .tabla-consejos-personalizados tbody tr td:first-child {
+              border-radius: 8px 0 0 8px;
+          }
+          
+          .tabla-consejos-personalizados tbody tr td:last-child {
+              border-radius: 0 8px 8px 0;
+          }
+          
+          /* Botón de consejos */
+          .btn-consejos {
+              background: linear-gradient(135deg, #00b4d8, #007ccf);
+              color: white;
+              border: none;
+              border-radius: 8px;
+              padding: 8px 16px;
+              font-weight: 500;
+              transition: all 0.3s ease;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+          }
+          
+          .btn-consejos:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+              color: white;
+          }
+          
+          .btn-consejos i {
+              margin-right: 6px;
+          }
+          
+          /* Lista de consejos */
+          .lista-consejos {
+              background-color: #f8fafc;
+              border-radius: 8px;
+              padding: 15px;
+              margin-top: 10px;
+              border-left: 4px solid #007ccf;
+              box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.03);
+          }
+          
+          .lista-consejos li {
+              padding: 8px 0;
+              border-bottom: 1px dashed #e2e8f0;
+              color: #4a5568;
+          }
+          
+          .lista-consejos li:last-child {
+              border-bottom: none;
+          }
+          
+          /* Responsive */
+          @media (max-width: 768px) {
+              .consejos-header h1 {
+                  font-size: 2rem;
+              }
+              
+              .consejos-header h3 {
+                  font-size: 1rem;
+              }
+              
+              .filtros-container {
+                  flex-direction: column;
+                  gap: 1rem;
+              }
+              
+              .filtros-container > div {
+                  width: 100%;
+              }
+              
+              .tabla-consejos-personalizados {
+                  font-size: 0.85rem;
+              }
+          }
+ 

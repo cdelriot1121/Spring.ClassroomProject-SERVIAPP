@@ -3,12 +3,14 @@ package com.example.ServiApp.config;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
+import com.example.ServiApp.services.PredioService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,9 +22,11 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final UsuarioRepository usuarioRepository;
+    private final PredioService predioService;
 
-    public CustomOAuth2SuccessHandler(UsuarioRepository usuarioRepository) {
+    public CustomOAuth2SuccessHandler(UsuarioRepository usuarioRepository, PredioService predioService) {
         this.usuarioRepository = usuarioRepository;
+        this.predioService = predioService;
     }
 
     @Override
@@ -49,6 +53,13 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             // Verificar si necesita completar su registro
             if (!usuario.isRegistroCompleto()) {
                 response.sendRedirect("/completar-registro");
+                return;
+            }
+
+            // Agregar verificación de predio:
+            boolean tienePredio = predioService.existePredioParaUsuario(usuario.getId());
+            if (!tienePredio) {
+                response.sendRedirect("/registrar-predio-obligatorio");
                 return;
             }
             

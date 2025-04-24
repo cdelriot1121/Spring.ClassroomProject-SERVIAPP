@@ -17,9 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.example.ServiApp.filter.PredioRegistroFilter;
 import com.example.ServiApp.repository.UsuarioRepository;
 import com.example.ServiApp.services.CaptchaService;
+import com.example.ServiApp.services.PredioService;
 
 /**
  * Configuración principal de seguridad para la aplicación ServiApp.
@@ -49,6 +52,14 @@ public class SecurityConfiguration {
 
     // Servicio de captcha para verificar la autenticidad de los usuarios
     private final CaptchaService captchaService;
+
+    // Servicio de predio
+    @Autowired
+    private PredioService predioService;
+
+    // Filtro de verificación de predio
+    @Autowired
+    private PredioRegistroFilter predioRegistroFilter;
 
     /**
      * Constructor con inyección de dependencias.
@@ -148,13 +159,15 @@ public class SecurityConfiguration {
         http.addFilterBefore(new CaptchaFilter(captchaService), 
                      org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
+        // Agregar filtro de verificación de predio después del filtro de autenticación
+        http.addFilterAfter(predioRegistroFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     @Bean
     public AuthenticationSuccessHandler customOAuth2SuccessHandler() {
-        return new CustomOAuth2SuccessHandler(usuarioRepository);
+        return new CustomOAuth2SuccessHandler(usuarioRepository, predioService);
     }
 
     @Bean
