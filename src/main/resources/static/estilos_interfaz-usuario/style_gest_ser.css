@@ -223,7 +223,7 @@ header {
 
 .consumo-title {
   font-size: 2.2rem;
-  color: #2541b2;
+  color:rgba(21, 151, 225, 1);
   font-weight: 700;
   margin-bottom: 15px;
   position: relative;
@@ -235,7 +235,7 @@ header {
   position: absolute;
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, #4a6cf7, #2541b2);
+  background: rgba(21, 151, 225, 1);
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
@@ -272,6 +272,7 @@ header {
 
 .form-group {
   margin-bottom: 25px;
+  color: rgba(21, 151, 225, 1);
 }
 
 .form-group label {
@@ -294,7 +295,7 @@ header {
 .form-control:focus {
   border-color: var(--primary-500);
   background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(12, 148, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(21, 151, 225, 1);
   outline: none;
 }
 
@@ -318,7 +319,7 @@ header {
 
 .btn-submit:hover {
   background: var(--primary-700);
-  box-shadow: 0 4px 12px rgba(0, 178, 224, 0.3);
+  box-shadow: 0 4px 12px rgba(21, 151, 225, 1);
 }
 
 .fade-in {

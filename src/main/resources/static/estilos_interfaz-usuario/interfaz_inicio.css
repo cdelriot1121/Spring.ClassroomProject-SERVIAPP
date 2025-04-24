@@ -89,7 +89,7 @@
 
     .mensaje_bienvenida p {
       margin: 0;
-      font-size: 15px;
+      font-size: 20px;
       color: rgba(255, 255, 255, 0.9);
       font-weight: 500;
       margin-left: 15px;
@@ -385,7 +385,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(0, 94, 163, 0.2));
+      box-shadow: 0 10px 30px rgba(0, 94, 163, 0.2);
       z-index: 2;
     }
 

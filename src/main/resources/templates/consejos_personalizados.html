@@ -41,13 +41,13 @@
           <div class="header-logo">
             <h1 class="header-title">ServiApp</h1>
             <div class="mensaje_bienvenida" id="mensajeBienvenida">
-              <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
+            <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
             </div>
-          </div>
+        </div>
         </div>
     
         <div class="profile-menu">
-          <button class="profile-button" id="profileButton">
+            <button class="profile-button" id="profileButton">
             <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
           </button>
           <div class="profile-dropdown" id="profileDropdown">
@@ -118,11 +118,12 @@
                                 
                                 <!-- Botón de limpiar filtros (recuperado) -->
                                 <div class="d-flex align-items-end">
-                                    <button id="limpiarFiltros" class="btn" style="border: none; background: transparent; padding: 0;" title="Limpiar filtros">
-                                        <i class="bi bi-x-circle-fill" style="font-size: 24px; color: #dc3545;"></i>
+                                    
+                                    <button id="limpiarFiltros" class="btn" style="border: none; background: transparent; padding: 0;" title="Limpiar filtro">
+                                        <img src="https://cdn-icons-png.flaticon.com/128/4645/4645927.png" alt="Limpiar filtros" style="width: 40px; height: 40px; cursor: pointer;">
                                     </button>
+                                    <h6>Limpiar Filtros</h6>
                                 </div>
-                            </div>
             
                             <!-- Tabla de consejos -->
                             <div class="table-responsive">
