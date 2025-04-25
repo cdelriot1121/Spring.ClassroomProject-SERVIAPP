@@ -13,7 +13,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Fuente Kanit -->
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
- 
 
   <link rel="stylesheet" href="/estilos_interfaz-usuario/style_cortes_fallas.css">
 </head>
@@ -37,7 +36,7 @@
         <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
       </button>
       <div class="profile-dropdown" id="profileDropdown">
-        <a href="datos-personales"><i class="bi bi-gear"></i> Configuración</a>
+        <a href="datos-personales"><i class="bi bi-gear"></i> Perfil </a>
         <a href="/logout"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
       </div>
     </div>
@@ -46,42 +45,45 @@
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <a href="interfaz_inicio" class="active"><i class="bi bi-house-door-fill"></i> Inicio</a>
-    <a href="registrar-servicio"><i class="bi bi-check-square"></i> Registrar Servicio</a>
-    <a href="gestionar-servicio"><i class="bi bi-bar-chart-line"></i> Gestionar Servicio</a>
-    <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i> Consejos de Ahorro</a>
-    <a href="cortes"><i class="bi bi-clock-history"></i> Cortes</a>
-    <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas de Atención</a>
+    <a href="registrar-servicio"><i class="bi bi-house-add-fill"></i> Registrar Servicio</a>
+    <a href="gestionar-servicio"><i class="bi bi-calculator"></i> Analisis De Consumo</a>
+    <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i> Consejos De Ahorro</a>
+    <a href="cortes"><i class="bi bi-calendar-week-fill"></i> Cortes Programados</a>
+    <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas De Atención</a>
+    <a href="grafico-consumo"><i class="bi bi-bar-chart-line"></i> Graficas Consumo</a>
   </div>
+
 
   <!-- Contenido principal -->
   <main id="content">
-    <div class="Cortes">
-      <h1>Cortes Programados</h1>
-      <h2>Mantente informado aqui los cortes programados que hay en la ciudad en cartagena en las proximas fechas</h2>
+    <div class="card cortes-completo">
+      <div class="Cortes">
+        <h1>Cortes Programados</h1>
+        <h2>Mantente informado: aquí los cortes programados que hay en la ciudad de Cartagena en las próximas fechas</h2>
+        <table id="tablaCortes" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Barrios</th>
+                    <th>Fecha de corte</th>
+                    <th>Hora de inicio</th>
+                    <th>Hora de finalización</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="corte : ${cortes}">
+                    <td th:text="${corte.tipo_servicio}"></td> 
+                    <td th:text="${#strings.arrayJoin(corte.barrios.split(','), ', ')}"></td>
+                    <td th:text="${corte.fecha}"></td>
+                    <td th:text="${corte.hora_inicio}"></td>
+                    <td th:text="${corte.hora_final}"></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
     </div>
-    <div class="table-container">
-      <table id="tablaCortes" class="display" style="width:100%">
-          <thead>
-              <tr>
-                  <th>Servicio</th>
-                  <th>Barrios</th>
-                  <th>Fecha de corte</th>
-                  <th>Hora de inicio</th>
-                  <th>Hora de finalización</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr th:each="corte : ${cortes}">
-                  <td th:text="${corte.tipo_servicio}"></td> 
-                  <td th:text="${#strings.arrayJoin(corte.barrios.split(','), ', ')}"></td>
-                  <td th:text="${corte.fecha}"></td>
-                  <td th:text="${corte.hora_inicio}"></td>
-                  <td th:text="${corte.hora_final}"></td>
-              </tr>
-          </tbody>
-      </table>
-    </div>
-
+    <br>
+    <br>
     <div class="reportes">
       <h1> Reportar fallos</h1>
       <h2>Aqui podras reportar fallos si estos no estan en la tabla de cortes programados</h2>

@@ -1,6 +1,6 @@
 body {
   background-color: #f0f4f8;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #333333;
   line-height: 1.6;
   margin: 0;
@@ -318,51 +318,54 @@ display: block;
 
 /* Sidebar - Más azul */
 .sidebar {
-width: 280px;
-height: 100vh;
-background: linear-gradient(to bottom, var(--primary-700), var(--primary-900));
-color: white;
-display: flex;
-flex-direction: column;
-padding-top: 100px;
-position: fixed;
-left: 0;
-top: 0;
-transform: translateX(-100%);
-transition: var(--transition);
-z-index: 999;
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(to bottom, #00b2e0, #0b436f);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
+  z-index: 999;
+  font-weight:900;
 }
 
 .sidebar.open {
-transform: translateX(0);
+  transform: translateX(0);
 }
 
 .sidebar a {
-color: white;
-text-decoration: none;
-padding: 16px 25px;
-display: flex;
-align-items: center;
-transition: var(--transition);
-font-weight: 500;
-border-left: 4px solid transparent;
+  color: white;
+  text-decoration: none;
+  padding: 16px 25px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border-left: 4px solid transparent;
 }
 
 .sidebar a:hover {
-background: rgba(255, 255, 255, 0.15);
-border-left: 4px solid var(--primary-300);
-padding-left: 30px;
+  background: rgba(255, 255, 255, 0.15);
+  border-left: 4px solid #7cc7fd;
+  padding-left: 30px;
 }
 
 .sidebar i {
-margin-right: 12px;
-font-size: 20px;
-color: var(--primary-300);
+  margin-right: 12px;
+  font-size: 20px;
+  color: #7cc7fd;
 }
 
 .sidebar a.active i {
-color: white;
+  color: white;
 }
+
+
 /* Footer */
 footer {
   text-align: center;
@@ -688,4 +691,49 @@ td {
   .form-section textarea {
     padding: 0.5rem;
   }
+
+  .card.cortes-completo {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 20px;
+    color: #333;
+  }
+  
+  .card.cortes-completo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .card.cortes-completo h2 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 25px;
+    color: #555;
+  }
+  
+  .card.cortes-completo table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .card.cortes-completo table thead {
+    background-color: #00b2e0;
+    color: white;
+  }
+  
+  .card.cortes-completo table th,
+  .card.cortes-completo table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: none; /* ← Sin líneas */
+  }
+  
+  .card.cortes-completo table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  
 }

@@ -326,7 +326,7 @@
       top: 20%;
       left: 20%;
       animation-delay: 0s;
-      color: #00a1e0;
+      color: rgb(19, 49, 220);
     }
 
     .service-icon.electricity {
@@ -340,7 +340,7 @@
       top: 50%;
       left: 15%;
       animation-delay: 2s;
-      color: #4caf50;
+      color:#e50000;
     }
 
     .service-icon.internet {
@@ -357,11 +357,11 @@
       color: #f44336;
     }
 
-    .service-icon.recycle {
+    .service-icon.Reciclaje{
       top: 70%;
       left: 30%;
       animation-delay: 2.5s;
-      color: #795548;
+      color: green;
     }
 
     @keyframes float {
