@@ -1,54 +1,45 @@
 package com.example.ServiApp.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name = "cortes")
+@Document(collection = "cortes")
 public class CortesModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column(name = "tipo_servicio", nullable = false, length = 50)
+    @Field(name = "tipo_servicio")
     private String tipo_servicio;
 
-    @Column(name = "fecha", nullable = false)
+    @Field(name = "fecha")
     private Date fecha;
 
-    @Column(name = "motivo", nullable = false, length = 100)
+    @Field(name = "motivo")
     private String motivo;
 
-    @Column(name = "barrios", nullable = false)
-    private String barrios;  
+    @Field(name = "barrios")
+    private List<String> barrios;
 
-    @Column(name = "hora_inicio", nullable = false)
-    private String hora_inicio;  
+    @Field(name = "hora_inicio")
+    private String hora_inicio;
 
-    @Column(name = "hora_final", nullable = false)
-    private String hora_final;   
+    @Field(name = "hora_final")
+    private String hora_final;
 
-    // Modifica la referencia al administrador
-    @ManyToOne
-    @JoinColumn(name = "administrador_id", nullable = false)
-    private UsuarioModel administrador;
+    // Referencia al administrador
+    @Field(name = "administrador_id")
+    private String administradorId;
 
-    // Getters y Setters
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -76,13 +67,12 @@ public class CortesModel {
         this.motivo = motivo;
     }
 
-    public String getBarrios() {
+    public List<String> getBarrios() {
         return barrios;
     }
 
-    // el metodo set para manejar la conversión de la lista de barrios a una cadena separada por comas
     public void setBarrios(List<String> barrios) {
-        this.barrios = String.join(",", barrios);
+        this.barrios = barrios;
     }
 
     public String getHora_inicio() {
@@ -101,11 +91,11 @@ public class CortesModel {
         this.hora_final = hora_final;
     }
 
-    public UsuarioModel getAdministrador() {
-        return administrador;
+    public String getAdministradorId() {
+        return administradorId;
     }
 
-    public void setAdministrador(UsuarioModel administrador) {
-        this.administrador = administrador;
+    public void setAdministradorId(String administradorId) {
+        this.administradorId = administradorId;
     }
 }

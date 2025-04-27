@@ -1,71 +1,67 @@
 package com.example.ServiApp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="periodos")
+@Document(collection = "periodos")
 public class PeriodoModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column(name= "mes", nullable=false, length=50)
+    @Field(name = "mes")
     private String mes;
 
-    @Column(name = "ano", nullable = false)
-    private  int ano;
+    @Field(name = "ano")
+    private int ano;
 
-    @Column(name="Consumo", nullable=false, length=50)
+    @Field(name = "consumo")
     private float consumo;
 
-    @Column(length = 10)
+    @Field(name = "unidad")
     private String unidad;
 
+    // Referencias al usuario y servicio
+    @Field(name = "usuario_id")
+    private String usuarioId;
+    
+    @Field(name = "servicio_id")
+    private String servicioId;
 
-    // relacion de muchos a uno: un periodo pertenece a un servicio
-    @ManyToOne
-    @JoinColumn(name = "servicio_id", nullable = false)
-    @JsonIgnore 
-    private ServicioModel servicio;
+    // Lista de consejos embebidos (antes era relación muchos a muchos)
+    @Field(name = "consejos")
+    private List<ConsejoReferencia> consejosRefs = new ArrayList<>();
+    
+    // Clase interna para representar la relación con consejos
+    public static class ConsejoReferencia {
+        private String consejoId;
+        
+        public ConsejoReferencia() {}
+        
+        public ConsejoReferencia(String consejoId) {
+            this.consejoId = consejoId;
+        }
 
-    // esta es la relacion de  muchos a muchos con ConsejosModel
-    @ManyToMany
-    @JoinTable(
-        name = "periodo_consejo",
-        joinColumns = @JoinColumn(name = "periodo_id"),
-        inverseJoinColumns = @JoinColumn(name = "consejo_id")
-    )
-    private List<ConsejosModel> consejos;
+        public String getConsejoId() {
+            return consejoId;
+        }
+
+        public void setConsejoId(String consejoId) {
+            this.consejoId = consejoId;
+        }
+    }
 
     public PeriodoModel() {}
 
-    public PeriodoModel(long id, String mes, float consumo, ServicioModel servicio, List<ConsejosModel> consejos) {
-        this.id = id;
-        this.mes = mes;
-        this.consumo = consumo;
-        this.servicio = servicio;
-        this.consejos = consejos;
-    }
-
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -77,6 +73,14 @@ public class PeriodoModel {
         this.mes = mes;
     }
 
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
     public float getConsumo() {
         return consumo;
     }
@@ -85,39 +89,43 @@ public class PeriodoModel {
         this.consumo = consumo;
     }
 
-    public ServicioModel getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(ServicioModel servicio) {
-        this.servicio = servicio;
-    }
-
-    public List<ConsejosModel> getConsejos() {
-        return consejos;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-    
     public String getUnidad() {
         return unidad;
     }
-    
+
     public void setUnidad(String unidad) {
         this.unidad = unidad;
     }
-    
 
-    
+    public String getUsuarioId() {
+        return usuarioId;
+    }
 
-    public void setConsejos(List<ConsejosModel> consejos) {
-        this.consejos = consejos;
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public String getServicioId() {
+        return servicioId;
+    }
+
+    public void setServicioId(String servicioId) {
+        this.servicioId = servicioId;
+    }
+
+    public List<ConsejoReferencia> getConsejosRefs() {
+        return consejosRefs;
+    }
+
+    public void setConsejosRefs(List<ConsejoReferencia> consejosRefs) {
+        this.consejosRefs = consejosRefs;
+    }
+    
+    public void addConsejoRef(String consejoId) {
+        if (this.consejosRefs == null) {
+            this.consejosRefs = new ArrayList<>();
+        }
+        this.consejosRefs.add(new ConsejoReferencia(consejoId));
     }
 
     @Override
@@ -125,9 +133,11 @@ public class PeriodoModel {
         return "PeriodoModel{" +
                 "id=" + id +
                 ", mes='" + mes + '\'' +
+                ", ano='" + ano + '\'' +
                 ", consumo=" + consumo +
-                ", servicio=" + servicio +
-                ", consejos=" + consejos +
+                ", unidad='" + unidad + '\'' +
+                ", servicioId='" + servicioId + '\'' +
+                ", consejos=" + (consejosRefs != null ? consejosRefs.size() : 0) +
                 '}';
     }
 }

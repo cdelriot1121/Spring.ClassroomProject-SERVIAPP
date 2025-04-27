@@ -1,61 +1,44 @@
 package com.example.ServiApp.model;
 
-import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="consejos")
+@Document(collection = "consejos")
 public class ConsejosModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column(name="tipo_servicio", nullable=false, length=50)
+    @Field(name = "tipo_servicio")
     private String tipoServicio;
 
-    @Column(name="categoria_consumo", nullable=false, length=50)
+    @Field(name = "categoria_consumo")
     private String categoriaConsumo;
 
-    @Column(name="contenido", nullable=false, length=1500)
+    @Field(name = "contenido")
     private String contenido;
 
-    // Modifica la referencia al administrador
-    @ManyToOne
-    @JoinColumn(name = "administrador_id", nullable = false)
-    private UsuarioModel administrador;
-
-    // relacion de muchos a muchos con PeriodoModel
-    @ManyToMany(mappedBy = "consejos")
-    private List<PeriodoModel> periodos;
+    // Referencia al administrador
+    @Field(name = "administrador_id")
+    private String administradorId;
 
     public ConsejosModel() {
     }
 
-    public ConsejosModel(long id, String tipoServicio, String categoriaConsumo, String contenido,
-            UsuarioModel administrador, List<PeriodoModel> periodos) {
+    public ConsejosModel(String id, String tipoServicio, String categoriaConsumo, String contenido, String administradorId) {
         this.id = id;
         this.tipoServicio = tipoServicio;
         this.categoriaConsumo = categoriaConsumo;
         this.contenido = contenido;
-        this.administrador = administrador;
-        this.periodos = periodos;
+        this.administradorId = administradorId;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -83,28 +66,22 @@ public class ConsejosModel {
         this.contenido = contenido;
     }
 
-    public UsuarioModel getAdministrador() {
-        return administrador;
+    public String getAdministradorId() {
+        return administradorId;
     }
 
-    public void setAdministrador(UsuarioModel administrador) {
-        this.administrador = administrador;
-    }
-
-    public List<PeriodoModel> getPeriodos() {
-        return periodos;
-    }
-
-    public void setPeriodos(List<PeriodoModel> periodos) {
-        this.periodos = periodos;
+    public void setAdministradorId(String administradorId) {
+        this.administradorId = administradorId;
     }
 
     @Override
     public String toString() {
-        return "ConsejosModel [id=" + id + ", tipoServicio=" + tipoServicio + ", categoriaConsumo=" + categoriaConsumo
-                + ", contenido=" + contenido + ", administrador=" + administrador + ", periodos=" + periodos + "]";
+        return "ConsejosModel{" +
+                "id=" + id +
+                ", tipoServicio='" + tipoServicio + '\'' +
+                ", categoriaConsumo='" + categoriaConsumo + '\'' +
+                ", contenido='" + contenido + '\'' +
+                ", administradorId='" + administradorId + '\'' +
+                '}';
     }
-
-    
-    
 }

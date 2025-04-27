@@ -1,59 +1,50 @@
 package com.example.ServiApp.model;
 
-import java.sql.Time;
+import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Entity
-@Table(name = "Fallas_Servicio")
+@Document(collection = "fallas_servicio")
 public class Falla_Ser_Model {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @Column (name = "barrio", nullable = false, length=60)
+    @Field(name = "barrio")
     private String barrio;
 
-    @Column (name= "servicio", nullable=false, length=50)
+    @Field(name = "servicio")
     private String servicio;
 
-    @Column (name="hora", nullable=false, length=50)
-    private Time hora;
+    @Field(name = "hora")
+    private Date hora;
 
-    @Column(name = "comentarios", nullable = false, length = 2000)
+    @Field(name = "comentarios")
     private String comentarios;
-    
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private UsuarioModel usuario;
+    // Referencia al usuario
+    @Field(name = "usuario_id")
+    private String usuarioId;
 
     public Falla_Ser_Model() {
     }
 
-    public Falla_Ser_Model(long id, String barrio, String servicio, Time hora, String comentarios,
-            UsuarioModel usuario) {
+    public Falla_Ser_Model(String id, String barrio, String servicio, Date hora, String comentarios, String usuarioId) {
         this.id = id;
         this.barrio = barrio;
         this.servicio = servicio;
         this.hora = hora;
         this.comentarios = comentarios;
-        this.usuario = usuario;
+        this.usuarioId = usuarioId;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -73,11 +64,11 @@ public class Falla_Ser_Model {
         this.servicio = servicio;
     }
 
-    public Time getHora() {
+    public Date getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(Date hora) {
         this.hora = hora;
     }
 
@@ -89,13 +80,11 @@ public class Falla_Ser_Model {
         this.comentarios = comentarios;
     }
 
-    public UsuarioModel getUsuario() {
-        return usuario;
+    public String getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
     }
-
-
 }
