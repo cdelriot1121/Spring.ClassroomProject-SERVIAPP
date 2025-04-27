@@ -30,15 +30,9 @@ public class CortesController {
         UsuarioModel adminLogueado = (UsuarioModel) sessionadmin.getAttribute("adminLogueado");
 
         if (adminLogueado != null && adminLogueado.esAdministrador()) {
-            corte.setAdministrador(adminLogueado); 
-
-            // Obtener los barrios seleccionados como una lista de cadenas
-            @SuppressWarnings("unchecked")
-            List<String> barriosSeleccionados = (List<String>) sessionadmin.getAttribute("barriosSeleccionados");
-            if (barriosSeleccionados != null) {
-                corte.setBarrios(barriosSeleccionados);
-            }
-
+            // Establecer la referencia al administrador
+            corte.setAdministradorId(adminLogueado.getId());
+            
             // Guardar el corte
             cortesService.registrarCorte(corte);
 

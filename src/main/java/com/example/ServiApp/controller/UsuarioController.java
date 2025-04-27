@@ -17,27 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.ServiApp.model.PredioModel;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
-import com.example.ServiApp.services.PredioService;
-import com.example.ServiApp.services.ServiciosService;
 import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
 
     @Autowired
-    private ServiciosService servicioService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private PredioService predioService;
 
     @PostMapping("/usuarios/registrar")
     public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
@@ -90,8 +81,10 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuarios/editar/{id}")
-    public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
-        UsuarioModel usuario = usuarioService.obtenerUsuarioPorId(id).orElseThrow();
+    public String mostrarFormularioEdicion(@PathVariable String id, Model model) {
+        UsuarioModel usuario = usuarioService.obtenerUsuarioPorId(id).orElseThrow(
+            () -> new IllegalArgumentException("Usuario no encontrado con id: " + id)
+        );
         model.addAttribute("usuario", usuario);
         model.addAttribute("editarUsuarioId", id);
         model.addAttribute("section", "datos-personales");
@@ -99,13 +92,14 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuarios/actualizar/{id}")
-    public String actualizarUsuario(@PathVariable Long id, @ModelAttribute UsuarioModel usuario, Model model) {
+    public String actualizarUsuario(@PathVariable String id, @ModelAttribute UsuarioModel usuario, Model model) {
         model.addAttribute("section", "datos-personales");
         UsuarioModel usuarioExistente = usuarioService.obtenerUsuarioPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
 
         usuarioExistente.setEmail(usuario.getEmail());
-        // Ya no actualizamos el estrato aquí
+        usuarioExistente.setNombre(usuario.getNombre());
+        // Ya no actualizamos el estrato aquí ya que está en el predio
         
         usuarioService.guardarUsuario(usuarioExistente);
 
@@ -158,7 +152,7 @@ public class UsuarioController {
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
 
         if (usuarioLogueado != null) {
-            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+            List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
             model.addAttribute("servicios", servicios);
             model.addAttribute("section", "mis-servicios");
             return "perfil_datos";
@@ -177,7 +171,7 @@ public class UsuarioController {
         }
         
         // Verificar si el usuario tiene un predio registrado
-        Optional<PredioModel> predio = predioService.obtenerPredioPorUsuario(usuarioLogueado);
+        Optional<PredioModel> predio = usuarioService.obtenerPredioPorUsuario(usuarioLogueado.getId());
         
         if (predio.isPresent()) {
             model.addAttribute("predio", predio.get());
@@ -190,4 +184,44 @@ public class UsuarioController {
         return "perfil_datos";
     }
 
+    @PostMapping("/login")
+    public String login(@RequestParam String email, 
+                       @RequestParam String password,
+                       Model model, 
+                       HttpSession session) {
+        
+        UsuarioModel usuario = usuarioService.autenticar(email, password);
+        
+        if (usuario != null) {
+            // Verificar si el usuario está habilitado
+            if (usuario.getEstado() == UsuarioModel.EstadoUsuario.DESHABILITADO) {
+                return "redirect:/error/usuario-inhabilitado";
+            }
+            
+            session.setAttribute("usuarioLogueado", usuario);
+            
+            // Verificar si necesita completar el registro
+            if (!usuario.isRegistroCompleto()) {
+                return "redirect:/completar-registro";
+            }
+            
+            // Verificar si tiene un predio registrado
+            boolean tienePredio = usuarioService.existePredioParaUsuario(usuario.getId());
+            
+            if (!tienePredio) {
+                return "redirect:/registrar-predio-obligatorio";
+            }
+            
+            return "redirect:/interfaz_inicio";
+        } else {
+            model.addAttribute("error", "Usuario o contraseña incorrectos");
+            return "iniciosesion";
+        }
+    }
+    
+    @GetMapping("/logout")
+    public String cerrarSesion(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }

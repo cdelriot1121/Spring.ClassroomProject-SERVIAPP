@@ -30,6 +30,9 @@ public class AdminController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private FallasUserService fallasUserService;
+
     /**
      * Autentica administradores usando el modelo unificado de usuarios.
      * Ya no requiere PIN después de la migración.
@@ -89,7 +92,7 @@ public class AdminController {
 
     @GetMapping("/gestionar-servicios-admin")
     public String listarServicios(Model model) {
-        List<ServicioModel> servicios = serviciosService.ObtenerServicios();
+        List<ServicioModel> servicios = usuarioService.obtenerTodosLosServicios();
         model.addAttribute("servicios", servicios);
         return "ges-servicios-admin";
     }
@@ -99,9 +102,6 @@ public class AdminController {
         serviciosService.eliminarServicio(id);
         return "redirect:/gestionar-servicios-admin";
     }
-
-    @Autowired
-    private FallasUserService fallasUserService;
 
     @GetMapping("/reportes_usuarios")
     public String listarFallasUser(Model model) {
@@ -113,29 +113,20 @@ public class AdminController {
 
 
     @PostMapping("/inhabilitar-usuario/{id}")
-    public String inhabilitarUsuario(@PathVariable("id") Long id) {
+    public String inhabilitarUsuario(@PathVariable("id") String id) {
         usuarioService.inhabilitarUsuario(id);
         return "redirect:/interfaz-admin";
     }
     
     @PostMapping("/habilitar-usuario/{id}")
-    public String habilitarUsuario(@PathVariable("id") Long id) {
+    public String habilitarUsuario(@PathVariable("id") String id) {
         usuarioService.habilitarUsuario(id);
         return "redirect:/interfaz-admin";
     }
     
-
-
-
-    
-    
-    
-
-
-
-
-
-
-
-
+    @GetMapping("/logout-admin")
+    public String cerrarSesionAdmin(HttpSession session) {
+        session.removeAttribute("adminLogueado");
+        return "redirect:/login-admin";
+    }
 }

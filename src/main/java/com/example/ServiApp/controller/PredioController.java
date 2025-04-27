@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ServiApp.model.PredioModel;
 import com.example.ServiApp.model.UsuarioModel;
-import com.example.ServiApp.services.PredioService;
+import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 public class PredioController {
 
     @Autowired
-    private PredioService predioService;
+    private UsuarioService usuarioService;
 
     // Muestra el formulario para registrar un predio
     @GetMapping("/registrar")
@@ -34,7 +34,7 @@ public class PredioController {
         }
         
         // Verificar si el usuario ya tiene un predio registrado
-        Optional<PredioModel> predioExistente = predioService.obtenerPredioPorUsuario(usuarioLogueado);
+        Optional<PredioModel> predioExistente = usuarioService.obtenerPredioPorUsuario(usuarioLogueado.getId());
         
         if (predioExistente.isPresent()) {
             model.addAttribute("predio", predioExistente.get());
@@ -63,7 +63,7 @@ public class PredioController {
         }
         
         // Verificar si el usuario ya tiene un predio registrado
-        Optional<PredioModel> predioExistente = predioService.obtenerPredioPorUsuario(usuarioLogueado);
+        Optional<PredioModel> predioExistente = usuarioService.obtenerPredioPorUsuario(usuarioLogueado.getId());
         
         if (predioExistente.isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Ya tiene un predio registrado. Puede editarlo o eliminarlo para registrar uno nuevo.");
@@ -76,9 +76,8 @@ public class PredioController {
         nuevoPredio.setBarrio(barrio);
         nuevoPredio.setEstrato(estrato);
         nuevoPredio.setTipoPredio(tipoPredio);
-        nuevoPredio.setUsuario(usuarioLogueado);
         
-        predioService.registrarPredio(nuevoPredio);
+        usuarioService.registrarPredioPara(usuarioLogueado.getId(), nuevoPredio);
         
         redirectAttributes.addFlashAttribute("mensaje", "Predio registrado exitosamente");
         return "redirect:/mi-predio";
@@ -93,7 +92,7 @@ public class PredioController {
             return "redirect:/login";
         }
         
-        Optional<PredioModel> predio = predioService.obtenerPredioPorUsuario(usuarioLogueado);
+        Optional<PredioModel> predio = usuarioService.obtenerPredioPorUsuario(usuarioLogueado.getId());
         
         if (predio.isPresent()) {
             model.addAttribute("predio", predio.get());
@@ -110,7 +109,6 @@ public class PredioController {
     // Procesa la actualización de un predio
     @PostMapping("/actualizar")
     public String actualizarPredio(
-            @RequestParam Long id,
             @RequestParam String direccion,
             @RequestParam String barrio,
             @RequestParam int estrato,
@@ -124,19 +122,17 @@ public class PredioController {
             return "redirect:/login";
         }
         
-        // Verificar que el predio pertenezca al usuario actual
-        Optional<PredioModel> predioExistente = predioService.obtenerPredioPorId(id);
+        Optional<PredioModel> predioExistente = usuarioService.obtenerPredioPorUsuario(usuarioLogueado.getId());
         
-        if (predioExistente.isPresent() && predioExistente.get().getUsuario().getId() == usuarioLogueado.getId()) {
+        if (predioExistente.isPresent()) {
             PredioModel predioActual = predioExistente.get();
-            
             // Actualizar los campos
             predioActual.setDireccion(direccion);
             predioActual.setBarrio(barrio);
             predioActual.setEstrato(estrato);
             predioActual.setTipoPredio(tipoPredio);
             
-            predioService.actualizarPredio(predioActual);
+            usuarioService.actualizarPredio(usuarioLogueado.getId(), predioActual);
             redirectAttributes.addFlashAttribute("mensaje", "Predio actualizado exitosamente");
         } else {
             redirectAttributes.addFlashAttribute("error", "No se encontró un predio asociado a su cuenta");
@@ -154,14 +150,9 @@ public class PredioController {
             return "redirect:/login";
         }
         
-        Optional<PredioModel> predio = predioService.obtenerPredioPorUsuario(usuarioLogueado);
-        
-        if (predio.isPresent()) {
-            predioService.eliminarPredio(predio.get().getId());
-            redirectAttributes.addFlashAttribute("mensaje", "Predio eliminado exitosamente");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "No se encontró un predio asociado a su cuenta");
-        }
+        // Como ahora el predio es embebido, simplemente lo seteamos a null
+        usuarioService.actualizarPredio(usuarioLogueado.getId(), null);
+        redirectAttributes.addFlashAttribute("mensaje", "Predio eliminado exitosamente");
         
         return "redirect:/mi-predio";
     }

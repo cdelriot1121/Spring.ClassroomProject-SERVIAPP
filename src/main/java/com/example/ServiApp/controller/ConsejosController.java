@@ -25,10 +25,13 @@ public class ConsejosController {
         UsuarioModel adminLogueado = (UsuarioModel) sessionadmin.getAttribute("adminLogueado");
 
         if (adminLogueado != null && adminLogueado.esAdministrador()) {
-            consejo.setAdministrador(adminLogueado);
+            // Establecer la referencia al administrador
+            consejo.setAdministradorId(adminLogueado.getId());
+            
+            // Guardar el consejo
             consejosService.registrarConsejo(consejo);
 
-            model.addAttribute("mensaje-consejoreg", "Consejo Registrado exitosamente");
+            model.addAttribute("mensaje-consejoreg", "Consejo registrado exitosamente");
             return "redirect:/consejos-admin";
         } else {
             model.addAttribute("error-consejo", "No hay administrador autenticado");
