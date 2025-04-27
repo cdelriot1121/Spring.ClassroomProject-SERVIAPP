@@ -205,4 +205,16 @@ public class UsuarioService {
         
         return todosLosServicios;
     }
+    
+    // Añadir este método al final de la clase UsuarioService
+    public String encontrarUsuarioIdPorServicioId(String servicioId) {
+        for (UsuarioModel usuario : usuarioRepository.findAll()) {
+            for (ServicioModel servicio : usuario.getServicios()) {
+                if (servicio.getId().equals(servicioId)) {
+                    return usuario.getId();
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -15,7 +15,6 @@ import com.example.ServiApp.model.Falla_Ser_Model;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.services.FallasUserService;
-import com.example.ServiApp.services.ServiciosService;
 import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -85,11 +84,6 @@ public class AdminController {
         return "interfaz-admin";
     }
 
-    
-
-    @Autowired
-    private ServiciosService serviciosService;
-
     @GetMapping("/gestionar-servicios-admin")
     public String listarServicios(Model model) {
         List<ServicioModel> servicios = usuarioService.obtenerTodosLosServicios();
@@ -97,9 +91,12 @@ public class AdminController {
         return "ges-servicios-admin";
     }
 
-    @PostMapping("/eliminar-servicio/{id}")
-    public String eliminarServicio(@PathVariable("id") Long id) {
-        serviciosService.eliminarServicio(id);
+    // Modificado para usar el servicio de usuario en lugar de serviciosService
+    // y cambiar Long id a String id para MongoDB
+    @PostMapping("/eliminar-servicio/{servicioId}/{usuarioId}")
+    public String eliminarServicio(@PathVariable("servicioId") String servicioId,
+                                  @PathVariable("usuarioId") String usuarioId) {
+        usuarioService.eliminarServicio(usuarioId, servicioId);
         return "redirect:/gestionar-servicios-admin";
     }
 
@@ -109,8 +106,6 @@ public class AdminController {
         model.addAttribute("fallas", fallas);
         return "ReportesUserAdmin";
     }
-
-
 
     @PostMapping("/inhabilitar-usuario/{id}")
     public String inhabilitarUsuario(@PathVariable("id") String id) {
