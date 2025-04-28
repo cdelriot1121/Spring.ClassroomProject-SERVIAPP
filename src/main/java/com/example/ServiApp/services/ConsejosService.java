@@ -3,6 +3,7 @@ package com.example.ServiApp.services;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,11 +32,39 @@ public class ConsejosService {
     }
 
     public List<ConsejosModel> obtenerConsejosTipoServ_TipoCateg(String categoria, String tipo_servicio) {
-        List<ConsejosModel> consejos = consejoRepository.findByTipoServicioAndCategoriaConsumo(tipo_servicio, categoria);
-        if (consejos.isEmpty()) {
-            throw new IllegalArgumentException("No se encontraron consejos para los criterios especificados.");
+        try {
+            // Normalizar los parámetros para mejor búsqueda
+            String categoriaNormalizada = categoria.trim().toLowerCase();
+            String tipoServicioNormalizado = tipo_servicio.trim().toLowerCase();
+            
+            System.out.println("Buscando consejos con categoría: [" + categoriaNormalizada + "] y tipo servicio: [" + tipoServicioNormalizado + "]");
+            
+            // Primera búsqueda exacta
+            List<ConsejosModel> consejos = consejoRepository.findByTipoServicioAndCategoriaConsumo(
+                tipoServicioNormalizado, categoriaNormalizada);
+            
+            if (consejos.isEmpty()) {
+                // Segunda búsqueda más flexible usando contains
+                consejos = consejoRepository.findAll().stream()
+                    .filter(c -> c.getTipoServicio().toLowerCase().contains(tipoServicioNormalizado) && 
+                               c.getCategoriaConsumo().toLowerCase().contains(categoriaNormalizada))
+                    .collect(Collectors.toList());
+                
+                System.out.println("Búsqueda alternativa encontró: " + consejos.size() + " consejos");
+            }
+            
+            if (consejos.isEmpty()) {
+                System.out.println("No se encontraron consejos, buscando por tipo de servicio...");
+                // Tercera opción: buscar consejos solo por tipo de servicio
+                consejos = consejoRepository.findByTipoServicio(tipoServicioNormalizado);
+            }
+            
+            return consejos;
+        } catch (Exception e) {
+            System.err.println("Error en la búsqueda de consejos: " + e.getMessage());
+            e.printStackTrace();
+            return Collections.emptyList();
         }
-        return consejos;
     }
 
     public List<ConsejosModel> obtenerConsejosPorPeriodo(String periodoId) {

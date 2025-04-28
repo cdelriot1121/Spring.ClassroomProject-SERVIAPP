@@ -40,143 +40,190 @@ public class PeriodoController {
 
     @PostMapping("/calcular-consumo")
     public String calcularConsumo(@ModelAttribute PeriodoModel periodo, Model model, HttpSession session) {
-        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-        if (usuarioLogueado == null) {
-            throw new IllegalArgumentException("Usuario no logueado.");
-        }
-
-        List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
-        model.addAttribute("servicios", servicios);
-        
-        Optional<ServicioModel> servicioOpt = servicios.stream()
-                .filter(servicio -> servicio.getId().equals(periodo.getServicioId()))
-                .findFirst();
-                
-        if (!servicioOpt.isPresent()) {
-            throw new IllegalArgumentException("Servicio no encontrado para el usuario actual.");
-        }
-        
-        ServicioModel servicioSeleccionado = servicioOpt.get();
-
-        long habitantes = servicioSeleccionado.getHabitantes();
-        if (habitantes <= 0) {
-            throw new IllegalArgumentException("El número de habitantes debe ser mayor a cero.");
-        }
-
-        //Convertir "2025-04" a mes (texto) y año 
-        String mesYAnio = periodo.getMes(); // "2025-04"
-        if (mesYAnio != null && mesYAnio.matches("\\d{4}-\\d{2}")) {
-            String[] partes = mesYAnio.split("-");
-            int ano = Integer.parseInt(partes[0]);
-            String mesNumero = partes[1];
-
-            String mesTxt = switch (mesNumero) {
-                case "01" -> "Enero";
-                case "02" -> "Febrero";
-                case "03" -> "Marzo";
-                case "04" -> "Abril";
-                case "05" -> "Mayo";
-                case "06" -> "Junio";
-                case "07" -> "Julio";
-                case "08" -> "Agosto";
-                case "09" -> "Septiembre";
-                case "10" -> "Octubre";
-                case "11" -> "Noviembre";
-                case "12" -> "Diciembre";
-                default -> "Desconocido";
-            };
-
-            periodo.setMes(mesTxt);
-            periodo.setAno(ano);
-        }
-
-        boolean yaExiste = periodoService.existePeriodoRegistrado(
-            usuarioLogueado.getId(), 
-            periodo.getMes(), 
-            periodo.getAno(), 
-            servicioSeleccionado.getId()
-        );
-
-        if (yaExiste) {
-            model.addAttribute("error", "Ya existe un registro de consumo para este mes. Si deseas cambiar la información de este Consumo puedes dirigirte al apartado de mi Perfil");
-            return "gestionar_serv"; 
-        }
-
-        //  Cálculos 
-        final float PROMEDIO_AGUA = 4.3f;
-        final float PROMEDIO_ENERGIA = 80.7f;
-        final float PROMEDIO_GAS = 3.9f;
-
-        float promedioCartagena = 0;
-        float promedioHogar = periodo.getConsumo();
-        float promedioHabitante = promedioHogar / habitantes;
-        float promedioSemanal = promedioHogar / 4;
-        String categoriaConsumo = ""; 
-        String unidad = ""; 
-
-        switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
-            case "agua":
-                promedioCartagena = PROMEDIO_AGUA * habitantes;
-                unidad = "m3";
-                categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
-                break;
-            case "energía":
-                promedioCartagena = PROMEDIO_ENERGIA * habitantes;
-                unidad = "kWh";
-                categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 8);
-                break;
-            case "gas":
-                promedioCartagena = PROMEDIO_GAS * habitantes;
-                unidad = "m3";
-                categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
-        }
-
-        periodo.setUnidad(unidad);
-        String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
-
-        // Asignar usuario y servicio
-        periodo.setUsuarioId(usuarioLogueado.getId());
-        periodo.setServicioId(servicioSeleccionado.getId());
-        
-        // Registrar periodo
-        PeriodoModel periodoGuardado = periodoService.registrarPeriodo(periodo);
-
-        // Añadir el ID del periodo al servicio
-        servicioSeleccionado.addPeriodoId(periodoGuardado.getId());
-        usuarioService.actualizarServicio(usuarioLogueado.getId(), servicioSeleccionado.getId(), servicioSeleccionado);
-
-        // Consejos
-        List<ConsejosModel> consejosPersonalizados = Collections.emptyList(); // Lista vacía por defecto
         try {
-            consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(
-                categoriaConsumo, 
-                servicioSeleccionado.getTipo_servicio()
-            );
-            
-            // Si llegamos aquí sin excepción, intentamos asignar los consejos al periodo
-            if (consejosPersonalizados != null && !consejosPersonalizados.isEmpty()) {
-                for (ConsejosModel consejo : consejosPersonalizados) {
-                    consejosService.asignarConsejoAPeriodo(periodoGuardado.getId(), consejo.getId());
-                }
+            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+            if (usuarioLogueado == null) {
+                model.addAttribute("error", "No se encontró la sesión del usuario. Por favor inicie sesión nuevamente.");
+                return "gestionar_serv";
             }
+
+            List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
+            model.addAttribute("servicios", servicios);
+            
+            if (servicios.isEmpty()) {
+                model.addAttribute("error", "No tiene servicios registrados. Por favor registre un servicio primero.");
+                return "gestionar_serv";
+            }
+            
+            // Debug para verificar qué servicio se está buscando
+            System.out.println("Buscando servicio con ID: " + periodo.getServicioId());
+            System.out.println("Servicios disponibles: " + servicios.size());
+            for (ServicioModel s : servicios) {
+                System.out.println("ID: " + s.getId() + ", Tipo: " + s.getTipo_servicio());
+            }
+            
+            Optional<ServicioModel> servicioOpt = servicios.stream()
+                    .filter(servicio -> servicio.getId().equals(periodo.getServicioId()))
+                    .findFirst();
+                    
+            if (!servicioOpt.isPresent()) {
+                model.addAttribute("error", "No se encontró el servicio seleccionado para el usuario actual.");
+                return "gestionar_serv";
+            }
+            
+            ServicioModel servicioSeleccionado = servicioOpt.get();
+
+            long habitantes = servicioSeleccionado.getHabitantes();
+            if (habitantes <= 0) {
+                model.addAttribute("error", "El número de habitantes debe ser mayor a cero. Por favor actualice su servicio.");
+                return "gestionar_serv";
+            }
+
+            // Resto del código de conversión de fecha
+            String mesYAnio = periodo.getMes(); // "2025-04"
+            if (mesYAnio != null && mesYAnio.matches("\\d{4}-\\d{2}")) {
+                String[] partes = mesYAnio.split("-");
+                int ano = Integer.parseInt(partes[0]);
+                String mesNumero = partes[1];
+
+                String mesTxt = switch (mesNumero) {
+                    case "01" -> "Enero";
+                    case "02" -> "Febrero";
+                    case "03" -> "Marzo";
+                    case "04" -> "Abril";
+                    case "05" -> "Mayo";
+                    case "06" -> "Junio";
+                    case "07" -> "Julio";
+                    case "08" -> "Agosto";
+                    case "09" -> "Septiembre";
+                    case "10" -> "Octubre";
+                    case "11" -> "Noviembre";
+                    case "12" -> "Diciembre";
+                    default -> "Desconocido";
+                };
+
+                periodo.setMes(mesTxt);
+                periodo.setAno(ano);
+            } else {
+                model.addAttribute("error", "Formato de fecha incorrecto. Use el formato YYYY-MM.");
+                return "gestionar_serv";
+            }
+
+            boolean yaExiste = periodoService.existePeriodoRegistrado(
+                usuarioLogueado.getId(), 
+                periodo.getMes(), 
+                periodo.getAno(), 
+                servicioSeleccionado.getId()
+            );
+
+            if (yaExiste) {
+                model.addAttribute("error", "Ya existe un registro de consumo para este mes. Si deseas cambiar la información de este Consumo puedes dirigirte al apartado de mi Perfil");
+                return "gestionar_serv"; 
+            }
+
+            //  Cálculos 
+            final float PROMEDIO_AGUA = 4.3f;
+            final float PROMEDIO_ENERGIA = 80.7f;
+            final float PROMEDIO_GAS = 3.9f;
+
+            float promedioCartagena = 0;
+            float promedioHogar = periodo.getConsumo();
+            float promedioHabitante = promedioHogar / habitantes;
+            float promedioSemanal = promedioHogar / 4;
+            String categoriaConsumo = ""; 
+            String unidad = ""; 
+
+            // Aseguramos que el tipo de servicio existe y está normalizado
+            String tipoServicioNormalizado = servicioSeleccionado.getTipo_servicio() != null ? 
+                                              servicioSeleccionado.getTipo_servicio().trim().toLowerCase() : "";
+
+            switch (tipoServicioNormalizado) {
+                case "agua":
+                    promedioCartagena = PROMEDIO_AGUA * habitantes;
+                    unidad = "m3";
+                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
+                    break;
+                case "energía", "energia":
+                    promedioCartagena = PROMEDIO_ENERGIA * habitantes;
+                    unidad = "kWh";
+                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 8);
+                    break;
+                case "gas":
+                    promedioCartagena = PROMEDIO_GAS * habitantes;
+                    unidad = "m3";
+                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
+                    break;
+                default:
+                    model.addAttribute("error", "Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
+                    return "gestionar_serv";
+            }
+
+            periodo.setUnidad(unidad);
+            String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
+
+            // Asignar usuario y servicio
+            periodo.setUsuarioId(usuarioLogueado.getId());
+            periodo.setServicioId(servicioSeleccionado.getId());
+            
+            // Registrar periodo
+            PeriodoModel periodoGuardado = periodoService.registrarPeriodo(periodo);
+            if (periodoGuardado == null) {
+                model.addAttribute("error", "Error al guardar el período de consumo. Inténtelo nuevamente.");
+                return "gestionar_serv";
+            }
+
+            // Añadir el ID del periodo al servicio
+            if (servicioSeleccionado.getPeriodosIds() == null) {
+                servicioSeleccionado.setPeriodosIds(new ArrayList<>());
+            }
+            servicioSeleccionado.addPeriodoId(periodoGuardado.getId());
+            usuarioService.actualizarServicio(usuarioLogueado.getId(), servicioSeleccionado.getId(), servicioSeleccionado);
+
+            // Consejos - Con mejor manejo de errores
+            List<ConsejosModel> consejosPersonalizados = Collections.emptyList();
+            try {
+                System.out.println("Buscando consejos para: " + categoriaConsumo + ", " + tipoServicioNormalizado);
+                consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(
+                    categoriaConsumo, 
+                    tipoServicioNormalizado
+                );
+                
+                if (consejosPersonalizados != null && !consejosPersonalizados.isEmpty()) {
+                    System.out.println("Consejos encontrados: " + consejosPersonalizados.size());
+                    for (ConsejosModel consejo : consejosPersonalizados) {
+                        try {
+                            consejosService.asignarConsejoAPeriodo(periodoGuardado.getId(), consejo.getId());
+                        } catch (Exception e) {
+                            System.err.println("Error al asignar consejo " + consejo.getId() + " al período: " + e.getMessage());
+                        }
+                    }
+                } else {
+                    System.out.println("No se encontraron consejos para esta categoría y servicio");
+                }
+            } catch (Exception e) {
+                System.err.println("Error al obtener consejos: " + e.getMessage());
+                consejosPersonalizados = Collections.emptyList();
+            }
+
+            model.addAttribute("promedioCartagena", promedioCartagena);
+            model.addAttribute("promedioHogar", promedioHogar);
+            model.addAttribute("promedioHabitante", promedioHabitante);
+            model.addAttribute("promedioSemanal", promedioSemanal);
+            model.addAttribute("unidad", unidad);
+            model.addAttribute("consejos", consejosPersonalizados);
+            model.addAttribute("clasePromedioCartagena", clasePromedioCartagena);
+
+            return "gestionar_serv";
+            
         } catch (Exception e) {
-            // Log del error pero continuación del flujo normal
-            System.err.println("Error al obtener consejos: " + e.getMessage());
-            consejosPersonalizados = Collections.emptyList();
+            // Captura cualquier excepción no manejada y proporciona información de depuración
+            e.printStackTrace();
+            model.addAttribute("error", "Error inesperado: " + e.getMessage());
+            model.addAttribute("servicios", usuarioService.obtenerServiciosPorUsuario(
+                ((UsuarioModel) session.getAttribute("usuarioLogueado")).getId()
+            ));
+            return "gestionar_serv";
         }
-
-        model.addAttribute("promedioCartagena", promedioCartagena);
-        model.addAttribute("promedioHogar", promedioHogar);
-        model.addAttribute("promedioHabitante", promedioHabitante);
-        model.addAttribute("promedioSemanal", promedioSemanal);
-        model.addAttribute("unidad", unidad);
-        model.addAttribute("consejos", consejosPersonalizados);
-        model.addAttribute("clasePromedioCartagena", clasePromedioCartagena);
-
-        return "gestionar_serv";
     }
 
     private String categorizarConsumo(float consumoHogar, float promedio, float margen) {

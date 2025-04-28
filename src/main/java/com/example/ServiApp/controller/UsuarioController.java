@@ -92,20 +92,52 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuarios/actualizar/{id}")
-    public String actualizarUsuario(@PathVariable String id, @ModelAttribute UsuarioModel usuario, Model model) {
-        model.addAttribute("section", "datos-personales");
-        UsuarioModel usuarioExistente = usuarioService.obtenerUsuarioPorId(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
-
-        usuarioExistente.setEmail(usuario.getEmail());
-        usuarioExistente.setNombre(usuario.getNombre());
-        // Ya no actualizamos el estrato aquí ya que está en el predio
+    public String actualizarUsuario(@PathVariable String id, 
+                                  @RequestParam(value = "nombre", required = false) String nombre,
+                                  @RequestParam(value = "email", required = false) String email,
+                                  Model model,
+                                  HttpSession session) {
         
-        usuarioService.guardarUsuario(usuarioExistente);
-
-        model.addAttribute("usuario", usuarioExistente);
-        model.addAttribute("section", "datos-personales");
-        return "perfil_datos";
+        try {
+            // Para debugging
+            System.out.println("Actualizando usuario ID: " + id);
+            System.out.println("Nombre recibido: [" + nombre + "]");
+            System.out.println("Email recibido: [" + email + "]");
+            
+            UsuarioModel usuarioExistente = usuarioService.obtenerUsuarioPorId(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
+            
+            // Verificar y actualizar cada campo si no es nulo o vacío
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                usuarioExistente.setNombre(nombre.trim());
+            }
+            
+            if (email != null && !email.trim().isEmpty()) {
+                usuarioExistente.setEmail(email.trim());
+            }
+            
+            // Guardar el usuario actualizado
+            UsuarioModel usuarioActualizado = usuarioService.guardarUsuario(usuarioExistente);
+            
+            // Actualizar la sesión con el usuario actualizado
+            session.setAttribute("usuarioLogueado", usuarioActualizado);
+            
+            model.addAttribute("usuario", usuarioActualizado);
+            model.addAttribute("section", "datos-personales");
+            model.addAttribute("mensaje", "Datos actualizados correctamente");
+            
+            return "perfil_datos";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Error al actualizar: " + e.getMessage());
+            model.addAttribute("section", "datos-personales");
+            
+            // Recuperar el usuario para mostrarlo en la vista
+            UsuarioModel usuario = usuarioService.obtenerUsuarioPorId(id).orElse(new UsuarioModel());
+            model.addAttribute("usuario", usuario);
+            
+            return "perfil_datos";
+        }
     }
 
     @GetMapping("/cambiar-contrasena")
