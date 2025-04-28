@@ -314,13 +314,29 @@ public class PeriodoController {
         }
 
         List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
+        
+        // Lista para almacenar periodos con su información de servicio
+        List<Map<String, Object>> periodosConInfo = new ArrayList<>();
 
         // Obtener todos los periodos de todos los servicios del usuario
-        List<PeriodoModel> periodos = servicios.stream()
-                .flatMap(servicio -> periodoService.obtenerPeriodosPorServicio(servicio.getId()).stream())
-                .collect(Collectors.toList());
+        for (ServicioModel servicio : servicios) {
+            List<PeriodoModel> periodos = periodoService.obtenerPeriodosPorServicio(servicio.getId());
+            
+            for (PeriodoModel periodo : periodos) {
+                Map<String, Object> periodoInfo = new HashMap<>();
+                periodoInfo.put("id", periodo.getId());
+                periodoInfo.put("mes", periodo.getMes());
+                periodoInfo.put("ano", periodo.getAno());
+                periodoInfo.put("consumo", periodo.getConsumo());
+                periodoInfo.put("unidad", periodo.getUnidad());
+                periodoInfo.put("servicioId", servicio.getId());
+                periodoInfo.put("tipoServicio", servicio.getTipo_servicio());
+                
+                periodosConInfo.add(periodoInfo);
+            }
+        }
 
-        model.addAttribute("periodos", periodos);
+        model.addAttribute("periodosConInfo", periodosConInfo);
         model.addAttribute("section", "mis-consumos");
         return "perfil_datos";
     }

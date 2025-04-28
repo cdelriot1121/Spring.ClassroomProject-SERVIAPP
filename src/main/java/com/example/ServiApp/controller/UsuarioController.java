@@ -171,8 +171,21 @@ public class UsuarioController {
             return "perfil_datos";
         }
 
-        usuarioLogueado.setPassword(passwordEncoder.encode(newPassword));
-        usuarioService.guardarUsuario(usuarioLogueado);
+        // Obtener el usuario fresco de la base de datos
+        Optional<UsuarioModel> usuarioActualizado = usuarioService.obtenerUsuarioPorId(usuarioLogueado.getId());
+        
+        if (usuarioActualizado.isPresent()) {
+            // Actualizar solo la contraseña
+            usuarioActualizado.get().setPassword(passwordEncoder.encode(newPassword));
+            // Guardar el usuario con todos sus datos
+            UsuarioModel usuarioGuardado = usuarioService.guardarUsuario(usuarioActualizado.get());
+            // Actualizar la sesión
+            session.setAttribute("usuarioLogueado", usuarioGuardado);
+        } else {
+            model.addAttribute("error", "Error al actualizar la contraseña");
+            model.addAttribute("section", "cambiar-contrasena");
+            return "perfil_datos";
+        }
 
         model.addAttribute("mensaje", "¡Contraseña cambiada con éxito!");
         model.addAttribute("section", "cambiar-contrasena");

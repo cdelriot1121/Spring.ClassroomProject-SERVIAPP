@@ -155,17 +155,16 @@ function confirmarCambioServicio(event) {
 
 
 
-function confirmarEliminarServicio(event, servicioId) {
-    event.preventDefault();  
-
-    Swal.fire({
+// Función para confirmar eliminación de servicio (corregida)
+function confirmarEliminarServicio() {
+    return Swal.fire({
         title: '¿Estás seguro de eliminar este servicio?',
-        text: '¡Esta acción no se puede deshacer!',
+        text: '¡Esta acción eliminará también todos los consumos asociados y no se puede deshacer!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sí, eliminar',
         cancelButtonText: 'No, cancelar',
-        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)', 
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
         customClass: {
             popup: 'swal-custom-popup',
             confirmButton: 'btn-confirmar',
@@ -173,25 +172,168 @@ function confirmarEliminarServicio(event, servicioId) {
         },
         didRender: () => {
             const logo = document.createElement('img');
-            logo.src = '/img_local/logo-pagina-serviapp.png'; 
+            logo.src = '/img_local/logo-pagina-serviapp.png';
             logo.style.width = '155px';
             logo.style.display = 'block';
             logo.style.margin = '0 auto 10px';
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        return result.isConfirmed;
+    });
+}
 
+// Función para confirmar eliminación de consumo (mejorada)
+function confirmarEliminarConsumo() {
+    return Swal.fire({
+        title: '¿Eliminar registro de consumo?',
+        text: 'Esta acción no se puede deshacer y eliminará los consejos personalizados asociados',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png';
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        return result.isConfirmed;
+    });
+}
+
+// Función para confirmar eliminación de predio
+function confirmarEliminarPredio() {
+    return Swal.fire({
+        title: '¿Eliminar información del predio?',
+        text: 'Al eliminar esta información, perderás las recomendaciones personalizadas por zona',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png';
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        return result.isConfirmed;
+    });
+}
+
+// Función para confirmar cambio de consumo (mejorada)
+function confirmarCambioConsumo(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: '¿Actualizar registro de consumo?',
+        text: 'Los cambios en el consumo pueden afectar las recomendaciones personalizadas',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, actualizar',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png';
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
             Swal.getIcon().before(logo);
         }
     }).then((result) => {
         if (result.isConfirmed) {
-           
-            document.getElementById(`form-eliminar-servicio-${servicioId}`).submit(); 
-        } else {
-            Swal.fire('Eliminación cancelada', 'Tu servicio no ha sido eliminado', 'info');
+            document.getElementById('form-consumos').submit();
         }
     });
 }
 
+// Función para confirmar actualización de predio
+function confirmarActualizarPredio(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: '¿Guardar cambios en el predio?',
+        text: 'Esta información es importante para personalizar tus consejos de ahorro',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, guardar',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png';
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            event.target.closest('form').submit();
+        }
+    });
+}
 
-
+// Función para confirmar registro de predio
+function confirmarRegistrarPredio(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: '¿Registrar información del predio?',
+        text: 'Esta información nos ayuda a darte consejos más personalizados',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, registrar',
+        cancelButtonText: 'No, cancelar',
+        background: 'linear-gradient(135deg, #f0f8ff, #d0e7ff)',
+        customClass: {
+            popup: 'swal-custom-popup',
+            confirmButton: 'btn-confirmar',
+            cancelButton: 'btn-cancelar'
+        },
+        didRender: () => {
+            const logo = document.createElement('img');
+            logo.src = '/img_local/logo-pagina-serviapp.png';
+            logo.style.width = '155px';
+            logo.style.display = 'block';
+            logo.style.margin = '0 auto 10px';
+            Swal.getIcon().before(logo);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            event.target.closest('form').submit();
+        }
+    });
+}
 
 function confirmarCambioContraseña(event) {
     event.preventDefault(); 
@@ -240,41 +382,5 @@ function confirmarCambioContraseña(event) {
         } else {
             Swal.fire('No se ha realizado ningún cambio', 'Tu contraseña no ha sido modificada', 'info');
         }
-    });
-}
-
-// Función para confirmar cambios de consumo
-function confirmarCambioConsumo(event) {
-    event.preventDefault();
-    
-    Swal.fire({
-        title: '¿Confirmar cambios?',
-        text: 'Se actualizarán los datos del consumo',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, actualizar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById('form-consumos').submit();
-        }
-    });
-}
-
-// Función para confirmar eliminación de consumo
-function confirmarEliminarConsumo() {
-    return Swal.fire({
-        title: '¿Eliminar consumo?',
-        text: 'Esta acción no se puede deshacer',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        return result.isConfirmed;
     });
 }
