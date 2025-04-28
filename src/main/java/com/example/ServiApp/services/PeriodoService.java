@@ -47,7 +47,16 @@ public class PeriodoService {
     
     // Validar que no haya duplicaciones de mes y año para el mismo servicio
     public boolean existePeriodoRegistrado(String usuarioId, String mes, int ano, String servicioId) {
-        return periodoRepository.existsByUsuarioIdAndMesAndAnoAndServicioId(usuarioId, mes, ano, servicioId);
+        try {
+            // Usamos el método alternativo que es más seguro
+            List<PeriodoModel> periodos = periodoRepository.findByUsuarioIdAndMesAndAnoAndServicioId(
+                usuarioId, mes, ano, servicioId);
+            return periodos != null && !periodos.isEmpty();
+        } catch (Exception e) {
+            System.err.println("Error al verificar existencia del periodo: " + e.getMessage());
+            e.printStackTrace();
+            return false; // Por defecto asumimos que no existe en caso de error
+        }
     }
     
     // Guardar un periodo (actualizar)

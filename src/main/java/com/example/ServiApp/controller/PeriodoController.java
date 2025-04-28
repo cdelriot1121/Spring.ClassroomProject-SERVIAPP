@@ -109,12 +109,19 @@ public class PeriodoController {
                 return "gestionar_serv";
             }
 
-            boolean yaExiste = periodoService.existePeriodoRegistrado(
-                usuarioLogueado.getId(), 
-                periodo.getMes(), 
-                periodo.getAno(), 
-                servicioSeleccionado.getId()
-            );
+            boolean yaExiste = false;
+            try {
+                yaExiste = periodoService.existePeriodoRegistrado(
+                    usuarioLogueado.getId(), 
+                    periodo.getMes(), 
+                    periodo.getAno(), 
+                    servicioSeleccionado.getId()
+                );
+            } catch (Exception e) {
+                System.err.println("Error al verificar existencia de periodo: " + e.getMessage());
+                model.addAttribute("error", "Error al verificar existencia de periodo: " + e.getMessage());
+                return "gestionar_serv";
+            }
 
             if (yaExiste) {
                 model.addAttribute("error", "Ya existe un registro de consumo para este mes. Si deseas cambiar la información de este Consumo puedes dirigirte al apartado de mi Perfil");
@@ -205,6 +212,7 @@ public class PeriodoController {
                 consejosPersonalizados = Collections.emptyList();
             }
 
+            // Agregando todos los datos al modelo (independientemente de consejos)
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
