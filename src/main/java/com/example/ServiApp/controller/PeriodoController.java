@@ -269,32 +269,40 @@ public class PeriodoController {
         }
 
         List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
-        List<PeriodoModel> periodos = new ArrayList<>();
+        List<Map<String, Object>> periodosConData = new ArrayList<>();
 
         try {
-            periodos = servicios.stream()
-                    .flatMap(servicio -> {
-                        List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicio(servicio.getId());
-                        // Cargar los consejos para cada periodo, con manejo de excepciones por periodo
-                        periodosServicio.forEach(periodo -> {
-                            try {
-                                List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
-                                // Configuramos los consejos en el periodo para la vista
-                                model.addAttribute("consejos_" + periodo.getId(), consejos);
-                            } catch (Exception e) {
-                                System.err.println("Error al cargar consejos para periodo " + periodo.getId() + ": " + e.getMessage());
-                                model.addAttribute("consejos_" + periodo.getId(), Collections.emptyList());
-                            }
-                        });
-                        return periodosServicio.stream();
-                    })
-                    .toList();
+            // Obtener todos los periodos de todos los servicios
+            for (ServicioModel servicio : servicios) {
+                List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicio(servicio.getId());
+                
+                for (PeriodoModel periodo : periodosServicio) {
+                    Map<String, Object> periodoMap = new HashMap<>();
+                    
+                    // Datos básicos del periodo
+                    periodoMap.put("id", periodo.getId());
+                    periodoMap.put("mes", periodo.getMes());
+                    periodoMap.put("ano", periodo.getAno());
+                    periodoMap.put("consumo", periodo.getConsumo());
+                    periodoMap.put("unidad", periodo.getUnidad());
+                    
+                    // Datos del servicio (ya que no está embebido directamente)
+                    periodoMap.put("tipoServicio", servicio.getTipo_servicio());
+                    periodoMap.put("empresa", servicio.getEmpresa());
+                    
+                    // Obtener los consejos asociados a este periodo
+                    List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
+                    periodoMap.put("consejos", consejos);
+                    
+                    periodosConData.add(periodoMap);
+                }
+            }
         } catch (Exception e) {
-            System.err.println("Error general al procesar periodos y consejos: " + e.getMessage());
-            // No propagamos la excepción, mostramos una lista vacía
+            System.err.println("Error al cargar periodos y consejos: " + e.getMessage());
+            e.printStackTrace();
         }
-
-        model.addAttribute("periodos", periodos);
+        
+        model.addAttribute("periodosConData", periodosConData);
         return "consejos_personalizados"; 
     }
 
