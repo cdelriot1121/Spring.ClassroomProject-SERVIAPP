@@ -7,6 +7,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,7 @@ import com.example.ServiApp.model.PredioModel;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
+import com.mongodb.client.result.UpdateResult;
 
 @Service
 public class UsuarioService {
@@ -164,23 +169,49 @@ public class UsuarioService {
                 .orElse(false);
     }
     
-    public void actualizarServicio(String usuarioId, String servicioId, ServicioModel servicioActualizado) {
-        Optional<UsuarioModel> usuarioOpt = usuarioRepository.findById(usuarioId);
-        if (usuarioOpt.isPresent()) {
-            UsuarioModel usuario = usuarioOpt.get();
-            List<ServicioModel> servicios = usuario.getServicios();
+    public boolean actualizarServicio(String usuarioId, String servicioId, ServicioModel servicioActualizado) {
+        try {
+            // Primero, encontrar el usuario por ID
+            Optional<UsuarioModel> usuarioOpt = usuarioRepository.findById(usuarioId);
+            if (usuarioOpt.isEmpty()) {
+                System.err.println("Usuario no encontrado con ID: " + usuarioId);
+                return false;
+            }
             
-            for (int i = 0; i < servicios.size(); i++) {
-                if (servicios.get(i).getId().equals(servicioId)) {
-                    servicios.get(i).setPoliza(servicioActualizado.getPoliza());
-                    servicios.get(i).setHabitantes(servicioActualizado.getHabitantes());
-                    servicios.get(i).setEmpresa(servicioActualizado.getEmpresa());
+            UsuarioModel usuario = usuarioOpt.get();
+            boolean servicioEncontrado = false;
+            
+            // Buscar el servicio específico en el array de servicios
+            for (int i = 0; i < usuario.getServicios().size(); i++) {
+                if (usuario.getServicios().get(i).getId().equals(servicioId)) {
+                    // Actualizamos todas las propiedades del servicio, preservando el ID
+                    ServicioModel servicioExistente = usuario.getServicios().get(i);
+                    servicioExistente.setTipo_servicio(servicioActualizado.getTipo_servicio());
+                    servicioExistente.setEmpresa(servicioActualizado.getEmpresa());
+                    servicioExistente.setPoliza(servicioActualizado.getPoliza());
+                    servicioExistente.setHabitantes(servicioActualizado.getHabitantes());
+                    
+                    // Actualizar la lista de periodos - AQUÍ ESTÁ EL PROBLEMA
+                    servicioExistente.setPeriodosIds(servicioActualizado.getPeriodosIds());
+                    
+                    servicioEncontrado = true;
                     break;
                 }
             }
             
-            usuario.setServicios(servicios);
+            if (!servicioEncontrado) {
+                System.err.println("Servicio no encontrado con ID: " + servicioId + " en usuario: " + usuarioId);
+                return false;
+            }
+            
+            // Guardar el usuario actualizado en la base de datos
             usuarioRepository.save(usuario);
+            System.out.println("Servicio actualizado correctamente con el período");
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error al actualizar servicio: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
     
@@ -216,5 +247,34 @@ public class UsuarioService {
             }
         }
         return null;
+    }
+        // En UsuarioService.java
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    // En UsuarioService.java
+    public boolean añadirPeriodoAServicio(String usuarioId, String servicioId, String periodoId) {
+        try {
+            // Implementar directamente con una actualización atómica en MongoDB
+            // Usando $push para agregar el periodoId al array sin cargar todo el documento
+            Query query = new Query(Criteria.where("_id").is(usuarioId)
+                                   .and("servicios.servicio_id").is(servicioId));
+            
+            Update update = new Update().push("servicios.$.periodos_ids", periodoId);
+            
+            UpdateResult result = mongoTemplate.updateFirst(query, update, UsuarioModel.class);
+            
+            boolean actualizado = result.getModifiedCount() > 0;
+            if (actualizado) {
+                System.out.println("✅ Período " + periodoId + " añadido al servicio " + servicioId);
+            } else {
+                System.err.println("❌ No se pudo añadir el período al servicio");
+            }
+            return actualizado;
+        } catch (Exception e) {
+            System.err.println("Error al añadir período a servicio: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }

@@ -179,12 +179,17 @@ public class PeriodoController {
                 return "gestionar_serv";
             }
 
-            // Añadir el ID del periodo al servicio
-            if (servicioSeleccionado.getPeriodosIds() == null) {
-                servicioSeleccionado.setPeriodosIds(new ArrayList<>());
+            // Añadir el ID del periodo al servicio usando el nuevo método específico
+            boolean periodoAsignado = usuarioService.añadirPeriodoAServicio(
+                usuarioLogueado.getId(), 
+                servicioSeleccionado.getId(),
+                periodoGuardado.getId()
+            );
+
+            if (!periodoAsignado) {
+                System.err.println("El período se guardó pero no se pudo asignar al servicio");
+                // Opcionalmente se podría eliminar el período si no se pudo asignar
             }
-            servicioSeleccionado.addPeriodoId(periodoGuardado.getId());
-            usuarioService.actualizarServicio(usuarioLogueado.getId(), servicioSeleccionado.getId(), servicioSeleccionado);
 
             // Consejos - Con mejor manejo de errores
             List<ConsejosModel> consejosPersonalizados = Collections.emptyList();

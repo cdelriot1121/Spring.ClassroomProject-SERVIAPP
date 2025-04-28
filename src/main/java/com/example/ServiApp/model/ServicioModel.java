@@ -89,7 +89,10 @@ public class ServicioModel {
         if (this.periodosIds == null) {
             this.periodosIds = new ArrayList<>();
         }
-        this.periodosIds.add(periodoId);
+        // Verificar que no exista ya
+        if (!this.periodosIds.contains(periodoId)) {
+            this.periodosIds.add(periodoId);
+        }
     }
 
     @Override
