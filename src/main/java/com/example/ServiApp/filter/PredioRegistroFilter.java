@@ -82,10 +82,9 @@ public class PredioRegistroFilter extends OncePerRequestFilter {
         // redirigir al formulario de registro obligatorio
         if (!tienePredio && !requestURI.equals("/registrar-predio-obligatorio")) {
             response.sendRedirect("/registrar-predio-obligatorio");
-            return;
+        } else {
+            filterChain.doFilter(request, response);
         }
-        
-        filterChain.doFilter(request, response);
     }
     
     private boolean estaExcluida(String uri) {

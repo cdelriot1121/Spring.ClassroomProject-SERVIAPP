@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,43 +23,63 @@ import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.services.ConsejosService;
 import com.example.ServiApp.services.PeriodoService;
-import com.example.ServiApp.services.ServiciosService;
+import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PeriodoController {
-        @Autowired
-        private ServiciosService servicioService;
+    @Autowired
+    private UsuarioService usuarioService;
 
-        @Autowired
-        private PeriodoService periodoService;
+    @Autowired
+    private PeriodoService periodoService;
 
-        @Autowired
-        private ConsejosService consejosService;
+    @Autowired
+    private ConsejosService consejosService;
 
-        @PostMapping("/calcular-consumo")
-        public String calcularConsumo(@ModelAttribute PeriodoModel periodo, Model model, HttpSession session) {
+    @PostMapping("/calcular-consumo")
+    public String calcularConsumo(@ModelAttribute PeriodoModel periodo, Model model, HttpSession session) {
+        try {
             UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
             if (usuarioLogueado == null) {
-                throw new IllegalArgumentException("Usuario no logueado.");
+                model.addAttribute("error", "No se encontró la sesión del usuario. Por favor inicie sesión nuevamente.");
+                return "gestionar_serv";
             }
 
-            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+            List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
             model.addAttribute("servicios", servicios);
-            ServicioModel servicioSeleccionado = servicios.stream()
-                    .filter(servicio -> servicio.getId() == periodo.getServicio().getId())
-                    .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("Servicio no encontrado para el usuario actual."));
+            
+            if (servicios.isEmpty()) {
+                model.addAttribute("error", "No tiene servicios registrados. Por favor registre un servicio primero.");
+                return "gestionar_serv";
+            }
+            
+            // Debug para verificar qué servicio se está buscando
+            System.out.println("Buscando servicio con ID: " + periodo.getServicioId());
+            System.out.println("Servicios disponibles: " + servicios.size());
+            for (ServicioModel s : servicios) {
+                System.out.println("ID: " + s.getId() + ", Tipo: " + s.getTipo_servicio());
+            }
+            
+            Optional<ServicioModel> servicioOpt = servicios.stream()
+                    .filter(servicio -> servicio.getId().equals(periodo.getServicioId()))
+                    .findFirst();
+                    
+            if (!servicioOpt.isPresent()) {
+                model.addAttribute("error", "No se encontró el servicio seleccionado para el usuario actual.");
+                return "gestionar_serv";
+            }
+            
+            ServicioModel servicioSeleccionado = servicioOpt.get();
 
             long habitantes = servicioSeleccionado.getHabitantes();
             if (habitantes <= 0) {
-                throw new IllegalArgumentException("El número de habitantes debe ser mayor a cero.");
+                model.addAttribute("error", "El número de habitantes debe ser mayor a cero. Por favor actualice su servicio.");
+                return "gestionar_serv";
             }
 
-            periodo.setServicio(servicioSeleccionado);
-
-            //Convertir "2025-04" a mes (texto) y año 
+            // Resto del código de conversión de fecha
             String mesYAnio = periodo.getMes(); // "2025-04"
             if (mesYAnio != null && mesYAnio.matches("\\d{4}-\\d{2}")) {
                 String[] partes = mesYAnio.split("-");
@@ -83,15 +104,24 @@ public class PeriodoController {
 
                 periodo.setMes(mesTxt);
                 periodo.setAno(ano);
+            } else {
+                model.addAttribute("error", "Formato de fecha incorrecto. Use el formato YYYY-MM.");
+                return "gestionar_serv";
             }
 
-            
-            boolean yaExiste = periodoService.existePeriodoRegistrado(
-                usuarioLogueado.getId(), 
-                periodo.getMes(), 
-                periodo.getAno(), 
-                servicioSeleccionado.getId()
-            );
+            boolean yaExiste = false;
+            try {
+                yaExiste = periodoService.existePeriodoRegistrado(
+                    usuarioLogueado.getId(), 
+                    periodo.getMes(), 
+                    periodo.getAno(), 
+                    servicioSeleccionado.getId()
+                );
+            } catch (Exception e) {
+                System.err.println("Error al verificar existencia de periodo: " + e.getMessage());
+                model.addAttribute("error", "Error al verificar existencia de periodo: " + e.getMessage());
+                return "gestionar_serv";
+            }
 
             if (yaExiste) {
                 model.addAttribute("error", "Ya existe un registro de consumo para este mes. Si deseas cambiar la información de este Consumo puedes dirigirte al apartado de mi Perfil");
@@ -110,13 +140,17 @@ public class PeriodoController {
             String categoriaConsumo = ""; 
             String unidad = ""; 
 
-            switch (servicioSeleccionado.getTipo_servicio().trim().toLowerCase()) {
+            // Aseguramos que el tipo de servicio existe y está normalizado
+            String tipoServicioNormalizado = servicioSeleccionado.getTipo_servicio() != null ? 
+                                              servicioSeleccionado.getTipo_servicio().trim().toLowerCase() : "";
+
+            switch (tipoServicioNormalizado) {
                 case "agua":
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
                     unidad = "m3";
                     categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
-                case "energía":
+                case "energía", "energia":
                     promedioCartagena = PROMEDIO_ENERGIA * habitantes;
                     unidad = "kWh";
                     categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 8);
@@ -127,35 +161,63 @@ public class PeriodoController {
                     categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
                     break;
                 default:
-                    throw new IllegalArgumentException("Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
+                    model.addAttribute("error", "Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
+                    return "gestionar_serv";
             }
 
             periodo.setUnidad(unidad);
             String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
 
+            // Asignar usuario y servicio
+            periodo.setUsuarioId(usuarioLogueado.getId());
+            periodo.setServicioId(servicioSeleccionado.getId());
+            
             // Registrar periodo
-            periodoService.registrarPeriodo(periodo);
+            PeriodoModel periodoGuardado = periodoService.registrarPeriodo(periodo);
+            if (periodoGuardado == null) {
+                model.addAttribute("error", "Error al guardar el período de consumo. Inténtelo nuevamente.");
+                return "gestionar_serv";
+            }
 
-            // Consejos
-            List<ConsejosModel> consejosPersonalizados = Collections.emptyList(); // Lista vacía por defecto
+            // Añadir el ID del periodo al servicio usando el nuevo método específico
+            boolean periodoAsignado = usuarioService.añadirPeriodoAServicio(
+                usuarioLogueado.getId(), 
+                servicioSeleccionado.getId(),
+                periodoGuardado.getId()
+            );
+
+            if (!periodoAsignado) {
+                System.err.println("El período se guardó pero no se pudo asignar al servicio");
+                // Opcionalmente se podría eliminar el período si no se pudo asignar
+            }
+
+            // Consejos - Con mejor manejo de errores
+            List<ConsejosModel> consejosPersonalizados = Collections.emptyList();
             try {
+                System.out.println("Buscando consejos para: " + categoriaConsumo + ", " + tipoServicioNormalizado);
                 consejosPersonalizados = consejosService.obtenerConsejosTipoServ_TipoCateg(
                     categoriaConsumo, 
-                    servicioSeleccionado.getTipo_servicio()
+                    tipoServicioNormalizado
                 );
                 
-                // Si llegamos aquí sin excepción, intentamos asignar los consejos al periodo
-                if (consejosPersonalizados != null) {
-                    periodo.setConsejos(consejosPersonalizados);
-                    // Actualizar nuevamente con los consejos
-                    periodoService.registrarPeriodo(periodo);
+                if (consejosPersonalizados != null && !consejosPersonalizados.isEmpty()) {
+                    System.out.println("Consejos encontrados: " + consejosPersonalizados.size());
+                    for (ConsejosModel consejo : consejosPersonalizados) {
+                        try {
+                            consejosService.asignarConsejoAPeriodo(periodoGuardado.getId(), consejo.getId());
+                        } catch (Exception e) {
+                            System.err.println("Error al asignar consejo " + consejo.getId() + " al período: " + e.getMessage());
+                        }
+                    }
+                } else {
+                    System.out.println("No se encontraron consejos para esta categoría y servicio");
                 }
             } catch (Exception e) {
-                // Log del error pero continuación del flujo normal
                 System.err.println("Error al obtener consejos: " + e.getMessage());
                 consejosPersonalizados = Collections.emptyList();
             }
 
+            // Agregando todos los datos al modelo (independientemente de consejos)
             model.addAttribute("promedioCartagena", promedioCartagena);
             model.addAttribute("promedioHogar", promedioHogar);
             model.addAttribute("promedioHabitante", promedioHabitante);
@@ -165,102 +227,132 @@ public class PeriodoController {
             model.addAttribute("clasePromedioCartagena", clasePromedioCartagena);
 
             return "gestionar_serv";
-        }
-
-
-
-        private String categorizarConsumo(float consumoHogar, float promedio, float margen) {
-            if (consumoHogar < promedio - margen) {
-                return "Bajo";
-            } else if (consumoHogar > promedio + margen) {
-                return "Elevado";
-            } else {
-                return "Moderado";
-            }
-        }
-
-
-        @GetMapping("/gestionar-servicio")
-        public String gestionarServicio(Model model, HttpSession session) {
-            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-            if (usuarioLogueado == null) {
-                return "redirect:/login"; 
-            }
-
-            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
-            model.addAttribute("servicios", servicios);
+            
+        } catch (Exception e) {
+            // Captura cualquier excepción no manejada y proporciona información de depuración
+            e.printStackTrace();
+            model.addAttribute("error", "Error inesperado: " + e.getMessage());
+            model.addAttribute("servicios", usuarioService.obtenerServiciosPorUsuario(
+                ((UsuarioModel) session.getAttribute("usuarioLogueado")).getId()
+            ));
             return "gestionar_serv";
         }
+    }
 
+    private String categorizarConsumo(float consumoHogar, float promedio, float margen) {
+        if (consumoHogar < promedio - margen) {
+            return "Bajo";
+        } else if (consumoHogar > promedio + margen) {
+            return "Elevado";
+        } else {
+            return "Moderado";
+        }
+    }
 
-        @GetMapping("/consejos-personzalidos")
-        public String consejosPersonalizados(Model model, HttpSession session) {
-            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-            if (usuarioLogueado == null) {
-                return "redirect:/login"; 
-            }
-
-            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
-            List<PeriodoModel> periodos = new ArrayList<>();
-
-            try {
-                periodos = servicios.stream()
-                        .flatMap(servicio -> {
-                            List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicios(servicio);
-                            // Cargar los consejos para cada periodo, con manejo de excepciones por periodo
-                            periodosServicio.forEach(periodo -> {
-                                try {
-                                    List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
-                                    periodo.setConsejos(consejos != null ? consejos : Collections.emptyList());
-                                } catch (Exception e) {
-                                    System.err.println("Error al cargar consejos para periodo " + periodo.getId() + ": " + e.getMessage());
-                                    periodo.setConsejos(Collections.emptyList());
-                                }
-                            });
-                            return periodosServicio.stream();
-                        })
-                        .toList();
-            } catch (Exception e) {
-                System.err.println("Error general al procesar periodos y consejos: " + e.getMessage());
-                // No propagamos la excepción, mostramos una lista vacía
-            }
-
-            model.addAttribute("periodos", periodos);
-            return "consejos_personalizados"; 
+    @GetMapping("/gestionar-servicio")
+    public String gestionarServicio(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado == null) {
+            return "redirect:/login"; 
         }
 
-        @GetMapping("/mis-consumos")
-        public String misConsumos(Model model, HttpSession session) {
-            UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-            if (usuarioLogueado == null) {
-                return "redirect:/login"; 
-            }
+        List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
+        model.addAttribute("servicios", servicios);
+        return "gestionar_serv";
+    }
 
-            List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
-
-            // Obtener todos los periodos de todos los servicios del usuario
-            List<PeriodoModel> periodos = servicios.stream()
-                    .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream())
-                    .toList();
-
-            model.addAttribute("periodos", periodos);
-            model.addAttribute("section", "mis-consumos");
-            return "perfil_datos";
+    @GetMapping("/consejos-personzalidos")
+    public String consejosPersonalizados(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado == null) {
+            return "redirect:/login"; 
         }
 
-        @GetMapping("/editar-consumo/{id}")
-        public String editarConsumo(@PathVariable Long id, Model model, HttpSession session) {
-            periodoService.obtenerPeriodoPorId(id).orElseThrow(() ->
-                    new IllegalArgumentException("Consumo no encontrado con id: " + id));
+        List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
+        List<Map<String, Object>> periodosConData = new ArrayList<>();
 
-            model.addAttribute("editarConsumoId", id);
+        try {
+            // Obtener todos los periodos de todos los servicios
+            for (ServicioModel servicio : servicios) {
+                List<PeriodoModel> periodosServicio = periodoService.obtenerPeriodosPorServicio(servicio.getId());
+                
+                for (PeriodoModel periodo : periodosServicio) {
+                    Map<String, Object> periodoMap = new HashMap<>();
+                    
+                    // Datos básicos del periodo
+                    periodoMap.put("id", periodo.getId());
+                    periodoMap.put("mes", periodo.getMes());
+                    periodoMap.put("ano", periodo.getAno());
+                    periodoMap.put("consumo", periodo.getConsumo());
+                    periodoMap.put("unidad", periodo.getUnidad());
+                    
+                    // Datos del servicio (ya que no está embebido directamente)
+                    periodoMap.put("tipoServicio", servicio.getTipo_servicio());
+                    periodoMap.put("empresa", servicio.getEmpresa());
+                    
+                    // Obtener los consejos asociados a este periodo
+                    List<ConsejosModel> consejos = consejosService.obtenerConsejosPorPeriodo(periodo.getId());
+                    periodoMap.put("consejos", consejos);
+                    
+                    periodosConData.add(periodoMap);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error al cargar periodos y consejos: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        model.addAttribute("periodosConData", periodosConData);
+        return "consejos_personalizados"; 
+    }
+
+    @GetMapping("/mis-consumos")
+    public String misConsumos(Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado == null) {
+            return "redirect:/login"; 
+        }
+
+        List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
+        
+        // Lista para almacenar periodos con su información de servicio
+        List<Map<String, Object>> periodosConInfo = new ArrayList<>();
+
+        // Obtener todos los periodos de todos los servicios del usuario
+        for (ServicioModel servicio : servicios) {
+            List<PeriodoModel> periodos = periodoService.obtenerPeriodosPorServicio(servicio.getId());
             
-            // Redirigimos a mis-consumos para mostrar todos los periodos con el modo edición activado
-            return misConsumos(model, session);
+            for (PeriodoModel periodo : periodos) {
+                Map<String, Object> periodoInfo = new HashMap<>();
+                periodoInfo.put("id", periodo.getId());
+                periodoInfo.put("mes", periodo.getMes());
+                periodoInfo.put("ano", periodo.getAno());
+                periodoInfo.put("consumo", periodo.getConsumo());
+                periodoInfo.put("unidad", periodo.getUnidad());
+                periodoInfo.put("servicioId", servicio.getId());
+                periodoInfo.put("tipoServicio", servicio.getTipo_servicio());
+                
+                periodosConInfo.add(periodoInfo);
+            }
         }
 
+        model.addAttribute("periodosConInfo", periodosConInfo);
+        model.addAttribute("section", "mis-consumos");
+        return "perfil_datos";
+    }
 
-        @GetMapping("/api/consumos/{tipoServicio}/{orden}")
+    @GetMapping("/editar-consumo/{id}")
+    public String editarConsumo(@PathVariable String id, Model model, HttpSession session) {
+        periodoService.obtenerPeriodoPorId(id).orElseThrow(() ->
+                new IllegalArgumentException("Consumo no encontrado con id: " + id));
+
+        model.addAttribute("editarConsumoId", id);
+        
+        // Redirigimos a mis-consumos para mostrar todos los periodos con el modo edición activado
+        return misConsumos(model, session);
+    }
+
+    @GetMapping("/api/consumos/{tipoServicio}/{orden}")
     @ResponseBody
     public Map<String, Object> obtenerConsumosPorTipoServicio(
             @PathVariable String tipoServicio,
@@ -272,7 +364,7 @@ public class PeriodoController {
             throw new IllegalArgumentException("Usuario no logueado.");
         }
 
-        List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
+        List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
 
         final Map<String, Float> promediosPorPersona = Map.of(
             "agua", 4.3f,
@@ -280,93 +372,93 @@ public class PeriodoController {
             "gas", 3.9f
         );
 
-    List<PeriodoModel> periodos = servicios.stream()
-        .filter(servicio -> servicio.getTipo_servicio().equalsIgnoreCase(tipoServicio))
-        .flatMap(servicio -> periodoService.obtenerPeriodosPorServicios(servicio).stream()
-            .map(periodo -> {
-                periodo.getServicio().setHabitantes(servicio.getHabitantes());
-                return periodo;
-            }))
-        .collect(Collectors.toList());
+        List<PeriodoModel> periodos = servicios.stream()
+            .filter(servicio -> servicio.getTipo_servicio().equalsIgnoreCase(tipoServicio))
+            .flatMap(servicio -> periodoService.obtenerPeriodosPorServicio(servicio.getId()).stream())
+            .collect(Collectors.toList());
 
-    Map<String, Integer> meses = Map.ofEntries(
-        Map.entry("Enero", 1), Map.entry("Febrero", 2), Map.entry("Marzo", 3),
-        Map.entry("Abril", 4), Map.entry("Mayo", 5), Map.entry("Junio", 6),
-        Map.entry("Julio", 7), Map.entry("Agosto", 8), Map.entry("Septiembre", 9),
-        Map.entry("Octubre", 10), Map.entry("Noviembre", 11), Map.entry("Diciembre", 12)
-    );
+        Map<String, Integer> meses = Map.ofEntries(
+            Map.entry("Enero", 1), Map.entry("Febrero", 2), Map.entry("Marzo", 3),
+            Map.entry("Abril", 4), Map.entry("Mayo", 5), Map.entry("Junio", 6),
+            Map.entry("Julio", 7), Map.entry("Agosto", 8), Map.entry("Septiembre", 9),
+            Map.entry("Octubre", 10), Map.entry("Noviembre", 11), Map.entry("Diciembre", 12)
+        );
 
-    periodos.sort((p1, p2) -> {
-        int cAno = Integer.compare(p1.getAno(), p2.getAno());
-        return cAno != 0 ? cAno : Integer.compare(meses.get(p1.getMes()), meses.get(p2.getMes()));
-    });
+        periodos.sort((p1, p2) -> {
+            int cAno = Integer.compare(p1.getAno(), p2.getAno());
+            return cAno != 0 ? cAno : Integer.compare(meses.get(p1.getMes()), meses.get(p2.getMes()));
+        });
 
-    if ("desc".equalsIgnoreCase(orden)) {
-        Collections.reverse(periodos);
-    }
+        if ("desc".equalsIgnoreCase(orden)) {
+            Collections.reverse(periodos);
+        }
 
-    List<String> labels = new ArrayList<>();
-    List<Float> consumosTotales = new ArrayList<>();
-    List<Float> consumosPorHabitante = new ArrayList<>();
-    List<Long> habitantesPorMes = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
+        List<Float> consumosTotales = new ArrayList<>();
+        List<Float> consumosPorHabitante = new ArrayList<>();
+        List<Long> habitantesPorMes = new ArrayList<>();
 
-    float totalConsumo = 0f;
+        float totalConsumo = 0f;
 
-    for (PeriodoModel p : periodos) {
-        labels.add(p.getMes() + " " + p.getAno());
-        float consumo = p.getConsumo();
-        long habitantes = p.getServicio().getHabitantes();
-
-        totalConsumo += consumo;
-        habitantesPorMes.add(habitantes);
-        consumosTotales.add(consumo);
-        consumosPorHabitante.add(habitantes > 0 ? consumo / habitantes : 0f);
-    }
-
-    float promedioPorPersona = promediosPorPersona.getOrDefault(tipoServicio.toLowerCase(), 0f);
-    float promedioPorHogar = 0f;
-
-    if (!habitantesPorMes.isEmpty()) {
-        long promedioHabitantes = Math.round(habitantesPorMes.stream().mapToLong(i -> i).average().orElse(1));
-        promedioPorHogar = promedioHabitantes * promedioPorPersona;
-    }
-
-    float promedioConsumoHogar = !consumosTotales.isEmpty()
-            ? (float) consumosTotales.stream().mapToDouble(Float::doubleValue).average().orElse(0f)
-            : 0f;
-
-    Map<String, Object> response = new HashMap<>();
-    response.put("labels", labels);
-    response.put("consumosTotales", consumosTotales);
-    response.put("consumosPorHabitante", consumosPorHabitante);
-    response.put("habitantesPorMes", habitantesPorMes);
-    response.put("promedioPorHogar", promedioPorHogar);
-    response.put("promedioConsumoHogar", promedioConsumoHogar);
-
-    return response;
-}
-
-
-
-
-        @PostMapping("/actualizar-consumo/{id}")
-        public String actualizarConsumo(@PathVariable Long id, @ModelAttribute PeriodoModel periodo) {
-            PeriodoModel periodoExistente = periodoService.obtenerPeriodoPorId(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Consumo no encontrado con id: " + id));
-
-            periodoExistente.setConsumo(periodo.getConsumo());
-            periodoExistente.setMes(periodo.getMes());
-            periodoExistente.setAno(periodo.getAno());
+        for (PeriodoModel p : periodos) {
+            labels.add(p.getMes() + " " + p.getAno());
+            float consumo = p.getConsumo();
             
-            periodoService.guardarPeriodo(periodoExistente);
+            // Obtener habitantes del servicio vinculado al periodo
+            Optional<ServicioModel> servicioOpt = usuarioService.obtenerServicioPorId(
+                usuarioLogueado.getId(), 
+                p.getServicioId()
+            );
+            long habitantes = servicioOpt.map(ServicioModel::getHabitantes).orElse(1L);
 
-            return "redirect:/mis-consumos";
+            totalConsumo += consumo;
+            habitantesPorMes.add(habitantes);
+            consumosTotales.add(consumo);
+            consumosPorHabitante.add(habitantes > 0 ? consumo / habitantes : 0f);
         }
 
-        @PostMapping("/eliminar-consumo/{id}")
-        public String eliminarConsumo(@PathVariable Long id) {
-            periodoService.eliminarPeriodo(id);
-            return "redirect:/mis-consumos";
+        float promedioPorPersona = promediosPorPersona.getOrDefault(tipoServicio.toLowerCase(), 0f);
+        float promedioPorHogar = 0f;
+
+        if (!habitantesPorMes.isEmpty()) {
+            long promedioHabitantes = Math.round(habitantesPorMes.stream().mapToLong(i -> i).average().orElse(1));
+            promedioPorHogar = promedioHabitantes * promedioPorPersona;
         }
 
+        float promedioConsumoHogar = !consumosTotales.isEmpty()
+                ? (float) consumosTotales.stream().mapToDouble(Float::doubleValue).average().orElse(0f)
+                : 0f;
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("labels", labels);
+        response.put("consumosTotales", consumosTotales);
+        response.put("consumosPorHabitante", consumosPorHabitante);
+        response.put("habitantesPorMes", habitantesPorMes);
+        response.put("promedioPorHogar", promedioPorHogar);
+        response.put("promedioConsumoHogar", promedioConsumoHogar);
+
+        return response;
+    }
+
+    @PostMapping("/actualizar-consumo/{id}")
+    public String actualizarConsumo(@PathVariable String id, @ModelAttribute PeriodoModel periodo) {
+        PeriodoModel periodoExistente = periodoService.obtenerPeriodoPorId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Consumo no encontrado con id: " + id));
+
+        periodoExistente.setConsumo(periodo.getConsumo());
+        
+        // No actualizamos mes y año para evitar duplicados
+        // periodoExistente.setMes(periodo.getMes());
+        // periodoExistente.setAno(periodo.getAno());
+        
+        periodoService.guardarPeriodo(periodoExistente);
+
+        return "redirect:/mis-consumos";
+    }
+
+    @PostMapping("/eliminar-consumo/{id}")
+    public String eliminarConsumo(@PathVariable String id) {
+        periodoService.eliminarPeriodo(id);
+        return "redirect:/mis-consumos";
+    }
 }

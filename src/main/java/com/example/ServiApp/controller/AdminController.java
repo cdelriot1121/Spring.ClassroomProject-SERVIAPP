@@ -15,7 +15,6 @@ import com.example.ServiApp.model.Falla_Ser_Model;
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.services.FallasUserService;
-import com.example.ServiApp.services.ServiciosService;
 import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +28,9 @@ public class AdminController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private FallasUserService fallasUserService;
 
     /**
      * Autentica administradores usando el modelo unificado de usuarios.
@@ -82,26 +84,21 @@ public class AdminController {
         return "interfaz-admin";
     }
 
-    
-
-    @Autowired
-    private ServiciosService serviciosService;
-
     @GetMapping("/gestionar-servicios-admin")
     public String listarServicios(Model model) {
-        List<ServicioModel> servicios = serviciosService.ObtenerServicios();
+        List<ServicioModel> servicios = usuarioService.obtenerTodosLosServicios();
         model.addAttribute("servicios", servicios);
         return "ges-servicios-admin";
     }
 
-    @PostMapping("/eliminar-servicio/{id}")
-    public String eliminarServicio(@PathVariable("id") Long id) {
-        serviciosService.eliminarServicio(id);
+    // Modificado para usar el servicio de usuario en lugar de serviciosService
+    // y cambiar Long id a String id para MongoDB
+    @PostMapping("/eliminar-servicio/{servicioId}/{usuarioId}")
+    public String eliminarServicio(@PathVariable("servicioId") String servicioId,
+                                  @PathVariable("usuarioId") String usuarioId) {
+        usuarioService.eliminarServicio(usuarioId, servicioId);
         return "redirect:/gestionar-servicios-admin";
     }
-
-    @Autowired
-    private FallasUserService fallasUserService;
 
     @GetMapping("/reportes_usuarios")
     public String listarFallasUser(Model model) {
@@ -110,32 +107,21 @@ public class AdminController {
         return "ReportesUserAdmin";
     }
 
-
-
     @PostMapping("/inhabilitar-usuario/{id}")
-    public String inhabilitarUsuario(@PathVariable("id") Long id) {
+    public String inhabilitarUsuario(@PathVariable("id") String id) {
         usuarioService.inhabilitarUsuario(id);
         return "redirect:/interfaz-admin";
     }
     
     @PostMapping("/habilitar-usuario/{id}")
-    public String habilitarUsuario(@PathVariable("id") Long id) {
+    public String habilitarUsuario(@PathVariable("id") String id) {
         usuarioService.habilitarUsuario(id);
         return "redirect:/interfaz-admin";
     }
     
-
-
-
-    
-    
-    
-
-
-
-
-
-
-
-
+    @GetMapping("/logout-admin")
+    public String cerrarSesionAdmin(HttpSession session) {
+        session.removeAttribute("adminLogueado");
+        return "redirect:/login-admin";
+    }
 }

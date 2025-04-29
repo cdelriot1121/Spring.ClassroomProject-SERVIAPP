@@ -1,85 +1,48 @@
 package com.example.ServiApp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="servicios")
 public class ServicioModel {
-   
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private UsuarioModel usuario;
-
-    // Relación uno a muchos con periodos
-    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<PeriodoModel> periodos;
-
-    @Column(name = "tipo_servicio", nullable = false, length = 50)
+    @Field(name = "servicio_id")
+    private String id;
+    
+    @Field(name = "tipo_servicio")
     private String tipoServicio;
 
-    @Column(name = "empresa", nullable = false, length = 50)
+    @Field(name = "empresa")
     private String empresa;
 
-    @Column(name = "poliza", nullable = false)
+    @Field(name = "poliza")
     private long poliza;
 
-    @Column(name = "habitantes_hogar", nullable = false)
+    @Field(name = "habitantes_hogar")
     private long habitantes;
+
+    // Referencias a periodos
+    @Field(name = "periodos_ids")
+    private List<String> periodosIds = new ArrayList<>();
 
     public ServicioModel() {
     }
 
-    public ServicioModel(long id, UsuarioModel usuario, List<PeriodoModel> periodos,
-                         String tipo_servicio, String empresa, long poliza, long habitantes) {
+    public ServicioModel(String id, String tipo_servicio, String empresa, long poliza, long habitantes) {
         this.id = id;
-        this.usuario = usuario;
-        this.periodos = periodos;
         this.tipoServicio = tipo_servicio;
         this.empresa = empresa;
         this.poliza = poliza;
         this.habitantes = habitantes;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public UsuarioModel getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
-    }
-
-    public List<PeriodoModel> getPeriodos() {
-        return periodos;
-    }
-
-    public void setPeriodos(List<PeriodoModel> periodos) {
-        this.periodos = periodos;
     }
 
     public String getTipo_servicio() {
@@ -114,17 +77,34 @@ public class ServicioModel {
         this.habitantes = habitantes;
     }
 
+    public List<String> getPeriodosIds() {
+        return periodosIds;
+    }
+
+    public void setPeriodosIds(List<String> periodosIds) {
+        this.periodosIds = periodosIds;
+    }
+
+    public void addPeriodoId(String periodoId) {
+        if (this.periodosIds == null) {
+            this.periodosIds = new ArrayList<>();
+        }
+        // Verificar que no exista ya
+        if (!this.periodosIds.contains(periodoId)) {
+            this.periodosIds.add(periodoId);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ServicioModel{");
         sb.append("id=").append(id);
-        sb.append(", usuarioId=").append(usuario != null ? usuario.getId() : null); // Evitar referencia recursiva
-        sb.append(", periodos=").append(periodos != null ? periodos.size() : 0); // Mostrar cantidad de periodos
         sb.append(", tipo_servicio=").append(tipoServicio);
         sb.append(", empresa=").append(empresa);
         sb.append(", poliza=").append(poliza);
         sb.append(", habitantes=").append(habitantes);
+        sb.append(", periodos=").append(periodosIds != null ? periodosIds.size() : 0);
         sb.append('}');
         return sb.toString();
     }

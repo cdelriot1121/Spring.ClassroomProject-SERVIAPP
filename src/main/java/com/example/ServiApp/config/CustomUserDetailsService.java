@@ -1,10 +1,11 @@
 package com.example.ServiApp.config;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -12,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.security.authentication.DisabledException;
 
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
@@ -51,18 +51,23 @@ public class CustomUserDetailsService implements UserDetailsService {
                 " | Contraseña (hash): " + usuario.getPassword().substring(0, 10) + "...");
 
         // 5. Crear autoridades (roles)
-        List<GrantedAuthority> autoridades = Collections.singletonList(
-                new SimpleGrantedAuthority(usuario.getRol().name()));
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        
+        // Agregar el rol del usuario a las autoridades
+        if (usuario.getRol() != null) {
+            // Asegurar que el rol use el formato requerido por Spring Security
+            authorities.add(new SimpleGrantedAuthority(usuario.getRol().toString()));
+        }
         
         // 6. Retornar UserDetails
         return new User(
                 usuario.getEmail(),
                 usuario.getPassword(),
-                true,        // cuenta habilitada (ya verificamos esto antes)
+                usuario.estaHabilitado(), // cuenta habilitada
                 true,        // cuenta no expirada
                 true,        // credenciales no expiradas
                 true,        // cuenta no bloqueada
-                autoridades);
+                authorities);
     }
 
     

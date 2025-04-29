@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ServiApp.model.PredioModel;
 import com.example.ServiApp.model.UsuarioModel;
-import com.example.ServiApp.services.PredioService;
+import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 public class RegistroPredioObligatorioController {
 
     @Autowired
-    private PredioService predioService;
+    private UsuarioService usuarioService;
 
     @GetMapping("/registrar-predio-obligatorio")
     public String mostrarFormularioRegistroPredioObligatorio(Model model, HttpSession session) {
@@ -29,7 +29,7 @@ public class RegistroPredioObligatorioController {
         }
         
         // Verificar si el usuario ya tiene un predio registrado
-        boolean tienePredio = predioService.existePredioParaUsuario(usuarioLogueado.getId());
+        boolean tienePredio = usuarioService.existePredioParaUsuario(usuarioLogueado.getId());
         
         if (tienePredio) {
             return "redirect:/interfaz_inicio";
@@ -61,9 +61,8 @@ public class RegistroPredioObligatorioController {
         nuevoPredio.setBarrio(barrio);
         nuevoPredio.setEstrato(estrato);
         nuevoPredio.setTipoPredio(tipoPredio);
-        nuevoPredio.setUsuario(usuarioLogueado);
         
-        predioService.registrarPredio(nuevoPredio);
+        usuarioService.registrarPredioPara(usuarioLogueado.getId(), nuevoPredio);
         
         redirectAttributes.addFlashAttribute("mensaje", "Predio registrado exitosamente");
         return "redirect:/interfaz_inicio";

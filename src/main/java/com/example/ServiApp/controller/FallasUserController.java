@@ -1,6 +1,8 @@
 package com.example.ServiApp.controller;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,34 +24,35 @@ public class FallasUserController {
     private FallasUserService fallasUserService;
 
     @PostMapping("/reportar-falla")
-public String reportarFalla(@ModelAttribute Falla_Ser_Model falla, 
-                             @RequestParam("horaInicio") String horaInicio,
-                             HttpSession session, RedirectAttributes redirectAttributes) {
-    
-    System.out.println("Comentario recibido: " + falla.getComentarios());
+    public String reportarFalla(@ModelAttribute Falla_Ser_Model falla, 
+                               @RequestParam("horaInicio") String horaInicio,
+                               HttpSession session, RedirectAttributes redirectAttributes) {
+        
+        System.out.println("Comentario recibido: " + falla.getComentarios());
 
-    UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-    
-    if (usuarioLogueado == null) {
-        redirectAttributes.addFlashAttribute("error", "Debe iniciar sesión para reportar una falla.");
-        return "redirect:/login";
-    }
-    
-    try {
-        // cambiar hora de tipo string a time para que la bd lo pueda aceptar
-        if (horaInicio != null && !horaInicio.isEmpty()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            java.util.Date horaDate = sdf.parse(horaInicio);
-            falla.setHora(new java.sql.Time(horaDate.getTime()));
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        
+        if (usuarioLogueado == null) {
+            redirectAttributes.addFlashAttribute("error", "Debe iniciar sesión para reportar una falla.");
+            return "redirect:/login";
         }
-
-        fallasUserService.reportarFalla(falla, usuarioLogueado);
-        redirectAttributes.addFlashAttribute("mensaje", "Falla reportada exitosamente.");
-        return "redirect:/cortes";
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("error", "Error al procesar la hora.");
-        return "redirect:/reportar-falla";
+        
+        try {
+            // Convertir la hora string a Date
+            if (horaInicio != null && !horaInicio.isEmpty()) {
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String dateString = now.format(formatter).split(" ")[0] + " " + horaInicio + ":00";
+                Date horaDate = new Date();
+                falla.setHora(horaDate);
+            }
+            
+            fallasUserService.reportarFalla(falla, usuarioLogueado);
+            redirectAttributes.addFlashAttribute("mensaje", "Falla reportada exitosamente.");
+            return "redirect:/cortes";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al procesar la hora.");
+            return "redirect:/reportar-falla";
+        }
     }
-}
-
 }

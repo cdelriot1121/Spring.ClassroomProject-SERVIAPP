@@ -1,6 +1,5 @@
 package com.example.ServiApp.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,43 +7,49 @@ import org.springframework.stereotype.Service;
 
 import com.example.ServiApp.model.PredioModel;
 import com.example.ServiApp.model.UsuarioModel;
-import com.example.ServiApp.repository.PredioRepository;
+import com.example.ServiApp.repository.UsuarioRepository;
 
 @Service
 public class PredioService {
-
+    
     @Autowired
-    private PredioRepository predioRepository;
+    private UsuarioRepository usuarioRepository;
 
-    public PredioModel registrarPredio(PredioModel predio) {
-        return predioRepository.save(predio);
+    public boolean existePredioParaUsuario(String usuarioId) {
+        return usuarioRepository.findById(usuarioId)
+            .map(usuario -> usuario.getPredio() != null)
+            .orElse(false);
     }
     
-    public Optional<PredioModel> obtenerPredioPorUsuario(UsuarioModel usuario) {
-        return predioRepository.findByUsuario(usuario);
+    public Optional<PredioModel> obtenerPredioPorUsuario(String usuarioId) {
+        return usuarioRepository.findById(usuarioId)
+            .map(UsuarioModel::getPredio);
     }
     
-    public Optional<PredioModel> obtenerPredioPorId(Long id) {
-        return predioRepository.findById(id);
+    public void registrarPredioPara(String usuarioId, PredioModel predio) {
+        Optional<UsuarioModel> usuarioOpt = usuarioRepository.findById(usuarioId);
+        if (usuarioOpt.isPresent()) {
+            UsuarioModel usuario = usuarioOpt.get();
+            usuario.setPredio(predio);
+            usuarioRepository.save(usuario);
+        }
     }
     
-    public List<PredioModel> obtenerPrediosPorBarrio(String barrio) {
-        return predioRepository.findByBarrio(barrio);
+    public void actualizarPredio(String usuarioId, PredioModel predio) {
+        Optional<UsuarioModel> usuarioOpt = usuarioRepository.findById(usuarioId);
+        if (usuarioOpt.isPresent()) {
+            UsuarioModel usuario = usuarioOpt.get();
+            usuario.setPredio(predio);
+            usuarioRepository.save(usuario);
+        }
     }
     
-    public List<PredioModel> obtenerTodosPredios() {
-        return predioRepository.findAll();
-    }
-    
-    public void actualizarPredio(PredioModel predio) {
-        predioRepository.save(predio);
-    }
-    
-    public void eliminarPredio(Long id) {
-        predioRepository.deleteById(id);
-    }
-    
-    public boolean existePredioParaUsuario(Long usuarioId) {
-        return predioRepository.existsByUsuarioId(usuarioId);
+    public void eliminarPredio(String usuarioId) {
+        Optional<UsuarioModel> usuarioOpt = usuarioRepository.findById(usuarioId);
+        if (usuarioOpt.isPresent()) {
+            UsuarioModel usuario = usuarioOpt.get();
+            usuario.setPredio(null);
+            usuarioRepository.save(usuario);
+        }
     }
 }

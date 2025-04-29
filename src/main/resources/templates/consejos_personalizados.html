@@ -141,8 +141,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="periodo : ${periodos}">
-                                            <td th:text="${periodo.servicio.tipo_servicio}"></td>
+                                        <tr th:each="periodo : ${periodosConData}">
+                                            <td th:text="${periodo.tipoServicio}"></td>
                                             <td th:text="${periodo.mes}"></td>
                                             <td th:text="${periodo.ano}"></td>
                                             <td th:text="${periodo.consumo}"></td>

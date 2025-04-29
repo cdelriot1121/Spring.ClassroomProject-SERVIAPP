@@ -123,18 +123,20 @@ public class SecurityConfiguration {
                                 "/admin/**", "/login-admin", "/registro-admin").hasAuthority("ROLE_ADMINISTRADOR")
                         .requestMatchers(HttpMethod.POST, "/registrar-corte", "/registrar-consejo", 
                                 "/login-admin", "/registrar-admin", "/eliminar-usuario/**", 
-                                "/eliminar-servicio/**").hasAuthority("ROLE_ADMINISTRADOR")
+                                "/eliminar-servicio/**", "/habilitar-usuario/**", 
+                                "/inhabilitar-usuario/**").hasAuthority("ROLE_ADMINISTRADOR")
                         
                         // ======== ACCESO PARA USUARIOS NORMALES ========
                         // Rutas específicas para usuarios normales
                         .requestMatchers("/interfaz-inicio", "/interfaz_inicio", "/registrar-servicio", 
                                 "/lineas-atencion", "/gestionar-servicio", "/consejos-personzalidos", "/inicio",
                                 "/cortes", "/datos-personales", "/cambiar-contrasena", "/mis-servicios", 
-                                "/calcular-consumo", "/usuarios/cambiar-contrasena", "/usuarios/actualizar/**", 
+                                "/mis-consumos", "/mi-predio", "/calcular-consumo", 
+                                "/usuarios/cambiar-contrasena", "/usuarios/actualizar/**", 
                                 "/reportar-falla","/grafico-consumo").hasAuthority("ROLE_USUARIO")
                         
-                        // Controlador de servicios (todos los métodos)
-                        .requestMatchers("/servicios/**").hasAuthority("ROLE_USUARIO")
+                        // Controlador de servicios y predios (todos los métodos)
+                        .requestMatchers("/servicios/**", "/predios/**").hasAuthority("ROLE_USUARIO")
                         
                         // Cualquier otra solicitud requiere autenticación
                         .anyRequest().authenticated())

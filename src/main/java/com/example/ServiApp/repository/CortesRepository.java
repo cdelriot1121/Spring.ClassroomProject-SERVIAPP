@@ -1,12 +1,15 @@
 package com.example.ServiApp.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.ServiApp.model.CortesModel;
-@Repository
-public interface CortesRepository extends JpaRepository<CortesModel, Long> {
 
+@Repository
+public interface CortesRepository extends MongoRepository<CortesModel, String> {
+    List<CortesModel> findByAdministradorId(String administradorId);
 }
 
 

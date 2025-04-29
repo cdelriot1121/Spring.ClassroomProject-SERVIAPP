@@ -103,15 +103,21 @@
                     <tr>
                         <td th:text="${usuario.nombre}">Nombre Completo</td>
                         <td colspan="2" th:if="${editarUsuarioId == usuario.id}">
-                            <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post" id="form-datos-personales">
-                                <div style="display: flex; gap: 10px;">
-                                    <input type="text" name="email" th:value="${usuario.email}" required style="flex: 1;">
-                                    <button type="button" class="btn btn-success" onclick="confirmarCambioDatos(event)">Guardar Cambios</button>
-                                    <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
-                                </div>
-                            </form>
-                            
-                        </td>
+    <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post" id="form-datos-personales">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" th:value="${usuario.nombre}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" id="email" name="email" class="form-control" th:value="${usuario.email}" required>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            <button type="button" class="btn btn-success" onclick="confirmarCambioDatos(event)">Guardar Cambios</button>
+            <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
+        </div>
+    </form>
+</td>
                         <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.email}">Correo Electrónico</td>
                         <td th:if="${editarUsuarioId != usuario.id}">
                             <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-success">Actualizar</a>
@@ -174,26 +180,41 @@
         </thead>
         <tbody>
             <tr th:each="servicio : ${servicios}">
-                <td th:text="${servicio.tipo_servicio}">Tipo de Servicio</td>
-                
-                <td colspan="3" th:if="${editarServicioId == servicio.id}">
-                    <form th:action="@{/servicios/actualizar/{id}(id=${servicio.id})}" th:object="${servicio}" method="post" id="form-servicios">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" name="poliza" th:value="${servicio.poliza}" required style="flex: 1;">
-                            <input type="number" name="habitantes" th:value="${servicio.habitantes}" required style="flex: 1;">
-                            <button type="button" class="btn btn-success" onclick="confirmarCambioServicio(event)">Guardar Cambios</button>
-                            <a th:href="@{/mis-servicios}" class="btn btn-danger">Cancelar</a>
-                        </div>
-                    </form>
-                    
-                </td>
-                
+                <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.tipo_servicio}">Tipo de Servicio</td>
                 <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.poliza}">Póliza</td>
                 <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.habitantes}">Número de Habitantes</td>
                 
+                <!-- Formulario de edición -->
+                <td colspan="4" th:if="${editarServicioId == servicio.id}">
+                    <form th:action="@{/servicios/actualizar/{id}(id=${servicio.id})}" method="post" id="form-servicios">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label for="tipo_servicio">Tipo de Servicio:</label>
+                                <input type="text" class="form-control" id="tipo_servicio" name="tipo_servicio" th:value="${servicioEditar.tipo_servicio}" readonly>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label for="empresa">Empresa:</label>
+                                <input type="text" class="form-control" id="empresa" name="empresa" th:value="${servicioEditar.empresa}" required>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label for="poliza">Póliza:</label>
+                                <input type="text" class="form-control" id="poliza" name="poliza" th:value="${servicioEditar.poliza}" required>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label for="habitantes">Número de Habitantes:</label>
+                                <input type="number" min="1" class="form-control" id="habitantes" name="habitantes" th:value="${servicioEditar.habitantes}" required>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                <a th:href="@{/mis-servicios}" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+                
                 <td th:if="${editarServicioId != servicio.id}">
-                    <a th:href="@{/servicios/editar/{id}(id=${servicio.id})}" class="btn btn-primary">Actualizar</a>
-                    <form th:action="@{/servicios/eliminar/{id}(id=${servicio.id})}" method="post" style="display:inline;">
+                    <a th:href="@{/servicios/editar/{id}(id=${servicio.id})}" class="btn btn-primary">Editar</a>
+                    <form th:action="@{/servicios/eliminar/{id}(id=${servicio.id})}" method="post" style="display:inline;" onsubmit="return confirmarEliminarServicio()">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>
@@ -217,28 +238,30 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="periodo : ${periodos}">
-                <td th:text="${periodo.servicio.tipo_servicio}">Tipo de Servicio</td>
-                
-                <!-- Formulario de edición -->
-                <td colspan="4" th:if="${editarConsumoId == periodo.id}">
-                    <form th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}" method="post" id="form-consumos">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" name="mes" th:value="${periodo.mes}" required style="flex: 1;">
-                            <input type="number" name="ano" th:value="${periodo.ano}" required style="flex: 1;">
-                            <input type="number" step="0.01" name="consumo" th:value="${periodo.consumo}" required style="flex: 1;">
-                            <input type="hidden" name="unidad" th:value="${periodo.unidad}">
-                            <button type="button" class="btn btn-success" onclick="confirmarCambioConsumo(event)">Guardar Cambios</button>
-                            <a th:href="@{/mis-consumos}" class="btn btn-danger">Cancelar</a>
-                        </div>
-                    </form>
-                </td>
+            <tr th:each="periodo : ${periodosConInfo}">
+                <td th:text="${periodo.tipoServicio}">Tipo de Servicio</td>
                 
                 <!-- Vista normal (no edición) -->
                 <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.mes}">Mes</td>
                 <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.ano}">Año</td>
                 <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.consumo}">Consumo</td>
                 <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.unidad}">Unidad</td>
+                
+                <!-- Formulario de edición -->
+                <td colspan="4" th:if="${editarConsumoId == periodo.id}">
+                    <form th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}" method="post" id="form-consumos">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label for="consumo">Consumo:</label>
+                                <input type="number" step="0.01" class="form-control" id="consumo" name="consumo" th:value="${periodo.consumo}" required>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                                <a th:href="@{/mis-consumos}" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </td>
                 
                 <!-- Botones de acción -->
                 <td th:if="${editarConsumoId != periodo.id}">
@@ -248,7 +271,7 @@
                     </form>
                 </td>
             </tr>
-            <tr th:if="${periodos.empty}">
+            <tr th:if="${periodosConInfo.empty}">
                 <td colspan="6" class="text-center">No hay registros de consumo</td>
             </tr>
         </tbody>

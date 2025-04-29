@@ -82,7 +82,8 @@
             <form id="servicio-form" class="consumo-form" action="/calcular-consumo" method="post">
                 <div class="form-group">
                     <label for="servicio">Selecciona el Servicio:</label>
-                    <select name="servicio.id" id="servicio" class="form-control" required>
+                    <!-- CORREGIDO: nombre del campo servicioId -->
+                    <select name="servicioId" id="servicio" class="form-control" required>
                         <option value="" disabled selected>Selecciona un servicio</option>
                         <option 
                             th:each="servicio : ${servicios}" 
@@ -114,28 +115,30 @@
             </form>
         </section>
     
+        <!-- Sección para mostrar resultados del cálculo -->
         <section id="cuadros-consumo" th:if="${promedioHogar != null}">
             <div class="cuadro">
                 <h3>Tu consumo del Hogar actual</h3>
                 <p id="promedio-hogar" th:text="${promedioHogar} + ' ' + ${unidad}">--</p>
             </div>
-        
+            
             <div class="cuadro" th:classappend="${clasePromedioCartagena}">
                 <h3>Consumo comparado con promedio en Cartagena</h3>
                 <p id="promedio-cartagena" th:text="${promedioCartagena} + ' ' + ${unidad}">--</p>
             </div>
-        
+            
             <div class="cuadro">
                 <h3>Promedio Mensual por Habitante</h3>
                 <p id="promedio-habitante" th:text="${promedioHabitante} + ' ' + ${unidad}">--</p>
             </div>
-        
+            
             <div class="cuadro">
                 <h3>Promedio Semanal</h3>
                 <p id="promedio-semanal" th:text="${promedioSemanal} + ' ' + ${unidad}">--</p>
             </div>
         </section>
         
+        <!-- Sección para mostrar consejos (separada) -->
         <div class="tips-box" id="tips-box" th:if="${consejos != null}">
             <h3>Consejos Personalizados</h3>
             <p th:if="${#lists.isEmpty(consejos)}">No hay consejos disponibles para tu consumo actual.</p>

@@ -2,6 +2,7 @@ package com.example.ServiApp.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
-import com.example.ServiApp.services.ServiciosService;
+import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -26,12 +27,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/servicios")
 public class ServicioController {
 
-    // estos dos metodos se usan para estructurar las respuestas del backend en caso de errores o exito. 
-    //si algo sale mal (como servicio duplicado o usuario no autenticado), se usa ErrorResponse para mandar un mensaje de error y un detalle. 
-    //si todo esta bien y la validacion pasa, se usa 
-    //SuccessResponse para mandar un mensaje de exito, todo en formato JSON.
-
-
+    // Clases para respuestas estructuradas JSON
     public class ErrorResponse {
         private String error;
         private String errorMessage;
@@ -62,29 +58,22 @@ public class ServicioController {
         }
     }
     
-
-
-
-
-//-----------------------------------------------------------------------------------------
-    
-
     @Autowired
-    private ServiciosService servicioService;
+    private UsuarioService usuarioService;
 
     @PostMapping("/registrar-servicio")
     public String registrarServicio(@ModelAttribute ServicioModel servicio, Model model, HttpSession session) {
-
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
 
         if (usuarioLogueado != null) {
-
-            if (servicioService.existeServicioPorTipoYUsuario(servicio.getTipo_servicio(),usuarioLogueado)){
+            // Verificar si ya existe el servicio
+            if (usuarioService.existeServicioPorTipoYUsuario(servicio.getTipo_servicio(), usuarioLogueado.getId())) {
                 model.addAttribute("errorDuplicado", "Ya tienes este servicio registrado");
                 return "redirect:/registrar-servicio";
             }
-             servicio.setUsuario(usuarioLogueado);
-            servicioService.registrarservicio(servicio);
+            
+            // Registrar el servicio
+            usuarioService.registrarServicio(usuarioLogueado.getId(), servicio);
 
             model.addAttribute("mensaje", "Servicio registrado exitosamente");
             return "redirect:/registrar-servicio";
@@ -94,66 +83,73 @@ public class ServicioController {
         }
     }
 
-     @GetMapping("/editar/{id}")
-    public String editarServicio(@PathVariable Long id, Model model) {
-        servicioService.obtenerServicioPorId(id).orElseThrow(() ->
-        new IllegalArgumentException("Servicio no encontrado con id: " + id));
+    @GetMapping("/editar/{id}")
+    public String editarServicio(@PathVariable String id, Model model, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        
+        if (usuarioLogueado == null) {
+            return "redirect:/login";
+        }
+        
+        Optional<ServicioModel> servicio = usuarioService.obtenerServicioPorId(usuarioLogueado.getId(), id);
+        if (!servicio.isPresent()) {
+            return "redirect:/mis-servicios";
+        }
 
         model.addAttribute("editarServicioId", id);
-        model.addAttribute("servicios", servicioService.ObtenerServicios());
+        model.addAttribute("servicios", usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId()));
+        model.addAttribute("servicioEditar", servicio.get());
         model.addAttribute("section", "mis-servicios");
 
         return "perfil_datos";
-        }
-
+    }
 
     @PostMapping("/actualizar/{id}")
-    public String actualizarServicio(@PathVariable Long id, @ModelAttribute ServicioModel servicio) {
-        ServicioModel servicioExistente = servicioService.obtenerServicioPorId(id)
-        .orElseThrow(() -> new IllegalArgumentException("Servicio no encontrado con id: " + id));
-
-        servicioExistente.setPoliza(servicio.getPoliza());
-        servicioExistente.setHabitantes(servicio.getHabitantes());
-        servicioService.actualizarServicio(id, servicioExistente);
+    public String actualizarServicio(@PathVariable String id, @ModelAttribute ServicioModel servicio, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        
+        if (usuarioLogueado == null) {
+            return "redirect:/login";
+        }
+        
+        usuarioService.actualizarServicio(usuarioLogueado.getId(), id, servicio);
 
         return "redirect:/mis-servicios"; 
     }
 
-
-
     @PostMapping("/eliminar/{id}")
-    public String eliminarServicio(@PathVariable Long id){
-        servicioService.eliminarServicio(id);
+    public String eliminarServicio(@PathVariable String id, HttpSession session) {
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        
+        if (usuarioLogueado == null) {
+            return "redirect:/login";
+        }
+        
+        usuarioService.eliminarServicio(usuarioLogueado.getId(), id);
         return "redirect:/mis-servicios";
     }
 
-
     @PostMapping("/validar-servicio")
-@ResponseBody
-public ResponseEntity<?> validarServicio(@RequestBody Map<String, String> request, HttpSession session) {
-    String tipoServicio = request.get("tipo_servicio");
-    UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+    @ResponseBody
+    public ResponseEntity<?> validarServicio(@RequestBody Map<String, String> request, HttpSession session) {
+        String tipoServicio = request.get("tipo_servicio");
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
 
-    if (usuarioLogueado == null) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("Usuario no autenticado", tipoServicio));
+        if (usuarioLogueado == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("Usuario no autenticado", tipoServicio));
+        }
+
+        // Verificar si el usuario ya tiene el servicio registrado
+        if (usuarioService.existeServicioPorTipoYUsuario(tipoServicio, usuarioLogueado.getId())) {
+            return ResponseEntity.ok(new ErrorResponse("Ya tienes este servicio registrado", "No puedes registrar un servicio duplicado."));
+        }
+
+        // Verificar si el usuario ha alcanzado el limite de servicios
+        List<ServicioModel> servicios = usuarioService.obtenerServiciosPorUsuario(usuarioLogueado.getId());
+        if (servicios.size() >= 3) {
+            return ResponseEntity.ok(new ErrorResponse("Has alcanzado el límite de servicios", "Solo puedes registrar hasta 3 servicios diferentes."));
+        }
+
+        return ResponseEntity.ok(new SuccessResponse("Servicio válido para registro"));
     }
-
-    // Verificar si el usuario ya tiene el servicio registrado
-    if (servicioService.existeServicioPorTipoYUsuario(tipoServicio, usuarioLogueado)) {
-        return ResponseEntity.ok(new ErrorResponse("Ya tienes este servicio registrado", "No puedes registrar un servicio duplicado."));
-    }
-
-    // Verificar si el usuario ha alcanzado el limite de servicios
-    List<ServicioModel> servicios = servicioService.obtenerServiciosPorUsuario(usuarioLogueado);
-    if (servicios.size() >= 3) {
-        return ResponseEntity.ok(new ErrorResponse("Has alcanzado el límite de servicios", "Solo puedes registrar hasta 3 servicios diferentes."));
-    }
-
-    return ResponseEntity.ok(new SuccessResponse("Servicio válido para registro"));
-}
-
-
-
-
-
 }
