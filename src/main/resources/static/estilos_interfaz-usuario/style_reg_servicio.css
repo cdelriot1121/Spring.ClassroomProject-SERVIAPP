@@ -222,6 +222,29 @@ border-radius: 10px;
 font-size: 1rem;
 }
 
+.formulario-registro-serv select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #fff;
+    -webkit-appearance: none;  /* Elimina la flecha en Chrome y Safari */
+    -moz-appearance: none;     /* Elimina la flecha en Firefox */
+    appearance: none;          /* Elimina la flecha en todos los navegadores modernos */
+}
+
+.formulario-registro-serv option {
+    padding: 0.8rem;
+}
+
+.formulario-registro-serv .placeholder {
+    color: #aaa;  
+    
+}
+
+
 .formulario-registro-serv button {
 width: 100%;
 padding: 0.8rem;
