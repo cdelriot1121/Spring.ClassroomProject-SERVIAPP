@@ -1,6 +1,7 @@
 package com.example.ServiApp.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ServiApp.model.Falla_Ser_Model;
-import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.services.FallasUserService;
 import com.example.ServiApp.services.UsuarioService;
@@ -86,17 +86,17 @@ public class AdminController {
 
     @GetMapping("/gestionar-servicios-admin")
     public String listarServicios(Model model) {
-        List<ServicioModel> servicios = usuarioService.obtenerTodosLosServicios();
+        List<Map<String, Object>> servicios = usuarioService.recolectarServiciosUsuarios();
         model.addAttribute("servicios", servicios);
         return "ges-servicios-admin";
     }
 
-    // Modificado para usar el servicio de usuario en lugar de serviciosService
-    // y cambiar Long id a String id para MongoDB
-    @PostMapping("/eliminar-servicio/{servicioId}/{usuarioId}")
-    public String eliminarServicio(@PathVariable("servicioId") String servicioId,
-                                  @PathVariable("usuarioId") String usuarioId) {
-        usuarioService.eliminarServicio(usuarioId, servicioId);
+    @PostMapping("/eliminar-servicio/{servicioId}")
+    public String eliminarServicio(@PathVariable("servicioId") String servicioId) {
+        String usuarioId = usuarioService.encontrarUsuarioIdPorServicioId(servicioId);
+        if (usuarioId != null) {
+            usuarioService.eliminarServicio(usuarioId, servicioId);
+        }
         return "redirect:/gestionar-servicios-admin";
     }
 
