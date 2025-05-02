@@ -187,6 +187,7 @@ border-radius: 20px;
 box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.322);
 padding: 1.5rem;
 margin: 5px auto;
+margin-top: 5%;
 }
 
 .caja-registro-serv {
@@ -221,6 +222,29 @@ border: 1px solid #ccc;
 border-radius: 10px;
 font-size: 1rem;
 }
+
+.formulario-registro-serv select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #fff;
+    -webkit-appearance: none;  /* Elimina la flecha en Chrome y Safari */
+    -moz-appearance: none;     /* Elimina la flecha en Firefox */
+    appearance: none;          /* Elimina la flecha en todos los navegadores modernos */
+}
+
+.formulario-registro-serv option {
+    padding: 0.8rem;
+}
+
+.formulario-registro-serv .placeholder {
+    color: #aaa;  
+    
+}
+
 
 .formulario-registro-serv button {
 width: 100%;
@@ -433,3 +457,64 @@ main {
     justify-content: center;    
     padding-top: 0;            
 }
+
+
+.registro-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+   margin-top: 5%;
+}
+
+.texto-registro {
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+    max-width: 700px;
+    padding: 0 20px;
+    
+}
+
+.formulario-registro-serv {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff, #c3eeff);
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem; /* Añade espacio debajo del formulario */
+}
+
+  
+  .texto-registro h1 {
+    font-size: 2rem;
+    color: #0096e0; /* Azul brillante */
+    text-transform: uppercase;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  
+  .texto-registro h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #0096e0;
+    margin: 8px auto 0;
+    border-radius: 2px;
+  }
+  
+  .texto-registro p {
+    font-size: 1.05rem;
+    color: #4f4f4f; /* Gris suave */
+    line-height: 1.6;
+  }
+
+
+ 
+
+
+  

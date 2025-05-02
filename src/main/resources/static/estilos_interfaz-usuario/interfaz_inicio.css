@@ -259,7 +259,7 @@
     }
 
     .hero-text .app-name {
-      color: #bae6fd;
+      color:white;
     }
 
     .hero-subtitle {
@@ -326,43 +326,44 @@
       top: 20%;
       left: 20%;
       animation-delay: 0s;
-      color: rgb(19, 49, 220);
+      color: #42a5f5; 
     }
-
+    
     .service-icon.electricity {
       top: 10%;
       left: 60%;
       animation-delay: 1s;
-      color: #ffc107;
+      color: #90caf9;; 
     }
-
+    
     .service-icon.gas {
       top: 50%;
       left: 15%;
       animation-delay: 2s;
-      color:#e50000;
+      color: #80cbc4;; 
     }
-
-    .service-icon.internet {
+    
+    .service-icon.cash {
       top: 60%;
       left: 70%;
       animation-delay: 0.5s;
-      color: #9c27b0;
+      color: #b39ddb;; 
     }
-
-    .service-icon.phone {
+    
+    .service-icon.persona{
       top: 30%;
       left: 75%;
       animation-delay: 1.5s;
-      color: #f44336;
+      color: #81c784;; 
     }
-
-    .service-icon.Reciclaje{
+    
+    .service-icon.Reciclaje {
       top: 70%;
       left: 30%;
       animation-delay: 2.5s;
-      color: green;
+      color: #a5d6a7;; 
     }
+    
 
     @keyframes float {
       0% { transform: translateY(0) rotate(0deg); }
@@ -397,11 +398,15 @@
     /* Service Cards Mejoradas */
     .service-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr); /* Fuerza 4 columnas fijas */
+      gap: 1.5rem; /* Reduce el espacio entre tarjetas */
       margin: 3rem auto;
-      max-width: 1200px;
+      max-width: 1100px; /* Opcional: reduce ligeramente el ancho máximo */
     }
+    .service-card {
+      padding: 1.5rem; /* Tarjetas más compactas */
+    }
+        
 
     .service-card {
       background: white;

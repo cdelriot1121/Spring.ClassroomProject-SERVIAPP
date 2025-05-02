@@ -62,6 +62,13 @@
         <a href="grafico-consumo"><i class="bi bi-bar-chart-line"></i> Graficas Consumo</a>
       </div>
 <main>
+
+    <div class="registro-contenedor">
+        <div class="texto-registro">
+            <h1>Registra tus servicios</h1>
+            <p>Ingresa los datos de tus servicios públicos para llevar un mejor control de tu
+                consumo, organizar tus pagos y conocer el comportamiento de tus gastos por hogar.</p>
+        </div>
    </nav>
    <div class="contenedor">
     <div class="caja-registro-serv">
@@ -70,12 +77,13 @@
            
             <!-- Formulario para registrar el servicio -->
             <form id="formRegistroServicio" action="/servicios/registrar-servicio" method="POST" class="formulario_servicios">
-                <input class="casilla_rs" list="opcionesTipo" name="tipo_servicio" placeholder="Tipo de Servicio" required id="tipo_servicio">
-                <datalist id="opcionesTipo">                    
-                    <option value="Agua">
-                    <option value="Energía">
-                    <option value="Gas">
-                </datalist>
+                <select class="casilla_rs" name="tipo_servicio" id="tipo_servicio" required>
+                    <option value="" disabled selected>Tipo de Servicio</option>
+                    <option value="Agua">Agua</option>
+                    <option value="Energía">Energía</option>
+                    <option value="Gas">Gas</option>
+                </select>
+                
 
                 <input class="casilla_rs" list="opcionesEmpresa" name="empresa" placeholder="Empresa" required readonly id="empresa">
                 <datalist id="opcionesEmpresa">                    
