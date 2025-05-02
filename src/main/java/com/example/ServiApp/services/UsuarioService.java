@@ -2,7 +2,9 @@ package com.example.ServiApp.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -276,5 +278,29 @@ public class UsuarioService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Map<String, Object>> recolectarServiciosUsuarios() {
+        List<UsuarioModel> usuarios = usuarioRepository.findAll();
+        List<Map<String, Object>> serviciosConUsuario = new ArrayList<>();
+        
+        for (UsuarioModel usuario : usuarios) {
+            for (ServicioModel servicio : usuario.getServicios()) {
+                Map<String, Object> servicioMap = new HashMap<>();
+                servicioMap.put("id", servicio.getId());
+                servicioMap.put("tipo_servicio", servicio.getTipo_servicio());
+                servicioMap.put("empresa", servicio.getEmpresa());
+                servicioMap.put("poliza", servicio.getPoliza());
+                servicioMap.put("habitantes", servicio.getHabitantes());
+                servicioMap.put("usuario", new HashMap<String, Object>() {{
+                    put("id", usuario.getId());
+                    put("nombre", usuario.getNombre());
+                }});
+                
+                serviciosConUsuario.add(servicioMap);
+            }
+        }
+        
+        return serviciosConUsuario;
     }
 }

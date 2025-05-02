@@ -73,8 +73,8 @@
             <tbody>
                 <tr th:each="corte : ${cortes}">
                     <td th:text="${corte.tipo_servicio}"></td> 
-                    <td th:text="${#strings.arrayJoin(corte.barrios.split(','), ', ')}"></td>
-                    <td th:text="${corte.fecha}"></td>
+                    <td th:text="${#strings.listJoin(corte.barrios, ', ')}"></td>
+                    <td th:text="${#dates.format(corte.fecha, 'dd/MM/yyyy')}"></td>
                     <td th:text="${corte.hora_inicio}"></td>
                     <td th:text="${corte.hora_final}"></td>
                 </tr>
