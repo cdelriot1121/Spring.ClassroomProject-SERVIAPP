@@ -9,10 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ServiApp.model.PredioModel;
 import com.example.ServiApp.model.ServicioModel;
@@ -30,23 +31,22 @@ public class UsuarioController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/usuarios/registrar")
-    public String registrarUsuario(@ModelAttribute UsuarioModel usuario, Model model) {
-        System.out.println("Contraseña antes de encriptar (primeros 4 caracteres): " + 
-                           (usuario.getPassword().length() > 10 ? usuario.getPassword().substring(0, 4) + "..." : usuario.getPassword()));
-        
-        // Solo establecemos el rol, la encriptación se hará en el servicio
-        usuario.setRol(UsuarioModel.Rol.ROLE_USUARIO);
-        
-        UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
-        
-        if (usuarioRegistrado != null) {
-            return "redirect:/registro?exito=true&nombre=" + usuario.getNombre();
-        } else {
-            model.addAttribute("error", "No se pudo registrar el usuario");
-            return "registro";
-        }
+@PostMapping("/usuarios/registrar")
+@ResponseBody // si estás devolviendo un mensaje o resultado como texto o JSON
+public ResponseEntity<?> registrarUsuario(@RequestBody UsuarioModel usuario) {
+    System.out.println("Contraseña antes de encriptar (primeros 4 caracteres): " +
+                       (usuario.getPassword().length() > 10 ? usuario.getPassword().substring(0, 4) + "..." : usuario.getPassword()));
+
+    usuario.setRol(UsuarioModel.Rol.ROLE_USUARIO);
+    UsuarioModel usuarioRegistrado = usuarioService.registrarUsuario(usuario);
+
+    if (usuarioRegistrado != null) {
+        return ResponseEntity.ok("Registro exitoso");
+    } else {
+        return ResponseEntity.status(500).body("No se pudo registrar el usuario");
     }
+}
+
 
     @GetMapping("/usuarios/verificar-email")
     public ResponseEntity<Boolean> verificarEmail(@RequestParam String email) {

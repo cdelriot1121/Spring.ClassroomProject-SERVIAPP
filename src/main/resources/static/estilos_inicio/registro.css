@@ -108,7 +108,7 @@ body {
 /* Imagen lado izquierdo */
 .imagen {
     width: 50%;
-    background: linear-gradient(transparent); /* ← degradado limpio */
+    background: linear-gradient(transparent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,25 +122,6 @@ body {
     color: white;
     font-weight: bold;
     font-size: 2rem;
-}
-
-/* Campo con ícono para mostrar/ocultar contraseña */
-.password-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.icon-eye {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #666;
-}
-
-.icon-eye:hover {
-    color: #333;
 }
 
 /* Animación de aparición */
