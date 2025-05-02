@@ -192,3 +192,30 @@ body {
         width: 90%;
     }
 }
+
+/* Estilos para el contenedor de contraseña */
+.password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  /* Estilo para el ícono del ojo */
+  .password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    z-index: 2;
+  }
+  
+  /* Ajuste para que el input no quede detrás del ícono */
+  .casilla_r {
+    padding-right: 40px !important; /* Espacio para el ícono */
+    width: 100%;
+  }
+
+  input[type="text"] {
+    -webkit-text-security: none !important;
+  }

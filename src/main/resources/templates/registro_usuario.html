@@ -68,19 +68,25 @@
               oninput="this.setCustomValidity('')"
             />
 
-            <!-- Contraseña -->
-            <input
-              class="casilla_r"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Contraseña"
-              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}"
-              title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial"
-              required
-              oninvalid="this.setCustomValidity('La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial')"
-              oninput="this.setCustomValidity('')"
-            />
+            <div class="password-container">
+              <input
+                class="casilla_r"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Contraseña"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}"
+                title="Debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial"
+                required
+                oninvalid="this.setCustomValidity('La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, un número y un carácter especial')"
+                oninput="this.setCustomValidity('')"
+              />
+              <i
+                class="fa-solid fa-eye password-toggle"
+                id="togglePassword"
+                style="cursor: pointer"
+              ></i>
+            </div>
 
             <!-- OTP -->
             <input

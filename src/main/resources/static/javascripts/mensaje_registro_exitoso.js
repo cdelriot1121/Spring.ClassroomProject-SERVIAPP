@@ -170,19 +170,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    document.getElementById("togglePassword").addEventListener("click", () => {
-        const passInput = document.getElementById("password");
-        const icon = document.querySelector("#togglePassword i");
-        if (passInput.type === "password") {
-            passInput.type = "text";
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-        } else {
-            passInput.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
-        }
-    });
+
+
+    const togglePassword = document.getElementById("togglePassword");
+    if (togglePassword) {
+        togglePassword.addEventListener("click", () => {
+            const passInput = document.getElementById("password");
+            const icon = togglePassword.querySelector("i");
+            if (passInput.type === "password") {
+                passInput.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passInput.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    
+    }
 });
-
-
