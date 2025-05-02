@@ -193,8 +193,9 @@ public class UsuarioService {
                     servicioExistente.setPoliza(servicioActualizado.getPoliza());
                     servicioExistente.setHabitantes(servicioActualizado.getHabitantes());
                     
-                    // Actualizar la lista de periodos - AQUÍ ESTÁ EL PROBLEMA
-                    servicioExistente.setPeriodosIds(servicioActualizado.getPeriodosIds());
+                    // SOLUCIÓN: No sobrescribir la lista de períodos existente
+                    // Conservar la lista de períodos original en lugar de sobrescribirla
+                    // servicioExistente.setPeriodosIds(servicioActualizado.getPeriodosIds());
                     
                     servicioEncontrado = true;
                     break;
@@ -208,6 +209,7 @@ public class UsuarioService {
             
             // Guardar el usuario actualizado en la base de datos
             usuarioRepository.save(usuario);
+            
             System.out.println("Servicio actualizado correctamente con el período");
             return true;
         } catch (Exception e) {
