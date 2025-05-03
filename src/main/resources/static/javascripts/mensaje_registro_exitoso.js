@@ -58,17 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 otpEnviado = true;
                 otpInput.style.display = "block";
                 reenviarLink.style.display = "block";
-                otpButton.textContent = "Verificar OTP";
+                otpButton.textContent = "Verificar Código";
                 mostrarAlerta({
                     icon: 'info',
                     title: 'Código enviado',
-                    text: 'Hemos enviado un código OTP a tu correo electrónico.'
+                    text: 'Hemos enviado un código de verificación a tu correo electrónico.'
                 });
             } else {
                 mostrarAlerta({
                     icon: 'error',
                     title: 'Error de envío',
-                    text: 'No se pudo enviar el OTP. Intenta de nuevo.'
+                    text: 'No se pudo enviar el código  de verificación. Intenta de nuevo.'
                 });
             }
 
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return mostrarAlerta({
                     icon: 'warning',
                     title: 'Código inválido',
-                    text: 'El OTP debe tener 6 dígitos numéricos.'
+                    text: 'El código debe tener 6 dígitos numéricos.'
                 });
             }
 
@@ -97,8 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     mostrarAlerta({
                         icon: 'error',
-                        title: 'OTP inválido',
-                        text: 'El código ingresado no es válido o ha expirado.'
+                        title: 'Código de verificación inválido',
+                        text: 'El código de verificación ingresado no es válido o ha expirado.'
                     });
                 }
             } else {
@@ -159,13 +159,13 @@ document.addEventListener("DOMContentLoaded", () => {
             mostrarAlerta({
                 icon: 'info',
                 title: 'Código reenviado',
-                text: 'Hemos reenviado un nuevo código a tu correo.'
+                text: 'Hemos reenviado un nuevo código de verificación a tu correo.'
             });
         } else {
             mostrarAlerta({
                 icon: 'error',
                 title: 'Reenvío fallido',
-                text: 'No se pudo reenviar el código.'
+                text: 'No se pudo reenviar el código de verificación.'
             });
         }
     });

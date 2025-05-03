@@ -33,7 +33,7 @@ public class OtpService {
             // Enviar OTP por correo
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(email);
-            message.setSubject("Tu código OTP para ServiApp");
+            message.setSubject("Código de Verificación para ServiApp");
             message.setText("Tu código de verificación es: " + otp + "\nEste código expira en 5 minutos.");
             mailSender.send(message);
         } catch (Exception e) {
