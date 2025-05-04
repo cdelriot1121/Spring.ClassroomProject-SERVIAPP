@@ -30,7 +30,6 @@
      <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
      <!-- SweetAlert2 CDN -->
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 
 <body>
@@ -226,7 +225,31 @@
 <!-- Mis Consumos -->
 <section th:if="${section == 'mis-consumos'}">
     <h4>Historial de Consumos</h4>
-    <table class="table table-bordered">
+
+    <!-- Filtros -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="filtroServicio">Tipo de Servicio:</label>
+            <select id="filtroServicio" class="form-control">
+                <option value="">Todos</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="filtroMes">Mes:</label>
+            <select id="filtroMes" class="form-control">
+                <option value="">Todos</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="filtroAno">Año:</label>
+            <select id="filtroAno" class="form-control">
+                <option value="">Todos</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Tabla -->
+    <table id="tablaConsumos" class="table table-bordered">
         <thead>
             <tr>
                 <th>Servicio</th>
@@ -235,50 +258,43 @@
                 <th>Consumo</th>
                 <th>Unidad</th>
                 <th>Acciones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="periodo : ${periodosConInfo}">
                 <td th:text="${periodo.tipoServicio}">Tipo de Servicio</td>
-                
-                <!-- Vista normal (no edición) -->
-                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.mes}">Mes</td>
-                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.ano}">Año</td>
-                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.consumo}">Consumo</td>
-                <td th:if="${editarConsumoId != periodo.id}" th:text="${periodo.unidad}">Unidad</td>
-                
-                <!-- Formulario de edición -->
-                <td colspan="4" th:if="${editarConsumoId == periodo.id}">
-                    <form th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}" method="post" id="form-consumos">
-                        <div class="row">
-                            <div class="col-md-12 mb-2">
-                                <label for="consumo">Consumo:</label>
-                                <input type="number" step="0.01" class="form-control" id="consumo" name="consumo" th:value="${periodo.consumo}" required>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-success">Guardar</button>
-                                <a th:href="@{/mis-consumos}" class="btn btn-secondary">Cancelar</a>
-                            </div>
-                        </div>
+                <td th:text="${periodo.mes}">Mes</td>
+                <td th:text="${periodo.ano}">Año</td>
+                <td>
+                    <form th:if="${editarConsumoId == periodo.id}" th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}" method="post" class="d-flex">
+                        <input type="number" step="0.01" name="consumo" class="form-control me-2" th:value="${periodo.consumo}" required style="width: 100px;">
+                        <button type="submit" class="btn btn-success btn-sm me-1">✔</button>
+                        <a th:href="@{/mis-consumos}" class="btn btn-secondary btn-sm">✖</a>
                     </form>
+                    <span th:if="${editarConsumoId != periodo.id}" th:text="${periodo.consumo}">Consumo</span>
                 </td>
-                
-                <!-- Botones de acción -->
-                <td th:if="${editarConsumoId != periodo.id}">
-                    <a th:href="@{/editar-consumo/{id}(id=${periodo.id})}" class="btn btn-primary">Editar</a>
-                    <form th:action="@{/eliminar-consumo/{id}(id=${periodo.id})}" method="post" style="display:inline;" onsubmit="return confirmarEliminarConsumo()">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                <td th:text="${periodo.unidad}">Unidad</td>
+                <td>
+                    <a th:if="${editarConsumoId != periodo.id}" th:href="@{/editar-consumo/{id}(id=${periodo.id})}" class="btn btn-primary btn-sm">Editar</a>
+                </td>
+                <td>
+                    <form th:if="${editarConsumoId != periodo.id}" th:action="@{/eliminar-consumo/{id}(id=${periodo.id})}" method="post" onsubmit="return confirmarEliminarConsumo()" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </td>
             </tr>
             <tr th:if="${periodosConInfo.empty}">
-                <td colspan="6" class="text-center">No hay registros de consumo</td>
+                <td colspan="7" class="text-center">No hay registros de consumo</td>
             </tr>
         </tbody>
+        
+        
+        
     </table>
 </section>
 
-<!-- Sección Mi Predio - Añadir después de la sección de Mis Consumos -->
+<!-- Sección Mi Predio-->
 <section th:if="${section == 'mi-predio'}">
     <h4>Mi Predio</h4>
     <div class="alert alert-info">
@@ -452,6 +468,60 @@
         }
     </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const tabla = $('#tablaConsumos').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            },
+            initComplete: function () {
+                const columnas = {
+                    servicio: new Set(),
+                    mes: new Set(),
+                    ano: new Set()
+                };
+
+                this.api().rows().every(function () {
+                    const data = this.data();
+                    columnas.servicio.add(data[0]);
+                    columnas.mes.add(data[1]);
+                    columnas.ano.add(data[2]);
+                });
+
+                function agregarOpciones(set, selector) {
+                    Array.from(set).sort().forEach(valor => {
+                        $(selector).append(`<option value="${valor}">${valor}</option>`);
+                    });
+                }
+
+                agregarOpciones(columnas.servicio, '#filtroServicio');
+                agregarOpciones(columnas.mes, '#filtroMes');
+                agregarOpciones(columnas.ano, '#filtroAno');
+            }
+        });
+
+        $('#filtroServicio, #filtroMes, #filtroAno').on('change', function () {
+            tabla.draw();
+        });
+
+        $.fn.dataTable.ext.search.push(function (settings, data) {
+            const servicio = $('#filtroServicio').val().toLowerCase();
+            const mes = $('#filtroMes').val().toLowerCase();
+            const ano = $('#filtroAno').val();
+            const colServicio = data[0].toLowerCase();
+            const colMes = data[1].toLowerCase();
+            const colAno = data[2];
+
+            return (
+                (servicio === "" || colServicio === servicio) &&
+                (mes === "" || colMes === mes) &&
+                (ano === "" || colAno === ano)
+            );
+        });
+    });
+</script>
 
 
 

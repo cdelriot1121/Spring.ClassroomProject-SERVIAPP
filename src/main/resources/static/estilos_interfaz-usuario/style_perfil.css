@@ -463,3 +463,102 @@ width: 100%;
     margin: 0;
     font-size: 14px;
 }
+
+/* Tabla principal */
+#tablaConsumos.dataTable {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.06);
+    font-size: 15px;
+    overflow: hidden;
+    border-collapse: collapse;
+}
+
+/* Encabezado */
+#tablaConsumos thead th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    padding: 12px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Filas del cuerpo */
+#tablaConsumos tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+#tablaConsumos tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border-top: 1px solid #f1f1f1;
+}
+
+/* Hover suave */
+#tablaConsumos tbody tr:hover {
+    background-color: #f1f9ff;
+}
+
+/* Botones */
+#tablaConsumos .btn {
+    border-radius: 30px;
+    padding: 5px 12px;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+#tablaConsumos .btn-primary {
+    background-color: #0069d9;
+    border: none;
+    color: white;
+}
+
+#tablaConsumos .btn-success {
+    background-color: #28a745;
+    border: none;
+    color: white;
+}
+
+#tablaConsumos .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+}
+
+#tablaConsumos .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+}
+
+#tablaConsumos .btn:hover {
+    opacity: 0.9;
+}
+
+/* Input edición */
+#tablaConsumos input[type="number"] {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* Filtros */
+select.form-control {
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    box-shadow: none;
+    transition: border-color 0.3s;
+}
+
+select.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
