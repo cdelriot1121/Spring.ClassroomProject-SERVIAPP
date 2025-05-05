@@ -67,3 +67,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const serviceCountEl = document.getElementById("service-count");
+
+    // Función para actualizar el contador de servicios
+    function actualizarContadorServicios() {
+        fetch("/servicios/contador")  // Asegúrate de que esta ruta sea correcta
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener el contador de servicios");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const targetCount = Number(data);
+                if (isNaN(targetCount)) {
+                    console.error("El valor recibido no es un número válido:", data);
+                    return;
+                }
+                let count = 0;
+                const increment = Math.ceil(targetCount / 100);
+
+                const counter = setInterval(() => {
+                    count += increment;
+                    if (count >= targetCount) {
+                        serviceCountEl.textContent = targetCount;
+                        clearInterval(counter);
+                    } else {
+                        serviceCountEl.textContent = count;
+                    }
+                }, 20);  // Puedes ajustar el tiempo para la animación
+            })
+            .catch(error => console.error("Error al obtener el contador de servicios:", error));
+    }
+
+    actualizarContadorServicios();  // Llamamos a la función al cargar la página
+});

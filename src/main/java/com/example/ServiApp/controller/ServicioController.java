@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ServiApp.model.ServicioModel;
 import com.example.ServiApp.model.UsuarioModel;
+import com.example.ServiApp.repository.UsuarioRepository;
 import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +27,9 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/servicios")
 public class ServicioController {
+
+        @Autowired
+    private UsuarioRepository usuarioRepository;
 
     // Clases para respuestas estructuradas JSON
     public class ErrorResponse {
@@ -152,4 +156,25 @@ public class ServicioController {
 
         return ResponseEntity.ok(new SuccessResponse("Servicio válido para registro"));
     }
+
+ 
+
+ // Contador de servicios
+ @GetMapping("/contador")
+ public ResponseEntity<Long> contarServicios() {
+     // Obtener todos los usuarios desde la base de datos
+     List<UsuarioModel> usuarios = usuarioRepository.findAll();
+
+     // Contar todos los servicios embebidos en los usuarios
+     long totalServicios = usuarios.stream()
+         .filter(u -> u.getServicios() != null)  // Filtrar usuarios que tienen servicios
+         .mapToLong(u -> u.getServicios().size())  // Sumar el tamaño de la lista de servicios de cada usuario
+         .sum();  // Sumar todos los servicios
+
+     return ResponseEntity.ok(totalServicios);  // Retornar el total de servicios
+ }
+
+
+
+
 }
