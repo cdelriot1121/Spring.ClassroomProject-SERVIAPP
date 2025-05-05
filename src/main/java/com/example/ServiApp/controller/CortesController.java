@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.ServiApp.model.CortesModel;
+import com.example.ServiApp.model.Falla_Ser_Model;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.services.CortesService;
+import com.example.ServiApp.services.FallasUserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,6 +27,9 @@ public class CortesController {
 
     @Autowired
     private CortesService cortesService;
+    
+    @Autowired
+    private FallasUserService fallasUserService;
     
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -57,9 +62,20 @@ public class CortesController {
     }
 
     @GetMapping("/cortes")
-    public String mostrarCortes(Model model) {
+    public String mostrarCortes(Model model, HttpSession session) {
+        // Obtener cortes para todos los usuarios
         List<CortesModel> cortes = cortesService.obtenerTodosLosCortes();
         model.addAttribute("cortes", cortes);
+        
+        // Obtener las fallas del usuario logueado (si existe una sesión)
+        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
+        
+        if (usuarioLogueado != null) {
+            List<Falla_Ser_Model> fallasusuario = fallasUserService.obtenerFallasPorUsuario(usuarioLogueado.getId());
+            model.addAttribute("fallasusuario", fallasusuario);
+            model.addAttribute("nombreUsuario", usuarioLogueado.getNombre());
+        }
+        
         return "cortes_fallas";
     }
 
