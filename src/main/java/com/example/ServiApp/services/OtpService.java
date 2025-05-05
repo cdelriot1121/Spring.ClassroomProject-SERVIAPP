@@ -4,14 +4,9 @@ import java.time.Duration;
 import java.util.Random;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-import org.thymeleaf.context.Context;
 
 @Service
 public class OtpService {
@@ -22,40 +17,28 @@ public class OtpService {
     private final RedisTemplate<String, String> redisTemplate;
     private final JavaMailSender mailSender;
 
-    private final TemplateEngine templateEngine;
-
-    public OtpService(RedisTemplate<String, String> redisTemplate, JavaMailSender mailSender,
-            TemplateEngine templateEngine) {
+    public OtpService(RedisTemplate<String, String> redisTemplate, JavaMailSender mailSender) {
         this.redisTemplate = redisTemplate;
         this.mailSender = mailSender;
-        this.templateEngine = templateEngine;
     }
 
     public void generarYEnviarOtp(String email) {
         String otp = String.format("%06d", new Random().nextInt(999999));
         String key = "OTP:" + email;
 
+        // Guardar OTP en Redis con expiración
         redisTemplate.opsForValue().set(key, otp, Duration.ofMinutes(OTP_EXPIRATION_MINUTES));
 
         try {
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setTo(email);
-            helper.setSubject("🔐 Tu código de acceso para ServiApp");
-
-            // Contexto para Thymeleaf (variables)
-            Context context = new Context();
-            context.setVariable("otp", otp);
-            context.setVariable("expirationMinutes", OTP_EXPIRATION_MINUTES);
-            context.setVariable("logoUrl", "/img_local/logo-google.png");
-
-            // Procesar plantilla HTML
-            String htmlContent = templateEngine.process("otp-email", context);
-            helper.setText(htmlContent, true);
-
-            mailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            System.err.println("Error al enviar el correo: " + e.getMessage());
+            // Enviar OTP por correo
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setSubject("Código de Verificación para ServiApp");
+            message.setText("Tu código de verificación es: " + otp + "\nEste código expira en 5 minutos.");
+            mailSender.send(message);
+        } catch (Exception e) {
+            // Si deseas, podrías lanzar una excepción personalizada aquí en lugar de
+            // loguear
         }
     }
 
