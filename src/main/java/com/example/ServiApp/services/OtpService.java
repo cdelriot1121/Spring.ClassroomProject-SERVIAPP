@@ -4,9 +4,14 @@ import java.time.Duration;
 import java.util.Random;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import org.thymeleaf.context.Context;
 
 @Service
 public class OtpService {
@@ -16,29 +21,57 @@ public class OtpService {
 
     private final RedisTemplate<String, String> redisTemplate;
     private final JavaMailSender mailSender;
+    private final TemplateEngine templateEngine;
 
-    public OtpService(RedisTemplate<String, String> redisTemplate, JavaMailSender mailSender) {
+    public OtpService(RedisTemplate<String, String> redisTemplate, JavaMailSender mailSender,
+            TemplateEngine templateEngine) {
         this.redisTemplate = redisTemplate;
         this.mailSender = mailSender;
+        this.templateEngine = templateEngine;
     }
 
     public void generarYEnviarOtp(String email) {
-        String otp = String.format("%06d", new Random().nextInt(999999));
-        String key = "OTP:" + email;
-
-        // Guardar OTP en Redis con expiración
-        redisTemplate.opsForValue().set(key, otp, Duration.ofMinutes(OTP_EXPIRATION_MINUTES));
+        if (email == null || email.trim().isEmpty()) {
+            return;
+        }
 
         try {
-            // Enviar OTP por correo
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(email);
-            message.setSubject("Código de Verificación para ServiApp");
-            message.setText("Tu código de verificación es: " + otp + "\nEste código expira en 5 minutos.");
-            mailSender.send(message);
+            String otp = String.format("%06d", new Random().nextInt(999999));
+
+            String key = "OTP:" + email;
+            redisTemplate.opsForValue().set(key, otp, Duration.ofMinutes(OTP_EXPIRATION_MINUTES));
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            // Establecer el "From" (remitente)
+            helper.setFrom("serviapp23.info@gmail.com"); // Se agrega el remitente
+
+            helper.setTo(email);
+            helper.setSubject("🔐 Tu código de acceso para ServiApp");
+
+            // Preparar datos para plantilla
+            Context context = new Context();
+            context.setVariable("otp", otp);
+            context.setVariable("expirationMinutes", OTP_EXPIRATION_MINUTES);
+            // Eliminar logo
+            context.setVariable("logoUrl", "/img_local/logo-google.png");
+
+            String htmlContent;
+            try {
+                htmlContent = templateEngine.process("otp-email", context);
+            } catch (Exception e) {
+                return;
+            }
+
+            helper.setText(htmlContent, true);
+
+            mailSender.send(mimeMessage);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
         } catch (Exception e) {
-            // Si deseas, podrías lanzar una excepción personalizada aquí en lugar de
-            // loguear
+            e.printStackTrace();
         }
     }
 
