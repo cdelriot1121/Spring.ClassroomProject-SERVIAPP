@@ -127,7 +127,8 @@ public class SecurityConfiguration {
                                                                 "/interfaz-admin",
                                                                 "/gestionar-servicios-admin", "/cortes-admin",
                                                                 "/reportes_usuarios",
-                                                                "/admin/**", "/login-admin", "/registro-admin")
+                                                                "/admin/**", "/login-admin", "/registro-admin",
+                                                                "/servicios/contador")
                                                 .hasAuthority("ROLE_ADMINISTRADOR")
                                                 .requestMatchers(HttpMethod.POST, "/registrar-corte",
                                                                 "/registrar-consejo",

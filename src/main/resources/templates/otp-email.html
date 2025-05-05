@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código de Verificación | ServiApp</title>
+    <style>
+ /* Base */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: #333;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+.container {
+    padding: 40px 30px;
+    margin-top: 50px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+    animation: fadeIn 1s ease-in-out;
+}
+.logo {
+    max-width: 100px;
+    margin-bottom: 12px;
+}
+.header h2 {
+    color: #2c5aa0;
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* OTP Code */
+.otp-code {
+    background: linear-gradient(135deg, #f2f6fc 0%, #e0ecff 100%);
+    padding: 25px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 30px 0;
+    border-radius: 10px;
+    color: #2c5aa0;
+    border: 1px solid #c5d3ea;
+    letter-spacing: 4px;
+    animation: pulse 2s infinite;
+}
+
+
+
+/* Footer */
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(44, 90, 160, 0.1); }
+    50% { transform: scale(1.02); box-shadow: 0 0 15px rgba(44, 90, 160, 0.25); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(44, 90, 160, 0.1); }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/logo-pagina-serviapp.png" alt="Logo ServiApp" class="logo" />
+
+            <h2>Verificación de Seguridad</h2>
+        </div>
+        
+        <p style="text-align: center; color: #555;">
+            Por favor, utiliza este código para completar tu acceso a <strong>ServiApp</strong>:
+        </p>
+        
+        <div class="otp-code" th:text="${otp}">
+            <!-- OTP se inyecta aquí -->
+        </div>
+        
+        <p style="text-align: center; color: #666; font-size: 14px;">
+            ⏳ Válido por <strong th:text="${expirationMinutes} + ' minutos'"></strong>.
+            <br>No compartas este código con nadie.
+        </p>
+  
+        
+        <div class="footer">
+            <p>Si no solicitaste este código, ignora este mensaje.</p>
+            <p>© <span th:text="${#dates.year(#dates.createNow())}"></span> ServiApp. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>
