@@ -1,326 +1,622 @@
 <!DOCTYPE html>
 <html lang="en">
-    <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiApp</title>
+  <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>ServiApp</title>
 
+      <!--Parte Header compartida desde aqui....-->
+      <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
 
-     <!--Parte Header compartida desde aqui....-->
-     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
+      <!--links CSS-->
+      <link
+        rel="stylesheet"
+        href="/estilos_interfaz-usuario/barra_perfil.css"
+      />
+      <!-- Barra lateral reutilizable -->
+      <link
+        rel="stylesheet"
+        href="/estilos_interfaz-usuario/style_perfil.css"
+      />
+      <!-- CSS de la página Inicio -->
+      <link rel="stylesheet" href="/main.css" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-     <!--links CSS-->
-     <link rel="stylesheet" href="/estilos_interfaz-usuario/barra_perfil.css"> <!-- Barra lateral reutilizable -->
-     <link rel="stylesheet" href="/estilos_interfaz-usuario/style_perfil.css"> <!-- CSS de la página Inicio -->
-     <link rel="stylesheet" href="/main.css">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!--BOXICOINS Y BOOTSTRAP-->
+      <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      />
 
- 
-     <!--BOXICOINS Y BOOTSTRAP-->
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+      <!--Fuente Kanit-->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap"
+        rel="stylesheet"
+      />
+      <!-- SweetAlert2 CDN -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
 
- 
- 
-     <!--Fuente Kanit-->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-     <!-- SweetAlert2 CDN -->
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-
-<body>
-       <header>
+    <body>
+      <header>
         <div class="header-left">
-            <button class="toggle-btn" onclick="toggleSidebar()">
-                <i class="bi bi-list"></i>
-            </button>
-            <div class="header-logo">
-                <h1 class="header-title">ServiApp</h1>
-                <div class="mensaje_bienvenida" id="mensajeBienvenida">
-                    <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
-                </div>
+          <button class="toggle-btn" onclick="toggleSidebar()">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="header-logo">
+            <h1 class="header-title">ServiApp</h1>
+            <div class="mensaje_bienvenida" id="mensajeBienvenida">
+              <p
+                th:if="${nombreUsuario}"
+                th:text="'Hola, ' + ${nombreUsuario} + '!'"
+              ></p>
             </div>
+          </div>
         </div>
 
         <div class="profile-menu">
-            <button class="profile-button" id="profileButton">
-                <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
-            </button>
-            <div class="profile-dropdown" id="profileDropdown">
-                <a href="datos-personales"><i class="bi bi-gear"></i> Perfil</a>
-                <a href="/logout"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
-            </div>
+          <button class="profile-button" id="profileButton">
+            <img
+              src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg"
+              alt="Avatar"
+              class="profile-avatar"
+            />
+          </button>
+          <div class="profile-dropdown" id="profileDropdown">
+            <a href="datos-personales"><i class="bi bi-gear"></i> Perfil</a>
+            <a href="/logout"
+              ><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a
+            >
+          </div>
         </div>
-    </header>
+      </header>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <a href="interfaz_inicio" class="active"><i class="bi bi-house-door-fill"></i> Inicio</a>
-        <a href="registrar-servicio"><i class="bi bi-house-add-fill"></i> Registrar Servicio</a>
-        <a href="gestionar-servicio"><i class="bi bi-calculator"></i> Analisis De Consumo</a>
-        <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i> Consejos De Ahorro</a>
-        <a href="cortes"><i class="bi bi-calendar-week-fill"></i> Cortes Programados</a>
-        <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas De Atención</a>
-        <a href="grafico-consumo"><i class="bi bi-bar-chart-line"></i> Graficas Consumo</a>
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <a href="interfaz_inicio" class="active"
+          ><i class="bi bi-house-door-fill"></i> Inicio</a
+        >
+        <a href="registrar-servicio"
+          ><i class="bi bi-house-add-fill"></i> Registrar Servicio</a
+        >
+        <a href="gestionar-servicio"
+          ><i class="bi bi-calculator"></i> Analisis De Consumo</a
+        >
+        <a href="consejos-personzalidos"
+          ><i class="bi bi-lightbulb"></i> Consejos De Ahorro</a
+        >
+        <a href="cortes"
+          ><i class="bi bi-calendar-week-fill"></i> Cortes Programados</a
+        >
+        <a href="lineas-atencion"
+          ><i class="bi bi-telephone-forward"></i> Líneas De Atención</a
+        >
+        <a href="grafico-consumo"
+          ><i class="bi bi-bar-chart-line"></i> Graficas Consumo</a
+        >
       </div>
-    
-   
-      
-        <!-- Contenido de configuración -->
-    <div class="container mt-5">
+
+      <!-- Contenido de configuración -->
+      <div class="container mt-5">
         <div class="row">
-            <!-- Menú lateral -->
-            <div class="col-md-3">
-                <div class="list-group">
-                <a th:href="@{/datos-personales}" class="list-group-item list-group-item-action" th:classappend="${section == 'datos-personales'} ? 'active'">Datos Personales</a>
-                <a th:href="@{/cambiar-contrasena}" class="list-group-item list-group-item-action" th:classappend="${section == 'cambiar-contrasena'} ? 'active'">Cambiar Contraseña</a>
-                <a th:href="@{/mis-servicios}" class="list-group-item list-group-item-action" th:classappend="${section == 'mis-servicios'} ? 'active'">Mis Servicios</a>
-                <a th:href="@{/mis-consumos}" class="list-group-item list-group-item-action" th:classappend="${section == 'mis-consumos'} ? 'active'">Mis Consumos</a>
-                <!-- Nueva opción de menú para gestionar predio -->
-                <a th:href="@{/mi-predio}" class="list-group-item list-group-item-action" th:classappend="${section == 'mi-predio'} ? 'active'">Mi Predio</a>
-                </div>
+          <!-- Menú lateral -->
+          <div class="col-md-3">
+            <div class="list-group">
+              <a
+                th:href="@{/datos-personales}"
+                class="list-group-item list-group-item-action"
+                th:classappend="${section == 'datos-personales'} ? 'active'"
+                >Datos Personales</a
+              >
+              <a
+                th:href="@{/cambiar-contrasena}"
+                class="list-group-item list-group-item-action"
+                th:classappend="${section == 'cambiar-contrasena'} ? 'active'"
+                >Cambiar Contraseña</a
+              >
+              <a
+                th:href="@{/mis-servicios}"
+                class="list-group-item list-group-item-action"
+                th:classappend="${section == 'mis-servicios'} ? 'active'"
+                >Mis Servicios</a
+              >
+              <a
+                th:href="@{/mis-consumos}"
+                class="list-group-item list-group-item-action"
+                th:classappend="${section == 'mis-consumos'} ? 'active'"
+                >Mis Consumos</a
+              >
+              <!-- Nueva opción de menú para gestionar predio -->
+              <a
+                th:href="@{/mi-predio}"
+                class="list-group-item list-group-item-action"
+                th:classappend="${section == 'mi-predio'} ? 'active'"
+                >Mi Predio</a
+              >
             </div>
+          </div>
 
-
-            <div class="col-md-9">
-           <!-- Datos Personales -->
-           <section th:if="${section == 'datos-personales'}">
-            <h4>Datos Personales</h4>
-            <table class="table table-bordered">
+          <div class="col-md-9">
+            <!-- Datos Personales -->
+            <section th:if="${section == 'datos-personales'}">
+              <h4>Datos Personales</h4>
+              <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>Nombre Completo</th>
-                        <th>Correo Electrónico</th>
-                        <th>Acciones</th>
-                    </tr>
+                  <tr>
+                    <th>Nombre Completo</th>
+                    <th>Correo Electrónico</th>
+                    <th>Acciones</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td th:text="${usuario.nombre}">Nombre Completo</td>
-                        <td colspan="2" th:if="${editarUsuarioId == usuario.id}">
-    <form th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post" id="form-datos-personales">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" th:value="${usuario.nombre}" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="text" id="email" name="email" class="form-control" th:value="${usuario.email}" required>
-        </div>
-        <div class="d-flex gap-2 mt-3">
-            <button type="button" class="btn btn-success" onclick="confirmarCambioDatos(event)">Guardar Cambios</button>
-            <a th:href="@{/datos-personales}" class="btn btn-danger">Cancelar</a>
-        </div>
-    </form>
-</td>
-                        <td th:if="${editarUsuarioId != usuario.id}" th:text="${usuario.email}">Correo Electrónico</td>
-                        <td th:if="${editarUsuarioId != usuario.id}">
-                            <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-success">Actualizar</a>
-                        </td>
-                    </tr>
+                  <tr>
+                    <td th:text="${usuario.nombre}">Nombre Completo</td>
+                    <td colspan="2" th:if="${editarUsuarioId == usuario.id}">
+                      <form
+                        th:action="@{/usuarios/actualizar/{id}(id=${usuario.id})}"
+                        th:object="${usuario}"
+                        method="post"
+                        id="form-datos-personales"
+                      >
+                        <div class="mb-3">
+                          <label for="nombre" class="form-label">Nombre:</label>
+                          <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            class="form-control"
+                            th:value="${usuario.nombre}"
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="email" class="form-label">Email:</label>
+                          <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            th:value="${usuario.email}"
+                            required
+                          />
+                        </div>
+                        <div class="d-flex gap-2 mt-3">
+                          <button
+                            type="button"
+                            class="btn btn-success"
+                            onclick="confirmarCambioDatos(event)"
+                          >
+                            Guardar Cambios
+                          </button>
+                          <a
+                            th:href="@{/datos-personales}"
+                            class="btn btn-danger"
+                            >Cancelar</a
+                          >
+                        </div>
+                      </form>
+                    </td>
+                    <td
+                      th:if="${editarUsuarioId != usuario.id}"
+                      th:text="${usuario.email}"
+                    >
+                      Correo Electrónico
+                    </td>
+                    <td th:if="${editarUsuarioId != usuario.id}">
+                      <a
+                        th:href="@{/usuarios/editar/{id}(id=${usuario.id})}"
+                        class="btn btn-success"
+                        >Actualizar</a
+                      >
+                    </td>
+                  </tr>
                 </tbody>
-            </table>
-        </section>
-
-                <!-- Cambiar Contraseña -->
-            <section th:if="${section == 'cambiar-contrasena'}" class="seccion_cambiar_password">
-                <h4>Cambiar Contraseña</h4>
-            
-                <!-- Mensajes de error o éxito -->
-                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-                <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-            
-                <form th:action="@{/usuarios/cambiar-contrasena}" method="post" id="changePasswordForm" onsubmit="confirmarCambioContraseña(event)"
->
-                    <div class="mb-3">
-                        <label for="current-password" class="form-label">Contraseña Actual</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" name="currentPassword" id="current-password" required>
-                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('current-password')">👁️</button>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="new-password" class="form-label">Nueva Contraseña</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" name="newPassword" id="new-password" required 
-                            pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                            title="La contraseña debe tener al menos 8 caracteres, incluir al menos un número y un carácter especial." >
-                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('new-password')">👁️</button>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" name="confirmPassword" id="confirm-password" required>
-                            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('confirm-password')">👁️</button>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="boton-cambiar-password">Cambiar Contraseña</button>
-
-                </form>
+              </table>
             </section>
-                
-          
-                <!-- Mis Servicios -->
-                <section th:if="${section == 'mis-servicios'}">
-    <h4>Mis Servicios</h4>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Tipo de Servicio</th>
-                <th>Póliza</th>
-                <th>Número de Habitantes</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="servicio : ${servicios}">
-                <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.tipo_servicio}">Tipo de Servicio</td>
-                <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.poliza}">Póliza</td>
-                <td th:if="${editarServicioId != servicio.id}" th:text="${servicio.habitantes}">Número de Habitantes</td>
-                
-                <!-- Formulario de edición -->
-                <td colspan="4" th:if="${editarServicioId == servicio.id}">
-                    <form th:action="@{/servicios/actualizar/{id}(id=${servicio.id})}" method="post" id="form-servicios">
+
+            <!-- Cambiar Contraseña -->
+            <section
+              th:if="${section == 'cambiar-contrasena'}"
+              class="seccion_cambiar_password"
+            >
+              <h4>Cambiar Contraseña</h4>
+
+              <!-- Mensajes de error o éxito -->
+              <div
+                th:if="${error}"
+                class="alert alert-danger"
+                th:text="${error}"
+              ></div>
+              <div
+                th:if="${success}"
+                class="alert alert-success"
+                th:text="${success}"
+              ></div>
+
+              <form
+                th:action="@{/usuarios/cambiar-contrasena}"
+                method="post"
+                id="changePasswordForm"
+                onsubmit="confirmarCambioContraseña(event)"
+              >
+                <div class="mb-3">
+                  <label for="current-password" class="form-label"
+                    >Contraseña Actual</label
+                  >
+                  <div class="input-group">
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="currentPassword"
+                      id="current-password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      onclick="togglePasswordVisibility('current-password')"
+                    >
+                      👁️
+                    </button>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="new-password" class="form-label"
+                    >Nueva Contraseña</label
+                  >
+                  <div class="input-group">
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="newPassword"
+                      id="new-password"
+                      required
+                      pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                      title="La contraseña debe tener al menos 8 caracteres, incluir al menos un número y un carácter especial."
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      onclick="togglePasswordVisibility('new-password')"
+                    >
+                      👁️
+                    </button>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="confirm-password" class="form-label"
+                    >Confirmar Contraseña</label
+                  >
+                  <div class="input-group">
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="confirmPassword"
+                      id="confirm-password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      onclick="togglePasswordVisibility('confirm-password')"
+                    >
+                      👁️
+                    </button>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="boton-cambiar-password"
+                >
+                  Cambiar Contraseña
+                </button>
+              </form>
+            </section>
+
+            <!-- Mis Servicios -->
+            <section th:if="${section == 'mis-servicios'}">
+              <h4>Mis Servicios</h4>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Tipo de Servicio</th>
+                    <th>Póliza</th>
+                    <th>Número de Habitantes</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="servicio : ${servicios}">
+                    <td
+                      th:if="${editarServicioId != servicio.id}"
+                      th:text="${servicio.tipo_servicio}"
+                    >
+                      Tipo de Servicio
+                    </td>
+                    <td
+                      th:if="${editarServicioId != servicio.id}"
+                      th:text="${servicio.poliza}"
+                    >
+                      Póliza
+                    </td>
+                    <td
+                      th:if="${editarServicioId != servicio.id}"
+                      th:text="${servicio.habitantes}"
+                    >
+                      Número de Habitantes
+                    </td>
+
+                    <!-- Formulario de edición -->
+                    <td colspan="4" th:if="${editarServicioId == servicio.id}">
+                      <form
+                        th:action="@{/servicios/actualizar/{id}(id=${servicio.id})}"
+                        method="post"
+                        id="form-servicios"
+                      >
                         <div class="row">
-                            <div class="col-md-12 mb-2">
-                                <label for="tipo_servicio">Tipo de Servicio:</label>
-                                <input type="text" class="form-control" id="tipo_servicio" name="tipo_servicio" th:value="${servicioEditar.tipo_servicio}" readonly>
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <label for="empresa">Empresa:</label>
-                                <input type="text" class="form-control" id="empresa" name="empresa" th:value="${servicioEditar.empresa}" required>
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <label for="poliza">Póliza:</label>
-                                <input type="text" class="form-control" id="poliza" name="poliza" th:value="${servicioEditar.poliza}" required>
-                            </div>
-                            <div class="col-md-12 mb-2">
-                                <label for="habitantes">Número de Habitantes:</label>
-                                <input type="number" min="1" class="form-control" id="habitantes" name="habitantes" th:value="${servicioEditar.habitantes}" required>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-success">Guardar</button>
-                                <a th:href="@{/mis-servicios}" class="btn btn-secondary">Cancelar</a>
-                            </div>
+                          <div class="col-md-12 mb-2">
+                            <label for="tipo_servicio">Tipo de Servicio:</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="tipo_servicio"
+                              name="tipo_servicio"
+                              th:value="${servicioEditar.tipo_servicio}"
+                              readonly
+                            />
+                          </div>
+                          <div class="col-md-12 mb-2">
+                            <label for="empresa">Empresa:</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="empresa"
+                              name="empresa"
+                              th:value="${servicioEditar.empresa}"
+                              required
+                            />
+                          </div>
+                          <div class="col-md-12 mb-2">
+                            <label for="poliza">Póliza:</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="poliza"
+                              name="poliza"
+                              th:value="${servicioEditar.poliza}"
+                              required
+                            />
+                          </div>
+                          <div class="col-md-12 mb-2">
+                            <label for="habitantes"
+                              >Número de Habitantes:</label
+                            >
+                            <input
+                              type="number"
+                              min="1"
+                              class="form-control"
+                              id="habitantes"
+                              name="habitantes"
+                              th:value="${servicioEditar.habitantes}"
+                              required
+                            />
+                          </div>
+                          <div class="col-md-12">
+                            <button type="submit" class="btn btn-success">
+                              Guardar
+                            </button>
+                            <a
+                              th:href="@{/mis-servicios}"
+                              class="btn btn-secondary"
+                              >Cancelar</a
+                            >
+                          </div>
                         </div>
-                    </form>
-                </td>
-                
-                <td th:if="${editarServicioId != servicio.id}">
-                    <a th:href="@{/servicios/editar/{id}(id=${servicio.id})}" class="btn btn-primary">Editar</a>
-                    <form th:action="@{/servicios/eliminar/{id}(id=${servicio.id})}" method="post" style="display:inline;" onsubmit="return confirmarEliminarServicio()">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
+                      </form>
+                    </td>
 
-<!-- Mis Consumos -->
-<section th:if="${section == 'mis-consumos'}">
-    <h4>Historial de Consumos</h4>
+                    <td th:if="${editarServicioId != servicio.id}">
+                      <a
+                        th:href="@{/servicios/editar/{id}(id=${servicio.id})}"
+                        class="btn btn-primary"
+                        >Editar</a
+                      >
+                      <form
+                        th:action="@{/servicios/eliminar/{id}(id=${servicio.id})}"
+                        method="post"
+                        style="display: inline"
+                        onsubmit="return confirmarEliminarServicio()"
+                      >
+                        <button type="submit" class="btn btn-danger">
+                          Eliminar
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
 
-    <!-- Filtros -->
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label for="filtroServicio">Tipo de Servicio:</label>
-            <select id="filtroServicio" class="form-control">
-                <option value="">Todos</option>
-            </select>
-        </div>
-        <div class="col-md-4">
-            <label for="filtroMes">Mes:</label>
-            <select id="filtroMes" class="form-control">
-                <option value="">Todos</option>
-            </select>
-        </div>
-        <div class="col-md-4">
-            <label for="filtroAno">Año:</label>
-            <select id="filtroAno" class="form-control">
-                <option value="">Todos</option>
-            </select>
-        </div>
-    </div>
+            <!-- Mis Consumos -->
+            <section th:if="${section == 'mis-consumos'}">
+              <h4>Historial de Consumos</h4>
 
-    <!-- Tabla -->
-    <table id="tablaConsumos" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Servicio</th>
-                <th>Mes</th>
-                <th>Año</th>
-                <th>Consumo</th>
-                <th>Unidad</th>
-                <th>Acciones</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="periodo : ${periodosConInfo}">
-                <td th:text="${periodo.tipoServicio}">Tipo de Servicio</td>
-                <td th:text="${periodo.mes}">Mes</td>
-                <td th:text="${periodo.ano}">Año</td>
-                <td>
-                    <form th:if="${editarConsumoId == periodo.id}" th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}" method="post" class="d-flex">
-                        <input type="number" step="0.01" name="consumo" class="form-control me-2" th:value="${periodo.consumo}" required style="width: 100px;">
-                        <button type="submit" class="btn btn-success btn-sm me-1">✔</button>
-                        <a th:href="@{/mis-consumos}" class="btn btn-secondary btn-sm">✖</a>
-                    </form>
-                    <span th:if="${editarConsumoId != periodo.id}" th:text="${periodo.consumo}">Consumo</span>
-                </td>
-                <td th:text="${periodo.unidad}">Unidad</td>
-                <td>
-                    <a th:if="${editarConsumoId != periodo.id}" th:href="@{/editar-consumo/{id}(id=${periodo.id})}" class="btn btn-primary btn-sm">Editar</a>
-                </td>
-                <td>
-                    <form th:if="${editarConsumoId != periodo.id}" th:action="@{/eliminar-consumo/{id}(id=${periodo.id})}" method="post" onsubmit="return confirmarEliminarConsumo()" style="display:inline;">
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            <tr th:if="${periodosConInfo.empty}">
-                <td colspan="7" class="text-center">No hay registros de consumo</td>
-            </tr>
-        </tbody>
-        
-        
-        
-    </table>
-</section>
-
-<!-- Sección Mi Predio-->
-<section th:if="${section == 'mi-predio'}">
-    <h4>Mi Predio</h4>
-    <div class="alert alert-info">
-        <p><strong>Nota:</strong> El registro de su predio es completamente opcional. Esta información nos ayuda a generar estadísticas de consumo por zonas y ofrecer recomendaciones más personalizadas.</p>
-    </div>
-
-    <!-- Mostrar mensaje de éxito o error si existe -->
-    <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
-    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-
-    <!-- Si no tiene predio registrado, mostrar formulario de registro -->
-    <div th:if="${predio == null}" class="card">
-        <div class="card-header">Registrar Predio</div>
-        <div class="card-body">
-            <form th:action="@{/predios/registrar}" method="post">
-                <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+              <!-- Filtros -->
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="filtroServicio">Tipo de Servicio:</label>
+                  <select id="filtroServicio" class="form-control">
+                    <option value="">Todos</option>
+                  </select>
                 </div>
-                <div class="mb-3">
-                    <label for="barrio" class="form-label">Barrio</label>
-                    <input type="text" class="form-control" id="barrio" name="barrio" required>
+                <div class="col-md-4">
+                  <label for="filtroMes">Mes:</label>
+                  <select id="filtroMes" class="form-control">
+                    <option value="">Todos</option>
+                  </select>
                 </div>
-                <div class="mb-3">
-                    <label for="estrato" class="form-label">Estrato</label>
-                    <select class="form-control" id="estrato" name="estrato" required>
+                <div class="col-md-4">
+                  <label for="filtroAno">Año:</label>
+                  <select id="filtroAno" class="form-control">
+                    <option value="">Todos</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Tabla -->
+              <table id="tablaConsumos" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Servicio</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Consumo</th>
+                    <th>Unidad</th>
+                    <th>Acciones</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="periodo : ${periodosConInfo}">
+                    <td th:text="${periodo.tipoServicio}">Tipo de Servicio</td>
+                    <td th:text="${periodo.mes}">Mes</td>
+                    <td th:text="${periodo.ano}">Año</td>
+                    <td>
+                      <form
+                        th:if="${editarConsumoId == periodo.id}"
+                        th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}"
+                        method="post"
+                        class="d-flex"
+                      >
+                        <input
+                          type="number"
+                          step="0.01"
+                          name="consumo"
+                          class="form-control me-2"
+                          th:value="${periodo.consumo}"
+                          required
+                          style="width: 100px"
+                        />
+                        <button
+                          type="submit"
+                          class="btn btn-success btn-sm me-1"
+                        >
+                          ✔
+                        </button>
+                        <a
+                          th:href="@{/mis-consumos}"
+                          class="btn btn-secondary btn-sm"
+                          >✖</a
+                        >
+                      </form>
+                      <span
+                        th:if="${editarConsumoId != periodo.id}"
+                        th:text="${periodo.consumo}"
+                        >Consumo</span
+                      >
+                    </td>
+                    <td th:text="${periodo.unidad}">Unidad</td>
+                    <td>
+                      <a
+                        th:if="${editarConsumoId != periodo.id}"
+                        th:href="@{/editar-consumo/{id}(id=${periodo.id})}"
+                        class="btn btn-primary btn-sm"
+                        >Editar</a
+                      >
+                    </td>
+                    <td>
+                      <form
+                        th:if="${editarConsumoId != periodo.id}"
+                        th:action="@{/eliminar-consumo/{id}(id=${periodo.id})}"
+                        method="post"
+                        onsubmit="return confirmarEliminarConsumo()"
+                        style="display: inline"
+                      >
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          Eliminar
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                  <tr th:if="${periodosConInfo.empty}">
+                    <td colspan="7" class="text-center">
+                      No hay registros de consumo
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <!-- Sección Mi Predio-->
+            <section th:if="${section == 'mi-predio'}">
+              <h4>Mi Predio</h4>
+              <div class="alert alert-info">
+                <p>
+                  <strong>Nota:</strong>Esta información nos ayuda a generar
+                  estadísticas de consumo por zonas y ofrecer recomendaciones
+                  más personalizadas.
+                </p>
+              </div>
+
+              <!-- Mostrar mensaje de éxito o error si existe -->
+              <div
+                th:if="${mensaje}"
+                class="alert alert-success"
+                th:text="${mensaje}"
+              ></div>
+              <div
+                th:if="${error}"
+                class="alert alert-danger"
+                th:text="${error}"
+              ></div>
+
+              <!-- Si no tiene predio registrado, mostrar formulario de registro -->
+              <div th:if="${predio == null}" class="card">
+                <div class="card-header">Registrar Predio</div>
+                <div class="card-body">
+                  <form th:action="@{/predios/registrar}" method="post">
+                    <div class="mb-3">
+                      <label for="direccion" class="form-label"
+                        >Dirección</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="direccion"
+                        name="direccion"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="barrio" class="form-label">Barrio</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="barrio"
+                        name="barrio"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="estrato" class="form-label">Estrato</label>
+                      <select
+                        class="form-control"
+                        id="estrato"
+                        name="estrato"
+                        required
+                      >
                         <option value="">Seleccione...</option>
                         <option value="1">Estrato 1</option>
                         <option value="2">Estrato 2</option>
@@ -328,204 +624,284 @@
                         <option value="4">Estrato 4</option>
                         <option value="5">Estrato 5</option>
                         <option value="6">Estrato 6</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="tipoPredio" class="form-label">Tipo de Predio</label>
-                    <select class="form-control" id="tipoPredio" name="tipoPredio" required>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="tipoPredio" class="form-label"
+                        >Tipo de Predio</label
+                      >
+                      <select
+                        class="form-control"
+                        id="tipoPredio"
+                        name="tipoPredio"
+                        required
+                      >
                         <option value="">Seleccione...</option>
-                        <option th:each="tipo : ${tiposPredio}" th:value="${tipo}" th:text="${tipo}"></option>
-                    </select>
+                        <option
+                          th:each="tipo : ${tiposPredio}"
+                          th:value="${tipo}"
+                          th:text="${tipo}"
+                        ></option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Registrar Predio
+                    </button>
+                  </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Registrar Predio</button>
-            </form>
-        </div>
-    </div>
+              </div>
 
-    <!-- Si ya tiene predio registrado, mostrar información y opciones de edición/eliminación -->
-    <div th:if="${predio != null}" class="card">
-        <div class="card-header">Información de mi Predio</div>
-        <div class="card-body">
-            <!-- Si está en modo edición -->
-            <form th:if="${editarPredio}" th:action="@{/predios/actualizar}" method="post">
-                <input type="hidden" name="id" th:value="${predio.id}">
-                <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" 
-                           th:value="${predio.direccion}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="barrio" class="form-label">Barrio</label>
-                    <input type="text" class="form-control" id="barrio" name="barrio" 
-                           th:value="${predio.barrio}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="estrato" class="form-label">Estrato</label>
-                    <select class="form-control" id="estrato" name="estrato" required>
+              <!-- Si ya tiene predio registrado, mostrar información y opciones de edición/eliminación -->
+              <div th:if="${predio != null}" class="card">
+                <div class="card-header">Información de mi Predio</div>
+                <div class="card-body">
+                  <!-- Si está en modo edición -->
+                  <form
+                    th:if="${editarPredio}"
+                    th:action="@{/predios/actualizar}"
+                    method="post"
+                  >
+                    <input type="hidden" name="id" th:value="${predio.id}" />
+                    <div class="mb-3">
+                      <label for="direccion" class="form-label"
+                        >Dirección</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="direccion"
+                        name="direccion"
+                        th:value="${predio.direccion}"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="barrio" class="form-label">Barrio</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="barrio"
+                        name="barrio"
+                        th:value="${predio.barrio}"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="estrato" class="form-label">Estrato</label>
+                      <select
+                        class="form-control"
+                        id="estrato"
+                        name="estrato"
+                        required
+                      >
                         <option value="">Seleccione...</option>
-                        <option value="1" th:selected="${predio.estrato == 1}">Estrato 1</option>
-                        <option value="2" th:selected="${predio.estrato == 2}">Estrato 2</option>
-                        <option value="3" th:selected="${predio.estrato == 3}">Estrato 3</option>
-                        <option value="4" th:selected="${predio.estrato == 4}">Estrato 4</option>
-                        <option value="5" th:selected="${predio.estrato == 5}">Estrato 5</option>
-                        <option value="6" th:selected="${predio.estrato == 6}">Estrato 6</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="tipoPredio" class="form-label">Tipo de Predio</label>
-                    <select class="form-control" id="tipoPredio" name="tipoPredio" required>
-                        <option th:each="tipo : ${tiposPredio}" 
-                                th:value="${tipo}" 
-                                th:text="${tipo}"
-                                th:selected="${predio.tipoPredio == tipo}"></option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                <a th:href="@{/mi-predio}" class="btn btn-secondary">Cancelar</a>
-            </form>
-            
-            <!-- Si no está en modo edición, mostrar datos -->
-            <div th:unless="${editarPredio}" class="table-responsive">
-                <table class="table table-bordered">
-                    <tr>
+                        <option value="1" th:selected="${predio.estrato == 1}">
+                          Estrato 1
+                        </option>
+                        <option value="2" th:selected="${predio.estrato == 2}">
+                          Estrato 2
+                        </option>
+                        <option value="3" th:selected="${predio.estrato == 3}">
+                          Estrato 3
+                        </option>
+                        <option value="4" th:selected="${predio.estrato == 4}">
+                          Estrato 4
+                        </option>
+                        <option value="5" th:selected="${predio.estrato == 5}">
+                          Estrato 5
+                        </option>
+                        <option value="6" th:selected="${predio.estrato == 6}">
+                          Estrato 6
+                        </option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="tipoPredio" class="form-label"
+                        >Tipo de Predio</label
+                      >
+                      <select
+                        class="form-control"
+                        id="tipoPredio"
+                        name="tipoPredio"
+                        required
+                      >
+                        <option
+                          th:each="tipo : ${tiposPredio}"
+                          th:value="${tipo}"
+                          th:text="${tipo}"
+                          th:selected="${predio.tipoPredio == tipo}"
+                        ></option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                      Guardar Cambios
+                    </button>
+                    <a th:href="@{/mi-predio}" class="btn btn-secondary"
+                      >Cancelar</a
+                    >
+                  </form>
+
+                  <!-- Si no está en modo edición, mostrar datos -->
+                  <div th:unless="${editarPredio}" class="table-responsive">
+                    <table class="table table-bordered">
+                      <tr>
                         <th style="width: 30%">Dirección</th>
                         <td th:text="${predio.direccion}">Calle 123</td>
-                    </tr>
-                    <tr>
+                      </tr>
+                      <tr>
                         <th>Barrio</th>
                         <td th:text="${predio.barrio}">Centro</td>
-                    </tr>
-                    <tr>
+                      </tr>
+                      <tr>
                         <th>Estrato</th>
                         <td th:text="${predio.estrato}">3</td>
-                    </tr>
-                    <tr>
+                      </tr>
+                      <tr>
                         <th>Tipo de Predio</th>
                         <td th:text="${predio.tipoPredio}">CASA</td>
-                    </tr>
-                </table>
-                
-                <div class="mt-3">
-                    <a th:href="@{/predios/editar}" class="btn btn-primary">Editar Predio</a>
-                    <form th:action="@{/predios/eliminar}" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-danger" 
-                                onclick="return confirm('¿Está seguro de eliminar este predio? Esta acción no se puede deshacer.')">
-                            Eliminar Predio
+                      </tr>
+                    </table>
+
+                    <div class="mt-3">
+                      <a th:href="@{/predios/editar}" class="btn btn-primary"
+                        >Editar Predio</a
+                      >
+                      <form
+                        th:action="@{/predios/eliminar}"
+                        method="post"
+                        style="display: inline"
+                      >
+                        <button
+                          type="submit"
+                          class="btn btn-danger"
+                          onclick="return confirm('¿Está seguro de eliminar este predio? Esta acción no se puede deshacer.')"
+                        >
+                          Eliminar Predio
                         </button>
-                    </form>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+            </section>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
 
-            </div>
-        </div>
-    </div>
+      <!-- Pie de página -->
 
-
-
-
-        <!-- Pie de página -->
-     
-    <footer class="mini-footer">
+      <footer class="mini-footer">
         <div class="footer-content">
-            <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
-            <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
+          <img
+            src="/img_local/logo-pagina-serviapp.png"
+            alt="ServiApp"
+            class="footer-logo"
+          />
+          <p class="footer-text">
+            © 2024 ServiApp - Todos los derechos reservados
+          </p>
         </div>
-    </footer>
-    
- 
-        <script src="/javascripts/barra_perfil.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="/javascripts/ventana_privacidad.js"></script> 
-        <script src="/javascripts/ventanas_perfil.js"></script> 
+      </footer>
 
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const profileButton = document.getElementById('profileButton');
-            const profileDropdown = document.getElementById('profileDropdown');
+      <script src="/javascripts/barra_perfil.js"></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
+      <script src="/javascripts/ventana_privacidad.js"></script>
+      <script src="/javascripts/ventanas_perfil.js"></script>
 
-            profileButton.addEventListener('click', function (e) {
-                e.stopPropagation();
-                profileDropdown.classList.toggle('show');
-            });
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const profileButton = document.getElementById("profileButton");
+          const profileDropdown = document.getElementById("profileDropdown");
 
-            document.addEventListener('click', function (e) {
-                if (!profileButton.contains(e.target)) {
-                    profileDropdown.classList.remove('show');
-                }
-            });
+          profileButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            profileDropdown.classList.toggle("show");
+          });
 
-            profileDropdown.addEventListener('click', function (e) {
-                e.stopPropagation();
-            });
+          document.addEventListener("click", function (e) {
+            if (!profileButton.contains(e.target)) {
+              profileDropdown.classList.remove("show");
+            }
+          });
+
+          profileDropdown.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
         });
 
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
+          const sidebar = document.getElementById("sidebar");
+          sidebar.classList.toggle("open");
         }
-    </script>
+      </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        const tabla = $('#tablaConsumos').DataTable({
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          const tabla = $("#tablaConsumos").DataTable({
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+              url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
             },
             initComplete: function () {
-                const columnas = {
-                    servicio: new Set(),
-                    mes: new Set(),
-                    ano: new Set()
-                };
+              const columnas = {
+                servicio: new Set(),
+                mes: new Set(),
+                ano: new Set(),
+              };
 
-                this.api().rows().every(function () {
-                    const data = this.data();
-                    columnas.servicio.add(data[0]);
-                    columnas.mes.add(data[1]);
-                    columnas.ano.add(data[2]);
+              this.api()
+                .rows()
+                .every(function () {
+                  const data = this.data();
+                  columnas.servicio.add(data[0]);
+                  columnas.mes.add(data[1]);
+                  columnas.ano.add(data[2]);
                 });
 
-                function agregarOpciones(set, selector) {
-                    Array.from(set).sort().forEach(valor => {
-                        $(selector).append(`<option value="${valor}">${valor}</option>`);
-                    });
-                }
+              function agregarOpciones(set, selector) {
+                Array.from(set)
+                  .sort()
+                  .forEach((valor) => {
+                    $(selector).append(
+                      `<option value="${valor}">${valor}</option>`
+                    );
+                  });
+              }
 
-                agregarOpciones(columnas.servicio, '#filtroServicio');
-                agregarOpciones(columnas.mes, '#filtroMes');
-                agregarOpciones(columnas.ano, '#filtroAno');
+              agregarOpciones(columnas.servicio, "#filtroServicio");
+              agregarOpciones(columnas.mes, "#filtroMes");
+              agregarOpciones(columnas.ano, "#filtroAno");
+            },
+          });
+
+          $("#filtroServicio, #filtroMes, #filtroAno").on(
+            "change",
+            function () {
+              tabla.draw();
             }
-        });
+          );
 
-        $('#filtroServicio, #filtroMes, #filtroAno').on('change', function () {
-            tabla.draw();
-        });
-
-        $.fn.dataTable.ext.search.push(function (settings, data) {
-            const servicio = $('#filtroServicio').val().toLowerCase();
-            const mes = $('#filtroMes').val().toLowerCase();
-            const ano = $('#filtroAno').val();
+          $.fn.dataTable.ext.search.push(function (settings, data) {
+            const servicio = $("#filtroServicio").val().toLowerCase();
+            const mes = $("#filtroMes").val().toLowerCase();
+            const ano = $("#filtroAno").val();
             const colServicio = data[0].toLowerCase();
             const colMes = data[1].toLowerCase();
             const colAno = data[2];
 
             return (
-                (servicio === "" || colServicio === servicio) &&
-                (mes === "" || colMes === mes) &&
-                (ano === "" || colAno === ano)
+              (servicio === "" || colServicio === servicio) &&
+              (mes === "" || colMes === mes) &&
+              (ano === "" || colAno === ano)
             );
+          });
         });
-    });
-</script>
-
-
-
-   
-</body>
-
+      </script>
+    </body>
+  </html>
 </html>
