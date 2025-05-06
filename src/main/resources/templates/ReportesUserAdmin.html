@@ -57,14 +57,40 @@
                         <th>Barrio afectado</th>
                         <th>Hora de inicio</th>
                         <th>Comentarios</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="falla : ${fallas}">
                         <td th:text="${falla.servicio}"></td>
                         <td th:text="${falla.barrio}"></td>
-                        <td th:text="${falla.hora}"></td>
+                        <td th:text="${#dates.format(falla.hora, 'dd/MM/yyyy HH:mm')}"></td>
                         <td th:text="${falla.comentarios}"></td>
+                        <td>
+                            <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).PENDIENTE}" 
+                                  class="badge bg-warning">Pendiente</span>
+                            <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO}" 
+                                  class="badge bg-info">Recibido</span>
+                            <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).COMPLETADO}" 
+                                  class="badge bg-success">Completado</span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <form th:if="${falla.estado != T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO && 
+                                             falla.estado != T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).COMPLETADO}" 
+                                      th:action="@{/actualizar-estado-falla/{id}(id=${falla.id})}" method="post" style="display:inline;">
+                                    <input type="hidden" name="nuevoEstado" value="RECIBIDO">
+                                    <button type="submit" class="btn btn-info btn-sm">Marcar como recibido</button>
+                                </form>
+                                
+                                <form th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO}" 
+                                      th:action="@{/actualizar-estado-falla/{id}(id=${falla.id})}" method="post" style="display:inline;">
+                                    <input type="hidden" name="nuevoEstado" value="COMPLETADO">
+                                    <button type="submit" class="btn btn-success btn-sm">Marcar como completado</button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

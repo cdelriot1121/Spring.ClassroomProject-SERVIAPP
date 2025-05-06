@@ -573,6 +573,19 @@ footer {
     flex-direction: column;
     align-items: center;
   }
+
+  .info-icon {
+    font-size: 1.5rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.tooltip-inner {
+    max-width: 300px;
+    text-align: left;
+    font-size: 0.9rem;
+  }
 }
 
 

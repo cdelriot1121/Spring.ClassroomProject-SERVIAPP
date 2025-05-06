@@ -24,6 +24,18 @@ public class Falla_Ser_Model {
     @Field(name = "comentarios")
     private String comentarios;
 
+    /**
+     * Enumeración que define los posibles estados de una falla de servicio.
+     */
+    public enum EstadoFalla {
+        PENDIENTE,
+        RECIBIDO,
+        COMPLETADO
+    }
+
+    @Field(name = "estado")
+    private EstadoFalla estado = EstadoFalla.PENDIENTE;
+
     // Referencia al usuario
     @Field(name = "usuario_id")
     private String usuarioId;
@@ -38,7 +50,10 @@ public class Falla_Ser_Model {
         this.hora = hora;
         this.comentarios = comentarios;
         this.usuarioId = usuarioId;
+        this.estado = EstadoFalla.PENDIENTE;
     }
+
+    // Getters y setters originales
 
     public String getId() {
         return id;
@@ -86,5 +101,14 @@ public class Falla_Ser_Model {
 
     public void setUsuarioId(String usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    // Nuevos getters y setters para el estado
+    public EstadoFalla getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoFalla estado) {
+        this.estado = estado;
     }
 }

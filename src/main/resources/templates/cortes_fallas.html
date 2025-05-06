@@ -139,6 +139,41 @@
           <button type="submit">Reportar</button>
         </div>
       </form>
+
+      <!-- Nueva sección para mostrar las fallas del usuario -->
+      <div class="fallas-usuario mt-5">
+        <h2>Mis fallas reportadas</h2>
+        <table id="tablaFallasUsuario" class="display" style="width:100%">
+          <thead>
+            <tr>
+              <th>Servicio</th>
+              <th>Barrio</th>
+              <th>Hora reportada</th>
+              <th>Comentarios</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="falla : ${fallasusuario}">
+              <td th:text="${falla.servicio}"></td>
+              <td th:text="${falla.barrio}"></td>
+              <td th:text="${#dates.format(falla.hora, 'dd/MM/yyyy HH:mm')}"></td>
+              <td th:text="${falla.comentarios}"></td>
+              <td>
+                <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).PENDIENTE}" 
+                      class="badge bg-warning">Pendiente</span>
+                <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO}" 
+                      class="badge bg-info">Recibido</span>
+                <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).COMPLETADO}" 
+                      class="badge bg-success">Completado</span>
+              </td>
+            </tr>
+            <tr th:if="${fallasusuario.empty}">
+              <td colspan="5" class="text-center">No has reportado ninguna falla</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
 
