@@ -10,3 +10,5 @@ README.md
 node_modules/
 .env
 *.swp
+.vscode/
+cach-rdme/
