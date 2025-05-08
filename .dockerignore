@@ -1,0 +1,12 @@
+target/
+.git/
+.gitignore
+Dockerfile
+README.md
+*.iml
+.idea/
+*.log
+*.class
+node_modules/
+.env
+*.swp

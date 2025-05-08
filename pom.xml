@@ -11,7 +11,8 @@
 	<groupId>com.example</groupId>
 	<artifactId>ServiApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
+
 	<name>ServiApp</name>
 	<description>ServiApp Project in Spring boot</description>
 	<properties>
