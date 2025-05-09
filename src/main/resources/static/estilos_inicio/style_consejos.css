@@ -27,8 +27,12 @@ body {
     background-color: var(--light);
     overflow-x: hidden;
     margin: 0;
-    padding-top: 80px;
+    padding: 0;
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
 }
 
 /* Header premium */
@@ -282,33 +286,382 @@ body {
     border-bottom-style: solid;
 }
 
-/* Modal mejorado */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
+/* Main content */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Cambio importante para mantener el flujo vertical */
+    padding-top: 0; /* Eliminamos este padding porque ya lo tenemos en el body */
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Hero Section */
+.consejos-hero {
+    margin-top: -80px; /* Compensar el padding-top del body */
+    padding-top: 160px; /* Doble de la altura del header para dar espacio visual */
+    background: linear-gradient(rgba(0, 94, 163, 0.85), rgba(11, 67, 111, 0.9)), url('/img_local/Consejos\ de\ ahorro.png');
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 80px;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-family: 'Kanit', sans-serif;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Services Grid Section */
+.services-grid {
+    padding: 100px 0;
+    background-color: var(--white);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--primary-800);
+    margin-bottom: 1rem;
+    font-family: 'Kanit', sans-serif;
+    position: relative;
+    display: inline-block;
+}
+
+.section-header h2:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-500), var(--primary-600));
+    border-radius: 2px;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: var(--primary-900);
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.services-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.service-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-top: 4px solid transparent;
+}
+
+.service-card:before {
+    content: '';
+    position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    transition: all 0.4s ease;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    pointer-events: none;
+}
+
+#agua-card {
+    border-top-color: #36adfa;
+}
+
+#energia-card {
+    border-top-color: #ffc107;
+}
+
+#gas-card {
+    border-top-color: #ff7043;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 2.5rem;
+    position: relative;
+    background: var(--light);
+}
+
+#agua-card .service-icon {
+    color: #36adfa;
+    box-shadow: 0 5px 20px rgba(54, 173, 250, 0.3);
+}
+
+#energia-card .service-icon {
+    color: #ffc107;
+    box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
+}
+
+#gas-card .service-icon {
+    color: #ff7043;
+    box-shadow: 0 5px 20px rgba(255, 112, 67, 0.3);
+}
+
+.service-card h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-900);
+    font-family: 'Kanit', sans-serif;
+}
+
+.service-card p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-900);
+    flex-grow: 1;
+}
+
+.service-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: 'Poppins', sans-serif;
+    margin-top: auto;
+}
+
+.service-btn:hover {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    box-shadow: 0 5px 15px rgba(12, 148, 235, 0.4);
+    transform: translateY(-2px);
+}
+
+#agua-card .service-btn {
+    background: linear-gradient(135deg, #36adfa, #1e88e5);
+}
+
+#agua-card .service-btn:hover {
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    box-shadow: 0 5px 15px rgba(30, 136, 229, 0.4);
+}
+
+#energia-card .service-btn {
+    background: linear-gradient(135deg, #ffc107, #ff9800);
+}
+
+#energia-card .service-btn:hover {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+}
+
+#gas-card .service-btn {
+    background: linear-gradient(135deg, #ff7043, #f4511e);
+}
+
+#gas-card .service-btn:hover {
+    background: linear-gradient(135deg, #f4511e, #e64a19);
+    box-shadow: 0 5px 15px rgba(244, 81, 30, 0.4);
+}
+
+/* Register Banner */
+.register-banner {
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-800));
+    padding: 60px 0;
+    color: white;
+}
+
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.banner-text {
+    flex: 2;
+}
+
+.banner-text h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: 'Kanit', sans-serif;
+}
+
+.banner-text p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+}
+
+.banner-action {
+    flex: 1;
+    text-align: center;
+}
+
+.banner-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: white;
+    color: var(--primary-800);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 1.1rem;
+}
+
+.banner-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal mejorado */
+.modal {
+    opacity: 0;
+    visibility: hidden;
+    display: block; /* Cambiamos a block para poder usar opacity */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Clase adicional para cuando el modal está abierto */
+body.modal-open {
+    overflow: hidden; /* Previene el scroll del fondo */
 }
 
 .modal-content {
     background-color: var(--white);
-    margin: 10% auto;
-    padding: 30px;
+    margin: 5% auto;
+    width: 90%;
+    max-width: 800px;
     border-radius: 15px;
-    width: 60%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     animation: modalFadeIn 0.4s ease-out;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: var(--gradient);
+    color: white;
+    padding: 20px 30px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-family: 'Kanit', sans-serif;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-body h2 {
+    color: var(--primary-800);
+    margin-bottom: 20px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.modal-body p {
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.modal-body li {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.modal-body strong {
+    color: var(--primary-800);
+}
+
+.modal-footer {
+    padding: 15px 30px;
+    background-color: var(--primary-50);
+    border-top: 1px solid var(--primary-100);
+}
+
+.modal-note {
+    font-size: 0.9rem;
+    color: var(--primary-900);
+    margin: 0;
+}
+
+.modal-note a {
+    color: var(--primary-600);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.modal-note a:hover {
+    text-decoration: underline;
 }
 
 @keyframes modalFadeIn {
@@ -323,8 +676,7 @@ body {
 }
 
 .close {
-    color: var(--primary-500);
-    float: right;
+    color: white;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -333,15 +685,7 @@ body {
 
 .close:hover,
 .close:focus {
-    color: var(--primary-800);
     transform: rotate(90deg);
-}
-
-.modal-body {
-    padding: 20px 0;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--dark);
 }
 
 /* Footer premium */
@@ -352,6 +696,7 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-top: auto;
 }
 
 .mini-footer::before {
@@ -409,6 +754,23 @@ body {
     .titulos h3 {
         font-size: 1.8rem;
     }
+    
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .banner-text {
+        flex: none;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2.2rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -443,6 +805,37 @@ body {
     
     .modal-content {
         width: 80%;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    .services-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 30px 20px;
+    }
+    
+    .service-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2.2rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.4rem;
+    }
+    
+    .banner-text h2 {
+        font-size: 1.8rem;
     }
 }
 
@@ -482,6 +875,63 @@ body {
     
     .modal-content {
         width: 90%;
+        padding: 20px;
+    }
+    
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .consejos-hero {
+        padding: 60px 0;
+    }
+    
+    .services-grid {
+        padding: 60px 0;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .register-banner {
+        padding: 40px 0;
+    }
+    
+    .banner-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+    }
+    
+    .modal-body {
         padding: 20px;
     }
 }
