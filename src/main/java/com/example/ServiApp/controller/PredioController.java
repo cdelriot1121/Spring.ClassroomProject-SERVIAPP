@@ -66,7 +66,7 @@ public class PredioController {
         Optional<PredioModel> predioExistente = usuarioService.obtenerPredioPorUsuario(usuarioLogueado.getId());
         
         if (predioExistente.isPresent()) {
-            redirectAttributes.addFlashAttribute("error", "Ya tiene un predio registrado. Puede editarlo o eliminarlo para registrar uno nuevo.");
+            redirectAttributes.addFlashAttribute("error", "Ya tiene un predio registrado. Puede editarlo desde su perfil.");
             return "redirect:/mi-predio";
         }
         
@@ -78,6 +78,12 @@ public class PredioController {
         nuevoPredio.setTipoPredio(tipoPredio);
         
         usuarioService.registrarPredioPara(usuarioLogueado.getId(), nuevoPredio);
+        
+        // Actualizar la sesión con el usuario actualizado
+        Optional<UsuarioModel> usuarioActualizadoOpt = usuarioService.obtenerUsuarioPorId(usuarioLogueado.getId());
+        if (usuarioActualizadoOpt.isPresent()) {
+            session.setAttribute("usuarioLogueado", usuarioActualizadoOpt.get());
+        }
         
         redirectAttributes.addFlashAttribute("mensaje", "Predio registrado exitosamente");
         return "redirect:/mi-predio";
@@ -133,6 +139,13 @@ public class PredioController {
             predioActual.setTipoPredio(tipoPredio);
             
             usuarioService.actualizarPredio(usuarioLogueado.getId(), predioActual);
+            
+            // Actualizar la sesión con el usuario actualizado
+            Optional<UsuarioModel> usuarioActualizadoOpt = usuarioService.obtenerUsuarioPorId(usuarioLogueado.getId());
+            if (usuarioActualizadoOpt.isPresent()) {
+                session.setAttribute("usuarioLogueado", usuarioActualizadoOpt.get());
+            }
+            
             redirectAttributes.addFlashAttribute("mensaje", "Predio actualizado exitosamente");
         } else {
             redirectAttributes.addFlashAttribute("error", "No se encontró un predio asociado a su cuenta");
@@ -141,19 +154,13 @@ public class PredioController {
         return "redirect:/mi-predio";
     }
 
-    // Elimina un predio
+    // Ya no se permite eliminar predios ya que son obligatorios
+    // Se comenta este método o se elimina
+    /*
     @PostMapping("/eliminar")
     public String eliminarPredio(HttpSession session, RedirectAttributes redirectAttributes) {
-        UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-        
-        if (usuarioLogueado == null) {
-            return "redirect:/login";
-        }
-        
-        // Como ahora el predio es embebido, simplemente lo seteamos a null
-        usuarioService.actualizarPredio(usuarioLogueado.getId(), null);
-        redirectAttributes.addFlashAttribute("mensaje", "Predio eliminado exitosamente");
-        
+        // Código comentado ya que los predios ahora son obligatorios
         return "redirect:/mi-predio";
     }
+    */
 }

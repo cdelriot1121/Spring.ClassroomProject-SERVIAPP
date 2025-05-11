@@ -46,6 +46,17 @@
       />
       <!-- SweetAlert2 CDN -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <!-- Incluyendo el CSS de Select2 -->
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+      
+      <!-- Incluyendo jQuery (antes del Select2) -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      
+      <!-- Incluyendo el JS de Select2 -->
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+      
+      <!-- SweetAlert2 CDN (ya existía) -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
@@ -601,13 +612,15 @@
                     </div>
                     <div class="mb-3">
                       <label for="barrio" class="form-label">Barrio</label>
-                      <input
-                        type="text"
-                        class="form-control"
+                      <select
+                        class="form-control barrio-select"
                         id="barrio"
                         name="barrio"
                         required
-                      />
+                      >
+                        <option value="">Seleccione un barrio...</option>
+                        <!-- Las opciones se llenarán con JS -->
+                      </select>
                     </div>
                     <div class="mb-3">
                       <label for="estrato" class="form-label">Estrato</label>
@@ -644,14 +657,14 @@
                         ></option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" onclick="confirmarRegistroPredio()">
                       Registrar Predio
                     </button>
                   </form>
                 </div>
               </div>
 
-              <!-- Si ya tiene predio registrado, mostrar información y opciones de edición/eliminación -->
+              <!-- Si ya tiene predio registrado, mostrar información y opciones de edición -->
               <div th:if="${predio != null}" class="card">
                 <div class="card-header">Información de mi Predio</div>
                 <div class="card-body">
@@ -660,8 +673,8 @@
                     th:if="${editarPredio}"
                     th:action="@{/predios/actualizar}"
                     method="post"
+                    id="form-editar-predio"
                   >
-                    <input type="hidden" name="id" th:value="${predio.id}" />
                     <div class="mb-3">
                       <label for="direccion" class="form-label"
                         >Dirección</label
@@ -677,14 +690,16 @@
                     </div>
                     <div class="mb-3">
                       <label for="barrio" class="form-label">Barrio</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="barrio"
+                      <select
+                        class="form-control barrio-select"
+                        id="barrio-editar"
                         name="barrio"
-                        th:value="${predio.barrio}"
+                        th:attr="data-barrio-actual=${predio.barrio}"
                         required
-                      />
+                      >
+                        <option value="">Seleccione un barrio...</option>
+                        <!-- Las opciones se llenarán con JS -->
+                      </select>
                     </div>
                     <div class="mb-3">
                       <label for="estrato" class="form-label">Estrato</label>
@@ -733,7 +748,7 @@
                         ></option>
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-success">
+                    <button type="button" class="btn btn-success" onclick="confirmarActualizacionPredio()">
                       Guardar Cambios
                     </button>
                     <a th:href="@{/mi-predio}" class="btn btn-secondary"
@@ -764,21 +779,9 @@
 
                     <div class="mt-3">
                       <a th:href="@{/predios/editar}" class="btn btn-primary"
-                        >Editar Predio</a
+                        >Editar Información del Predio</a
                       >
-                      <form
-                        th:action="@{/predios/eliminar}"
-                        method="post"
-                        style="display: inline"
-                      >
-                        <button
-                          type="submit"
-                          class="btn btn-danger"
-                          onclick="return confirm('¿Está seguro de eliminar este predio? Esta acción no se puede deshacer.')"
-                        >
-                          Eliminar Predio
-                        </button>
-                      </form>
+                      <!-- Se elimina el botón para eliminar predio ya que ahora es obligatorio -->
                     </div>
                   </div>
                 </div>
@@ -902,6 +905,247 @@
           });
         });
       </script>
+      <script>
+// Lista de barrios
+const barrios = [
+    "ALAMEDA LA VICTORIA", "ALBORNOZ", "ALCIBIA", "ALMIRANTE COLON", "ALTO BOSQUE", 
+    "ALTOS DE SAN ISIDRO", "AMBERES", "ANITA", "ANTONIO JOSE DE SUCRE", "ARMENIA", 
+    "ARROZ BARATO", "BARRIO CHINO", "BELLAVISTA", "BLAS DE LEZO", "BOCAGRANDE", 
+    "BOSQUECITO", "BOSTON", "BRUSELAS", "BUENOS AIRES", "CALAMARES", "CAMAGUEY", 
+    "CAMILO TORRES", "CANAPOTE", "CASTILLOGRANDE", "CEBALLOS", "CENTRO", "CERRO DE LA POPA", 
+    "CESAR FLOREZ", "CHAMBACU", "CHAPACUA", "CHIPRE", "CHIQUINQUIRA", "CIUDAD BICENTENARIO", 
+    "CIUDADELA 11 DE NOVIEMBRE", "CIUDADELA 2000", "CRESPO", "DANIEL LEMAITRE", "EL BOSQUE", 
+    "EL CABRERO", "EL CAMPESTRE", "EL CARMELO", "EL CARMEN", "EL COUNTRY", "EL EDUCADOR", 
+    "EL GALLO", "EL LAGUITO", "EL LIBERTADOR", "EL MILAGRO", "EL POZON", "EL PRADO", 
+    "EL RECREO", "EL REPOSO", "EL SOCORRO", "ESCALLON VILLA", "ESPAÑA", "ESPINAL", 
+    "FLOR DEL CAMPO", "FREDONIA", "GETSEMANI", "HENEQUEN", "JAIME PARDO LEAL", 
+    "JORGE ELIECER GAITAN", "JOSE ANTONIO GALAN", "JUAN XXIII", "JUNIN", "LA CAMPIÑA", 
+    "LA CANDELARIA", "LA CAROLINA", "LA CASTELLANA", "LA CENTRAL", "LA CONCEPCION", 
+    "LA CONSOLATA", "LA ESMERALDA I", "LA ESMERALDA II", "LA ESPERANZA", "LA FLORESTA", 
+    "LA FLORIDA", "LA INDIA", "LA MARIA", "LA MATUNA", "LA PAZ", "LA QUINTA", "LA SIERRITA", 
+    "LA TRONCAL", "LA VICTORIA", "LAS BRISAS", "LAS DELICIAS", "LAS GAVIOTAS", "LAS PALMERAS", 
+    "LO AMADOR", "LOMA FRESCA", "LOS ALPES", "LOS ANGELES", "LOS CARACOLES", "LOS CERROS", 
+    "LOS COMUNEROS", "LOS CORALES", "LOS EJECUTIVOS", "LOS JARDINES", "LOS SANTANDERES", 
+    "LUIS CARLOS GALAN", "MAMONAL", "MANGA", "MANUELA VERGARA DE CURI", "MARBELLA", 
+    "MARIA CANO", "MARTINEZ MARTELO", "NARIÑO", "NAZARENO", "NELSON MANDELA", "NUEVA DELHI", 
+    "NUEVA GRANADA", "NUEVA JERUSALEN", "NUEVE DE ABRIL", "NUEVO BOSQUE", "NUEVO PARAISO", 
+    "NUEVO PORVENIR", "OLAYA ST. CENTRAL", "OLAYA ST. LA MAGDALENA", "OLAYA ST. LA PUNTILLA", 
+    "OLAYA ST. PLAYA BLANCA", "OLAYA ST. PROGRESO", "OLAYA ST. RAFAEL NUÑEZ", "OLAYA ST. RICAURTE", 
+    "OLAYA ST. STELLA", "OLAYA ST. ZARABANDA", "OLAYA ST.11 DE NOVIEMBRE", "OLAYA VILLA OLIMPICA", 
+    "PABLO VI - I", "PABLO VI - II", "PALESTINA", "PARAGUAY", "PARAISO II", "PASACABALLOS", 
+    "PEDRO SALAZAR", "PETARE", "PIE DE LA POPA", "PIE DEL CERRO", "PIEDRA DE BOLIVAR", 
+    "POLICARPA", "PONTEZUELA", "PROVIDENCIA", "PUERTA DE HIERRO", "REPUBLICA DE CHILE", 
+    "REPUBLICA DE VENEZUELA", "REPUBLICA DEL CARIBE", "REPUBLICA DEL LIBANO", "ROSSEDAL", 
+    "RUBI", "SAN ANTONIO", "SAN BERNARDO", "SAN DIEGO", "SAN FERNANDO", "SAN FRANCISCO", 
+    "SAN ISIDRO", "SAN JOSE DE LOS CAMPANOS", "SAN JOSE OBRERO", "SAN PEDRO", "SAN PEDRO MARTIR", 
+    "SAN PEDRO Y LIBERTAD", "SANTA CLARA", "SANTA LUCIA", "SANTA MARIA", "SANTA MONICA", 
+    "SECTORES UNIDOS", "SIETE DE AGOSTO", "TACARIGUA", "TERNERA", "TESCA", "TORICES", 
+    "TRECE DE JUNIO", "URBANIZACION COLOMBIATON", "URBANIZACION SIMON BOLIVAR", "VEINTE DE JULIO SUR", 
+    "VIEJO PORVENIR", "VILLA BARRAZA", "VILLA ESTRELLA", "VILLA FANNY", "VILLA HERMOSA", 
+    "VILLA ROSA", "VILLA ROSITA", "VILLA RUBIA", "VILLA SANDRA", "VILLAS DE LA CANDELARIA", 
+    "VISTA HERMOSA", "ZARAGOCILLA", "ZONA INDUSTRIAL"
+];
+
+// Reemplazar el script actual de inicialización de Select2 por este script:
+
+
+
+// Inicialización del select de barrios
+$(document).ready(function() {
+    // Primero llenamos las opciones de los selectores
+    const selectores = document.querySelectorAll('.barrio-select');
+    
+    selectores.forEach(select => {
+        // Limpiar opciones existentes excepto la primera
+        while (select.options.length > 1) {
+            select.remove(1);
+        }
+        
+        // Agregar los barrios ordenados
+        barrios.sort().forEach(barrio => {
+            const option = document.createElement("option");
+            option.value = barrio;
+            option.textContent = barrio;
+            select.appendChild(option);
+        });
+    });
+    
+    // Luego inicializamos Select2
+    $('.barrio-select').select2({
+        placeholder: "Selecciona un barrio",
+        allowClear: true
+    });
+    
+    // Finalmente, si estamos en el formulario de edición, 
+    // seleccionamos el barrio actual usando el atributo data-barrio-actual
+    const selectEditar = document.getElementById('barrio-editar');
+    if (selectEditar) {
+        const barrioActual = selectEditar.getAttribute('data-barrio-actual');
+        if (barrioActual) {
+            $('#barrio-editar').val(barrioActual).trigger('change');
+        }
+    }
+});
+
+
+// Función para llenar los selectores de barrios
+function llenarSelectBarrios() {
+    const selectores = document.querySelectorAll('.barrio-select');
+    
+    selectores.forEach(select => {
+        // Limpiar opciones existentes excepto la primera
+        while (select.options.length > 1) {
+            select.remove(1);
+        }
+        
+        // Agregar los barrios ordenados
+        barrios.sort().forEach(barrio => {
+            const option = document.createElement("option");
+            option.value = barrio;
+            option.textContent = barrio;
+            select.appendChild(option);
+        });
+        
+        // Si estamos en el formulario de edición, seleccionar el barrio actual
+        if (select.id === 'barrio-editar') {
+            const barrioActual = document.querySelectorAll('table td')[1].textContent;
+            if (barrioActual && select.querySelector(`option[value="${barrioActual}"]`)) {
+                select.value = barrioActual;
+                $(select).trigger('change');
+            }
+        }
+    });
+}
+
+// Sweet Alert para confirmar registro de predio
+function confirmarRegistroPredio() {
+    Swal.fire({
+        title: '¿Registrar predio?',
+        text: 'Se registrará el predio con la información proporcionada',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, registrar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.querySelector('form[action="/predios/registrar"]').submit();
+        }
+    });
+}
+
+// Sweet Alert para confirmar actualización de predio
+function confirmarActualizacionPredio() {
+    Swal.fire({
+        title: '¿Actualizar predio?',
+        text: 'Se actualizará la información de tu predio',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, actualizar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-editar-predio').submit();
+        }
+    });
+}
+
+// Función para confirmar cambio de contraseña
+function confirmarCambioContraseña(event) {
+    event.preventDefault();
+    
+    // Validación de contraseñas
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    
+    if (newPassword !== confirmPassword) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Las contraseñas no coinciden',
+            icon: 'error',
+            confirmButtonText: 'Entendido'
+        });
+        return false;
+    }
+    
+    Swal.fire({
+        title: '¿Cambiar contraseña?',
+        text: 'Se cambiará tu contraseña actual',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cambiar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('changePasswordForm').submit();
+        }
+    });
+}
+
+// Función para confirmar cambio de datos personales
+function confirmarCambioDatos(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: '¿Actualizar datos personales?',
+        text: 'Se actualizarán tus datos personales',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, actualizar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-datos-personales').submit();
+        }
+    });
+}
+
+// Función para confirmar eliminación de servicio
+function confirmarEliminarServicio() {
+    return Swal.fire({
+        title: '¿Eliminar servicio?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        return result.isConfirmed;
+    });
+}
+
+// Función para confirmar eliminación de consumo
+function confirmarEliminarConsumo() {
+    return Swal.fire({
+        title: '¿Eliminar este consumo?',
+        text: 'Esta acción no se puede deshacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        return result.isConfirmed;
+    });
+}
+
+// Función para mostrar/ocultar contraseñas
+function togglePasswordVisibility(inputId) {
+    const input = document.getElementById(inputId);
+    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+    input.setAttribute('type', type);
+}
+</script>
     </body>
   </html>
 </html>
