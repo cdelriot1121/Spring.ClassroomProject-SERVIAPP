@@ -1,5 +1,6 @@
 package com.example.ServiApp.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,15 @@ public class CortesService {
             cortesRepository.deleteById(id);
         }
     }
+
+    public void eliminarCortesPasados() {
+    Date hoy = new Date(0);
+    List<CortesModel> cortes = cortesRepository.findAll();
+    for (CortesModel corte : cortes) {
+        if (corte.getFecha() != null && corte.getFecha().before(hoy)) {
+            cortesRepository.delete(corte);
+        }
+    }
+}
+
 }
