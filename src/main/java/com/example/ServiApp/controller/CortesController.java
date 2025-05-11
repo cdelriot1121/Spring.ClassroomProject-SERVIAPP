@@ -3,6 +3,7 @@ package com.example.ServiApp.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -27,10 +28,10 @@ public class CortesController {
 
     @Autowired
     private CortesService cortesService;
-    
+
     @Autowired
     private FallasUserService fallasUserService;
-    
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -40,8 +41,8 @@ public class CortesController {
 
     @PostMapping("/registrar-corte")
     public String registrarCorte(@ModelAttribute CortesModel corte,
-                                  Model model,
-                                  HttpSession sessionadmin) {
+            Model model,
+            HttpSession sessionadmin) {
 
         // Obtener el administrador logueado
         UsuarioModel adminLogueado = (UsuarioModel) sessionadmin.getAttribute("adminLogueado");
@@ -49,33 +50,45 @@ public class CortesController {
         if (adminLogueado != null && adminLogueado.esAdministrador()) {
             // Establecer la referencia al administrador
             corte.setAdministradorId(adminLogueado.getId());
-            
+
             // Guardar el corte
             cortesService.registrarCorte(corte);
 
             model.addAttribute("mensaje-cortereg", "Corte programado registrado correctamente");
-            return "redirect:/cortes-admin";  
+            return "redirect:/cortes-admin";
         } else {
             model.addAttribute("error-regisCorte", "No hay administrador autenticado");
-            return "redirect:/login-admin";  
+            return "redirect:/login-admin";
         }
     }
 
     @GetMapping("/cortes")
     public String mostrarCortes(Model model, HttpSession session) {
-        // Obtener cortes para todos los usuarios
-        List<CortesModel> cortes = cortesService.obtenerTodosLosCortes();
-        model.addAttribute("cortes", cortes);
-        
-        // Obtener las fallas del usuario logueado (si existe una sesión)
+        // Obtener el usuario logueado
         UsuarioModel usuarioLogueado = (UsuarioModel) session.getAttribute("usuarioLogueado");
-        
+         cortesService.eliminarCortesPasados();
+        List<CortesModel> cortes = cortesService.obtenerTodosLosCortes(); // Obtén todos los cortes
+
         if (usuarioLogueado != null) {
+            // Obtener el barrio del usuario logueado
+            String barrioUsuario = usuarioLogueado.getPredio().getBarrio();
+
+            // Filtrar los cortes basados en el barrio del usuario logueado
+            List<CortesModel> cortesPorBarrio = cortes.stream()
+                    .filter(corte -> corte.getBarrios() != null && corte.getBarrios().contains(barrioUsuario))
+                    .collect(Collectors.toList());
+
+            model.addAttribute("cortes", cortesPorBarrio);
+
+            // Obtener las fallas del usuario logueado
             List<Falla_Ser_Model> fallasusuario = fallasUserService.obtenerFallasPorUsuario(usuarioLogueado.getId());
             model.addAttribute("fallasusuario", fallasusuario);
             model.addAttribute("nombreUsuario", usuarioLogueado.getNombre());
+        } else {
+            // Si no hay usuario logueado, mostrar todos los cortes
+            model.addAttribute("cortes", cortes);
         }
-        
+
         return "cortes_fallas";
     }
 
@@ -84,6 +97,6 @@ public class CortesController {
         List<CortesModel> cortes = cortesService.obtenerTodosLosCortes();
         model.addAttribute("cortes", cortes);
         model.addAttribute("cortesModel", new CortesModel()); // Agregar modelo vacío para el formulario
-        return "reportes_admin"; 
+        return "reportes_admin";
     }
 }

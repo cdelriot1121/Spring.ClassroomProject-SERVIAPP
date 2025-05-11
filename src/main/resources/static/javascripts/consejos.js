@@ -1,71 +1,135 @@
 //Consejos.js
 document.addEventListener('DOMContentLoaded', function () {
     var modal = document.getElementById("modal");
+    var modalTitle = document.getElementById("modalTitle");
     var modalText = document.getElementById("modalText");
-    var buttons = document.querySelectorAll(".boton-consejo");
+    var buttons = document.querySelectorAll(".service-btn");
     var closeModalButton = document.getElementById("closeConsejos");
-
     
     var textosModal = {
         agua: `
-
-             <h2>Consejos para Ahorrar Agua</h2>
-            <p>
-                1. <strong>Cierra el grifo mientras te cepillas los dientes o te lavas las manos</strong>. No es necesario que el agua fluya constantemente durante todo el proceso, de esta manera puedes ahorrar varios litros de agua.<br><br>
-                2. <strong>Repara cualquier fuga en grifos o tuberías</strong>. Las fugas pueden parecer pequeñas, pero con el tiempo pueden desperdiciar una gran cantidad de agua. Un grifo que gotea puede perder hasta 30 litros de agua al día.<br><br>
-                3. <strong>Usa electrodomésticos de manera eficiente</strong>. Llena completamente la lavadora y el lavavajillas antes de utilizarlos. Estos aparatos consumen la misma cantidad de agua ya sea que estén a media capacidad o llenos.<br><br>
-                4. <strong>Toma duchas más cortas</strong>. Reducir el tiempo en la ducha puede generar un ahorro significativo. Un minuto menos en la ducha puede ahorrar hasta 10 litros de agua.<br><br>
-                5. <strong>Instala dispositivos ahorradores de agua</strong>. Existen dispositivos como aireadores para grifos, cabezales de ducha de bajo flujo y sistemas de descarga dual para inodoros que reducen el consumo de agua sin sacrificar la funcionalidad.<br><br>
-                6. <strong>Riega las plantas en las horas de menos calor</strong>. Evita regar el jardín durante las horas más calurosas del día para minimizar la evaporación. Es mejor regar temprano en la mañana o al anochecer.<br><br>
-                7. <strong>Utiliza una cubeta para lavar el coche</strong>. En lugar de usar una manguera, utiliza una cubeta con agua para lavar tu coche. Así puedes ahorrar decenas de litros en cada lavado.<br><br>
-                8. <strong>Recoge el agua de lluvia</strong>. Puedes usar el agua de lluvia para regar las plantas, lavar el coche o incluso para la limpieza en el hogar.<br><br>
-                9. <strong>Reutiliza el agua cuando sea posible</strong>. El agua que uses para lavar frutas y verduras puede servir para regar las plantas.<br><br>
-                10. <strong>Usa inodoros de doble descarga</strong>. Estos permiten usar menos agua en cada descarga.
-            </p>`,
+            <h2>Consejos para Ahorrar Agua</h2>
+            <p>El agua es un recurso vital y limitado. Adoptar hábitos responsables de consumo te ayudará a reducir tu huella hídrica y ahorrar dinero en tu factura.</p>
+            
+            <h3>En el Baño</h3>
+            <ul>
+                <li><strong>Ducha vs. Baño:</strong> Opta por duchas de 5 minutos en lugar de baños. Un baño puede consumir hasta 200 litros, mientras que una ducha eficiente solo 30-40 litros.</li>
+                <li><strong>Cierra el grifo:</strong> Mientras te cepillas los dientes, te enjabonas en la ducha o te afeitas, mantén el grifo cerrado. Puede ahorrar hasta 12 litros por minuto.</li>
+                <li><strong>Instala aireadores:</strong> Los dispositivos aireadores para grifos reducen el caudal sin disminuir la sensación de presión, ahorrando hasta un 50% de agua.</li>
+                <li><strong>Revisa el inodoro:</strong> Un inodoro con fugas puede desperdiciar hasta 200.000 litros anuales. Verifica si hay fugas colocando colorante alimentario en la cisterna; si aparece en la taza sin tirar de la cadena, hay una fuga.</li>
+            </ul>
+            
+            <h3>En la Cocina</h3>
+            <ul>
+                <li><strong>Llena el lavavajillas:</strong> Utilízalo solo cuando esté completamente lleno y selecciona el programa ecológico cuando sea posible.</li>
+                <li><strong>Lavar verduras:</strong> Usa un recipiente en lugar de agua corriente para lavar frutas y verduras, y después puedes reutilizar el agua para tus plantas.</li>
+                <li><strong>Descongela en el refrigerador:</strong> Evita descongelar alimentos bajo agua corriente; planifica con antelación y usa el refrigerador.</li>
+            </ul>
+            
+            <h3>En el Hogar</h3>
+            <ul>
+                <li><strong>Reparación de fugas:</strong> Una gota por segundo equivale a 30 litros diarios desperdiciados. Repara rápidamente cualquier fuga.</li>
+                <li><strong>Recoge agua de lluvia:</strong> Utiliza esta agua para regar plantas o limpiar exteriores.</li>
+                <li><strong>Riega por la mañana o al atardecer:</strong> Evita regar al mediodía cuando el agua se evapora rápidamente.</li>
+            </ul>
+        `,
         energia: `
-
-               <h2>Consejos para Ahorrar Energia</h2>
-            <p>
-                1. <strong>Apaga las luces cuando no las necesites</strong>. Aprovecha la luz natural siempre que sea posible para iluminar tu hogar.<br><br>
-                2. <strong>Desconecta los electrodomésticos que no estés usando</strong>. Muchos aparatos electrónicos continúan consumiendo energía incluso cuando están apagados.<br><br>
-                3. <strong>Utiliza bombillas de bajo consumo o LED</strong>. Estas bombillas duran más y utilizan menos energía que las bombillas incandescentes tradicionales.<br><br>
-                4. <strong>Optimiza el uso del aire acondicionado y la calefacción</strong>. Mantén las ventanas y puertas cerradas cuando el aire acondicionado o la calefacción estén en uso. Ajusta los termostatos a temperaturas razonables.<br><br>
-                5. <strong>Usa electrodomésticos eficientes</strong>. Los electrodomésticos con calificación energética alta (A+ o superior) consumen menos energía y te ayudarán a ahorrar en la factura.<br><br>
-                6. <strong>Lava la ropa con agua fría</strong>. A menos que sea absolutamente necesario, usar agua fría en lugar de caliente reduce el consumo de energía de la lavadora.<br><br>
-                7. <strong>Seca la ropa al aire</strong>. Siempre que sea posible, evita usar la secadora y opta por secar la ropa al aire libre o en un tendedero dentro de casa.<br><br>
-                8. <strong>Instala temporizadores o sensores de movimiento</strong>. Esto ayuda a encender y apagar las luces automáticamente, ahorrando energía cuando no hay nadie en la habitación.<br><br>
-                9. <strong>Programa el calentador de agua</strong>. Si tu calentador tiene la opción, prográmalo para que funcione solo en las horas que lo necesitas y baja la temperatura unos grados para reducir el consumo.
-            </p>`,
+            <h2>Consejos para Ahorrar Energía Eléctrica</h2>
+            <p>El consumo responsable de electricidad no solo reduce tu factura, sino que también disminuye la emisión de gases de efecto invernadero. Aquí hay consejos efectivos:</p>
+            
+            <h3>Iluminación</h3>
+            <ul>
+                <li><strong>Cambia a LED:</strong> Las bombillas LED consumen hasta un 90% menos de energía y duran hasta 25 veces más que las incandescentes tradicionales.</li>
+                <li><strong>Aprovecha la luz natural:</strong> Adapta tus horarios para maximizar el uso de la luz solar y mantén las persianas o cortinas abiertas durante el día.</li>
+                <li><strong>Apaga las luces:</strong> Crea el hábito de apagar las luces al salir de una habitación.</li>
+                <li><strong>Usa sensores:</strong> Instala sensores de movimiento en pasillos o zonas de paso para que las luces se enciendan solo cuando sea necesario.</li>
+            </ul>
+            
+            <h3>Electrodomésticos</h3>
+            <ul>
+                <li><strong>Eficiencia energética:</strong> Al comprar nuevos electrodomésticos, busca aquellos con clasificación A+++ que consumen menos energía.</li>
+                <li><strong>Refrigerador:</strong> Mantén el refrigerador a 3-5°C y el congelador a -18°C. Cada grado más frío consume 5% más de energía.</li>
+                <li><strong>Lavadora y secadora:</strong> Usa programas de baja temperatura (30-40°C) y carga completa. Seca la ropa al aire libre siempre que sea posible.</li>
+                <li><strong>Elimina el consumo fantasma:</strong> Los aparatos en modo standby pueden representar hasta el 10% de tu factura eléctrica. Desconéctalos cuando no los uses.</li>
+            </ul>
+            
+            <h3>Climatización</h3>
+            <ul>
+                <li><strong>Temperatura óptima:</strong> En invierno, mantén la calefacción entre 19-21°C durante el día y 15-17°C por la noche. En verano, ajusta el aire acondicionado a 24-26°C.</li>
+                <li><strong>Aislamiento:</strong> Mejora el aislamiento de puertas y ventanas para evitar pérdidas de calor o frío.</li>
+                <li><strong>Ventilación eficiente:</strong> Ventila tu hogar durante 10 minutos al día, preferiblemente en las horas más frescas.</li>
+                <li><strong>Usa ventiladores:</strong> Un ventilador de techo consume hasta un 90% menos que un equipo de aire acondicionado.</li>
+            </ul>
+        `,
         gas: `
-           <h2>Consejos para Ahorrar Gas</h2>
-            <p>
-                1. <strong>Mantén limpios los quemadores de la cocina</strong>. Los quemadores sucios pueden causar una combustión ineficiente, lo que aumenta el consumo de gas.<br><br>
-                2. <strong>Usa ollas y sartenes del tamaño adecuado</strong>. Usar recipientes pequeños en quemadores grandes desperdicia calor y energía. Ajusta el tamaño de la olla al del quemador.<br><br>
-                3. <strong>Tapa las ollas mientras cocinas</strong>. Esto reduce el tiempo de cocción y retiene más calor, lo que ahorra gas.<br><br>
-                4. <strong>Revisa periódicamente las instalaciones de gas</strong>. Asegúrate de que no haya fugas ni problemas en las tuberías, conexiones o equipos para evitar un consumo innecesario.<br><br>
-                5. <strong>Usa un termostato en el calentador de agua</strong>. Ajusta el termostato del calentador a una temperatura adecuada, generalmente entre 50 y 60 grados Celsius, para no gastar gas en exceso.<br><br>
-                6. <strong>Calienta solo el agua que necesites</strong>. No llenes una olla de agua si solo necesitas un poco. Usa la cantidad justa para lo que estás cocinando o preparando.<br><br>
-                7. <strong>Desconecta el calentador de agua cuando no esté en uso</strong>. Si no necesitas agua caliente constantemente, puedes apagar el calentador o ajustar un temporizador para que se encienda solo cuando lo necesites.<br><br>
-                8. <strong>Usa estufas de gas eficientes</strong>. Considera cambiar a modelos más eficientes que consumen menos gas o utiliza hornos con convección para ahorrar tiempo y gas.<br><br>
-                9. <strong>Controla la ventilación en la cocina</strong>. Asegúrate de que tu cocina esté bien ventilada, ya que una mala ventilación puede hacer que se necesite más energía para cocinar y calentar.
-            </p>`
+            <h2>Consejos para Ahorrar Gas</h2>
+            <p>El gas es una energía versátil que usamos principalmente para cocinar, calentar agua y en la calefacción. Su uso eficiente no solo reduce costos sino también emisiones contaminantes.</p>
+            
+            <h3>En la Cocina</h3>
+            <ul>
+                <li><strong>Ajusta la llama:</strong> La llama no debe sobrepasar el diámetro del utensilio de cocina, ya que desperdiciarías energía.</li>
+                <li><strong>Tapa las ollas:</strong> Cocinar con la tapa puesta reduce el tiempo de cocción y ahorra hasta un 25% de gas.</li>
+                <li><strong>Aprovecha el calor residual:</strong> Apaga el fuego unos minutos antes de que la comida esté completamente lista y deja que termine de cocinarse con el calor acumulado.</li>
+                <li><strong>Hornea por lotes:</strong> Si tienes que hornear varios platos, hazlo de forma consecutiva para aprovechar el calor precalentado.</li>
+            </ul>
+            
+            <h3>Calentador de Agua</h3>
+            <ul>
+                <li><strong>Temperatura óptima:</strong> Ajusta tu calentador a 50-60°C, es suficiente para uso doméstico y evita derroche de energía.</li>
+                <li><strong>Ducharse eficientemente:</strong> Reducir el tiempo de ducha en solo 2 minutos puede ahorrar hasta 10% en tu consumo de gas.</li>
+                <li><strong>Mantenimiento regular:</strong> Un calentador limpio y bien mantenido funciona más eficientemente. Programa revisiones anuales.</li>
+                <li><strong>Aísla las tuberías:</strong> Coloca aislamiento en las tuberías de agua caliente para reducir pérdidas de calor.</li>
+            </ul>
+            
+            <h3>Calefacción</h3>
+            <ul>
+                <li><strong>Temperatura confort:</strong> Cada grado por encima de 20°C aumenta el consumo en aproximadamente 7%. Considera usar ropa abrigada dentro de casa.</li>
+                <li><strong>Programadores:</strong> Instala termostatos programables para ajustar la temperatura según tus horarios y necesidades.</li>
+                <li><strong>Mantenimiento de radiadores:</strong> Purga los radiadores periódicamente para eliminar el aire acumulado que reduce su eficiencia.</li>
+                <li><strong>Cierra habitaciones:</strong> Durante el día, cierra las puertas de las habitaciones que no usas para concentrar el calor donde realmente lo necesitas.</li>
+                <li><strong>Revisa sellos:</strong> Asegúrate de que puertas y ventanas cierren herméticamente para evitar fugas de calor.</li>
+            </ul>
+        `
     };
-
+    
+    // Agregar evento click a los botones
     buttons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            var id = this.id;
-            modalText.innerHTML = textosModal[id];
-            modal.style.display = "block";
+        button.addEventListener("click", function() {
+            // Usar la clase show en vez de modificar display
+            modal.classList.add("show");
+            
+            // Establece el título según el servicio
+            if (this.id === "agua") {
+                modalTitle.textContent = "Consejos para Ahorrar Agua";
+            } else if (this.id === "energia") {
+                modalTitle.textContent = "Consejos para Ahorrar Energía";
+            } else if (this.id === "gas") {
+                modalTitle.textContent = "Consejos para Ahorrar Gas";
+            }
+            
+            modalText.innerHTML = textosModal[this.id];
+            
+            // Añadir clase para prevenir scroll en body
+            document.body.classList.add("modal-open");
         });
     });
-
-    closeModalButton.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    
+    // Cerrar modal con el botón X
+    closeModalButton.addEventListener("click", function() {
+        modal.classList.remove("show");
+        document.body.classList.remove("modal-open");
+    });
+    
+    // Cerrar modal haciendo clic fuera del contenido
+    window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            modal.classList.remove("show");
+            document.body.classList.remove("modal-open");
         }
-    }
+    });
+    
+    // Prevenir que el scroll se propague fuera del modal
+    document.querySelector(".modal-content").addEventListener("click", function(event) {
+        event.stopPropagation();
+    });
 });

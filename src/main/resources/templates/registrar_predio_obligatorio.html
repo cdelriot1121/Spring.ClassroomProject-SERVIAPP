@@ -1,162 +1,368 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de Predio - ServiApp</title>
     <!-- links para las fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/estilos_inicio/registro.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Kanit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/estilos_inicio/registro.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Incluyendo el CSS de Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Incluyendo el JS de Select2 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
     <style>
-        /* Estilos específicos para este formulario */
-        .contenedor {
-            width: 90%;
-            max-width: 550px;
-            margin: 30px auto;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .caja-registro {
-            display: flex;
-            width: 100%;
-            background: linear-gradient(135deg, #9efcff, #36b2fa);
-        }
-        
-        .formulario-registro {
-            width: 100%;
-            padding: 2.5rem;
-            background: linear-gradient(135deg, #ffffff, #c3eeff);
-            border-radius: 20px;
-        }
-        
-        .logo-serviapp {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        
-        .logo-serviapp img {
-            width: 100px;
-            height: auto;
-        }
-        
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-        
-        .casilla_r {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            margin-bottom: 0.8rem;
-            border: 1.5px solid #cce7f5;
-            border-radius: 12px;
-            font-size: 1rem;
-            background-color: #f9fdff;
-            transition: all 0.3s ease;
-        }
-        
-        .casilla_r:focus {
-            border-color: #5ab4f3;
-            outline: none;
-            box-shadow: 0 0 8px rgba(90, 180, 243, 0.4);
-        }
-        
-        .btn_registro {
-            width: 60%;
-            padding: 0.9rem;
-            background: linear-gradient(135deg, #61dafb, #2980b9);
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            display: block;
-            margin: 1.5rem auto 0 auto;
-        }
-        
-        .btn_registro:hover {
-            background: linear-gradient(135deg, #2980b9, #61dafb);
-            transform: translateY(-2px);
-        }
+     /* Estilos generales y animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        /* Mensajes */
-        .mensaje-bienvenida {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #555;
-        }
-        
-        /* Animación de aparición */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* Contenedor principal */
+.contenedor {
+    width: 90%;
+    max-width: 550px;
+    margin: 30px auto;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Caja de registro */
+.caja-registro {
+    display: flex;
+    width: 100%;
+    background: linear-gradient(135deg, #9efcff, #36b2fa);
+}
+
+/* Formulario */
+.formulario-registro {
+    width: 100%;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #ffffff, #c3eeff);
+    border-radius: 20px;
+}
+
+/* Logo */
+.logo-serviapp {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.logo-serviapp img {
+    width: 100px;
+    height: auto;
+}
+
+/* Grupos de formulario */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2c3e50;
+    font-family: 'Kanit', sans-serif;
+}
+
+/* Inputs mejorados */
+.casilla_r {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 0.8rem;
+    border: 2px solid #d1e9f7;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Kanit', sans-serif;
+    background-color: #f5fbfe;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    color: #2c3e50;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.casilla_r:hover {
+    border-color: #9ad0f5;
+    background-color: #f0f9ff;
+}
+
+.casilla_r:focus {
+    border-color: #36b2fa;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(54, 178, 250, 0.2);
+    background-color: #ffffff;
+}
+
+.casilla_r::placeholder {
+    color: #95a5a6;
+    opacity: 0.8;
+}
+
+/* Selects normales (no Select2) */
+.casilla_r[type="select"] {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2336b2fa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+/* Botón de registro */
+.btn_registro {
+    width: 60%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, #61dafb, #2980b9);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    display: block;
+    margin: 1.5rem auto 0 auto;
+    font-family: 'Kanit', sans-serif;
+}
+
+.btn_registro:hover {
+    background: linear-gradient(135deg, #2980b9, #61dafb);
+    transform: translateY(-2px);
+}
+
+/* Mensajes */
+.mensaje-bienvenida {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+    font-family: 'Kanit', sans-serif;
+}
+
+/* Estilos mejorados para Select2 */
+.select2-container .select2-selection--single {
+    height: 50px !important;
+    border-radius: 10px !important;
+    border: 2px solid #d1e9f7 !important;
+    background-color: #f5fbfe !important;
+    padding: 0.5rem 1.2rem !important;
+    font-size: 1rem !important;
+    font-family: 'Kanit', sans-serif !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.select2-container--default .select2-selection--single:hover {
+    border-color: #9ad0f5 !important;
+    background-color: #f0f9ff !important;
+}
+
+.select2-container--default .select2-selection--single:focus {
+    border-color: #36b2fa !important;
+    box-shadow: 0 0 0 3px rgba(54, 178, 250, 0.2) !important;
+    background-color: #ffffff !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 48px !important;
+    right: 10px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #2c3e50 !important;
+    line-height: 48px !important;
+    padding-left: 0 !important;
+}
+
+.select2-container--open .select2-dropdown {
+    border: 2px solid #d1e9f7 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    margin-top: 5px !important;
+}
+
+.select2-results__option {
+    padding: 8px 12px !important;
+    transition: background-color 0.2s !important;
+    font-family: 'Kanit', sans-serif !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #e1f5fe !important;
+    color: #2c3e50 !important;
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: #f5fbfe !important;
+    color: #36b2fa !important;
+}
+
+/* Títulos */
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 600;
+}
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="contenedor">
-        <div class="formulario-registro">
-            <div class="logo-serviapp">
-                <img src="/img_local/logo-pagina-serviapp.png" alt="Logo ServiApp">
-            </div>
-            
-            <h2>¡Registro de Predio!</h2>
-            <p class="mensaje-bienvenida">Para continuar usando ServiApp, necesitamos información sobre tu predio</p>
-            
-            <div th:if="${error}" style="color: red; margin-bottom: 15px; text-align: center;" th:text="${error}"></div>
-            
-            <form action="/registrar-predio-obligatorio" method="post">
-                <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input class="casilla_r" type="text" id="direccion" name="direccion" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="barrio">Barrio</label>
-                    <input class="casilla_r" type="text" id="barrio" name="barrio" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="estrato">Estrato</label>
-                    <select class="casilla_r" id="estrato" name="estrato" required>
-                        <option value="">Seleccione...</option>
-                        <option value="1">Estrato 1</option>
-                        <option value="2">Estrato 2</option>
-                        <option value="3">Estrato 3</option>
-                        <option value="4">Estrato 4</option>
-                        <option value="5">Estrato 5</option>
-                        <option value="6">Estrato 6</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="tipoPredio">Tipo de Predio</label>
-                    <select class="casilla_r" id="tipoPredio" name="tipoPredio" required>
-                        <option value="">Seleccione...</option>
-                        <option th:each="tipo : ${tiposPredio}" th:value="${tipo}" th:text="${tipo}"></option>
-                    </select>
-                </div>
-                
-                <button class="btn_registro" type="submit">Registrar Predio</button>
-            </form>
+      <div class="formulario-registro">
+        <div class="logo-serviapp">
+          <img src="/img_local/logo-pagina-serviapp.png" alt="Logo ServiApp" />
         </div>
+
+        <h2>¡Registro de Predio!</h2>
+        <p class="mensaje-bienvenida">
+          Para continuar usando ServiApp, necesitamos información sobre tu
+          predio
+        </p>
+
+        <div
+          th:if="${error}"
+          style="color: red; margin-bottom: 15px; text-align: center"
+          th:text="${error}"
+        ></div>
+
+        <form action="/registrar-predio-obligatorio" method="post">
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input
+              class="casilla_r"
+              type="text"
+              id="direccion"
+              name="direccion"
+              required
+            />
+
+            <div class="form-group">
+              <label for="barrio">Barrio</label>
+              <select class="casilla_r" id="barrio" name="barrio" required>
+                <option value="">Seleccione un barrio...</option>
+                <!-- Las opciones se llenarán con JS -->
+              </select>
+            </div>
+
+          <div class="form-group">
+            <label for="estrato">Estrato</label>
+            <select class="casilla_r" id="estrato" name="estrato" required>
+              <option value="">Seleccione...</option>
+              <option value="1">Estrato 1</option>
+              <option value="2">Estrato 2</option>
+              <option value="3">Estrato 3</option>
+              <option value="4">Estrato 4</option>
+              <option value="5">Estrato 5</option>
+              <option value="6">Estrato 6</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tipoPredio">Tipo de Predio</label>
+            <select
+              class="casilla_r"
+              id="tipoPredio"
+              name="tipoPredio"
+              required
+            >
+              <option value="">Seleccione...</option>
+              <option
+                th:each="tipo : ${tiposPredio}"
+                th:value="${tipo}"
+                th:text="${tipo}"
+              ></option>
+            </select>
+          </div>
+
+          <button class="btn_registro" type="submit">Registrar Predio</button>
+        </form>
+      </div>
     </div>
-</body>
+
+
+<script>
+// Lista de barrios
+const barrios = [
+    "ALAMEDA LA VICTORIA", "ALBORNOZ", "ALCIBIA", "ALMIRANTE COLON", "ALTO BOSQUE", 
+    "ALTOS DE SAN ISIDRO", "AMBERES", "ANITA", "ANTONIO JOSE DE SUCRE", "ARMENIA", 
+    "ARROZ BARATO", "BARRIO CHINO", "BELLAVISTA", "BLAS DE LEZO", "BOCAGRANDE", 
+    "BOSQUECITO", "BOSTON", "BRUSELAS", "BUENOS AIRES", "CALAMARES", "CAMAGUEY", 
+    "CAMILO TORRES", "CANAPOTE", "CASTILLOGRANDE", "CEBALLOS", "CENTRO", "CERRO DE LA POPA", 
+    "CESAR FLOREZ", "CHAMBACU", "CHAPACUA", "CHIPRE", "CHIQUINQUIRA", "CIUDAD BICENTENARIO", 
+    "CIUDADELA 11 DE NOVIEMBRE", "CIUDADELA 2000", "CRESPO", "DANIEL LEMAITRE", "EL BOSQUE", 
+    "EL CABRERO", "EL CAMPESTRE", "EL CARMELO", "EL CARMEN", "EL COUNTRY", "EL EDUCADOR", 
+    "EL GALLO", "EL LAGUITO", "EL LIBERTADOR", "EL MILAGRO", "EL POZON", "EL PRADO", 
+    "EL RECREO", "EL REPOSO", "EL SOCORRO", "ESCALLON VILLA", "ESPAÑA", "ESPINAL", 
+    "FLOR DEL CAMPO", "FREDONIA", "GETSEMANI", "HENEQUEN", "JAIME PARDO LEAL", 
+    "JORGE ELIECER GAITAN", "JOSE ANTONIO GALAN", "JUAN XXIII", "JUNIN", "LA CAMPIÑA", 
+    "LA CANDELARIA", "LA CAROLINA", "LA CASTELLANA", "LA CENTRAL", "LA CONCEPCION", 
+    "LA CONSOLATA", "LA ESMERALDA I", "LA ESMERALDA II", "LA ESPERANZA", "LA FLORESTA", 
+    "LA FLORIDA", "LA INDIA", "LA MARIA", "LA MATUNA", "LA PAZ", "LA QUINTA", "LA SIERRITA", 
+    "LA TRONCAL", "LA VICTORIA", "LAS BRISAS", "LAS DELICIAS", "LAS GAVIOTAS", "LAS PALMERAS", 
+    "LO AMADOR", "LOMA FRESCA", "LOS ALPES", "LOS ANGELES", "LOS CARACOLES", "LOS CERROS", 
+    "LOS COMUNEROS", "LOS CORALES", "LOS EJECUTIVOS", "LOS JARDINES", "LOS SANTANDERES", 
+    "LUIS CARLOS GALAN", "MAMONAL", "MANGA", "MANUELA VERGARA DE CURI", "MARBELLA", 
+    "MARIA CANO", "MARTINEZ MARTELO", "NARIÑO", "NAZARENO", "NELSON MANDELA", "NUEVA DELHI", 
+    "NUEVA GRANADA", "NUEVA JERUSALEN", "NUEVE DE ABRIL", "NUEVO BOSQUE", "NUEVO PARAISO", 
+    "NUEVO PORVENIR", "OLAYA ST. CENTRAL", "OLAYA ST. LA MAGDALENA", "OLAYA ST. LA PUNTILLA", 
+    "OLAYA ST. PLAYA BLANCA", "OLAYA ST. PROGRESO", "OLAYA ST. RAFAEL NUÑEZ", "OLAYA ST. RICAURTE", 
+    "OLAYA ST. STELLA", "OLAYA ST. ZARABANDA", "OLAYA ST.11 DE NOVIEMBRE", "OLAYA VILLA OLIMPICA", 
+    "PABLO VI - I", "PABLO VI - II", "PALESTINA", "PARAGUAY", "PARAISO II", "PASACABALLOS", 
+    "PEDRO SALAZAR", "PETARE", "PIE DE LA POPA", "PIE DEL CERRO", "PIEDRA DE BOLIVAR", 
+    "POLICARPA", "PONTEZUELA", "PROVIDENCIA", "PUERTA DE HIERRO", "REPUBLICA DE CHILE", 
+    "REPUBLICA DE VENEZUELA", "REPUBLICA DEL CARIBE", "REPUBLICA DEL LIBANO", "ROSSEDAL", 
+    "RUBI", "SAN ANTONIO", "SAN BERNARDO", "SAN DIEGO", "SAN FERNANDO", "SAN FRANCISCO", 
+    "SAN ISIDRO", "SAN JOSE DE LOS CAMPANOS", "SAN JOSE OBRERO", "SAN PEDRO", "SAN PEDRO MARTIR", 
+    "SAN PEDRO Y LIBERTAD", "SANTA CLARA", "SANTA LUCIA", "SANTA MARIA", "SANTA MONICA", 
+    "SECTORES UNIDOS", "SIETE DE AGOSTO", "TACARIGUA", "TERNERA", "TESCA", "TORICES", 
+    "TRECE DE JUNIO", "URBANIZACION COLOMBIATON", "URBANIZACION SIMON BOLIVAR", "VEINTE DE JULIO SUR", 
+    "VIEJO PORVENIR", "VILLA BARRAZA", "VILLA ESTRELLA", "VILLA FANNY", "VILLA HERMOSA", 
+    "VILLA ROSA", "VILLA ROSITA", "VILLA RUBIA", "VILLA SANDRA", "VILLAS DE LA CANDELARIA", 
+    "VISTA HERMOSA", "ZARAGOCILLA", "ZONA INDUSTRIAL"
+];
+
+// Llenamos el select con los barrios
+function populateSelect() {
+    const select = document.getElementById("barrio");
+    barrios.forEach(barrio => {
+        const option = document.createElement("option");
+        option.value = barrio;
+        option.textContent = barrio;
+        select.appendChild(option);
+    });
+
+    // Inicializamos Select2 en el select
+    $('#barrio').select2({
+        placeholder: "Selecciona un barrio",
+        allowClear: true
+    });
+}
+
+// Llamamos a la función para llenar el select al cargar la página
+window.onload = populateSelect;
+</script>
+  </body>
 </html>

@@ -1,262 +1,557 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ServiApp - Cortes</title>
-  <link rel="shortcut icon" href="img/logo-serviapp.png" />
-  
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Iconos Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Fuente Kanit -->
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ServiApp - Cortes</title>
+    <link rel="shortcut icon" href="img/logo-serviapp.png" />
 
-  <link rel="stylesheet" href="/estilos_interfaz-usuario/style_cortes_fallas.css">
-</head>
-<body>
-  <!-- Header -->
-  <header>
-    <div class="header-left">
-      <button class="toggle-btn" onclick="toggleSidebar()">
-        <i class="bi bi-list"></i>
-      </button>
-      <div class="header-logo">
-        <h1 class="header-title">ServiApp</h1>
-        <div class="mensaje_bienvenida" id="mensajeBienvenida">
-          <p th:if="${nombreUsuario}" th:text="'Hola, ' + ${nombreUsuario} + '!'"></p>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Iconos Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Fuente Kanit -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="/estilos_interfaz-usuario/style_cortes_fallas.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <button class="toggle-btn" onclick="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="header-logo">
+          <h1 class="header-title">ServiApp</h1>
+          <div class="mensaje_bienvenida" id="mensajeBienvenida">
+            <p
+              th:if="${nombreUsuario}"
+              th:text="'Hola, ' + ${nombreUsuario} + '!'"
+            ></p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="profile-menu">
-      <button class="profile-button" id="profileButton">
-        <img src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg" alt="Avatar" class="profile-avatar">
-      </button>
-      <div class="profile-dropdown" id="profileDropdown">
-        <a href="datos-personales"><i class="bi bi-gear"></i> Perfil </a>
-        <a href="/logout"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
+      <div class="profile-menu">
+        <button class="profile-button" id="profileButton">
+          <img
+            src="https://img.freepik.com/vector-premium/icono-perfil-usuario-estilo-plano-ilustracion-vector-avatar-miembro-sobre-fondo-aislado-concepto-negocio-signo-permiso-humano_157943-15752.jpg"
+            alt="Avatar"
+            class="profile-avatar"
+          />
+        </button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <a href="datos-personales"><i class="bi bi-gear"></i> Perfil </a>
+          <a href="/logout"
+            ><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a
+          >
+        </div>
       </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <a href="interfaz_inicio" class="active"
+        ><i class="bi bi-house-door-fill"></i> Inicio</a
+      >
+      <a href="registrar-servicio"
+        ><i class="bi bi-house-add-fill"></i> Registrar Servicio</a
+      >
+      <a href="gestionar-servicio"
+        ><i class="bi bi-calculator"></i> Analisis De Consumo</a
+      >
+      <a href="consejos-personzalidos"
+        ><i class="bi bi-lightbulb"></i> Consejos De Ahorro</a
+      >
+      <a href="cortes"
+        ><i class="bi bi-calendar-week-fill"></i> Cortes Programados</a
+      >
+      <a href="lineas-atencion"
+        ><i class="bi bi-telephone-forward"></i> Líneas De Atención</a
+      >
+      <a href="grafico-consumo"
+        ><i class="bi bi-bar-chart-line"></i> Graficas Consumo</a
+      >
     </div>
-  </header>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <a href="interfaz_inicio" class="active"><i class="bi bi-house-door-fill"></i> Inicio</a>
-    <a href="registrar-servicio"><i class="bi bi-house-add-fill"></i> Registrar Servicio</a>
-    <a href="gestionar-servicio"><i class="bi bi-calculator"></i> Analisis De Consumo</a>
-    <a href="consejos-personzalidos"><i class="bi bi-lightbulb"></i> Consejos De Ahorro</a>
-    <a href="cortes"><i class="bi bi-calendar-week-fill"></i> Cortes Programados</a>
-    <a href="lineas-atencion"><i class="bi bi-telephone-forward"></i> Líneas De Atención</a>
-    <a href="grafico-consumo"><i class="bi bi-bar-chart-line"></i> Graficas Consumo</a>
-  </div>
-
-
-  <!-- Contenido principal -->
-  <main id="content">
-    <div class="card cortes-completo">
-      <div class="Cortes">
-        <h1>Cortes Programados</h1>
-        <h2>Mantente informado: aquí los cortes programados que hay en la ciudad de Cartagena en las próximas fechas</h2>
-        <table id="tablaCortes" class="display" style="width:100%">
+    <!-- Contenido principal -->
+    <main id="content">
+      <div class="card cortes-completo">
+        <div class="Cortes">
+          <h1>Cortes Programados</h1>
+          <h2>
+            Mantente informado: aquí los cortes programados que hay en la ciudad
+            de Cartagena en las próximas fechas
+          </h2>
+          <table id="tablaCortes" class="display" style="width: 100%">
             <thead>
-                <tr>
-                    <th>Servicio</th>
-                    <th>Barrios</th>
-                    <th>Fecha de corte</th>
-                    <th>Hora de inicio</th>
-                    <th>Hora de finalización</th>
-                </tr>
+              <tr>
+                <th>Servicio</th>
+                <th>Barrios</th>
+                <th>Fecha de corte</th>
+                <th>Hora de inicio</th>
+                <th>Hora de finalización</th>
+              </tr>
             </thead>
             <tbody>
-                <tr th:each="corte : ${cortes}">
-                    <td th:text="${corte.tipo_servicio}"></td> 
-                    <td th:text="${#strings.listJoin(corte.barrios, ', ')}"></td>
-                    <td th:text="${#dates.format(corte.fecha, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${corte.hora_inicio}"></td>
-                    <td th:text="${corte.hora_final}"></td>
-                </tr>
+              <tr th:each="corte : ${cortes}">
+                <td th:text="${corte.tipo_servicio}"></td>
+                <td th:text="${#strings.listJoin(corte.barrios, ', ')}"></td>
+                <td th:text="${#dates.format(corte.fecha, 'dd/MM/yyyy')}"></td>
+                <td th:text="${corte.hora_inicio}"></td>
+                <td th:text="${corte.hora_final}"></td>
+              </tr>
             </tbody>
-        </table>
+          </table>
+        </div>
       </div>
-    </div>
-    <br>
-    <br>
-    <div class="reportes">
-      <h1> Reportar fallos</h1>
-      <h2>Aqui podras reportar fallos si estos no estan en la tabla de cortes programados</h2>
+      <br />
+      <br />
 
-      <form action="/reportar-falla" method="POST">
-        <div class="form-section">
-          <label for="servicio">Servicio afectado</label>
-          <select id="servicio" name="servicio" required>
+      <div class="reportes">
+        <h1>Reportar fallos</h1>
+        <h2>
+          Aqui podras reportar fallos si estos no estan en la tabla de cortes
+          programados
+        </h2>
+
+        <form action="/reportar-falla" method="POST">
+          <div class="form-section">
+            <label for="servicio">Servicio afectado</label>
+            <select id="servicio" name="servicio" required>
               <option value="" disabled selected>Servicio afectado</option>
               <option value="agua">Agua</option>
               <option value="energia">Energía</option>
               <option value="gas">Gas</option>
-          </select>
+            </select>
 
-          <label for="barrio">Barrio afectado</label>
-          <select id="barrio" name="barrio" required>
-              <option value="" disabled selected>Barrio afectado</option>
-              <option value="la victoria">La Victoria</option>
-              <option value="la esperanza">La Esperanza</option>
-              <option value="plan 400">Plan 400</option>
-              <option value="alcibia">Alcibia</option>
-              <option value="boston">Boston</option>
-              <option value="la candelaria">La Candelaria</option>
-              <option value="la maria">La María</option>
-              <option value="la quinta">La Quinta</option>
-              <option value="chiquinquira">Chiquinquirá</option>
-              <option value="olaya st central">Olaya St. Central</option>
-              <option value="olaya st 11 de noviembre">Olaya St. 11 De Noviembre</option>
-              <option value="olaya villa olimpica">Olaya Villa Olímpica</option>
-              <option value="republica del libano">República Del Líbano</option>
-              <option value="el pozon">El Pozón</option>
-              <option value="la india">La India</option>
-              <option value="nuevo paraiso">Nuevo Paraíso</option>
-              <option value="la floresta">La Floresta</option>
-              <option value="las gaviotas">Las Gaviotas</option>
-              <option value="las palmeras">Las Palmeras</option>
-              <option value="los alpes">Los Alpes</option>
-              <option value="nuevo porvenir">Nuevo Porvenir</option>
-              <option value="republica de venezuela">República de Venezuela</option>
-              <option value="san antonio">San Antonio</option>
-              <option value="san jose">San José</option>
-              <option value="trece de junio">Trece de Junio</option>
-              <option value="viejo porvenir">Viejo Porvenir</option>
-              <option value="la victoria">La Victoria</option>
-          </select>
+            <label for="barrio">Barrio afectado</label>
+            <select id="barrio" name="barrio" required>
+              <option value="ALAMEDA LA VICTORIA">ALAMEDA LA VICTORIA</option>
+              <option value="ALBORNOZ">ALBORNOZ</option>
+              <option value="ALCIBIA">ALCIBIA</option>
+              <option value="ALMIRANTE COLON">ALMIRANTE COLÓN</option>
+              <option value="ALTO BOSQUE">ALTO BOSQUE</option>
+              <option value="ALTOS DE SAN ISIDRO">ALTOS DE SAN ISIDRO</option>
+              <option value="AMBERES">AMBERES</option>
+              <option value="ANITA">ANITA</option>
+              <option value="ANTONIO JOSE DE SUCRE">
+                ANTONIO JOSÉ DE SUCRE
+              </option>
+              <option value="ARMENIA">ARMENIA</option>
+              <option value="ARROZ BARATO">ARROZ BARATO</option>
+              <option value="BARRIO CHINO">BARRIO CHINO</option>
+              <option value="BELLAVISTA">BELLAVISTA</option>
+              <option value="BLAS DE LEZO">BLAS DE LEZO</option>
+              <option value="BOCAGRANDE">BOCAGRANDE</option>
+              <option value="BOSQUECITO">BOSQUECITO</option>
+              <option value="BOSTON">BOSTON</option>
+              <option value="BRUSELAS">BRUSELAS</option>
+              <option value="BUENOS AIRES">BUENOS AIRES</option>
+              <option value="CALAMARES">CALAMARES</option>
+              <option value="CAMAGUEY">CAMAGÜEY</option>
+              <option value="CAMILO TORRES">CAMILO TORRES</option>
+              <option value="CANAPOTE">CANAPOTE</option>
+              <option value="CASTILLOGRANDE">CASTILLOGRANDE</option>
+              <option value="CEBALLOS">CEBALLOS</option>
+              <option value="CENTRO">CENTRO</option>
+              <option value="CERRO DE LA POPA">CERRO DE LA POPA</option>
+              <option value="CESAR FLOREZ">CÉSAR FLÓREZ</option>
+              <option value="CHAMBACU">CHAMBACÚ</option>
+              <option value="CHAPACUA">CHAPACUA</option>
+              <option value="CHIPRE">CHIPRE</option>
+              <option value="CHIQUINQUIRA">CHIQUINQUIRÁ</option>
+              <option value="CIUDAD BICENTENARIO">CIUDAD BICENTENARIO</option>
+              <option value="CIUDADELA 11 DE NOVIEMBRE">
+                CIUDADELA 11 DE NOVIEMBRE
+              </option>
+              <option value="CIUDADELA 2000">CIUDADELA 2000</option>
+              <option value="CRESPO">CRESPO</option>
+              <option value="DANIEL LEMAITRE">DANIEL LEMAITRE</option>
+              <option value="EL BOSQUE">EL BOSQUE</option>
+              <option value="EL CABRERO">EL CABRERO</option>
+              <option value="EL CAMPESTRE">EL CAMPESTRE</option>
+              <option value="EL CARMELO">EL CARMELO</option>
+              <option value="EL CARMEN">EL CARMEN</option>
+              <option value="EL COUNTRY">EL COUNTRY</option>
+              <option value="EL EDUCADOR">EL EDUCADOR</option>
+              <option value="EL GALLO">EL GALLO</option>
+              <option value="EL LAGUITO">EL LAGUITO</option>
+              <option value="EL LIBERTADOR">EL LIBERTADOR</option>
+              <option value="EL MILAGRO">EL MILAGRO</option>
+              <option value="EL POZON">EL POZÓN</option>
+              <option value="EL PRADO">EL PRADO</option>
+              <option value="EL RECREO">EL RECREO</option>
+              <option value="EL REPOSO">EL REPOSO</option>
+              <option value="EL SOCORRO">EL SOCORRO</option>
+              <option value="ESCALLON VILLA">ESCALLÓN VILLA</option>
+              <option value="ESPAÑA">ESPAÑA</option>
+              <option value="ESPINAL">ESPINAL</option>
+              <option value="FLOR DEL CAMPO">FLOR DEL CAMPO</option>
+              <option value="FREDONIA">FREDONIA</option>
+              <option value="GETSEMANI">GETSEMANÍ</option>
+              <option value="HENEQUEN">HENEQUÉN</option>
+              <option value="JAIME PARDO LEAL">JAIME PARDO LEAL</option>
+              <option value="JORGE ELIECER GAITAN">JORGE ELIECER GAITÁN</option>
+              <option value="JOSE ANTONIO GALAN">JOSÉ ANTONIO GALÁN</option>
+              <option value="JUAN XXIII">JUAN XXIII</option>
+              <option value="JUNIN">JUNÍN</option>
+              <option value="LA CAMPIÑA">LA CAMPIÑA</option>
+              <option value="LA CANDELARIA">LA CANDELARIA</option>
+              <option value="LA CAROLINA">LA CAROLINA</option>
+              <option value="LA CASTELLANA">LA CASTELLANA</option>
+              <option value="LA CENTRAL">LA CENTRAL</option>
+              <option value="LA CONCEPCION">LA CONCEPCIÓN</option>
+              <option value="LA CONSOLATA">LA CONSOLATA</option>
+              <option value="LA ESMERALDA I">LA ESMERALDA I</option>
+              <option value="LA ESMERALDA II">LA ESMERALDA II</option>
+              <option value="LA ESPERANZA">LA ESPERANZA</option>
+              <option value="LA FLORESTA">LA FLORESTA</option>
+              <option value="LA FLORIDA">LA FLORIDA</option>
+              <option value="LA INDIA">LA INDIA</option>
+              <option value="LA MARIA">LA MARÍA</option>
+              <option value="LA MATUNA">LA MATUNA</option>
+              <option value="LA PAZ">LA PAZ</option>
+              <option value="LA QUINTA">LA QUINTA</option>
+              <option value="LA SIERRITA">LA SIERRITA</option>
+              <option value="LA TRONCAL">LA TRONCAL</option>
+              <option value="LA VICTORIA">LA VICTORIA</option>
+              <option value="LAS BRISAS">LAS BRISAS</option>
+              <option value="LAS DELICIAS">LAS DELICIAS</option>
+              <option value="LAS GAVIOTAS">LAS GAVIOTAS</option>
+              <option value="LAS PALMERAS">LAS PALMERAS</option>
+              <option value="LO AMADOR">LO AMADOR</option>
+              <option value="LOMA FRESCA">LOMA FRESCA</option>
+              <option value="LOS ALPES">LOS ALPES</option>
+              <option value="LOS ANGELES">LOS ÁNGELES</option>
+              <option value="LOS CARACOLES">LOS CARACOLES</option>
+              <option value="LOS CERROS">LOS CERROS</option>
+              <option value="LOS COMUNEROS">LOS COMUNEROS</option>
+              <option value="LOS CORALES">LOS CORALES</option>
+              <option value="LOS EJECUTIVOS">LOS EJECUTIVOS</option>
+              <option value="LOS JARDINES">LOS JARDINES</option>
+              <option value="LOS SANTANDERES">LOS SANTANDERES</option>
+              <option value="LUIS CARLOS GALAN">LUIS CARLOS GALÁN</option>
+              <option value="MAMONAL">MAMONAL</option>
+              <option value="MANGA">MANGA</option>
+              <option value="MANUELA VERGARA DE CURI">
+                MANUELA VERGARA DE CURI
+              </option>
+              <option value="MARBELLA">MARBELLA</option>
+              <option value="MARIA CANO">MARÍA CANO</option>
+              <option value="MARTINEZ MARTELO">MARTÍNEZ MARTELO</option>
+              <option value="NARIÑO">NARIÑO</option>
+              <option value="NAZARENO">NAZARENO</option>
+              <option value="NELSON MANDELA">NELSON MANDELA</option>
+              <option value="NUEVA DELHI">NUEVA DELHI</option>
+              <option value="NUEVA GRANADA">NUEVA GRANADA</option>
+              <option value="NUEVA JERUSALEN">NUEVA JERUSALÉN</option>
+              <option value="NUEVE DE ABRIL">NUEVE DE ABRIL</option>
+              <option value="NUEVO BOSQUE">NUEVO BOSQUE</option>
+              <option value="NUEVO PARAISO">NUEVO PARAÍSO</option>
+              <option value="NUEVO PORVENIR">NUEVO PORVENIR</option>
+              <option value="OLAYA ST. CENTRAL">OLAYA ST. CENTRAL</option>
+              <option value="OLAYA ST. LA MAGDALENA">
+                OLAYA ST. LA MAGDALENA
+              </option>
+              <option value="OLAYA ST. LA PUNTILLA">
+                OLAYA ST. LA PUNTILLA
+              </option>
+              <option value="OLAYA ST. PLAYA BLANCA">
+                OLAYA ST. PLAYA BLANCA
+              </option>
+              <option value="OLAYA ST. PROGRESO">OLAYA ST. PROGRESO</option>
+              <option value="OLAYA ST. RAFAEL NUÑEZ">
+                OLAYA ST. RAFAEL NUÑEZ
+              </option>
+              <option value="OLAYA ST. RICAURTE">OLAYA ST. RICAURTE</option>
+              <option value="OLAYA ST. STELLA">OLAYA ST. STELLA</option>
+              <option value="OLAYA ST. ZARABANDA">OLAYA ST. ZARABANDA</option>
+              <option value="OLAYA ST.11 DE NOVIEMBRE">
+                OLAYA ST.11 DE NOVIEMBRE
+              </option>
+              <option value="OLAYA VILLA OLIMPICA">OLAYA VILLA OLÍMPICA</option>
+              <option value="PABLO VI - I">PABLO VI - I</option>
+              <option value="PABLO VI - II">PABLO VI - II</option>
+              <option value="PALESTINA">PALESTINA</option>
+              <option value="PARAGUAY">PARAGUAY</option>
+              <option value="PARAISO II">PARAÍSO II</option>
+              <option value="PASACABALLOS">PASACABALLOS</option>
+              <option value="PEDRO SALAZAR">PEDRO SALAZAR</option>
+              <option value="PETARE">PETARE</option>
+              <option value="PIE DE LA POPA">PIE DE LA POPA</option>
+              <option value="PIE DEL CERRO">PIE DEL CERRO</option>
+              <option value="PIEDRA DE BOLIVAR">PIEDRA DE BOLÍVAR</option>
+              <option value="POLICARPA">POLICARPA</option>
+              <option value="PONTEZUELA">PONTEZUELA</option>
+              <option value="PROVIDENCIA">PROVIDENCIA</option>
+              <option value="PUERTA DE HIERRO">PUERTA DE HIERRO</option>
+              <option value="REPUBLICA DE CHILE">REPÚBLICA DE CHILE</option>
+              <option value="REPUBLICA DE VENEZUELA">
+                REPÚBLICA DE VENEZUELA
+              </option>
+              <option value="REPUBLICA DEL CARIBE">REPÚBLICA DEL CARIBE</option>
+              <option value="REPUBLICA DEL LIBANO">REPÚBLICA DEL LÍBANO</option>
+              <option value="ROSSEDAL">ROSSEDAL</option>
+              <option value="RUBI">RUBÍ</option>
+              <option value="SAN ANTONIO">SAN ANTONIO</option>
+              <option value="SAN BERNARDO">SAN BERNARDO</option>
+              <option value="SAN DIEGO">SAN DIEGO</option>
+              <option value="SAN FERNANDO">SAN FERNANDO</option>
+              <option value="SAN FRANCISCO">SAN FRANCISCO</option>
+              <option value="SAN ISIDRO">SAN ISIDRO</option>
+              <option value="SAN JOSE DE LOS CAMPANOS">
+                SAN JOSÉ DE LOS CAMPANOS
+              </option>
+              <option value="SAN JOSE OBRERO">SAN JOSÉ OBRERO</option>
+              <option value="SAN PEDRO">SAN PEDRO</option>
+              <option value="SAN PEDRO MARTIR">SAN PEDRO MÁRTIR</option>
+              <option value="SAN PEDRO Y LIBERTAD">SAN PEDRO Y LIBERTAD</option>
+              <option value="SANTA CLARA">SANTA CLARA</option>
+              <option value="SANTA LUCIA">SANTA LUCÍA</option>
+              <option value="SANTA MARIA">SANTA MARÍA</option>
+              <option value="SANTA MONICA">SANTA MÓNICA</option>
+              <option value="SECTORES UNIDOS">SECTORES UNIDOS</option>
+              <option value="SIETE DE AGOSTO">SIETE DE AGOSTO</option>
+              <option value="TACARIGUA">TACARIGUA</option>
+              <option value="TERNERA">TERNERA</option>
+              <option value="TESCA">TESCA</option>
+              <option value="TORICES">TORICES</option>
+              <option value="TRECE DE JUNIO">TRECE DE JUNIO</option>
+              <option value="URBANIZACION COLOMBIATON">
+                URBANIZACIÓN COLOMBIATÓN
+              </option>
+              <option value="URBANIZACION SIMON BOLIVAR">
+                URBANIZACIÓN SIMÓN BOLÍVAR
+              </option>
+              <option value="VEINTE DE JULIO SUR">VEINTE DE JULIO SUR</option>
+              <option value="VIEJO PORVENIR">VIEJO PORVENIR</option>
+              <option value="VILLA BARRAZA">VILLA BARRAZA</option>
+              <option value="VILLA ESTRELLA">VILLA ESTRELLA</option>
+              <option value="VILLA FANNY">VILLA FANNY</option>
+              <option value="VILLA HERMOSA">VILLA HERMOSA</option>
+              <option value="VILLA ROSA">VILLA ROSA</option>
+              <option value="VILLA ROSITA">VILLA ROSITA</option>
+              <option value="VILLA RUBIA">VILLA RUBIA</option>
+              <option value="VILLA SANDRA">VILLA SANDRA</option>
+              <option value="VILLAS DE LA CANDELARIA">
+                VILLAS DE LA CANDELARIA
+              </option>
+              <option value="VISTA HERMOSA">VISTA HERMOSA</option>
+              <option value="ZARAGOCILLA">ZARAGOCILLA</option>
+              <option value="ZONA INDUSTRIAL">ZONA INDUSTRIAL</option>
+            </select>
 
-          <label for="horaInicio">Hora aproximada de inicio de la falla:</label>
-          <input type="time" step="300" id="horaInicio" name="horaInicio" required aria-placeholder="Hora aproximada de inicio de la falla:">
+            <label for="horaInicio"
+              >Hora aproximada de inicio de la falla:</label
+            >
+            <input
+              type="time"
+              step="300"
+              id="horaInicio"
+              name="horaInicio"
+              required
+              aria-placeholder="Hora aproximada de inicio de la falla:"
+            />
 
-          <label for="comentario">Escribe tu comentario aquí:</label>
-          <textarea id="comentarios" name="comentarios" rows="4" cols="50" placeholder="Escribe tu comentario aquí"></textarea>
+            <label for="comentario">Escribe tu comentario aquí:</label>
+            <textarea
+              id="comentarios"
+              name="comentarios"
+              rows="4"
+              cols="50"
+              placeholder="Escribe tu comentario aquí"
+            ></textarea>
 
-          <button type="submit">Reportar</button>
+            <button type="submit">Reportar</button>
+          </div>
+        </form>
+
+        <!-- Nueva sección para mostrar las fallas del usuario -->
+        <div class="fallas-usuario mt-5">
+          <h2>Mis fallas reportadas</h2>
+          <table id="tablaFallasUsuario" class="display" style="width: 100%">
+            <thead>
+              <tr>
+                <th>Servicio</th>
+                <th>Barrio</th>
+                <th>Hora reportada</th>
+                <th>Comentarios</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="falla : ${fallasusuario}">
+                <td th:text="${falla.servicio}"></td>
+                <td th:text="${falla.barrio}"></td>
+                <td
+                  th:text="${#dates.format(falla.hora, 'dd/MM/yyyy HH:mm')}"
+                ></td>
+                <td th:text="${falla.comentarios}"></td>
+                <td>
+                  <span
+                    th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).PENDIENTE}"
+                    class="badge bg-warning"
+                    >Pendiente</span
+                  >
+                  <span
+                    th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO}"
+                    class="badge bg-info"
+                    >Recibido</span
+                  >
+                  <span
+                    th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).COMPLETADO}"
+                    class="badge bg-success"
+                    >Completado</span
+                  >
+                </td>
+              </tr>
+              <tr th:if="${fallasusuario.empty}">
+                <td colspan="5" class="text-center">
+                  No has reportado ninguna falla
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </form>
-
-      <!-- Nueva sección para mostrar las fallas del usuario -->
-      <div class="fallas-usuario mt-5">
-        <h2>Mis fallas reportadas</h2>
-        <table id="tablaFallasUsuario" class="display" style="width:100%">
-          <thead>
-            <tr>
-              <th>Servicio</th>
-              <th>Barrio</th>
-              <th>Hora reportada</th>
-              <th>Comentarios</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="falla : ${fallasusuario}">
-              <td th:text="${falla.servicio}"></td>
-              <td th:text="${falla.barrio}"></td>
-              <td th:text="${#dates.format(falla.hora, 'dd/MM/yyyy HH:mm')}"></td>
-              <td th:text="${falla.comentarios}"></td>
-              <td>
-                <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).PENDIENTE}" 
-                      class="badge bg-warning">Pendiente</span>
-                <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO}" 
-                      class="badge bg-info">Recibido</span>
-                <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).COMPLETADO}" 
-                      class="badge bg-success">Completado</span>
-              </td>
-            </tr>
-            <tr th:if="${fallasusuario.empty}">
-              <td colspan="5" class="text-center">No has reportado ninguna falla</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- Pie de página -->
-  <footer class="mini-footer">
-    <div class="footer-content">
-      <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
-      <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
-    </div>
-  </footer>
-  
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      const footer = document.querySelector('footer');
-      
-      sidebar.classList.toggle('open');
-      content.classList.toggle('sidebar-open');
-      footer.classList.toggle('sidebar-open');
-    }
+    <!-- Pie de página -->
+    <footer class="mini-footer">
+      <div class="footer-content">
+        <img
+          src="/img_local/logo-pagina-serviapp.png"
+          alt="ServiApp"
+          class="footer-logo"
+        />
+        <p class="footer-text">
+          © 2024 ServiApp - Todos los derechos reservados
+        </p>
+      </div>
+    </footer>
 
-    // Profile dropdown functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const profileButton = document.getElementById('profileButton');
-      const profileDropdown = document.getElementById('profileDropdown');
-      
-      if (profileButton && profileDropdown) {
-        profileButton.addEventListener('click', function() {
-          profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
-        });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
-            profileDropdown.style.display = 'none';
+    <!-- Scripts -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const content = document.getElementById("content");
+        const footer = document.querySelector("footer");
+
+        sidebar.classList.toggle("open");
+        content.classList.toggle("sidebar-open");
+        footer.classList.toggle("sidebar-open");
+      }
+
+      // Profile dropdown functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const profileButton = document.getElementById("profileButton");
+        const profileDropdown = document.getElementById("profileDropdown");
+
+        if (profileButton && profileDropdown) {
+          profileButton.addEventListener("click", function () {
+            profileDropdown.style.display =
+              profileDropdown.style.display === "block" ? "none" : "block";
+          });
+
+          // Close dropdown when clicking outside
+          document.addEventListener("click", function (event) {
+            if (
+              !profileButton.contains(event.target) &&
+              !profileDropdown.contains(event.target)
+            ) {
+              profileDropdown.style.display = "none";
+            }
+          });
+        }
+
+        // Modal functionality
+        const modal = document.getElementById("mapModal");
+        const closeBtn = document.querySelector(".close");
+
+        if (closeBtn) {
+          closeBtn.onclick = function () {
+            modal.style.display = "none";
+          };
+        }
+
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        };
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener("click", function (event) {
+          const sidebar = document.getElementById("sidebar");
+          const toggleBtn = document.querySelector(".toggle-btn");
+
+          if (
+            window.innerWidth <= 768 &&
+            sidebar &&
+            toggleBtn &&
+            !sidebar.contains(event.target) &&
+            !toggleBtn.contains(event.target) &&
+            sidebar.classList.contains("open")
+          ) {
+            toggleSidebar();
           }
         });
-      }
 
-      // Modal functionality
-      const modal = document.getElementById('mapModal');
-      const closeBtn = document.querySelector('.close');
-      
-      if (closeBtn) {
-        closeBtn.onclick = function() {
-          modal.style.display = 'none';
+        // Map buttons functionality (example for Afinia)
+        const btnAfinia = document.getElementById("btnAfinia");
+        if (btnAfinia) {
+          btnAfinia.addEventListener("click", function () {
+            const mapFrame = document.getElementById("mapFrame");
+            mapFrame.src =
+              "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123456789!2d-75.123456789!3d10.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA3JzI0LjQiTiA3NcKwMDcnMjQuNCJX!5e0!3m2!1sen!2sco!4v1234567890";
+            document.getElementById("mapModal").style.display = "block";
+          });
         }
-      }
-      
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = 'none';
-        }
-      }
-      
-      // Close sidebar when clicking outside on mobile
-      document.addEventListener('click', function(event) {
-        const sidebar = document.getElementById('sidebar');
-        const toggleBtn = document.querySelector('.toggle-btn');
-        
-        if (window.innerWidth <= 768 && sidebar && toggleBtn && 
-            !sidebar.contains(event.target) && 
-            !toggleBtn.contains(event.target) && 
-            sidebar.classList.contains('open')) {
-          toggleSidebar();
-        }
+
+        // Add similar event listeners for btnAguas and btnSurtigas
       });
+    </script>
 
-      // Map buttons functionality (example for Afinia)
-      const btnAfinia = document.getElementById('btnAfinia');
-      if (btnAfinia) {
-        btnAfinia.addEventListener('click', function() {
-          const mapFrame = document.getElementById('mapFrame');
-          mapFrame.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.123456789!2d-75.123456789!3d10.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDA3JzI0LjQiTiA3NcKwMDcnMjQuNCJX!5e0!3m2!1sen!2sco!4v1234567890";
-          document.getElementById('mapModal').style.display = 'block';
+    <!-- jQuery (debe ir antes de usarlo) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Inicialización de DataTable -->
+    <script>
+      $(document).ready(function () {
+        $("#tablaCortes").DataTable({
+          paging: true,
+          pageLength: 5,
+          lengthChange: false,
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+          },
         });
-      }
-
-      // Add similar event listeners for btnAguas and btnSurtigas
-    });
-  </script>
-</body>
+      });
+    </script>
+  </body>
 </html>

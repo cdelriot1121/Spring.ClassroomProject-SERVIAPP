@@ -1,5 +1,7 @@
 package com.example.ServiApp.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +65,13 @@ public class RegistroPredioObligatorioController {
         nuevoPredio.setTipoPredio(tipoPredio);
         
         usuarioService.registrarPredioPara(usuarioLogueado.getId(), nuevoPredio);
+        
+        // Obtener el usuario actualizado desde la base de datos y actualizar la sesión
+        Optional<UsuarioModel> usuarioActualizadoOpt = usuarioService.obtenerUsuarioPorId(usuarioLogueado.getId());
+        if (usuarioActualizadoOpt.isPresent()) {
+            // Actualizar la sesión con el usuario que incluye el predio
+            session.setAttribute("usuarioLogueado", usuarioActualizadoOpt.get());
+        }
         
         redirectAttributes.addFlashAttribute("mensaje", "Predio registrado exitosamente");
         return "redirect:/interfaz_inicio";
