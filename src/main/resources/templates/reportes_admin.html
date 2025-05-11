@@ -68,40 +68,225 @@
             </div>
         
             
-            <div class="mb-3">
-                <label for="barrio" class="form-label">Barrios Afectados</label>
-                <div class="checkbox-grid">
-               
-                    <label><input type="checkbox" name="barrios" value="La Victoria"> La Victoria</label>
-                    <label><input type="checkbox" name="barrios" value="Plan 400"> Plan 400</label>
-                    <label><input type="checkbox" name="barrios" value="La Esperanza"> La Esperanza</label>
-                    <label><input type="checkbox" name="barrios" value="Olaya"> Olaya</label>
-                    <label><input type="checkbox" name="barrios" value="Centro"> Centro</label>
-                    <label><input type="checkbox" name="barrios" value="Alcibia"> Alcibia</label>
-                    <label><input type="checkbox" name="barrios" value="Boston"> Boston</label>
-                    <label><input type="checkbox" name="barrios" value="La Candelaria"> La Candelaria</label>
-                    <label><input type="checkbox" name="barrios" value="La María"> La María</label>
-                    <label><input type="checkbox" name="barrios" value="La Quinta"> La Quinta</label>
-                    <label><input type="checkbox" name="barrios" value="Chiquinquirá"> Chiquinquirá</label>
-                    <label><input type="checkbox" name="barrios" value="Olaya St. Central"> Olaya St. Central</label>
-                    <label><input type="checkbox" name="barrios" value="Olaya St. 11 De Noviembre"> Olaya St. 11 De Noviembre</label>
-                    <label><input type="checkbox" name="barrios" value="Olaya Villa Olímpica"> Olaya Villa Olímpica</label>
-                    <label><input type="checkbox" name="barrios" value="República Del Líbano"> República Del Líbano</label>
-                    <label><input type="checkbox" name="barrios" value="El Pozón"> El Pozón</label>
-                    <label><input type="checkbox" name="barrios" value="La India"> La India</label>
-                    <label><input type="checkbox" name="barrios" value="Nuevo Paraíso"> Nuevo Paraíso</label>
-                    <label><input type="checkbox" name="barrios" value="La Floresta"> La Floresta</label>
-                    <label><input type="checkbox" name="barrios" value="Las Gaviotas"> Las Gaviotas</label>
-                    <label><input type="checkbox" name="barrios" value="Las Palmeras"> Las Palmeras</label>
-                    <label><input type="checkbox" name="barrios" value="Los Alpes"> Los Alpes</label>
-                    <label><input type="checkbox" name="barrios" value="Nuevo Porvenir"> Nuevo Porvenir</label>
-                    <label><input type="checkbox" name="barrios" value="República de Venezuela"> República de Venezuela</label>
-                    <label><input type="checkbox" name="barrios" value="San Antonio"> San Antonio</label>
-                    <label><input type="checkbox" name="barrios" value="San José"> San José</label>
-                    <label><input type="checkbox" name="barrios" value="Trece de Junio"> Trece de Junio</label>
-                    <label><input type="checkbox" name="barrios" value="Viejo Porvenir"> Viejo Porvenir</label>
-                </div>
-            </div>
+           <div class="mb-3">
+    <label for="barrios" class="form-label">Barrios Afectados (Manten presionada la tecla CTRL para seleccionar múltiples barrios) </label>
+    <select id="barrios" name="barrios" class="form-select" multiple required>
+       <option value="ALAMEDA LA VICTORIA">ALAMEDA LA VICTORIA</option>
+              <option value="ALBORNOZ">ALBORNOZ</option>
+              <option value="ALCIBIA">ALCIBIA</option>
+              <option value="ALMIRANTE COLON">ALMIRANTE COLÓN</option>
+              <option value="ALTO BOSQUE">ALTO BOSQUE</option>
+              <option value="ALTOS DE SAN ISIDRO">ALTOS DE SAN ISIDRO</option>
+              <option value="AMBERES">AMBERES</option>
+              <option value="ANITA">ANITA</option>
+              <option value="ANTONIO JOSE DE SUCRE">
+                ANTONIO JOSÉ DE SUCRE
+              </option>
+              <option value="ARMENIA">ARMENIA</option>
+              <option value="ARROZ BARATO">ARROZ BARATO</option>
+              <option value="BARRIO CHINO">BARRIO CHINO</option>
+              <option value="BELLAVISTA">BELLAVISTA</option>
+              <option value="BLAS DE LEZO">BLAS DE LEZO</option>
+              <option value="BOCAGRANDE">BOCAGRANDE</option>
+              <option value="BOSQUECITO">BOSQUECITO</option>
+              <option value="BOSTON">BOSTON</option>
+              <option value="BRUSELAS">BRUSELAS</option>
+              <option value="BUENOS AIRES">BUENOS AIRES</option>
+              <option value="CALAMARES">CALAMARES</option>
+              <option value="CAMAGUEY">CAMAGÜEY</option>
+              <option value="CAMILO TORRES">CAMILO TORRES</option>
+              <option value="CANAPOTE">CANAPOTE</option>
+              <option value="CASTILLOGRANDE">CASTILLOGRANDE</option>
+              <option value="CEBALLOS">CEBALLOS</option>
+              <option value="CENTRO">CENTRO</option>
+              <option value="CERRO DE LA POPA">CERRO DE LA POPA</option>
+              <option value="CESAR FLOREZ">CÉSAR FLÓREZ</option>
+              <option value="CHAMBACU">CHAMBACÚ</option>
+              <option value="CHAPACUA">CHAPACUA</option>
+              <option value="CHIPRE">CHIPRE</option>
+              <option value="CHIQUINQUIRA">CHIQUINQUIRÁ</option>
+              <option value="CIUDAD BICENTENARIO">CIUDAD BICENTENARIO</option>
+              <option value="CIUDADELA 11 DE NOVIEMBRE">
+                CIUDADELA 11 DE NOVIEMBRE
+              </option>
+              <option value="CIUDADELA 2000">CIUDADELA 2000</option>
+              <option value="CRESPO">CRESPO</option>
+              <option value="DANIEL LEMAITRE">DANIEL LEMAITRE</option>
+              <option value="EL BOSQUE">EL BOSQUE</option>
+              <option value="EL CABRERO">EL CABRERO</option>
+              <option value="EL CAMPESTRE">EL CAMPESTRE</option>
+              <option value="EL CARMELO">EL CARMELO</option>
+              <option value="EL CARMEN">EL CARMEN</option>
+              <option value="EL COUNTRY">EL COUNTRY</option>
+              <option value="EL EDUCADOR">EL EDUCADOR</option>
+              <option value="EL GALLO">EL GALLO</option>
+              <option value="EL LAGUITO">EL LAGUITO</option>
+              <option value="EL LIBERTADOR">EL LIBERTADOR</option>
+              <option value="EL MILAGRO">EL MILAGRO</option>
+              <option value="EL POZON">EL POZÓN</option>
+              <option value="EL PRADO">EL PRADO</option>
+              <option value="EL RECREO">EL RECREO</option>
+              <option value="EL REPOSO">EL REPOSO</option>
+              <option value="EL SOCORRO">EL SOCORRO</option>
+              <option value="ESCALLON VILLA">ESCALLÓN VILLA</option>
+              <option value="ESPAÑA">ESPAÑA</option>
+              <option value="ESPINAL">ESPINAL</option>
+              <option value="FLOR DEL CAMPO">FLOR DEL CAMPO</option>
+              <option value="FREDONIA">FREDONIA</option>
+              <option value="GETSEMANI">GETSEMANÍ</option>
+              <option value="HENEQUEN">HENEQUÉN</option>
+              <option value="JAIME PARDO LEAL">JAIME PARDO LEAL</option>
+              <option value="JORGE ELIECER GAITAN">JORGE ELIECER GAITÁN</option>
+              <option value="JOSE ANTONIO GALAN">JOSÉ ANTONIO GALÁN</option>
+              <option value="JUAN XXIII">JUAN XXIII</option>
+              <option value="JUNIN">JUNÍN</option>
+              <option value="LA CAMPIÑA">LA CAMPIÑA</option>
+              <option value="LA CANDELARIA">LA CANDELARIA</option>
+              <option value="LA CAROLINA">LA CAROLINA</option>
+              <option value="LA CASTELLANA">LA CASTELLANA</option>
+              <option value="LA CENTRAL">LA CENTRAL</option>
+              <option value="LA CONCEPCION">LA CONCEPCIÓN</option>
+              <option value="LA CONSOLATA">LA CONSOLATA</option>
+              <option value="LA ESMERALDA I">LA ESMERALDA I</option>
+              <option value="LA ESMERALDA II">LA ESMERALDA II</option>
+              <option value="LA ESPERANZA">LA ESPERANZA</option>
+              <option value="LA FLORESTA">LA FLORESTA</option>
+              <option value="LA FLORIDA">LA FLORIDA</option>
+              <option value="LA INDIA">LA INDIA</option>
+              <option value="LA MARIA">LA MARÍA</option>
+              <option value="LA MATUNA">LA MATUNA</option>
+              <option value="LA PAZ">LA PAZ</option>
+              <option value="LA QUINTA">LA QUINTA</option>
+              <option value="LA SIERRITA">LA SIERRITA</option>
+              <option value="LA TRONCAL">LA TRONCAL</option>
+              <option value="LA VICTORIA">LA VICTORIA</option>
+              <option value="LAS BRISAS">LAS BRISAS</option>
+              <option value="LAS DELICIAS">LAS DELICIAS</option>
+              <option value="LAS GAVIOTAS">LAS GAVIOTAS</option>
+              <option value="LAS PALMERAS">LAS PALMERAS</option>
+              <option value="LO AMADOR">LO AMADOR</option>
+              <option value="LOMA FRESCA">LOMA FRESCA</option>
+              <option value="LOS ALPES">LOS ALPES</option>
+              <option value="LOS ANGELES">LOS ÁNGELES</option>
+              <option value="LOS CARACOLES">LOS CARACOLES</option>
+              <option value="LOS CERROS">LOS CERROS</option>
+              <option value="LOS COMUNEROS">LOS COMUNEROS</option>
+              <option value="LOS CORALES">LOS CORALES</option>
+              <option value="LOS EJECUTIVOS">LOS EJECUTIVOS</option>
+              <option value="LOS JARDINES">LOS JARDINES</option>
+              <option value="LOS SANTANDERES">LOS SANTANDERES</option>
+              <option value="LUIS CARLOS GALAN">LUIS CARLOS GALÁN</option>
+              <option value="MAMONAL">MAMONAL</option>
+              <option value="MANGA">MANGA</option>
+              <option value="MANUELA VERGARA DE CURI">
+                MANUELA VERGARA DE CURI
+              </option>
+              <option value="MARBELLA">MARBELLA</option>
+              <option value="MARIA CANO">MARÍA CANO</option>
+              <option value="MARTINEZ MARTELO">MARTÍNEZ MARTELO</option>
+              <option value="NARIÑO">NARIÑO</option>
+              <option value="NAZARENO">NAZARENO</option>
+              <option value="NELSON MANDELA">NELSON MANDELA</option>
+              <option value="NUEVA DELHI">NUEVA DELHI</option>
+              <option value="NUEVA GRANADA">NUEVA GRANADA</option>
+              <option value="NUEVA JERUSALEN">NUEVA JERUSALÉN</option>
+              <option value="NUEVE DE ABRIL">NUEVE DE ABRIL</option>
+              <option value="NUEVO BOSQUE">NUEVO BOSQUE</option>
+              <option value="NUEVO PARAISO">NUEVO PARAÍSO</option>
+              <option value="NUEVO PORVENIR">NUEVO PORVENIR</option>
+              <option value="OLAYA ST. CENTRAL">OLAYA ST. CENTRAL</option>
+              <option value="OLAYA ST. LA MAGDALENA">
+                OLAYA ST. LA MAGDALENA
+              </option>
+              <option value="OLAYA ST. LA PUNTILLA">
+                OLAYA ST. LA PUNTILLA
+              </option>
+              <option value="OLAYA ST. PLAYA BLANCA">
+                OLAYA ST. PLAYA BLANCA
+              </option>
+              <option value="OLAYA ST. PROGRESO">OLAYA ST. PROGRESO</option>
+              <option value="OLAYA ST. RAFAEL NUÑEZ">
+                OLAYA ST. RAFAEL NUÑEZ
+              </option>
+              <option value="OLAYA ST. RICAURTE">OLAYA ST. RICAURTE</option>
+              <option value="OLAYA ST. STELLA">OLAYA ST. STELLA</option>
+              <option value="OLAYA ST. ZARABANDA">OLAYA ST. ZARABANDA</option>
+              <option value="OLAYA ST.11 DE NOVIEMBRE">
+                OLAYA ST.11 DE NOVIEMBRE
+              </option>
+              <option value="OLAYA VILLA OLIMPICA">OLAYA VILLA OLÍMPICA</option>
+              <option value="PABLO VI - I">PABLO VI - I</option>
+              <option value="PABLO VI - II">PABLO VI - II</option>
+              <option value="PALESTINA">PALESTINA</option>
+              <option value="PARAGUAY">PARAGUAY</option>
+              <option value="PARAISO II">PARAÍSO II</option>
+              <option value="PASACABALLOS">PASACABALLOS</option>
+              <option value="PEDRO SALAZAR">PEDRO SALAZAR</option>
+              <option value="PETARE">PETARE</option>
+              <option value="PIE DE LA POPA">PIE DE LA POPA</option>
+              <option value="PIE DEL CERRO">PIE DEL CERRO</option>
+              <option value="PIEDRA DE BOLIVAR">PIEDRA DE BOLÍVAR</option>
+              <option value="POLICARPA">POLICARPA</option>
+              <option value="PONTEZUELA">PONTEZUELA</option>
+              <option value="PROVIDENCIA">PROVIDENCIA</option>
+              <option value="PUERTA DE HIERRO">PUERTA DE HIERRO</option>
+              <option value="REPUBLICA DE CHILE">REPÚBLICA DE CHILE</option>
+              <option value="REPUBLICA DE VENEZUELA">
+                REPÚBLICA DE VENEZUELA
+              </option>
+              <option value="REPUBLICA DEL CARIBE">REPÚBLICA DEL CARIBE</option>
+              <option value="REPUBLICA DEL LIBANO">REPÚBLICA DEL LÍBANO</option>
+              <option value="ROSSEDAL">ROSSEDAL</option>
+              <option value="RUBI">RUBÍ</option>
+              <option value="SAN ANTONIO">SAN ANTONIO</option>
+              <option value="SAN BERNARDO">SAN BERNARDO</option>
+              <option value="SAN DIEGO">SAN DIEGO</option>
+              <option value="SAN FERNANDO">SAN FERNANDO</option>
+              <option value="SAN FRANCISCO">SAN FRANCISCO</option>
+              <option value="SAN ISIDRO">SAN ISIDRO</option>
+              <option value="SAN JOSE DE LOS CAMPANOS">
+                SAN JOSÉ DE LOS CAMPANOS
+              </option>
+              <option value="SAN JOSE OBRERO">SAN JOSÉ OBRERO</option>
+              <option value="SAN PEDRO">SAN PEDRO</option>
+              <option value="SAN PEDRO MARTIR">SAN PEDRO MÁRTIR</option>
+              <option value="SAN PEDRO Y LIBERTAD">SAN PEDRO Y LIBERTAD</option>
+              <option value="SANTA CLARA">SANTA CLARA</option>
+              <option value="SANTA LUCIA">SANTA LUCÍA</option>
+              <option value="SANTA MARIA">SANTA MARÍA</option>
+              <option value="SANTA MONICA">SANTA MÓNICA</option>
+              <option value="SECTORES UNIDOS">SECTORES UNIDOS</option>
+              <option value="SIETE DE AGOSTO">SIETE DE AGOSTO</option>
+              <option value="TACARIGUA">TACARIGUA</option>
+              <option value="TERNERA">TERNERA</option>
+              <option value="TESCA">TESCA</option>
+              <option value="TORICES">TORICES</option>
+              <option value="TRECE DE JUNIO">TRECE DE JUNIO</option>
+              <option value="URBANIZACION COLOMBIATON">
+                URBANIZACIÓN COLOMBIATÓN
+              </option>
+              <option value="URBANIZACION SIMON BOLIVAR">
+                URBANIZACIÓN SIMÓN BOLÍVAR
+              </option>
+              <option value="VEINTE DE JULIO SUR">VEINTE DE JULIO SUR</option>
+              <option value="VIEJO PORVENIR">VIEJO PORVENIR</option>
+              <option value="VILLA BARRAZA">VILLA BARRAZA</option>
+              <option value="VILLA ESTRELLA">VILLA ESTRELLA</option>
+              <option value="VILLA FANNY">VILLA FANNY</option>
+              <option value="VILLA HERMOSA">VILLA HERMOSA</option>
+              <option value="VILLA ROSA">VILLA ROSA</option>
+              <option value="VILLA ROSITA">VILLA ROSITA</option>
+              <option value="VILLA RUBIA">VILLA RUBIA</option>
+              <option value="VILLA SANDRA">VILLA SANDRA</option>
+              <option value="VILLAS DE LA CANDELARIA">
+                VILLAS DE LA CANDELARIA
+              </option>
+              <option value="VISTA HERMOSA">VISTA HERMOSA</option>
+              <option value="ZARAGOCILLA">ZARAGOCILLA</option>
+              <option value="ZONA INDUSTRIAL">ZONA INDUSTRIAL</option>
+    </select>
+</div>
+
             
         
             <!-- Motivo -->
