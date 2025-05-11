@@ -27,6 +27,11 @@
       rel="stylesheet"
       href="/estilos_interfaz-usuario/style_cortes_fallas.css"
     />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
   </head>
   <body>
     <!-- Header -->
@@ -121,6 +126,7 @@
       </div>
       <br />
       <br />
+
       <div class="reportes">
         <h1>Reportar fallos</h1>
         <h2>
@@ -446,8 +452,6 @@
 
     <!-- Scripts -->
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       function toggleSidebar() {
@@ -527,6 +531,26 @@
         }
 
         // Add similar event listeners for btnAguas and btnSurtigas
+      });
+    </script>
+
+    <!-- jQuery (debe ir antes de usarlo) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Inicialización de DataTable -->
+    <script>
+      $(document).ready(function () {
+        $("#tablaCortes").DataTable({
+          paging: true,
+          pageLength: 5,
+          lengthChange: false,
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+          },
+        });
       });
     </script>
   </body>
