@@ -458,7 +458,15 @@ public class PeriodoController {
 
     @PostMapping("/eliminar-consumo/{id}")
     public String eliminarConsumo(@PathVariable String id) {
-        periodoService.eliminarPeriodo(id);
-        return "redirect:/mis-consumos";
+        try {
+            System.out.println("Intentando eliminar consumo con ID: " + id);
+            periodoService.eliminarPeriodo(id);
+            return "redirect:/mis-consumos";
+        } catch (Exception e) {
+            System.err.println("Error al eliminar consumo: " + e.getMessage());
+            e.printStackTrace();
+            // Redireccionar con un parámetro de error
+            return "redirect:/mis-consumos?error=true";
+        }
     }
 }
