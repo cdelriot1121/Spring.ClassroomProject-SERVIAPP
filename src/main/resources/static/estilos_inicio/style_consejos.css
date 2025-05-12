@@ -32,7 +32,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-top: 80px;
+    padding-top: 100px;
 }
 
 /* Header premium */
@@ -959,4 +959,16 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+}
+
+.consejos-hero {
+    margin-top: 20px; /* Añade espacio adicional */
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2rem; /* Reduce el tamaño del título */
+        padding: 0 15px; /* Añade padding lateral */
+        word-break: break-word; /* Permite que el texto se divida en varias líneas */
+    }
 }
