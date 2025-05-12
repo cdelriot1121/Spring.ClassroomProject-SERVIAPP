@@ -972,3 +972,103 @@ main {
         word-break: break-word; /* Permite que el texto se divida en varias líneas */
     }
 }
+
+
+
+/* Comparador de Consumos */
+.consumption-comparison {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.comparison-table {
+    max-width: 900px;
+    margin: 40px auto;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    background: var(--gradient);
+    color: white;
+    font-weight: 500;
+}
+
+.header-item {
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--primary-100);
+    transition: var(--transition);
+}
+
+.table-row:hover {
+    background-color: var(--primary-50);
+}
+
+.row-service {
+    padding: 15px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-800);
+}
+
+.row-data {
+    padding: 15px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.average {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ff9800;
+    font-weight: 500;
+}
+
+.high {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    font-weight: 500;
+}
+
+.comparison-note {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--primary-700);
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .table-header, .table-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-item, .row-service, .row-data {
+        text-align: left;
+        padding: 10px 15px;
+    }
+    
+    .header-item:not(:first-child), 
+    .row-data {
+        display: none;
+    }
+    
+    .header-item::after, 
+    .row-service::after {
+        content: attr(data-label);
+        float: right;
+        font-weight: normal;
+    }
+}
