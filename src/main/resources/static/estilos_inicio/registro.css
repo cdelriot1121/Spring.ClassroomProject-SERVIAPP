@@ -219,3 +219,31 @@ body {
   input[type="text"] {
     -webkit-text-security: none !important;
   }
+
+/* Estilos para el botón de carga */
+.btn_registro.loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn_registro.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
