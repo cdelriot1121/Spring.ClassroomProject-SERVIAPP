@@ -17,6 +17,14 @@ import org.springframework.stereotype.Service;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
 
+/**
+ * Servicio que carga los detalles del usuario para la autenticación.
+ * Implementa la lógica personalizada para:
+ * - Cargar usuarios desde la base de datos
+ * - Verificar el estado de la cuenta
+ * - Asignar roles y autoridades
+ * - Manejar errores de autenticación
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

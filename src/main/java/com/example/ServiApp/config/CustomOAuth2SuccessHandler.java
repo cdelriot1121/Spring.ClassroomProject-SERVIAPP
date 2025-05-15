@@ -16,6 +16,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Manejador de éxito para autenticación OAuth2.
+ * Se encarga de:
+ * - Procesar el inicio de sesión exitoso con proveedores OAuth2
+ * - Gestionar el flujo de redirección según el estado del usuario
+ * - Verificar requisitos pendientes (registro completo, predio)
+ */
 public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final UsuarioRepository usuarioRepository;
@@ -26,6 +33,13 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         this.predioService = predioService;
     }
 
+    /**
+     * Maneja el proceso posterior a una autenticación OAuth2 exitosa.
+     * Verifica el estado del usuario y redirige según corresponda:
+     * - A completar registro si es necesario
+     * - A registrar predio si no tiene uno
+     * - A la interfaz principal si todo está completo
+     */
     @Override
     public void onAuthenticationSuccess(
             HttpServletRequest request, 

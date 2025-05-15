@@ -18,6 +18,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Manejador de éxito para autenticación tradicional.
+ * Gestiona el flujo post-autenticación para:
+ * - Usuarios normales: verifica registro completo y existencia de predio
+ * - Administradores: redirige a interfaz administrativa
+ * - Manejo de sesiones y atributos del usuario
+ */
 @Component
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -29,6 +36,12 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         this.predioService = predioService;
     }
 
+    /**
+     * Procesa la autenticación exitosa y determina la redirección apropiada.
+     * - Para administradores: redirige a panel administrativo
+     * - Para usuarios normales: verifica requisitos pendientes y redirige según corresponda
+     * - Gestiona la sesión del usuario y almacena los atributos necesarios
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {

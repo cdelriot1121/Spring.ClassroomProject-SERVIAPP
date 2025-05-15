@@ -15,6 +15,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Filtro que verifica si un usuario tiene un predio registrado.
+ * Este filtro intercepta las peticiones HTTP para asegurar que los usuarios
+ * completen el registro de su predio antes de acceder a ciertas funcionalidades.
+ */
 @Component
 public class PredioRegistroFilter extends OncePerRequestFilter {
 
@@ -39,6 +44,11 @@ public class PredioRegistroFilter extends OncePerRequestFilter {
         "/admin"  // Cualquier ruta de administración
     };
 
+    /**
+     * Procesa cada petición HTTP para verificar si el usuario necesita registrar un predio.
+     * El filtro redirige a los usuarios sin predio registrado a la página de registro obligatorio,
+     * excepto para ciertas URLs excluidas y usuarios administradores.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -86,7 +96,11 @@ public class PredioRegistroFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }
     }
-    
+
+    /**
+     * Verifica si una URI está en la lista de exclusiones.
+     * Las URLs excluidas no requieren verificación de registro de predio.
+     */
     private boolean estaExcluida(String uri) {
         for (String urlExcluida : urlsExcluidas) {
             if (uri.startsWith(urlExcluida)) {

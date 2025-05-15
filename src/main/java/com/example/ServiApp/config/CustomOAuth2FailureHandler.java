@@ -11,7 +11,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Manejador personalizado para los fallos de autenticación OAuth2.
+ * Manejador de errores para la autenticación OAuth2.
+ * Gestiona diferentes tipos de fallos durante el proceso de autenticación OAuth2:
+ * - Usuarios deshabilitados
+ * - Errores de proveedor OAuth2
+ * - Redirecciones específicas según el tipo de error
  */
 public class CustomOAuth2FailureHandler implements AuthenticationFailureHandler {
 
