@@ -10,6 +10,13 @@ import org.springframework.stereotype.Service;
 import com.example.ServiApp.model.UsuarioModel;
 import com.example.ServiApp.repository.UsuarioRepository;
 
+/**
+ * Servicio que procesa la autenticación OAuth2.
+ * Se encarga de:
+ * - Cargar usuarios autenticados por proveedores OAuth2 (Google, etc.)
+ * - Crear nuevos usuarios en la base de datos si no existen
+ * - Marcar usuarios como registro incompleto para completar datos adicionales
+ */
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 

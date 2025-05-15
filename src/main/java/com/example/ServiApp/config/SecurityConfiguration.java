@@ -25,14 +25,12 @@ import com.example.ServiApp.services.CaptchaService;
 import com.example.ServiApp.services.PredioService;
 
 /**
- * Configuración principal de seguridad para la aplicación ServiApp.
- * 
- * Esta clase define todas las reglas de acceso, autenticación y autorización
- * para las diferentes rutas y recursos de la aplicación.
- * 
- * @EnableWebSecurity - Habilita la seguridad web en Spring Security
- * @EnableMethodSecurity - Permite usar anotaciones de seguridad en métodos
- *                       (@PreAuthorize, etc.)
+ * Configuración de seguridad que maneja la autenticación y autorización de la aplicación.
+ * Incluye configuración para:
+ * - Autenticación tradicional con usuario y contraseña
+ * - Autenticación OAuth2 para inicio de sesión con redes sociales
+ * - Control de acceso a rutas específicas
+ * - Manejo de filtros personalizados para captcha y registro de predios
  */
 @Configuration
 @EnableWebSecurity
@@ -188,16 +186,29 @@ public class SecurityConfiguration {
                 return http.build();
         }
 
+        /**
+         * Configura el manejador de éxito para autenticación OAuth2.
+         * Este manejador se ejecuta cuando un usuario se autentica exitosamente
+         * a través de un proveedor OAuth2 (Google, Facebook, etc.).
+         */
         @Bean
         public AuthenticationSuccessHandler customOAuth2SuccessHandler() {
                 return new CustomOAuth2SuccessHandler(usuarioRepository, predioService);
         }
 
+        /**
+         * Configura el manejador de fallos para autenticación tradicional.
+         * Se ejecuta cuando hay un error en el inicio de sesión con usuario y contraseña.
+         */
         @Bean
         public AuthenticationFailureHandler customAuthenticationFailureHandler() {
                 return new CustomAuthenticationFailureHandler();
         }
 
+        /**
+         * Configura el manejador de fallos para autenticación OAuth2.
+         * Se ejecuta cuando hay un error en el proceso de autenticación con redes sociales.
+         */
         @Bean
         public AuthenticationFailureHandler customOAuth2FailureHandler() {
                 return new CustomOAuth2FailureHandler();

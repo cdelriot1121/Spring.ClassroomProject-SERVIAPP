@@ -1,16 +1,21 @@
 package com.example.ServiApp.config;
 
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.ServiApp.services.CaptchaService;
 
-import java.io.IOException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Filtro que verifica el reCAPTCHA en las solicitudes de inicio de sesión.
+ * Intercepta las peticiones POST al endpoint de login para validar la respuesta del captcha.
+ */
 public class CaptchaFilter extends OncePerRequestFilter {
 
       private final CaptchaService captchaService;

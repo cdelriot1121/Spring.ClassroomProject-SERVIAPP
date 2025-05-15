@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (!otpEnviado) {
+            // Verificar si el correo ya existe antes de iniciar el proceso
             const existe = await fetch(`/usuarios/verificar-email?email=${email}`).then(r => r.json());
             if (existe) {
                 return mostrarAlerta({
@@ -53,25 +54,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            const resp = await fetch(`/otp/enviar?email=${email}`, { method: 'POST' });
-            if (resp.ok) {
-                otpEnviado = true;
-                otpInput.style.display = "block";
-                reenviarLink.style.display = "block";
-                otpButton.textContent = "Verificar Código";
-                mostrarAlerta({
-                    icon: 'info',
-                    title: 'Código enviado',
-                    text: 'Hemos enviado un código de verificación a tu correo electrónico.'
-                });
-            } else {
+            // Deshabilitar el botón y mostrar spinner
+            otpButton.disabled = true;
+            otpButton.classList.add('loading');
+            
+            try {
+                const resp = await fetch(`/otp/enviar?email=${email}`, { method: 'POST' });
+                
+                // Habilitar botón y quitar spinner
+                otpButton.disabled = false;
+                otpButton.classList.remove('loading');
+                
+                if (resp.ok) {
+                    otpEnviado = true;
+                    otpInput.style.display = "block";
+                    reenviarLink.style.display = "block";
+                    otpButton.textContent = "Verificar Código";
+                    mostrarAlerta({
+                        icon: 'info',
+                        title: 'Código enviado',
+                        text: 'Hemos enviado un código de verificación a tu correo electrónico.'
+                    });
+                } else {
+                    mostrarAlerta({
+                        icon: 'error',
+                        title: 'Error de envío',
+                        text: 'No se pudo enviar el código de verificación. Intenta de nuevo.'
+                    });
+                }
+            } catch (error) {
+                // En caso de error, también restaurar el botón
+                otpButton.disabled = false;
+                otpButton.classList.remove('loading');
+                
                 mostrarAlerta({
                     icon: 'error',
-                    title: 'Error de envío',
-                    text: 'No se pudo enviar el código  de verificación. Intenta de nuevo.'
+                    title: 'Error de conexión',
+                    text: 'Ocurrió un problema al conectar con el servidor. Por favor intenta nuevamente.'
                 });
             }
-
         } else if (!otpVerificado) {
             const otp = otpInput.value.trim();
             if (!otp.match(/^\d{6}$/)) {
@@ -154,23 +175,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     reenviarLink.addEventListener("click", async () => {
         const email = emailInput.value.trim();
-        const resp = await fetch(`/otp/enviar?email=${email}`, { method: 'POST' });
-        if (resp.ok) {
-            mostrarAlerta({
-                icon: 'info',
-                title: 'Código reenviado',
-                text: 'Hemos reenviado un nuevo código de verificación a tu correo.'
-            });
-        } else {
+        
+        // Deshabilitar el link y mostrar estado de carga
+        reenviarLink.style.pointerEvents = "none";
+        reenviarLink.style.opacity = "0.7";
+        reenviarLink.textContent = "Enviando código...";
+        
+        try {
+            const resp = await fetch(`/otp/enviar?email=${email}`, { method: 'POST' });
+            
+            // Restaurar el link
+            reenviarLink.style.pointerEvents = "auto";
+            reenviarLink.style.opacity = "1";
+            reenviarLink.innerHTML = "¿No recibiste el código? <u>Reenviar código</u>";
+            
+            if (resp.ok) {
+                mostrarAlerta({
+                    icon: 'info',
+                    title: 'Código reenviado',
+                    text: 'Hemos reenviado un nuevo código de verificación a tu correo.'
+                });
+            } else {
+                mostrarAlerta({
+                    icon: 'error',
+                    title: 'Reenvío fallido',
+                    text: 'No se pudo reenviar el código de verificación.'
+                });
+            }
+        } catch (error) {
+            // Restaurar el link en caso de error
+            reenviarLink.style.pointerEvents = "auto";
+            reenviarLink.style.opacity = "1";
+            reenviarLink.innerHTML = "¿No recibiste el código? <u>Reenviar código</u>";
+            
             mostrarAlerta({
                 icon: 'error',
-                title: 'Reenvío fallido',
-                text: 'No se pudo reenviar el código de verificación.'
+                title: 'Error de conexión',
+                text: 'Ocurrió un problema al conectar con el servidor.'
             });
         }
     });
-
-
 
     const togglePassword = document.getElementById("togglePassword");
     if (togglePassword) {

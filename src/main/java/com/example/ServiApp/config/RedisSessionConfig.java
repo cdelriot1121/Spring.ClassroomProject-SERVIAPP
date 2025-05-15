@@ -6,10 +6,9 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /**
- * Configuración de la sesión HTTP usando Redis como almacén.
- * 
- * Esta clase habilita el soporte de sesión distribuida con Redis en una aplicación Spring Boot,
- * permitiendo que los datos de sesión del usuario se almacenen en un servidor Redis.
+ * Configuración de Redis para el manejo de sesiones distribuidas.
+ * Permite almacenar las sesiones de usuario en Redis en lugar de la memoria local del servidor,
+ * facilitando la escalabilidad horizontal de la aplicación.
  */
 @Configuration
 @EnableRedisHttpSession // Habilita el manejo de sesiones HTTP utilizando Redis

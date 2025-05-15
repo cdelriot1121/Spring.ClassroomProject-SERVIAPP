@@ -20,6 +20,11 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 // para almacenarlos en Redis y luego reconstruirlos cuando sea necesario.
 // En este caso, estamos utilizando RedisSerializer.java() para serializar objetos Java de forma predeterminada.
 
+/**
+ * Implementación personalizada de OAuth2User que permite la serialización.
+ * Necesario para almacenar la información del usuario OAuth2 en la sesión Redis.
+ * Gestiona los atributos y autoridades del usuario autenticado por OAuth2.
+ */
 public class CustomOAuth2User implements OAuth2User, Serializable {
     private OAuth2User oauth2User;
     private static final long serialVersionUID = 1L;
