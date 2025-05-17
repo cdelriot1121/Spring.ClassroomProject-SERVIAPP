@@ -107,7 +107,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const poliza = document.querySelector('[name="poliza"]').value;
         const habitantes = document.querySelector('[name="habitantes"]').value;
 
+        // Validar habitantes (entre 1 y 12)
+        if (habitantes < 1 || habitantes > 12) {
+            showAlert('error', 'Número de habitantes inválido', 'El número de habitantes debe estar entre 1 y 12.');
+            return;
+        }
        
+        // Validar que no falten campos
         if (!tipoServicio || !empresa || !poliza || !habitantes) {
             showAlert('error', 'Campos incompletos', 'Por favor, completa todos los campos antes de registrar el servicio.');
             return;
