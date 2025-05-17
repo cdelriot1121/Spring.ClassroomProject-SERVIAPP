@@ -43,7 +43,7 @@ public class MapPagesController {
 
     @GetMapping("/acercade")
     public String acercade() {
-        return "/acerca_del_proyecto";
+        return "acerca_del_proyecto";
     }
 
     @GetMapping("/login-admin")

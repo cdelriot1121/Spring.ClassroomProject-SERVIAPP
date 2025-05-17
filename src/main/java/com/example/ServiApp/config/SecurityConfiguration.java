@@ -101,7 +101,7 @@ public class SecurityConfiguration {
                                 .authorizeHttpRequests(auth -> auth
                                                 // ======== ACCESO PÚBLICO ========
                                                 // Recursos públicos y páginas de acceso general
-                                                .requestMatchers("/", "/login", "/registro", "/acercade",
+                                                .requestMatchers("/", "/login", "/registro", "/acercade", "acerca-del-proyecto", "acercadeproyecto",
                                                                 "/usuarios/verificar-email",
                                                                 "/usuarios/registrar", "/usuarios/contador",
                                                                 "/consejos-ahorro",
