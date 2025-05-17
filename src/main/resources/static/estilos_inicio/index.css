@@ -20,7 +20,11 @@
     --gradient: linear-gradient(135deg, var(--primary-600), var(--primary-800));
 }
 
-/* Estilos base mejorados */
+/* Estilos base */
+html {
+    font-size: 16px;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     color: var(--dark);
@@ -31,7 +35,29 @@ body {
     line-height: 1.6;
 }
 
-/* Header premium */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+main {
+    padding-top: 70px; 
+}
+
+/* Header */
 .main-header {
     width: 100%;
     height: 80px;
@@ -72,7 +98,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Navegación premium */
+/* Navegación */
 .main-nav {
     display: flex;
     align-items: center;
@@ -119,7 +145,7 @@ body {
     width: 70%;
 }
 
-/* Botones de autenticación premium */
+/* Botones */
 .auth-buttons {
     display: flex;
     align-items: center;
@@ -167,36 +193,30 @@ body {
     box-shadow: 0 8px 25px rgba(0, 146, 235, 0.4);
 }
 
-/* Carrusel Optimizado */
+/* Carrusel */
 .hero-carousel {
     width: 85%;
     height: calc(100vh - 80px);
     min-height: 100px;
     position: relative;
-    margin-left:auto;
-    margin-right:auto;
+    margin: 0 auto;
     overflow: hidden;
 }
 
-.carousel-inner {
+.carousel-inner, .carousel-item {
     height: 100%;
 }
 
 .carousel-item {
-    height: 100%;
     transition: transform 0.6s ease-in-out;
 }
 
-.carousel-link {
-    display: block;
+.carousel-link, .carousel-img {
     width: 100%;
     height: 100%;
-    position: relative;
 }
 
 .carousel-img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
     object-position: center;
     transition: transform 0.5s ease;
@@ -206,7 +226,6 @@ body {
     transform: scale(1.03);
 }
 
-/* Controles del carrusel */
 .carousel-control-prev,
 .carousel-control-next {
     width: 50px;
@@ -225,7 +244,6 @@ body {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Indicadores */
 .carousel-indicators {
     bottom: 20px;
 }
@@ -245,7 +263,7 @@ body {
     border-radius: 5px;
 }
 
-/* Sección de Beneficios */
+/* Secciones */
 .benefits-section {
     padding: 100px 0;
     background-color: var(--white);
@@ -305,37 +323,35 @@ body {
 }
 
 /* Footer */
-footer {
+footer, .mini-footer {
     background: linear-gradient(to right, #005ea3, #0b436f);
     color: white;
     padding: 1rem;
     text-align: center;
-    margin-top: auto; /* Esto es clave para que se quede abajo */
-  }
+    margin-top: auto;
+}
 
-  .mini-footer {
-    background: #005ea3; /* Azul de ServiApp */
-    padding: 1rem;
-    text-align: center;
-  }
+.mini-footer {
+    background: #005ea3;
+}
 
-  .footer-content {
+.footer-content {
     max-width: 1200px;
     margin: 0 auto;
-  }
+}
 
-  .footer-logo {
+.footer-logo {
     height: 25px;
-    filter: brightness(0) invert(1); /* Convierte el logo a blanco */
+    filter: brightness(0) invert(1);
     margin-bottom: 0.5rem;
-  }
+}
 
-  .footer-text {
+.footer-text {
     color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
     margin: 0;
-  }
+}
 
 .social-icons a {
     display: inline-flex;
@@ -362,7 +378,36 @@ footer {
     color: rgba(255, 255, 255, 0.6);
 }
 
-/* Responsive */
+/* Menú Hamburguesa */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.menu-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--white);
+    margin: 5px 0;
+    transition: var(--transition);
+}
+
+.mobile-menu-btn .fa-bars {
+    font-size: 1.5rem;
+    color: var(--white);
+    transition: var(--transition);
+}
+
+.mobile-menu-btn.active .fa-bars {
+    transform: rotate(90deg);
+}
+
+/* Media Queries */
 @media (max-width: 1200px) {
     .hero-carousel {
         min-height: 500px;
@@ -380,11 +425,14 @@ footer {
 }
 
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
     .main-header {
-        padding: 0 1rem;
+        padding: 15px 1rem;
         flex-wrap: wrap;
         height: auto;
-        padding: 15px;
     }
     
     .logo-text {
@@ -404,6 +452,74 @@ footer {
     .hero-carousel {
         height: 60vh;
         min-height: 400px;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+        color: var(--white);
+        font-size: 1.5rem;
+    }
+    
+    .main-nav {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 80px);
+        background: rgba(11, 67, 111, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 0;
+        transition: var(--transition);
+        z-index: 1000;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .main-nav.active {
+        left: 0;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-link {
+        width: 90%;
+        padding: 15px 0;
+        margin: 5px 0;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .auth-buttons .btn {
+        width: 80%;
+        margin: 5px auto;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn-register {
+        background: linear-gradient(135deg, rgba(12, 148, 235, 0.8), rgba(0, 178, 224, 0.8)) !important;
     }
 }
 
@@ -428,8 +544,49 @@ footer {
     }
 }
 
-
-
-main {
-    padding-top: 70px; 
+@media (max-width: 480px) {
+    body {
+        padding-top: 60px;
+    }
+    
+    .main-header {
+        height: 60px;
+        padding: 0 1rem;
+    }
+    
+    .logo-text {
+        font-size: 18px;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .auth-buttons .btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .hero-carousel {
+        width: 100%;
+        height: 50vh;
+        min-height: 250px;
+    }
+    
+    .benefits-section {
+        padding: 50px 0;
+    }
+    
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+    
+    .benefit-card {
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
 }
