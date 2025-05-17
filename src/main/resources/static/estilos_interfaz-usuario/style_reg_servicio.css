@@ -515,6 +515,185 @@ main {
 
 
  
+@media (max-width: 768px) {
+    /* Ajustes generales */
+    body {
+        padding-top: 70px;
+        font-size: 14px;
+    }
+    
+    /* Header */
+    header {
+        height: 70px;
+        padding: 0 15px;
+    }
+    
+    .header-title {
+        font-size: 20px;
+    }
+    
+    .profile-avatar {
+        width: 35px;
+        height: 35px;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        width: 250px;
+        padding-top: 80px;
+    }
+    
+    /* Formulario */
+    .contenedor {
+        margin-top: 20px;
+        padding: 0.5rem;
+    }
+    
+    .caja-registro-serv {
+        padding: 1rem;
+    }
+    
+    .formulario-registro-serv {
+        padding: 1.5rem;
+    }
+    
+    .formulario-registro-serv h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Tooltip */
+    abbr[title]::after {
+        width: 250px;
+        height: 100px;
+        top: 2em;
+    }
+}
 
+@media (max-width: 480px) {
+    /* Ajustes más específicos para pantallas muy pequeñas */
+    body {
+        padding-top: 60px;
+    }
+    
+    header {
+        height: 60px;
+    }
+    
+    .header-title {
+        font-size: 18px;
+    }
+    
+    .toggle-btn {
+        font-size: 20px;
+        padding: 5px;
+    }
+    
+    .sidebar {
+        width: 220px;
+    }
+    
+    .sidebar a {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .sidebar i {
+        font-size: 18px;
+        margin-right: 8px;
+    }
+    
+    .contenedor {
+        border-radius: 15px;
+    }
+    
+    .formulario-registro-serv {
+        padding: 1rem;
+        border-radius: 15px;
+    }
+    
+    .formulario-registro-serv h2 {
+        font-size: 1.3rem;
+    }
+    
+    .formulario-registro-serv input,
+    .formulario-registro-serv select,
+    .formulario-registro-serv button {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Tooltip más pequeño */
+    abbr[title]::after {
+        width: 200px;
+        height: 80px;
+    }
+    
+    /* Footer */
+    .mini-footer {
+        padding: 15px 0;
+    }
+    
+    .footer-logo {
+        height: 30px;
+    }
+    
+    .footer-text {
+        font-size: 12px;
+    }
+}
+
+
+/* Añade esto para mejorar la experiencia en móviles */
+.formulario-registro-serv input,
+.formulario-registro-serv select,
+.formulario-registro-serv button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+}
+
+/* Para evitar el zoom automático en iOS al enfocar inputs */
+@media screen and (max-width: 480px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="password"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Añade esto para mejorar el sidebar en móviles */
+.sidebar {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 75%;
+        max-width: 280px;
+    }
+    
+    /* Oscurecer el fondo cuando el sidebar está abierto */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        display: none;
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
 
   
