@@ -39,14 +39,20 @@
     />
 
     <link rel="stylesheet" href="/estilos_inicio/style_consejos.css" />
+    <link rel="stylesheet" href="/estilos_inicio/index.css" />
   </head>
 
   <body>
     <!-- Header -->
     <header class="main-header">
-      <a href="/" class="logo">
+      <a href="#" class="logo">
         <span class="logo-text">ServiApp</span>
       </a>
+
+      <!-- Botón del menú hamburguesa -->
+      <button class="mobile-menu-btn" aria-label="Menú">
+        <i class="fas fa-bars"></i>
+      </button>
 
       <nav class="main-nav">
         <ul class="nav-links">
@@ -61,7 +67,6 @@
         </div>
       </nav>
     </header>
-
     <main>
       <!-- Hero Section -->
       <section class="consejos-hero">
@@ -227,5 +232,67 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuBtn = document.querySelector(".mobile-menu-btn");
+        const mainNav = document.querySelector(".main-nav");
+        const menuIcons = document.querySelectorAll(".menu-icon");
+
+        // Función para alternar el menú
+        function toggleMenu() {
+          mainNav.classList.toggle("active");
+
+          // Animación del icono hamburguesa a X
+          if (mainNav.classList.contains("active")) {
+            menuIcons[0].style.transform =
+              "rotate(-45deg) translate(-5px, 6px)";
+            menuIcons[1].style.opacity = "0";
+            menuIcons[2].style.transform =
+              "rotate(45deg) translate(-5px, -6px)";
+          } else {
+            menuIcons[0].style.transform = "none";
+            menuIcons[1].style.opacity = "1";
+            menuIcons[2].style.transform = "none";
+          }
+        }
+
+        // Evento click para el botón del menú
+        menuBtn.addEventListener("click", toggleMenu);
+
+        // Cerrar menú al hacer click en un enlace (opcional)
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            if (window.innerWidth <= 768) {
+              mainNav.classList.remove("active");
+              menuIcons[0].style.transform = "none";
+              menuIcons[1].style.opacity = "1";
+              menuIcons[2].style.transform = "none";
+            }
+          });
+        });
+
+        // Ajustar el header en scroll para móviles (opcional)
+        let lastScroll = 0;
+        window.addEventListener("scroll", function () {
+          const currentScroll = window.pageYOffset;
+          const header = document.querySelector(".main-header");
+
+          if (window.innerWidth <= 768) {
+            if (currentScroll <= 0) {
+              header.style.transform = "none";
+            } else if (currentScroll > lastScroll) {
+              header.style.transform = "translateY(-100%)";
+            } else {
+              header.style.transform = "none";
+            }
+
+            lastScroll = currentScroll;
+          }
+        });
+      });
+    </script>
   </body>
 </html>
