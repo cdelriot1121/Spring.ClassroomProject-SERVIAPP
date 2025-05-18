@@ -1,9 +1,14 @@
 package com.example.ServiApp.controller;
 
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ServiApp.model.Falla_Ser_Model;
 import com.example.ServiApp.model.UsuarioModel;
@@ -18,6 +24,9 @@ import com.example.ServiApp.services.FallasUserService;
 import com.example.ServiApp.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 
 /**
  * Controlador para la gestión de administradores.
@@ -124,4 +133,43 @@ public class AdminController {
         session.removeAttribute("adminLogueado");
         return "redirect:/login-admin";
     }
+
+
+
+@GetMapping("/api/fallas")
+@ResponseBody
+public Map<String, Object> obtenerFallasPaginadas(@RequestParam("draw") int draw,
+                                                  @RequestParam("start") int start,
+                                                  @RequestParam("length") int length) {
+
+    int page = start / length;
+    PageRequest pageable = PageRequest.of(page, length);
+    Page<Falla_Ser_Model> pageFallas = fallasUserService.obtenerFallasPaginadas(pageable);
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    List<Map<String, Object>> data = pageFallas.getContent().stream().map(falla -> {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", falla.getId());
+        map.put("servicio", falla.getServicio());
+        map.put("barrio", falla.getBarrio());
+
+        LocalDateTime fechaHora = falla.getHora().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        map.put("hora", fechaHora.format(formatter));
+
+        map.put("comentarios", falla.getComentarios());
+        map.put("estado", falla.getEstado().toString());
+        return map;
+    }).collect(Collectors.toList());
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("draw", draw);
+    response.put("recordsTotal", pageFallas.getTotalElements());
+    response.put("recordsFiltered", pageFallas.getTotalElements());
+    response.put("data", data);
+
+    return response;
+}
+
+
 }

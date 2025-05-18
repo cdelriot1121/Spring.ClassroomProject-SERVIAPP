@@ -64,7 +64,7 @@
                 <a href="/interfaz-admin">Usuarios</a>
               </li>
               <li class="p-2 g-col-6">
-                <a href="/gestionar-servicios-admin">Servicios públicos</a>
+                <a href="/gestionar-servicios-admin">Estadisticas</a>
               </li>
               <li class="p-2 g-col-6"><a href="cortes-admin">Reportes</a></li>
               <li class="p-2 g-col-6">
@@ -114,31 +114,7 @@
                         <th>Acciones</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr th:each="usuario : ${usuarios}">
-                        <td th:text="${usuario.id}"></td>
-                        <td th:text="${usuario.nombre}"></td>
-                        <td th:text="${usuario.email}"></td>
-                        <td th:text="${usuario.estratoDesdePredio != null ? usuario.estratoDesdePredio : 'No definido'}"></td>
-                        <td th:text="${usuario.estado}"></td>
-                        <!-- Nuevo: mostrar estado -->
-
-                        <td>
-                          <!-- Botón dinámico según el estado -->
-                          <form
-                            th:action="@{${usuario.estado.name() == 'HABILITADO'} ? '/inhabilitar-usuario/' + ${usuario.id} : '/habilitar-usuario/' + ${usuario.id}}"
-                            method="post"
-                          >
-                            <button
-                              type="submit"
-                              class="btn"
-                              th:classappend="${usuario.estado.name() == 'HABILITADO'} ? 'btn-outline-warning' : 'btn-outline-success'"
-                              th:text="${usuario.estado.name() == 'HABILITADO'} ? 'Inhabilitar' : 'Habilitar'"
-                            ></button>
-                          </form>
-                        </td>
-                      </tr>
-                    </tbody>
+                    <tbody></tbody>
                   </table>
                 </div>
               </div>
