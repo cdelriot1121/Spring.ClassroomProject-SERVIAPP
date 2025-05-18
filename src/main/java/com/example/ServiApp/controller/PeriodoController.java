@@ -78,6 +78,68 @@ public class PeriodoController {
                 model.addAttribute("error", "El número de habitantes debe ser mayor a cero. Por favor actualice su servicio.");
                 return "gestionar_serv";
             }
+            
+            // Definición única de constantes de promedios
+            final float PROMEDIO_AGUA = 4.3f;
+            final float PROMEDIO_ENERGIA = 80.7f;
+            final float PROMEDIO_GAS = 3.9f;
+            
+            // Normalización única del tipo de servicio
+            String tipoServicioNormalizado = servicioSeleccionado.getTipo_servicio() != null ? 
+                                              servicioSeleccionado.getTipo_servicio().trim().toLowerCase() : "";
+            
+            float consumoRegistrado = periodo.getConsumo();
+            float consumoEsperado = 0;
+            float margenPermitido = 0;
+            float promedioCartagena = 0;
+            String unidad = "";
+            String unidadMedida = "";
+            String categoriaConsumo = "";
+            
+            // Un único switch para todos los cálculos basados en el tipo de servicio
+            switch (tipoServicioNormalizado) {
+                case "agua":
+                    consumoEsperado = PROMEDIO_AGUA * habitantes;
+                    margenPermitido = 20;
+                    unidadMedida = "m³";
+                    unidad = "m3";
+                    promedioCartagena = PROMEDIO_AGUA * habitantes;
+                    categoriaConsumo = categorizarConsumo(consumoRegistrado, promedioCartagena, 2);
+                    break;
+                case "energía", "energia":
+                    consumoEsperado = PROMEDIO_ENERGIA * habitantes;
+                    margenPermitido = 100;
+                    unidadMedida = "kWh";
+                    unidad = "kWh";
+                    promedioCartagena = PROMEDIO_ENERGIA * habitantes;
+                    categoriaConsumo = categorizarConsumo(consumoRegistrado, promedioCartagena, 8);
+                    break;
+                case "gas":
+                    consumoEsperado = PROMEDIO_GAS * habitantes;
+                    margenPermitido = 20;
+                    unidadMedida = "m³";
+                    unidad = "m3";
+                    promedioCartagena = PROMEDIO_GAS * habitantes;
+                    categoriaConsumo = categorizarConsumo(consumoRegistrado, promedioCartagena, 2);
+                    break;
+                default:
+                    model.addAttribute("error", "Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
+                    return "gestionar_serv";
+            }
+            
+            // Verificar si el consumo está dentro del rango permitido
+            if (Math.abs(consumoRegistrado - consumoEsperado) > margenPermitido) {
+                float minConsumoPermitido = Math.max(0, consumoEsperado - margenPermitido);
+                float maxConsumoPermitido = consumoEsperado + margenPermitido;
+                
+                model.addAttribute("error", "El consumo registrado (" + consumoRegistrado + " " + unidadMedida + 
+                                  ") parece inusual para un hogar con " + habitantes + " habitantes. " +
+                                  "El rango recomendado es de " + String.format("%.1f", minConsumoPermitido) + 
+                                  " a " + String.format("%.1f", maxConsumoPermitido) + " " + unidadMedida + ".");
+                
+                model.addAttribute("servicios", servicios);
+                return "gestionar_serv";
+            }
 
             // Resto del código de conversión de fecha
             String mesYAnio = periodo.getMes(); // "2025-04"
@@ -128,43 +190,11 @@ public class PeriodoController {
                 return "gestionar_serv"; 
             }
 
-            //  Cálculos 
-            final float PROMEDIO_AGUA = 4.3f;
-            final float PROMEDIO_ENERGIA = 80.7f;
-            final float PROMEDIO_GAS = 3.9f;
-
-            float promedioCartagena = 0;
-            float promedioHogar = periodo.getConsumo();
+            // Cálculos (reutilizando variables ya definidas)
+            float promedioHogar = consumoRegistrado;
             float promedioHabitante = promedioHogar / habitantes;
             float promedioSemanal = promedioHogar / 4;
-            String categoriaConsumo = ""; 
-            String unidad = ""; 
-
-            // Aseguramos que el tipo de servicio existe y está normalizado
-            String tipoServicioNormalizado = servicioSeleccionado.getTipo_servicio() != null ? 
-                                              servicioSeleccionado.getTipo_servicio().trim().toLowerCase() : "";
-
-            switch (tipoServicioNormalizado) {
-                case "agua":
-                    promedioCartagena = PROMEDIO_AGUA * habitantes;
-                    unidad = "m3";
-                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
-                    break;
-                case "energía", "energia":
-                    promedioCartagena = PROMEDIO_ENERGIA * habitantes;
-                    unidad = "kWh";
-                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 8);
-                    break;
-                case "gas":
-                    promedioCartagena = PROMEDIO_GAS * habitantes;
-                    unidad = "m3";
-                    categoriaConsumo = categorizarConsumo(promedioHogar, promedioCartagena, 2);
-                    break;
-                default:
-                    model.addAttribute("error", "Tipo de servicio no válido: " + servicioSeleccionado.getTipo_servicio());
-                    return "gestionar_serv";
-            }
-
+            
             periodo.setUnidad(unidad);
             String clasePromedioCartagena = promedioHogar > promedioCartagena ? "alto" : "bajo";
 

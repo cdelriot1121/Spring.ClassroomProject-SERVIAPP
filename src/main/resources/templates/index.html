@@ -1,145 +1,277 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ServiApp | Gestión Inteligente de Servicios Públicos</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="/img_local/logo-pagina-serviapp.png" />
-    
+
     <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Kanit:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Kanit:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/estilos_inicio/index.css">
-      
-</head>
-<body>
-    <!-- Header Completo Visible -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/estilos_inicio/index.css" />
+  </head>
+  <body>
     <header class="main-header">
-        <a href="#" class="logo">
-            <span class="logo-text">ServiApp</span>
-        </a>
-        
-        <nav class="main-nav">
-            <ul class="nav-links">
-                <li><a href="/" class="nav-link">Inicio</a></li>
-                <li><a href="/acercade" class="nav-link">Acerca de</a></li>
-                <li><a href="consejos-ahorro" class="nav-link">Consejos</a></li>
-            </ul>
-            
-            <div class="auth-buttons">
-                <a href="login" class="btn btn-login">Iniciar Sesión</a>
-                <a href="registro" class="btn btn-register">Registrarse</a>
-            </div>
-        </nav>
+      <a href="#" class="logo">
+        <span class="logo-text">ServiApp</span>
+      </a>
+
+      <!-- Botón del menú hamburguesa -->
+      <button class="mobile-menu-btn" aria-label="Menú">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">Inicio</a></li>
+          <li><a href="/acercade" class="nav-link">Acerca de</a></li>
+          <li><a href="consejos-ahorro" class="nav-link">Consejos</a></li>
+        </ul>
+
+        <div class="auth-buttons">
+          <a href="login" class="btn btn-login">Iniciar Sesión</a>
+          <a href="registro" class="btn btn-register">Registrarse</a>
+        </div>
+      </nav>
     </header>
-<main>
-    <!-- Carrusel como Hero Section -->
-    <section class="hero-carousel">
-      <div id="mainCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+    <main>
+      <!-- Carrusel como Hero Section -->
+      <section class="hero-carousel">
+        <div
+          id="mainCarousel"
+          class="carousel slide h-100"
+          data-bs-ride="carousel"
+        >
           <div class="carousel-indicators">
-              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
-              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
-              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
-              <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="3"></button>
+            <button
+              type="button"
+              data-bs-target="#mainCarousel"
+              data-bs-slide-to="0"
+              class="active"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#mainCarousel"
+              data-bs-slide-to="1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#mainCarousel"
+              data-bs-slide-to="2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#mainCarousel"
+              data-bs-slide-to="3"
+            ></button>
           </div>
-          
+
           <div class="carousel-inner h-100">
-              <!-- Slide 1 - Gestión de Servicios -->
-              <div class="carousel-item active h-100">
-                  <a href="/" class="carousel-link">
-                      <img src="img_local\BIENVENIDO_SERVIAPP.png" class="d-block w-100 carousel-img" alt="Gestión de Servicios">
-                  </a>
-              </div>
-              
-              <!-- Slide 2 - Control de Consumos -->
-              <div class="carousel-item h-100">
-                  <a href="consejos_ahorro" class="carousel-link">
-                      <img src="\img_local\Consejos de ahorro.png" class="d-block w-100 carousel-img" alt="Control de Consumos">
-                  </a>
-              </div>
+            <!-- Slide 1 - Gestión de Servicios -->
+            <div class="carousel-item active h-100">
+              <a href="/" class="carousel-link">
+                <img
+                  src="img_local\BIENVENIDO_SERVIAPP.png"
+                  class="d-block w-100 carousel-img"
+                  alt="Gestión de Servicios"
+                />
+              </a>
+            </div>
+
+            <!-- Slide 2 - Control de Consumos -->
+            <div class="carousel-item h-100">
+              <a href="consejos_ahorro" class="carousel-link">
+                <img
+                  src="\img_local\Consejos de ahorro.png"
+                  class="d-block w-100 carousel-img"
+                  alt="Control de Consumos"
+                />
+              </a>
+            </div>
 
             <div class="carousel-item h-100">
-                <a href="gestionar-servicio" class="carousel-link">
-                    <img src="\img_local\Gestiona_Servicios.png" class="d-block w-100 carousel-img" alt="Gestiona tus Servicios">
-                </a>
+              <a href="gestionar-servicio" class="carousel-link">
+                <img
+                  src="\img_local\Gestiona_Servicios.png"
+                  class="d-block w-100 carousel-img"
+                  alt="Gestiona tus Servicios"
+                />
+              </a>
             </div>
-              
-              
-              <!-- Slide 4 - Soporte -->
-              <div class="carousel-item h-100">
-                  <a href="lineas-atencion" class="carousel-link">
-                      <img src="\img_local\LINEAS DE ATENCION.png" class="d-block w-100 carousel-img" alt="Soporte y Líneas de Atención">
-                  </a>
-              </div>
+
+            <!-- Slide 4 - Soporte -->
+            <div class="carousel-item h-100">
+              <a href="lineas-atencion" class="carousel-link">
+                <img
+                  src="\img_local\LINEAS DE ATENCION.png"
+                  class="d-block w-100 carousel-img"
+                  alt="Soporte y Líneas de Atención"
+                />
+              </a>
+            </div>
           </div>
-          
-          <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#mainCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#mainCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
           </button>
-      </div>
-  </section>
-</main>
+        </div>
+      </section>
+    </main>
 
     <!-- Sección de Beneficios -->
     <section class="benefits-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Beneficios de ServiApp</h2>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-tachometer-alt"></i>
-                        </div>
-                        <h3 class="benefit-title">Monitoreo en Tiempo Real</h3>
-                        <p>Visualiza el consumo de todos tus servicios desde un único panel de control intuitivo.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <h3 class="benefit-title">Planificación Anticipada</h3>
-                        <p>Recibe alertas sobre cortes programados y mantenimientos en tu área.</p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="benefit-title">Análisis de Consumo</h3>
-                        <p>Identifica patrones y recibe recomendaciones personalizadas para reducir tus gastos.</p>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <div class="section-title">
+          <h2>Beneficios de ServiApp</h2>
         </div>
-    </section>
 
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="fas fa-tachometer-alt"></i>
+              </div>
+              <h3 class="benefit-title">Monitoreo en Tiempo Real</h3>
+              <p>
+                Visualiza el consumo de todos tus servicios desde un único panel
+                de control intuitivo.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <h3 class="benefit-title">Planificación Anticipada</h3>
+              <p>
+                Recibe alertas sobre cortes programados y mantenimientos en tu
+                área.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="benefit-card">
+              <div class="benefit-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="benefit-title">Análisis de Consumo</h3>
+              <p>
+                Identifica patrones y recibe recomendaciones personalizadas para
+                reducir tus gastos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
     <footer class="mini-footer">
-    <div class="footer-content">
-      <img src="/img_local/logo-pagina-serviapp.png" alt="ServiApp" class="footer-logo">
-      <p class="footer-text">© 2024 ServiApp - Todos los derechos reservados</p>
-    </div>
-  </footer>
+      <div class="footer-content">
+        <img
+          src="/img_local/logo-pagina-serviapp.png"
+          alt="ServiApp"
+          class="footer-logo"
+        />
+        <p class="footer-text">
+          © 2024 ServiApp - Todos los derechos reservados
+        </p>
+      </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script>
-    <!-- <script src="/javascripts/notificaciones.js"></script> -->
-</body>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuBtn = document.querySelector(".mobile-menu-btn");
+        const mainNav = document.querySelector(".main-nav");
+        const menuIcons = document.querySelectorAll(".menu-icon");
+
+        // Función para alternar el menú
+        function toggleMenu() {
+          mainNav.classList.toggle("active");
+
+          // Animación del icono hamburguesa a X
+          if (mainNav.classList.contains("active")) {
+            menuIcons[0].style.transform =
+              "rotate(-45deg) translate(-5px, 6px)";
+            menuIcons[1].style.opacity = "0";
+            menuIcons[2].style.transform =
+              "rotate(45deg) translate(-5px, -6px)";
+          } else {
+            menuIcons[0].style.transform = "none";
+            menuIcons[1].style.opacity = "1";
+            menuIcons[2].style.transform = "none";
+          }
+        }
+
+        // Evento click para el botón del menú
+        menuBtn.addEventListener("click", toggleMenu);
+
+        // Cerrar menú al hacer click en un enlace (opcional)
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            if (window.innerWidth <= 768) {
+              mainNav.classList.remove("active");
+              menuIcons[0].style.transform = "none";
+              menuIcons[1].style.opacity = "1";
+              menuIcons[2].style.transform = "none";
+            }
+          });
+        });
+
+        // Ajustar el header en scroll para móviles (opcional)
+        let lastScroll = 0;
+        window.addEventListener("scroll", function () {
+          const currentScroll = window.pageYOffset;
+          const header = document.querySelector(".main-header");
+
+          if (window.innerWidth <= 768) {
+            if (currentScroll <= 0) {
+              header.style.transform = "none";
+            } else if (currentScroll > lastScroll) {
+              header.style.transform = "translateY(-100%)";
+            } else {
+              header.style.transform = "none";
+            }
+
+            lastScroll = currentScroll;
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
