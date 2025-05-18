@@ -25,7 +25,8 @@ import com.example.ServiApp.services.CaptchaService;
 import com.example.ServiApp.services.PredioService;
 
 /**
- * Configuración de seguridad que maneja la autenticación y autorización de la aplicación.
+ * Configuración de seguridad que maneja la autenticación y autorización de la
+ * aplicación.
  * Incluye configuración para:
  * - Autenticación tradicional con usuario y contraseña
  * - Autenticación OAuth2 para inicio de sesión con redes sociales
@@ -133,7 +134,7 @@ public class SecurityConfiguration {
                                                                 "/login-admin", "/registrar-admin",
                                                                 "/eliminar-usuario/**",
                                                                 "/eliminar-servicio/**", "/habilitar-usuario/**",
-                                                                "/inhabilitar-usuario/**")
+                                                                "/inhabilitar-usuario/**", "/api/fallas")
                                                 .hasAuthority("ROLE_ADMINISTRADOR")
 
                                                 // ======== ACCESO PARA USUARIOS NORMALES ========
@@ -198,7 +199,8 @@ public class SecurityConfiguration {
 
         /**
          * Configura el manejador de fallos para autenticación tradicional.
-         * Se ejecuta cuando hay un error en el inicio de sesión con usuario y contraseña.
+         * Se ejecuta cuando hay un error en el inicio de sesión con usuario y
+         * contraseña.
          */
         @Bean
         public AuthenticationFailureHandler customAuthenticationFailureHandler() {
@@ -207,7 +209,8 @@ public class SecurityConfiguration {
 
         /**
          * Configura el manejador de fallos para autenticación OAuth2.
-         * Se ejecuta cuando hay un error en el proceso de autenticación con redes sociales.
+         * Se ejecuta cuando hay un error en el proceso de autenticación con redes
+         * sociales.
          */
         @Bean
         public AuthenticationFailureHandler customOAuth2FailureHandler() {

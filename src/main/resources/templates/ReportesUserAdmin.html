@@ -62,36 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="falla : ${fallas}">
-                        <td th:text="${falla.servicio}"></td>
-                        <td th:text="${falla.barrio}"></td>
-                        <td th:text="${#dates.format(falla.hora, 'dd/MM/yyyy HH:mm')}"></td>
-                        <td th:text="${falla.comentarios}"></td>
-                        <td>
-                            <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).PENDIENTE}" 
-                                  class="badge bg-warning">Pendiente</span>
-                            <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO}" 
-                                  class="badge bg-info">Recibido</span>
-                            <span th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).COMPLETADO}" 
-                                  class="badge bg-success">Completado</span>
-                        </td>
-                        <td>
-                            <div class="btn-group">
-                                <form th:if="${falla.estado != T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO && 
-                                             falla.estado != T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).COMPLETADO}" 
-                                      th:action="@{/actualizar-estado-falla/{id}(id=${falla.id})}" method="post" style="display:inline;">
-                                    <input type="hidden" name="nuevoEstado" value="RECIBIDO">
-                                    <button type="submit" class="btn btn-info btn-sm">Marcar como recibido</button>
-                                </form>
-                                
-                                <form th:if="${falla.estado == T(com.example.ServiApp.model.Falla_Ser_Model.EstadoFalla).RECIBIDO}" 
-                                      th:action="@{/actualizar-estado-falla/{id}(id=${falla.id})}" method="post" style="display:inline;">
-                                    <input type="hidden" name="nuevoEstado" value="COMPLETADO">
-                                    <button type="submit" class="btn btn-success btn-sm">Marcar como completado</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+     
                 </tbody>
             </table>
         </div>
@@ -100,8 +71,55 @@
     <!-- Scripts de DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="/javascripts/reportesUser.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script >$(document).ready(function() {
+    $('#cortesTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '/api/fallas',
+            type: 'GET'
+        },
+        columns: [
+            { data: 'servicio' },
+            { data: 'barrio' },
+            { data: 'hora' },
+            { data: 'comentarios' },
+            { 
+                data: 'estado',
+                render: function(data) {
+                    if (data === 'PENDIENTE') return '<span class="badge bg-warning">Pendiente</span>';
+                    if (data === 'RECIBIDO') return '<span class="badge bg-info">Recibido</span>';
+                    if (data === 'COMPLETADO') return '<span class="badge bg-success">Completado</span>';
+                    return data;
+                }
+            },
+            { 
+                data: 'id',
+                render: function(id, type, row) {
+                    let btns = '';
+                    if (row.estado === 'PENDIENTE') {
+                        btns = `<form method="post" action="/actualizar-estado-falla/${id}">
+                                    <input type="hidden" name="nuevoEstado" value="RECIBIDO">
+                                    <button type="submit" class="btn btn-info btn-sm">Marcar como recibido</button>
+                                </form>`;
+                    } else if (row.estado === 'RECIBIDO') {
+                        btns = `<form method="post" action="/actualizar-estado-falla/${id}">
+                                    <input type="hidden" name="nuevoEstado" value="COMPLETADO">
+                                    <button type="submit" class="btn btn-success btn-sm">Marcar como completado</button>
+                                </form>`;
+                    }
+                    return btns;
+                }
+            }
+        ],
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/es_es.json'
+        }
+    });
+});
+</script> 
+ 
 
 </body>
 </html>
