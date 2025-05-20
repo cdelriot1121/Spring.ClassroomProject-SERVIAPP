@@ -100,7 +100,7 @@ public class PeriodoController {
             switch (tipoServicioNormalizado) {
                 case "agua":
                     consumoEsperado = PROMEDIO_AGUA * habitantes;
-                    margenPermitido = 20;
+                    margenPermitido = 30;
                     unidadMedida = "m³";
                     unidad = "m3";
                     promedioCartagena = PROMEDIO_AGUA * habitantes;
@@ -108,7 +108,7 @@ public class PeriodoController {
                     break;
                 case "energía", "energia":
                     consumoEsperado = PROMEDIO_ENERGIA * habitantes;
-                    margenPermitido = 100;
+                    margenPermitido = 400;
                     unidadMedida = "kWh";
                     unidad = "kWh";
                     promedioCartagena = PROMEDIO_ENERGIA * habitantes;
@@ -116,7 +116,7 @@ public class PeriodoController {
                     break;
                 case "gas":
                     consumoEsperado = PROMEDIO_GAS * habitantes;
-                    margenPermitido = 20;
+                    margenPermitido = 30;
                     unidadMedida = "m³";
                     unidad = "m3";
                     promedioCartagena = PROMEDIO_GAS * habitantes;
@@ -128,14 +128,13 @@ public class PeriodoController {
             }
             
             // Verificar si el consumo está dentro del rango permitido
-            if (Math.abs(consumoRegistrado - consumoEsperado) > margenPermitido) {
-                float minConsumoPermitido = Math.max(0, consumoEsperado - margenPermitido);
+            if (consumoRegistrado > consumoEsperado + margenPermitido) {
                 float maxConsumoPermitido = consumoEsperado + margenPermitido;
                 
                 model.addAttribute("error", "El consumo registrado (" + consumoRegistrado + " " + unidadMedida + 
-                                  ") parece inusual para un hogar con " + habitantes + " habitantes. " +
-                                  "El rango recomendado es de " + String.format("%.1f", minConsumoPermitido) + 
-                                  " a " + String.format("%.1f", maxConsumoPermitido) + " " + unidadMedida + ".");
+                                  ") parece inusualmente alto para un hogar con " + habitantes + " habitantes. " +
+                                  "El consumo recomendado no debería superar " + String.format("%.1f", maxConsumoPermitido) + 
+                                  " " + unidadMedida + ".");
                 
                 model.addAttribute("servicios", servicios);
                 return "gestionar_serv";
