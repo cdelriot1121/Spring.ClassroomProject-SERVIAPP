@@ -175,6 +175,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/javascripts/barra_perfil.js"></script>
     <script src="/javascripts/ventana_privacidad.js"></script>
+
+    <script>
+            // Solo hacer scroll si los datos están presentes
+            window.addEventListener("DOMContentLoaded", function () {
+                const cuadros = document.getElementById("cuadros-consumo");
+                if (cuadros) {
+                    cuadros.scrollIntoView({ behavior: "smooth" });
+                }
+            });
+    </script>
+
+
     
     <script>
         // Establecer el mes máximo como el actual
@@ -327,4 +339,5 @@
         });
     </script>
 </body>
+
 </html>
