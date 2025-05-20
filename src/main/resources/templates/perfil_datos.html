@@ -568,32 +568,31 @@
             <!-- Tabla de consumos -->
             <table id="tablaConsumos" class="table table-bordered">
               <thead>
-                <tr>
-                  <th>Servicio</th>
-                  <th>Mes</th>
-                  <th>Año</th>
-                  <th>Consumo</th>
-                  <th>Unidad</th>
-                  <th>Editar</th>
-                  <th>Eliminar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:if="${periodosConInfo == null || periodosConInfo.empty}">
-                  <td colspan="7" class="text-center">
-                    No hay registros de consumo
-                  </td>
-                </tr>
-                <tr
-                  th:each="periodo : ${periodosConInfo}"
-                  th:unless="${periodosConInfo == null || periodosConInfo.empty}"
-                >
-                  <td th:text="${periodo.tipoServicio}">Tipo de Servicio</td>
-                  <td th:text="${periodo.mes}">Mes</td>
-                  <td th:text="${periodo.ano}">Año</td>
+                    <tr>
+                    <th>Servicio</th>
+                    <th>Mes</th>
+                    <th>Año</th>
+                    <th>Consumo</th>
+                    <th>Unidad</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:if="${periodosConInfo == null || periodosConInfo.empty}">
+                    <td colspan="7" class="text-center">No hay registros de consumo</td>
+                  </tr>
+                  <tr
+                    th:each="periodo : ${periodosConInfo}"
+                    th:unless="${periodosConInfo == null || periodosConInfo.empty}"
+                  >
+                    <td th:text="${periodo.tipoServicio}">Tipo de Servicio</td>
+                    <td th:text="${periodo.mes}">Mes</td>
+                    <td th:text="${periodo.ano}">Año</td>
 
-                  <!-- Modo edición -->
-                  <td th:if="${editarConsumoId == periodo.id}" colspan="1">
+                <!-- Modo edición -->
+                <th:block th:if="${editarConsumoId == periodo.id}">
+                  <td>
                     <form
                       th:action="@{/actualizar-consumo/{id}(id=${periodo.id})}"
                       method="post"
@@ -608,9 +607,7 @@
                         style="width: 100px"
                         required
                       />
-                      <button type="submit" class="btn btn-success btn-sm ms-2">
-                        ✔
-                      </button>
+                      <button type="submit" class="btn btn-success btn-sm ms-2">✔</button>
                       <a
                         th:href="@{/mis-consumos}"
                         class="btn btn-secondary btn-sm ms-2"
@@ -618,37 +615,23 @@
                       >
                     </form>
                   </td>
-                  <td
-                    th:if="${editarConsumoId == periodo.id}"
-                    colspan="1"
-                    th:text="${periodo.unidad}"
-                  >
-                    Unidad
-                  </td>
+                  <td th:text="${periodo.unidad}">Unidad</td>
+                  <td></td>
+                  <td></td>
+                </th:block>
 
-                  <!-- Modo normal -->
-                  <td
-                    th:unless="${editarConsumoId == periodo.id}"
-                    th:text="${periodo.consumo}"
-                  >
-                    Consumo
-                  </td>
-                  <td
-                    th:unless="${editarConsumoId == periodo.id}"
-                    th:text="${periodo.unidad}"
-                  >
-                    Unidad
-                  </td>
-
-                  <!-- Acciones -->
-                  <td th:if="${editarConsumoId != periodo.id}">
+                <!-- Modo normal -->
+                <th:block th:if="${editarConsumoId != periodo.id}">
+                  <td th:text="${periodo.consumo}">Consumo</td>
+                  <td th:text="${periodo.unidad}">Unidad</td>
+                  <td>
                     <a
                       th:href="@{/editar-consumo/{id}(id=${periodo.id})}"
                       class="btn btn-primary btn-sm"
                       >Editar</a
                     >
                   </td>
-                  <td th:if="${editarConsumoId != periodo.id}">
+                  <td>
                     <button
                       type="button"
                       class="btn btn-danger btn-sm"
@@ -658,9 +641,10 @@
                       Eliminar
                     </button>
                   </td>
-                  <td colspan="2" th:if="${editarConsumoId == periodo.id}"></td>
-                </tr>
-              </tbody>
+                </th:block>
+              </tr>
+            </tbody>
+
             </table>
 
             <div class="mt-3">
@@ -920,9 +904,13 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <!-- Script para DataTable de consumos -->
-    <script>
+     <script>
       $(document).ready(function () {
-        const tabla = $("#tablaConsumos").DataTable({
+        
+        if ($.fn.DataTable.isDataTable('#tablaConsumos')) {
+          $('#tablaConsumos').DataTable().clear().destroy();
+        }
+        const tabla = $('#tablaConsumos').DataTable({
           language: {
             url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
           },
@@ -978,6 +966,8 @@
         });
       });
     </script>
+
+  
 
     <!-- Script para funcionamiento del perfil y dropdown -->
     <script>
@@ -1519,37 +1509,6 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    <!-- Inicializar DataTables -->
-    <script>
-      $(document).ready(function () {
-        if ($("#tablaConsumos tbody tr").length > 1) {
-          $("#tablaConsumos").DataTable({
-            language: {
-              url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
-            },
-          });
-        }
-      });
-    </script>
-
-    <script>
-      $(document).ready(function () {
-        const tabla = $("#tablaConsumos").DataTable({
-          language: {
-            url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
-          },
-        });
-
-        $("#btnLimpiarFiltros").click(function () {
-          // Limpiar selects
-          $("#filtroServicio").val("");
-          $("#filtroMes").val("");
-          $("#filtroAno").val("");
-
-          // Resetear DataTable
-          tabla.search("").columns().search("").draw();
-        });
-      });
-    </script>
+    
   </body>
 </html>
