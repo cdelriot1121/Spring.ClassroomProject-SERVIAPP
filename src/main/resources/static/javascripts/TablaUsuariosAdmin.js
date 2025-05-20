@@ -13,7 +13,6 @@ $(document).ready(function() {
             }
         },
         columns: [
-            { data: 'id' },
             { data: 'nombre' },
             { data: 'email' },
             { data: 'estrato' },

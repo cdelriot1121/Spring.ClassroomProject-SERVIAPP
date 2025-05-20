@@ -50,6 +50,24 @@
     <div class="table-container">
         <h3>Reportes de usuarios</h3>
         <div class="table-responsive">
+            <div class="mb-3 d-flex gap-3 align-items-center px-3">
+            <select id="filtroServicio" class="form-select w-auto">
+                <option value="">Todos los servicios</option>
+                <option value="Agua">Agua</option>
+                <option value="Energia">Energia</option>
+                <option value="Internet">Gas</option>
+            </select>
+
+            <input type="date" id="filtroFecha" class="form-control w-auto" />
+
+            <select id="filtroEstado" class="form-select w-auto">
+                <option value="">Todos los estados</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Recibido">Recibido</option>
+                <option value="Completado">Completado</option>
+            </select>
+        </div>
+
             <table id="cortesTable" class="display">
                 <thead>
                     <tr>
@@ -117,7 +135,29 @@
             url: 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/es_es.json'
         }
     });
+     // Filtros personalizados
+    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        const servicioFiltro = $('#filtroServicio').val().toLowerCase();
+        const fechaFiltro = $('#filtroFecha').val(); // yyyy-mm-dd
+        const estadoFiltro = $('#filtroEstado').val().toLowerCase();
+
+        const servicio = data[0].toLowerCase();
+        const hora = data[2]; // incluye fecha y hora
+        const estado = $(data[4]).text().toLowerCase();
+
+        if (servicioFiltro && servicio !== servicioFiltro) return false;
+        if (estadoFiltro && estado !== estadoFiltro) return false;
+        if (fechaFiltro && !hora.startsWith(fechaFiltro)) return false;
+
+        return true;
+    });
+
+    // Redibujar al cambiar los filtros
+    $('#filtroServicio, #filtroFecha, #filtroEstado').on('change', function() {
+        table.draw();
+    });
 });
+
 </script> 
  
 
